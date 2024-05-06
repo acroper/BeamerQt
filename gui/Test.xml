@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BeamerDoc>
+  <Frame id="frame_0">
+    <TitleBar>
+      <Visible id="1">True</Visible>
+      <Content>Contenido</Content>
+    </TitleBar>
+  </Frame>
+  <Frame id="frame_1">
+    <TitleBar>
+      <Visible id="2">True</Visible>
+      <Content>Contenido</Content>
+    </TitleBar>
+  </Frame>
+</BeamerDoc>

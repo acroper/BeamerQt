@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="frames_layout.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.94993169"
+     inkscape:cx="174.74941"
+     inkscape:cy="796.37305"
+     inkscape:window-width="1920"
+     inkscape:window-height="1004"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="standard"
+       transform="translate(-3.0853558,-20.459244)"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/standard.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect846"
+         width="55.853008"
+         height="44.60215"
+         x="20.687668"
+         y="48.021988" />
+      <g
+         id="g1052"
+         transform="translate(0.08805275,-0.50991987)">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+           id="rect1046"
+           width="49.215538"
+           height="4.289588"
+           x="23.91835"
+           y="51.4235" />
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+           id="rect1048"
+           width="49.215538"
+           height="32.470623"
+           x="23.91835"
+           y="57.771843" />
+      </g>
+    </g>
+    <g
+       id="two_columns"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/two_columns.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1084"
+         width="55.853008"
+         height="44.60215"
+         x="96.438217"
+         y="27.562744" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1086"
+         width="49.215538"
+         height="4.289588"
+         x="99.756958"
+         y="30.454336" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1094"
+         width="23.204342"
+         height="32.470623"
+         x="125.76815"
+         y="36.802677" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1096"
+         width="23.204342"
+         height="32.470623"
+         x="99.756958"
+         y="36.802677" />
+    </g>
+    <g
+       id="four_blocks"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/four_blocks.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1448"
+         width="55.853008"
+         height="44.60215"
+         x="96.546577"
+         y="154.37729" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1450"
+         width="49.215538"
+         height="4.289588"
+         x="99.865326"
+         y="157.26888" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1456"
+         width="23.204342"
+         height="15.061833"
+         x="99.865326"
+         y="163.61722" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1458"
+         width="23.204342"
+         height="15.061833"
+         x="99.865326"
+         y="181.026" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1460"
+         width="23.204342"
+         height="15.061833"
+         x="125.8765"
+         y="181.026" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1462"
+         width="23.204342"
+         height="15.061833"
+         x="125.8765"
+         y="163.61722" />
+    </g>
+    <g
+       id="two_rows"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/two_rows.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1624"
+         width="55.853008"
+         height="44.60215"
+         x="16.766745"
+         y="89.747627" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1626"
+         width="49.215538"
+         height="4.289588"
+         x="20.085485"
+         y="92.639221" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1628"
+         width="49.21553"
+         height="15.061833"
+         x="20.085487"
+         y="98.987556" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1630"
+         width="49.21553"
+         height="15.061833"
+         x="20.085487"
+         y="116.39634" />
+    </g>
+    <g
+       id="column_blocks"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/column_blocks.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1796"
+         width="55.853008"
+         height="44.60215"
+         x="95.75592"
+         y="88.202591" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1798"
+         width="49.215538"
+         height="4.289588"
+         x="99.074677"
+         y="91.094177" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1800"
+         width="23.204342"
+         height="32.470604"
+         x="99.074677"
+         y="97.44252" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1804"
+         width="23.204342"
+         height="15.061833"
+         x="125.08585"
+         y="114.8513" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1806"
+         width="23.204342"
+         height="15.061833"
+         x="125.08585"
+         y="97.44252" />
+    </g>
+    <g
+       id="blocks_column"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/blocks_column.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1888"
+         width="55.853008"
+         height="44.60215"
+         x="18.574732"
+         y="153.77727" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1890"
+         width="49.215538"
+         height="4.289588"
+         x="21.89348"
+         y="156.66885" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1892"
+         width="23.204342"
+         height="15.061833"
+         x="21.89348"
+         y="163.0172" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1894"
+         width="23.204342"
+         height="15.061833"
+         x="21.89348"
+         y="180.42598" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1898"
+         width="23.204342"
+         height="32.470623"
+         x="47.904655"
+         y="163.0172" />
+    </g>
+    <g
+       id="title_frame"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/title_frame.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect2047"
+         width="55.853008"
+         height="44.60215"
+         x="18.692356"
+         y="212.98753" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect2049"
+         width="49.215538"
+         height="12.084552"
+         x="22.011105"
+         y="229.31265" />
+    </g>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.463122;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2047-3"
+       width="25.627909"
+       height="20.415432"
+       x="96.854401"
+       y="213.35394"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/base.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>
