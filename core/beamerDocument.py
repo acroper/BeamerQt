@@ -16,43 +16,51 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
 import sys
 import os
 
-
-
-from PyQt6 import QtWidgets, uic, QtCore
-from PyQt6.QtWidgets import *
-from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData
-from PyQt6.QtGui import QDrag, QPixmap
-
 import xml.etree.ElementTree as ET
 
+import tempfile
 
-class Slide:
+
+class beamerDocument():
     
-    def __init__(self):
+    def __init__(self, Path):
         
-        self.Preview = None
+        # Define a path inside the given Path. It is expected to be
+        # a temporary folder.
         
-        self.Blocks = []
-        self.Columns = []
+        self.DocLocation =  tempfile.mkdtemp(prefix= Path+"/" )
         
-        self.CurrentLayout = "layout_standard"
+        # Store everything in DocLocation
         
-        self.Modified = False
         
-        self.FrameXML = ET.Element('Frame', id='frame_0', visible='True')
-        
-    def setPreview(self, pixmap):
-        self.Preview = pixmap
-        self.Modified = True
-        
+        self.Slides = []
         
     
+    def NewSlide(self, Location):
+        None
         
-    
+    def RemoveSlide(self, Location):
+        None
         
+    def InsertSlide(self, Slide, Location):
+        None
+    
+    def SaveXML (self):
+        None
+        
+    def GenLaTeX(self):
+        None
+    
+    def ExportPDF(self, filename):
+        None
     
     
+    def WriteFile(self, filename):
+        None
+    
+    def ReadFile(self, filename):
+        None
+        

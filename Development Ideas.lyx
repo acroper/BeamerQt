@@ -124,5 +124,44 @@ External files will be stored in the zip file.
  a warning and use only the local one.
 \end_layout
 
+\begin_layout Section
+Current state - Notes
+\end_layout
+
+\begin_layout Itemize
+Reading/Saving slides vs Internal object
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The current prototype handles the reading/saving steps inside the GUI elements.
+ 
+\end_layout
+
+\begin_layout Itemize
+I need to make it in an object that handles this process independently,
+ so that it can be invoked when we need to export to PDF without displaying
+ the GUI elements in the process.
+\end_layout
+
+\begin_layout Itemize
+Each GUI element should have the corresponding handler.
+\end_layout
+
+\begin_layout Itemize
+New modules should have the pair, handler/GUI.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Solve this issue before adding more features
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\end_layout
+
 \end_body
 \end_document

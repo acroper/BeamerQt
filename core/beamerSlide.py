@@ -16,73 +16,45 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
 import sys
 import os
-
-
-
-from PyQt6 import QtWidgets, uic, QtCore
-from PyQt6.QtWidgets import *
-from PyQt6.QtCore import pyqtSignal, QObject
-
-
 
 import xml.etree.ElementTree as ET
 
 
-class ContentWidget(QtWidgets.QWidget):
+class BeamerSlide():
     
-    Selected = pyqtSignal()
     
     def __init__(self):
         
-        super(ContentWidget, self).__init__()
+        self.Title = ""
+        self.Subtitle = ""
+        self.TitleVisible = True
+        self.nombre = ""
         
-        uic.loadUi('gui/ContentWidget.ui', self)
+        self.Text = ""
         
-        self.nombre = "None"
+        self.Blocks = []
+        self.Columns = []
         
-        self.ClickSelected = False
         
-        self.ColumnNumber = -1
 
-        
-        
+
     def GetXMLContent(self):
         ContentXML = ET.Element('Block', id='block_'+self.nombre)
         BlockTitle = ET.SubElement(ContentXML, 'BlockTitle')
-        BlockTitle.text = self.blockTitle.text()
+        BlockTitle.text = self.Title
         
         BlockText = ET.SubElement(ContentXML, 'BlockText')
-        BlockText.text = self.blockText.toPlainText()
+        BlockText.text = self.Text
+        
+        self.ContentXML = ContentXML
         
         return ContentXML
     
     def ReadXMLContent(self, xblock):
         
-        self.blockTitle.setText( xblock.findall('BlockTitle')[0].text  ) 
-        self.blockText.setPlainText( xblock.findall('BlockText')[0].text  )
+        self.Title = xblock.findall('BlockTitle')[0].text
+        self.Text = xblock.findall('BlockText')[0].text
         
-
-
-    def mousePressEvent(self, event):
-        print("Selected " + self.nombre)
-        self.ClickSelected = True
-        self.Selected.emit()
-        
-    
-    
-    def setSelected(self):
-        self.frame.setLineWidth(3)
-
-    
-    def unSelected(self):
-        self.frame.setLineWidth(1)
-        
-                      
-        # self.show()
-    def setContentName(self, text):
-        self.nombre = text
-        self.content_name.setText(text)
         
