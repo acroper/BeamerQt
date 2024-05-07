@@ -39,8 +39,16 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.setAcceptDrops(True)
         
         self.SlideList = []
+        
+        self.Document = None
                       
         # self.show()
+    
+    
+    def SetDocument(self, Doc):
+        self.Document = Doc
+        # Assign the document, and then extract the parameters from it
+    
     
     def setSelected(self):
         for slide in self.SlideList:
@@ -49,7 +57,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         slidesel = self.sender()
         slidesel.setSelected()
         
-        self.CurrentFrame.ReadSlide(slidesel.Slide)
+        self.CurrentFrame.ReadSlide(slidesel.Slide2)
         
         
     def dragEnterEvent(self, e):
@@ -105,6 +113,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         for k in range( len(self.SlideList), len(Slides) ):
             slidePrev = SlidePrev()
             slidePrev.setInnerFrame(self.CurrentFrame)
+            
             self.SlideList.append(slidePrev)
             self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
             slidePrev.setNumber(len(self.SlideList))
@@ -113,7 +122,11 @@ class SlideBarWidget(QtWidgets.QWidget):
             
 
         for k in range(len(self.SlideList)):
-            self.SlideList[k].refresh(Slides[k])
+            # self.SlideList[k].refresh(Slides[k])
+            self.SlideList[k].refresh(self.Document.Slides[k])
+            
+            # if self.Document != None:
+            #     self.SlideList[k].Slide2 = self.Document.Slides[k]
             
             
     def ResetSlideNumber(self):
@@ -144,6 +157,8 @@ class SlidePrev(QtWidgets.QWidget):
         
         self.Slide = None
         
+        self.Slide2 = None
+        
         
         
         
@@ -152,7 +167,7 @@ class SlidePrev(QtWidgets.QWidget):
         
     def refresh(self, slide):
         self.LabelPix.setPixmap(slide.Preview)
-        self.Slide = slide
+        self.Slide2 = slide
         
     def setNumber(self, number):
         self.slideNumber.setText(str(number))

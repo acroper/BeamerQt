@@ -18,10 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 import os
-
 import xml.etree.ElementTree as ET
-
 import tempfile
+
+from core.beamerSlide import *
 
 
 class beamerDocument():
@@ -39,14 +39,32 @@ class beamerDocument():
         self.Slides = []
         
     
-    def NewSlide(self, Location):
-        None
+    def NewSlide(self, Location=-1):
+        
+        newslide = BeamerSlide()
+        if Location == -1 or Location >= len(self.Slides):
+            self.Slides.append(newslide)
+        else:
+            self.Slides.insert(Location, newslide)
+            
+        return newslide
+    
+    
         
     def RemoveSlide(self, Location):
-        None
+        if len(self.Slides) > Location:
+            return self.Slides.pop(Location)
+        else:
+            return None
+                
         
-    def InsertSlide(self, Slide, Location):
-        None
+    def InsertSlide(self, Slide, Location=-1):
+        
+        if Location == -1 or Location >= len(self.Slides):
+            self.Slides.append(Slide)
+        else:
+            self.Slides.insert(Location, Slide)
+            
     
     def SaveXML (self):
         None

@@ -24,20 +24,29 @@ import xml.etree.ElementTree as ET
 
 class BeamerSlide():
     
-    
     def __init__(self):
         
-        self.Title = ""
-        self.Subtitle = ""
+        self.Title = "New slide title"
+        self.Subtitle = "New slide subtitle"
         self.TitleVisible = True
         self.nombre = ""
         
         self.Text = ""
         
         self.Blocks = []
-        self.Columns = []
+        self.Columns = [[],[]]
         
+        self.CurrentLayout = "layout_standard"
         
+        self.Modified = False
+        
+        self.Preview = None
+        
+
+
+    def setPreview(self, pixmap):
+        self.Preview = pixmap
+        self.Modified = True
 
 
     def GetXMLContent(self):
@@ -51,10 +60,13 @@ class BeamerSlide():
         self.ContentXML = ContentXML
         
         return ContentXML
+
     
     def ReadXMLContent(self, xblock):
         
         self.Title = xblock.findall('BlockTitle')[0].text
         self.Text = xblock.findall('BlockText')[0].text
+        
+        # Build the internal elements
         
         

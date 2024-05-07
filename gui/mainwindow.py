@@ -28,9 +28,13 @@ from gui.slidewidget import *
 from gui.configurator import *
 from gui.slidebar import *
 
+from core.beamerDocument import *
+
 
 import xml.etree.ElementTree as ET
 import tempfile
+
+
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -49,17 +53,18 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.CurrentSlide = None
         
+        # Create Temporal Working directory
+        
+        self.WorkDirectory = tempfile.mkdtemp(prefix="beamerQT_")
+        
+        self.Document = beamerDocument(self.WorkDirectory)
+        
+        
         self.setMenuActions()
         
         self.loadPanels()
         
         self.showMaximized()
-        
-        # Create Temporal Working directory
-        
-        self.WorkDirectory = tempfile.mkdtemp(prefix="beamerQT_")
-        
-        print (self.WorkDirectory)
         
         # Create timer for refresh previous
         self.timer = QtCore.QTimer()
@@ -105,10 +110,21 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.Slidebar.ConnectFrame(self.CurrentFrame)
         
+        
         # Initial slide
+        
+        ## TODO: Replace this code for the new beamerSlide code
         self.CurrentSlide = Slide()
         self.Slides.append(self.CurrentSlide)
-        self.CurrentFrame.ReadSlide(self.CurrentSlide)
+        self.CurrentFrame.ReadSlideOld(self.CurrentSlide)
+        
+        
+        # Create new slide for the document
+        self.Document.NewSlide()
+        self.Slidebar.SetDocument(self.Document)
+        self.CurrentFrame.ReadSlide(self.Document.Slides[0])
+        
+        
         
         
         
@@ -166,8 +182,15 @@ class MainWindow(QtWidgets.QMainWindow):
     def newSlide(self):
         # Temporal refresh slide
         newSlide = Slide()
+        
+        nSlide = self.Document.NewSlide()
+        
         self.Slides.append(newSlide)
-        self.CurrentFrame.ReadSlide(newSlide)
+        
+        self.CurrentFrame.ReadSlideOld(newSlide)
+        
+        self.CurrentFrame.ReadSlide(nSlide)
+        
         self.CurrentSlide = newSlide
         
         self.refreshPreviews()

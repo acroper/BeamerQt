@@ -26,9 +26,9 @@ from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
 
-
-
 import xml.etree.ElementTree as ET
+
+from core.beamerBlock import *
 
 
 class ContentWidget(QtWidgets.QWidget):
@@ -46,9 +46,30 @@ class ContentWidget(QtWidgets.QWidget):
         self.ClickSelected = False
         
         self.ColumnNumber = -1
+        
+        self.Block = BeamerBlock()
 
         
+    
+    def ReadBlock(self, outBlock):
+        self.Block = outBlock
         
+        self.blockTitle.setText(self.Block.Title)
+        
+        self.blockText.setPlainText(self.Block.Text)
+        
+        self.ColumnNumber = self.Block.ColumnNumber
+        
+        self.nombre = self.Block.nombre
+        
+    
+    def UpdateBlock(self):
+        self.Block.Title = self.blockTitle.text()
+        self.Block.Text = self.blockText.toPlainText()
+        self.Block.ColumnNumber = self.ColumnNumber
+    
+    
+    
     def GetXMLContent(self):
         ContentXML = ET.Element('Block', id='block_'+self.nombre)
         BlockTitle = ET.SubElement(ContentXML, 'BlockTitle')

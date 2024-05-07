@@ -39,6 +39,8 @@ class BeamerBlock():
         
         self.SubBlocks = []
         
+        self.BlockType = "Normal"
+        
         
 
 

@@ -26,6 +26,7 @@ from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
 
+from core.beamerSlide import *
 from gui.contentwidget import *
 from gui.Slide import *
 
@@ -59,6 +60,8 @@ class FrameWidget(QtWidgets.QWidget):
         self.SelectedBlock = None
         
         self.Slide = None
+        
+        self.BeamerSlide = None
         
         self.title_text.setTabChangesFocus(True)
         
@@ -311,33 +314,93 @@ class FrameWidget(QtWidgets.QWidget):
             self.render(pixmap)
             self.Slide.setPreview(pixmap)
             
-            ### Update the XML content
+        #     ### Update the XML content
             
-            FrameXML = ET.Element('Frame', id='frame_0')
-            TitleBar = ET.SubElement(FrameXML, 'TitleBar')
-            Titlebar_Visible = ET.SubElement(TitleBar, 'Visible')
-            Titlebar_Visible.text = str(self.TitleVisibility)
-            TitleBar.text = self.title_text.toPlainText()
+        #     FrameXML = ET.Element('Frame', id='frame_0')
+        #     TitleBar = ET.SubElement(FrameXML, 'TitleBar')
+        #     Titlebar_Visible = ET.SubElement(TitleBar, 'Visible')
+        #     Titlebar_Visible.text = str(self.TitleVisibility)
+        #     TitleBar.text = self.title_text.toPlainText()
             
-            SubTitleBar = ET.SubElement(FrameXML, 'TitleBar')
-            SubTitleBar.text = self.subtitle_text.text()
+        #     SubTitleBar = ET.SubElement(FrameXML, 'TitleBar')
+        #     SubTitleBar.text = self.subtitle_text.text()
             
-            FrameLayout = ET.SubElement(FrameXML, 'FrameLayout')
-            FrameLayout.text = self.CurrentLayout
+        #     FrameLayout = ET.SubElement(FrameXML, 'FrameLayout')
+        #     FrameLayout.text = self.CurrentLayout
             
+            
+        #     for block in self.Blocks:
+        #         BlockElem = block.GetXMLContent()
+        #         FrameXML.append(BlockElem)
+
+        #     self.Slide.FrameXML = FrameXML
+
+            
+        if self.BeamerSlide != None:
+            
+            self.BeamerSlide.CurrentLayout = self.CurrentLayout
+            
+            pixmap = QPixmap(self.size())
+            self.render(pixmap)
+            self.BeamerSlide.setPreview(pixmap)
+            
+            self.BeamerSlide.Title = self.title_text.toPlainText()
+            self.BeamerSlide.Subtitle = self.subtitle_text.text()
+            
+            
+            ## Go through the columns and replicate their structure
+            ## Re do this directly in the main functions requires additional code
+            ## due to actions (selected, for instance, when move it).
+            self.BeamerSlide.Columns[0].clear()
+            self.BeamerSlide.Columns[1].clear()
+            self.BeamerSlide.Blocks.clear()
             
             for block in self.Blocks:
-                BlockElem = block.GetXMLContent()
-                FrameXML.append(BlockElem)
+                block.UpdateBlock()
+                self.BeamerSlide.Blocks.append( block.Block )
+                
+            
+            
+            
+            
+            
+            
+            
 
-            self.Slide.FrameXML = FrameXML
-
             
             
             
+    def ReadSlide (self, slide):
+        self.SaveSlide()
+        ### Extract the parameters from the slide
+        self.title_text.setPlainText(slide.Title)
+        self.subtitle_text.setText(slide.Subtitle)
+        
+        self.CurrentLayout = slide.CurrentLayout
+        
+        self.BeamerSlide = slide
+        
+        N = 0
+        
+        self.Blocks.clear()
+        
+        for block in self.BeamerSlide.Blocks:
+            nWidget = ContentWidget()
+            nWidget.setContentName("Block # " + str(N+1))
+            nWidget.Selected.connect(self.selectBlock)
+            self.Blocks.append(nWidget)
+            
+            nWidget.ReadBlock(block)
+            # nWidget.ReadXMLContent(block)
+            
+            N=N+1
+            
+        self.refresh_Layout()
+        
+        
         
     
-    def ReadSlide(self, slide):
+    def ReadSlideOld(self, slide):
         self.SaveSlide()
         
         if self.Slide != slide:
