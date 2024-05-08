@@ -27,6 +27,7 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData
 from PyQt6.QtGui import QDrag, QPixmap
 
+from gui.ThumbListWidget import *
 
 class SlideBarWidget(QtWidgets.QWidget):
     
@@ -41,8 +42,23 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.SlideList = []
         
         self.Document = None
-                      
+        
+        self.ListWidget = ThumbListWidget()
+        
+        self.verticalLayout.addWidget(self.ListWidget)
+
+              
+        
         # self.show()
+    
+    def AddPrevWidget(self, slidePrev):
+        
+        qitem = QListWidgetItem() 
+        qitem.setSizeHint(slidePrev.size())  
+        
+        self.ListWidget.addItem(qitem)
+        self.ListWidget.setItemWidget(qitem, slidePrev)
+        
     
     
     def SetDocument(self, Doc):
@@ -60,33 +76,41 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.CurrentFrame.ReadSlide(slidesel.Slide2)
         
         
-    def dragEnterEvent(self, e):
-        e.accept()
+    # def dragEnterEvent(self, e):
+    #     e.accept()
         
-    def dropEvent(self, e):
-        pos = e.position()
-        widget = e.source()
-
-        for n in range(self.SlidePanel.count()):
-            # Get the widget at each index in turn.
-            w = self.SlidePanel.itemAt(n).widget()
-            if pos.y() < w.y() + w.size().width() // 2:
-                # We didn't drag past this widget.
-                # insert to the left of it.
-                break
-        else:
-            # We aren't on the left hand side of any widget,
-            # so we're at the end. Increment 1 to insert after.
-            n += 1
+    # def dropEvent(self, e):
+    #     pos = e.position()
+    #     widget = e.source()
         
-        self.SlidePanel.removeWidget(widget)
-        self.SlideList.remove(widget)
+    #     inP = self.SlideList.index(widget)
 
+    #     for n in range(self.SlidePanel.count()):
+    #         # Get the widget at each index in turn.
+    #         w = self.SlidePanel.itemAt(n).widget()
+    #         if pos.y() < w.y() + w.size().width() // 2:
+    #             # We didn't drag past this widget.
+    #             # insert to the left of it.
+                
+    #             break
+    #     else:
+    #         # We aren't on the left hand side of any widget,
+    #         # so we're at the end. Increment 1 to insert after.
+    #         n += 1
         
-        self.SlidePanel.insertWidget(n, widget)
-        self.SlideList.insert(n, widget)
+        
+        
+    #     self.SlidePanel.removeWidget(widget)
+    #     self.SlideList.remove(widget)
 
-        e.accept()
+    #     nslide = self.Document.Slides[inP]
+    #     self.Document.Slides.remove(nslide)
+    #     self.Document.InsertSlide(nslide, n)
+        
+    #     self.SlidePanel.insertWidget(n, widget)
+    #     self.SlideList.insert(n, widget)
+
+    #     e.accept()
     
     def ConnectFrame(self, NewFrame):
         self.CurrentFrame = NewFrame
@@ -97,7 +121,8 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         slidePrev.setInnerFrame(NewFrame)
         self.SlideList.append(slidePrev)
-        self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
+        # self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
+        self.AddPrevWidget(slidePrev)
         
         slidePrev.Selected.connect(self.setSelected)
         slidePrev.setSelected()
@@ -115,7 +140,11 @@ class SlideBarWidget(QtWidgets.QWidget):
             slidePrev.setInnerFrame(self.CurrentFrame)
             
             self.SlideList.append(slidePrev)
-            self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
+            
+            # self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
+            self.AddPrevWidget(slidePrev)
+            
+            
             slidePrev.setNumber(len(self.SlideList))
             
             slidePrev.Selected.connect(self.setSelected)
@@ -187,18 +216,18 @@ class SlidePrev(QtWidgets.QWidget):
         self.Selected.emit()
         
     
-    def mouseMoveEvent(self, e):
+    # def mouseMoveEvent(self, e):
 
-        if e.buttons() == Qt.MouseButton.LeftButton:
-            drag = QDrag(self)
-            mime = QMimeData()
-            drag.setMimeData(mime)
+    #     if e.buttons() == Qt.MouseButton.LeftButton:
+    #         drag = QDrag(self)
+    #         mime = QMimeData()
+    #         drag.setMimeData(mime)
 
-            pixmap = QPixmap(self.size())
-            self.render(pixmap)
-            drag.setPixmap(pixmap)
+    #         pixmap = QPixmap(self.size())
+    #         self.render(pixmap)
+    #         drag.setPixmap(pixmap)
 
-            drag.exec(Qt.DropAction.MoveAction)
+    #         drag.exec(Qt.DropAction.MoveAction)
     
         
     

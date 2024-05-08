@@ -141,7 +141,6 @@ class FrameWidget(QtWidgets.QWidget):
         # Clear the layout
         
         for i in reversed(range(self.ElementsGrid.count())):
-            print("removing widget...")
             tmpwidget = self.ElementsGrid.itemAt(i)
             self.ElementsGrid.removeItem(tmpwidget)
             tmpwidget.widget().hide()
@@ -309,10 +308,10 @@ class FrameWidget(QtWidgets.QWidget):
             
     def SaveSlide(self):
         # Transfer the data to the slide object
-        if self.Slide != None:
-            pixmap = QPixmap(self.size())
-            self.render(pixmap)
-            self.Slide.setPreview(pixmap)
+        # if self.Slide != None:
+        #     pixmap = QPixmap(self.size())
+        #     self.render(pixmap)
+        #     self.Slide.setPreview(pixmap)
             
         #     ### Update the XML content
             
