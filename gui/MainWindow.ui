@@ -42,7 +42,7 @@
      <x>0</x>
      <y>0</y>
      <width>1142</width>
-     <height>22</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -89,7 +89,7 @@
   <widget class="QDockWidget" name="LeftPanel">
    <property name="minimumSize">
     <size>
-     <width>150</width>
+     <width>200</width>
      <height>44</height>
     </size>
    </property>

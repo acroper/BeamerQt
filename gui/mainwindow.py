@@ -183,17 +183,27 @@ class MainWindow(QtWidgets.QMainWindow):
         # Temporal refresh slide
         newSlide = Slide()
         
-        nSlide = self.Document.NewSlide()
+        nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
+        
+        
         
         self.Slides.append(newSlide)
         
-        self.CurrentFrame.ReadSlideOld(newSlide)
+        
+        
+        # self.CurrentFrame.ReadSlideOld(newSlide)
         
         self.CurrentFrame.ReadSlide(nSlide)
         
-        self.CurrentSlide = newSlide
+        # self.CurrentSlide = newSlide
+        
+        # self.CurrentFrame.ReadSlide()
+        
+        
         
         self.refreshPreviews()
+        
+        self.Slidebar.selectNext()
         
         
         
@@ -201,8 +211,10 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def refreshPreviews(self):
         self.CurrentFrame.SaveSlide()
-        
         self.Slidebar.RefreshSlides(self.Slides)
+        
+        
+        
         
     def resetSlideNumber(self):
         self.Slidebar.ResetSlideNumber()

@@ -46,6 +46,8 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.ListWidget = ThumbListWidget()
         
         self.verticalLayout.addWidget(self.ListWidget)
+        
+        self.SlidePos = 0
 
               
         
@@ -59,7 +61,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.ListWidget.addItem(qitem)
         self.ListWidget.setItemWidget(qitem, slidePrev)
         
-    
+
     
     def SetDocument(self, Doc):
         self.Document = Doc
@@ -73,7 +75,22 @@ class SlideBarWidget(QtWidgets.QWidget):
         slidesel = self.sender()
         slidesel.setSelected()
         
+        self.SlidePos = self.SlideList.index(slidesel)
+        
         self.CurrentFrame.ReadSlide(slidesel.Slide2)
+        
+        
+    def selectNext(self):
+        # Select next slide after new creation
+        
+        self.SlideList[self.SlidePos].unSelected()
+        
+        self.ListWidget.setCurrentRow(self.SlidePos+1, QtCore.QItemSelectionModel.SelectionFlag.ClearAndSelect)
+        
+        self.SlideList[self.SlidePos+1].setSelected()
+        
+        self.SlidePos += 1
+        
         
         
     # def dragEnterEvent(self, e):
