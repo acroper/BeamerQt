@@ -33,7 +33,7 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         super(ConfiguratorWidget, self).__init__()
         
-        uic.loadUi('gui/Configurator2.ui', self)
+        uic.loadUi('gui/Configurator.ui', self)
         
         self.SelectedBlock = None
         
@@ -60,7 +60,7 @@ class ConfiguratorWidget(QtWidgets.QWidget):
     def SelectBlock(self):
         self.SelectedBlock = self.CurrentFrame.SelectedBlock
         
-        self.toolBox.setCurrentIndex(2)
+        # self.toolBox.setCurrentIndex(2)
     
     
     def LoadActions(self):

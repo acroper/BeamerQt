@@ -125,11 +125,11 @@ External files will be stored in the zip file.
 \end_layout
 
 \begin_layout Section
-Current state - Notes
+Goals - steps
 \end_layout
 
 \begin_layout Itemize
-Reading/Saving slides vs Internal object
+Reading/Saving slides vs Internal object: 05-06-2024
 \end_layout
 
 \begin_deeper
@@ -158,6 +158,17 @@ New modules should have the pair, handler/GUI.
 Solve this issue before adding more features
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Solved
+\end_layout
+
+\begin_layout Itemize
+The behavior works better, however, it lost the preview pixmap while dragging.
+ 
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Standard
 \begin_inset Separator plain
@@ -167,194 +178,21 @@ Solve this issue before adding more features
 \end_layout
 
 \begin_layout Itemize
-Reimplement the Slide bar, using QListWidget:
+Saving temporal file: 05-08-2024
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Pass through the Slide object, and generate the XML recursively.
+\end_layout
+
+\begin_layout Itemize
+Repeat the same to opening the file.
+\end_layout
+
+\end_deeper
 \begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-from PyQt6 import QtWidgets
-\end_layout
-
-\begin_layout Plain Layout
-
-from PyQt6 import QtCore
-\end_layout
-
-\begin_layout Plain Layout
-
-from PyQt6.QtWidgets import (QListWidget)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-class ThumbListWidget(QListWidget):
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    def __init__(self, parent=None):
-\end_layout
-
-\begin_layout Plain Layout
-
-        super(ThumbListWidget, self).__init__(parent)
-\end_layout
-
-\begin_layout Plain Layout
-
-        self.setIconSize(QtCore.QSize(200, 200))
-\end_layout
-
-\begin_layout Plain Layout
-
-        self.setDragDropMode(QtWidgets.QAbstractItemView.DragDropMode.InternalMove)
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\end_layout
-
-\begin_layout Plain Layout
-
-        self.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.ExtendedSele
-ction)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    def dragEnterEvent(self, event):
-\end_layout
-
-\begin_layout Plain Layout
-
-        if event.mimeData().hasUrls():
-\end_layout
-
-\begin_layout Plain Layout
-
-            event.accept()
-\end_layout
-
-\begin_layout Plain Layout
-
-        else:
-\end_layout
-
-\begin_layout Plain Layout
-
-            super(ThumbListWidget, self).dragEnterEvent(event)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    def dragMoveEvent(self, event):
-\end_layout
-
-\begin_layout Plain Layout
-
-        if event.mimeData().hasUrls():
-\end_layout
-
-\begin_layout Plain Layout
-
-            event.setDropAction(QtCore.Qt.MoveAction)
-\end_layout
-
-\begin_layout Plain Layout
-
-            event.accept()
-\end_layout
-
-\begin_layout Plain Layout
-
-        else:
-\end_layout
-
-\begin_layout Plain Layout
-
-            super(ThumbListWidget, self).dragMoveEvent(event)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    def dropEvent(self, event):
-\end_layout
-
-\begin_layout Plain Layout
-
-        if event.mimeData().hasUrls():
-\end_layout
-
-\begin_layout Plain Layout
-
-            event.setDropAction(QtCore.Qt.MoveAction)
-\end_layout
-
-\begin_layout Plain Layout
-
-            event.accept()
-\end_layout
-
-\begin_layout Plain Layout
-
-            links = []
-\end_layout
-
-\begin_layout Plain Layout
-
-            for url in event.mimeData().urls():
-\end_layout
-
-\begin_layout Plain Layout
-
-                links.append(str(url.toLocalFile()))
-\end_layout
-
-\begin_layout Plain Layout
-
-        else:
-\end_layout
-
-\begin_layout Plain Layout
-
-            # event.setDropAction(QtCore.Qt.MoveAction)
-\end_layout
-
-\begin_layout Plain Layout
-
-            super(ThumbListWidget, self).dropEvent(event)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
+\begin_inset Separator plain
 \end_inset
 
 

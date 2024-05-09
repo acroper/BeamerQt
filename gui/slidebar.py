@@ -43,9 +43,11 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.Document = None
         
-        self.ListWidget = ThumbListWidget()
+        # self.ListWidget = ThumbListWidget()
         
-        self.verticalLayout.addWidget(self.ListWidget)
+        # self.verticalLayout.addWidget(self.ListWidget)
+        # self.ListWidget = self.listWidget_2
+        
         
         self.SlidePos = 0
 
@@ -60,6 +62,9 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.ListWidget.addItem(qitem)
         self.ListWidget.setItemWidget(qitem, slidePrev)
+        
+        
+        
         
 
     
@@ -77,7 +82,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.SlidePos = self.SlideList.index(slidesel)
         
-        self.CurrentFrame.ReadSlide(slidesel.Slide2)
+        self.CurrentFrame.ReadSlide(slidesel.Slide)
         
         
     def selectNext(self):
@@ -203,7 +208,7 @@ class SlidePrev(QtWidgets.QWidget):
         
         self.Slide = None
         
-        self.Slide2 = None
+        # self.Slide2 = None
         
         
         
@@ -213,7 +218,7 @@ class SlidePrev(QtWidgets.QWidget):
         
     def refresh(self, slide):
         self.LabelPix.setPixmap(slide.Preview)
-        self.Slide2 = slide
+        self.Slide = slide
         
     def setNumber(self, number):
         self.slideNumber.setText(str(number))
@@ -231,6 +236,8 @@ class SlidePrev(QtWidgets.QWidget):
     def mouseReleaseEvent(self, event):
         self.ClickSelected = True
         self.Selected.emit()
+        
+    
         
     
     # def mouseMoveEvent(self, e):
