@@ -50,16 +50,42 @@ class BeamerSlide():
 
 
     def GetXMLContent(self):
-        ContentXML = ET.Element('Block', id='block_'+self.nombre)
-        BlockTitle = ET.SubElement(ContentXML, 'BlockTitle')
-        BlockTitle.text = self.Title
         
-        BlockText = ET.SubElement(ContentXML, 'BlockText')
-        BlockText.text = self.Text
+        FrameXML = ET.Element('Frame', id='frame_0')
         
-        self.ContentXML = ContentXML
+        TitleBar = ET.SubElement(FrameXML, 'TitleBar')
+        TitleVisible = ET.SubElement(TitleBar, 'Visible')
+        TitleVisible.text = str(self.TitleVisible)
         
-        return ContentXML
+        TitleBar.text = self.Title
+        
+        SubTitleBar = ET.SubElement(FrameXML, 'SubTitleBar')
+        SubTitleBar.text = self.Subtitle
+        
+        FrameLayout = ET.SubElement(FrameXML, 'FrameLayout')
+        FrameLayout.text = self.CurrentLayout
+        
+        ColumnXML0 = ET.SubElement(FrameXML, 'Column', id='0')
+        ColumnXML1 = ET.SubElement(FrameXML, 'Column', id='1')
+        
+        ColXML = [ColumnXML0, ColumnXML1]
+        
+        for k in range(2):
+            for block in self.Columns[k]:
+                BlockElem = block.GetXMLContent()
+                ColXML[k].append(BlockElem)
+                
+        
+        # FrameXML.append(ColXML[0])
+        # FrameXML.append(ColXML[1])
+                
+        
+        # for block in self.Blocks:
+        #     BlockElem = block.GetXMLContent()
+        #     FrameXML.append(BlockElem)
+
+       
+        return FrameXML
 
     
     def ReadXMLContent(self, xblock):

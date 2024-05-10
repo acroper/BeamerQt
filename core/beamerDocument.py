@@ -67,7 +67,18 @@ class beamerDocument():
             
     
     def SaveXML (self):
-        None
+        
+        Documento = ET.Element('BeamerDoc')
+        
+        for slide in self.Slides:
+            Documento.append(slide.GetXMLContent())
+            
+        tree = ET.ElementTree(Documento)
+        ET.indent(tree, '  ')
+        
+        tree.write(self.DocLocation+"/BeamerQt.xml", encoding="utf-8", xml_declaration=True)
+        
+        
         
     def GenLaTeX(self):
         None

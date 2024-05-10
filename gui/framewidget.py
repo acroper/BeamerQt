@@ -57,6 +57,8 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.Blocks = []
         
+        self.BlocksCache = []
+        
         self.SelectedBlock = None
         
         self.Slide = None
@@ -145,7 +147,10 @@ class FrameWidget(QtWidgets.QWidget):
             self.ElementsGrid.removeItem(tmpwidget)
             tmpwidget.widget().hide()
         
-            
+        
+        if self.CurrentLayout == "Custom": 
+            self.refresh_columns()
+        
         
         if self.CurrentLayout == "layout_2rows": 
             # Needs at least 2 Blocks
@@ -253,6 +258,8 @@ class FrameWidget(QtWidgets.QWidget):
                 self.Columns[1].remove(self.SelectedBlock)
                 self.Columns[0].append(self.SelectedBlock)
                 
+                self.CurrentLayout = "Custom"
+                
                 self.refresh_columns()
             
             
@@ -265,6 +272,8 @@ class FrameWidget(QtWidgets.QWidget):
             if self.SelectedBlock in self.Columns[0]:
                 self.Columns[0].remove(self.SelectedBlock)
                 self.Columns[1].append(self.SelectedBlock)
+                
+                self.CurrentLayout = "Custom"
                 
                 self.refresh_columns()
     
@@ -354,23 +363,28 @@ class FrameWidget(QtWidgets.QWidget):
             self.BeamerSlide.Columns[1].clear()
             self.BeamerSlide.Blocks.clear()
             
-            for block in self.Blocks:
+            for block in self.Columns[0]:
+                block.ColumnNumber = 0
                 block.UpdateBlock()
+                self.BeamerSlide.Columns[0].append(block.Block)
                 self.BeamerSlide.Blocks.append( block.Block )
                 
-            
-            
-            
-            
-            
-            
-            
+            for block in self.Columns[1]:
+                block.ColumnNumber = 1
+                block.UpdateBlock()
+                self.BeamerSlide.Columns[1].append(block.Block)
+                self.BeamerSlide.Blocks.append( block.Block )            
+                
+                
 
             
             
             
     def ReadSlide (self, slide):
         self.SaveSlide()
+        
+        ### 
+        
         ### Extract the parameters from the slide
         self.title_text.setPlainText(slide.Title)
         self.subtitle_text.setText(slide.Subtitle)
@@ -383,16 +397,38 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.Blocks.clear()
         
-        for block in self.BeamerSlide.Blocks:
-            nWidget = ContentWidget()
-            nWidget.setContentName("Block # " + str(N+1))
-            nWidget.Selected.connect(self.selectBlock)
-            self.Blocks.append(nWidget)
+        self.Columns[0].clear()
+        self.Columns[1].clear()
+        
+        
+        for k in range(2):
+        
+            for block in self.BeamerSlide.Columns[k]:
+                nWidget = ContentWidget()
+                nWidget.setContentName("Block # " + str(N+1))
+                nWidget.Selected.connect(self.selectBlock)
+                self.Blocks.append(nWidget)
+                
+                nWidget.ReadBlock(block)
+                
+                self.Columns[k].append(nWidget)
+                # nWidget.ReadXMLContent(block)
+                
+                N=N+1
             
-            nWidget.ReadBlock(block)
-            # nWidget.ReadXMLContent(block)
+        
+        
+        
+        # for block in self.BeamerSlide.Blocks:
+        #     nWidget = ContentWidget()
+        #     nWidget.setContentName("Block # " + str(N+1))
+        #     nWidget.Selected.connect(self.selectBlock)
+        #     self.Blocks.append(nWidget)
             
-            N=N+1
+        #     nWidget.ReadBlock(block)
+        #     # nWidget.ReadXMLContent(block)
+            
+        #     N=N+1
             
         self.refresh_Layout()
         

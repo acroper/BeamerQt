@@ -52,6 +52,7 @@ class BeamerBlock():
         BlockText = ET.SubElement(ContentXML, 'BlockText')
         BlockText.text = self.Text
         
+        
         self.ContentXML = ContentXML
         
         return ContentXML

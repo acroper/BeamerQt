@@ -184,13 +184,9 @@ class MainWindow(QtWidgets.QMainWindow):
         newSlide = Slide()
         
         nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
-        
-        
-        
+
         self.Slides.append(newSlide)
-        
-        
-        
+
         # self.CurrentFrame.ReadSlideOld(newSlide)
         
         self.CurrentFrame.ReadSlide(nSlide)
@@ -198,9 +194,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.CurrentSlide = newSlide
         
         # self.CurrentFrame.ReadSlide()
-        
-        
-        
+
         self.refreshPreviews()
         
         self.Slidebar.selectNext()
@@ -222,18 +216,21 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def Save(self):
         # Save contents to /tmp/BeamerQt.xml
-        Documento = ET.Element('BeamerDoc')
         
-        for slide in self.Slides:
-            Documento.append(slide.FrameXML)
+        self.Document.SaveXML()
+        
+        # Documento = ET.Element('BeamerDoc')
+        
+        # for slide in self.Slides:
+        #     Documento.append(slide.FrameXML)
             
-        tree = ET.ElementTree(Documento)
-        ET.indent(tree, '  ')
+        # tree = ET.ElementTree(Documento)
+        # ET.indent(tree, '  ')
         
-        # DocLocation =  tempfile.mkdtemp(prefix= self.WorkDirectory+"/" )  
-        DocLocation = self.WorkDirectory
+        # # DocLocation =  tempfile.mkdtemp(prefix= self.WorkDirectory+"/" )  
+        # DocLocation = self.WorkDirectory
 
-        tree.write(DocLocation+"/BeamerQt.xml", encoding="utf-8", xml_declaration=True)
+        # tree.write(DocLocation+"/BeamerQt.xml", encoding="utf-8", xml_declaration=True)
         
         
         
