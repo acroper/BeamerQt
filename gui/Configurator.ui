@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>752</width>
-        <height>1008</height>
+        <width>757</width>
+        <height>929</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -368,6 +368,29 @@
                      <width>80</width>
                      <height>100</height>
                     </size>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QRadioButton" name="layout_restore">
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/restore_blocks.png</normaloff>icons/restore_blocks.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>80</width>
+                     <height>100</height>
+                    </size>
+                   </property>
+                   <property name="autoExclusive">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>

@@ -41,6 +41,8 @@ class FrameWidget(QtWidgets.QWidget):
     
     BlockSelected = pyqtSignal()
     
+    Updated = pyqtSignal()
+    
     def __init__(self):
         
         super(FrameWidget, self).__init__()
@@ -65,7 +67,11 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.BeamerSlide = None
         
+        self.Updating = False
+        
         self.title_text.setTabChangesFocus(True)
+        
+        
         
         self.refresh_Layout()
         
@@ -97,6 +103,9 @@ class FrameWidget(QtWidgets.QWidget):
             
     
     def config_Layout(self, layoutname):
+        
+        if self.Updating:
+            return
         
         if layoutname != self.CurrentLayout:
             # Perform the changes
@@ -138,6 +147,12 @@ class FrameWidget(QtWidgets.QWidget):
         
     
     def refresh_Layout(self):
+        
+        
+        if self.Updating:
+            return
+        
+        
         # Reconstructs the layout
         
         # Clear the layout
@@ -160,7 +175,31 @@ class FrameWidget(QtWidgets.QWidget):
         if self.CurrentLayout == "layout_standard":
             # Needs at least 1 Block
             self.setMinBlocks(1)
+            
+            self.Columns[0].clear()
+            self.Columns[1].clear()
+            for nblock in self.Blocks:
+                self.Columns[0].append(nblock)
+            
+
             self.refresh_rows()
+            
+            
+        if self.CurrentLayout == "layout_restore":
+            # Restore all
+            self.setMinBlocks(1)
+            nblock = self.Blocks[0]
+            # self.Blocks.clear()
+            self.Columns[0].clear()
+            self.Columns[1].clear()
+            
+            self.Blocks.append(nblock)
+            self.Columns[0].append(nblock)
+            
+            self.CurrentLayout = "layout_standard"
+            self.refresh_columns()
+            
+            self.SaveSlide()
                 
                 
         if self.CurrentLayout == "layout_2cols":
@@ -429,8 +468,15 @@ class FrameWidget(QtWidgets.QWidget):
         #     # nWidget.ReadXMLContent(block)
             
         #     N=N+1
-            
+        
+        
         self.refresh_Layout()
+        # self.Updating = True
+        self.Updated.emit()
+        # self.Updating = False
+        
+        
+        
         
         
         

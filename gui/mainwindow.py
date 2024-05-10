@@ -128,6 +128,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
         
         
+        
+        
         # self.InternalPanel = ProcessListWidget()
         # self.CentralPanel.addWidget(self.InternalPanel)
         

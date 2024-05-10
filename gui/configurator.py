@@ -22,7 +22,7 @@ import os
 
 
 
-from PyQt6 import QtWidgets, uic, QtCore
+from PyQt6 import QtWidgets, uic, QtCore, QtGui
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
 
@@ -45,6 +45,8 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         self.CurrentFrame = NewFrame
         
         self.CurrentFrame.BlockSelected.connect(self.SelectBlock)
+        
+        self.CurrentFrame.Updated.connect(self.Refresh)
         
         
         # Actions for reposition the blocks. The signals will be sent to
@@ -75,13 +77,17 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         self.layout_2rows1col.toggled.connect(lambda: self.layoutchange("layout_2rows1col"))
         self.layout_4blocks.toggled.connect(lambda: self.layoutchange("layout_4blocks"))
         self.layout_title.toggled.connect(lambda: self.layoutchange("layout_title"))
+        self.layout_restore.toggled.connect(self.restoreLayout)
         
-        
-        
-        
-        
-        
-        
+    
+    def restoreLayout(self):
+        if self.CurrentFrame.Updating == False and self.layout_restore.isChecked() :
+            button = QMessageBox.question(self, "Reset layout", "This will remove all blocks. \n\nContinue?")
+            if button == QMessageBox.StandardButton.Yes:
+                self.layoutchange("layout_restore")
+            
+            self.Refresh()
+    
         
     def titlechange(self):
         self.CurrentFrame.config_title(self.show_title.isChecked())
@@ -92,6 +98,44 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
     def layoutchange(self, option):
         self.CurrentFrame.config_Layout(option)
+        
+    def Refresh(self):
+        # recheck the layout button
+        
+        self.CurrentFrame.Updating = True
+        
+        layoutstyle = self.CurrentFrame.CurrentLayout
+        
+        if layoutstyle == "layout_standard":
+            self.layout_standard.setChecked(True)
+            
+        if layoutstyle == "layout_2cols":
+            self.layout_2cols.setChecked(True)
+            
+        if layoutstyle == "layout_2rows":
+            self.layout_2rows.setChecked(True)
+            
+        if layoutstyle == "layout_1col2rows":
+            self.layout_1col2rows.setChecked(True)
+            
+        if layoutstyle == "layout_2rows1col":
+            self.layout_2rows1col.setChecked(True)
+            
+        if layoutstyle == "layout_4blocks":
+            self.layout_4blocks.setChecked(True)
+        
+        if layoutstyle == "layout_title":
+            self.layout_title.setChecked(True)
+            
+        if layoutstyle == "Custom":
+            self.layout_restore.setChecked(True)
+            # self.layout_restore.setChecked(False)
+            
+        self.CurrentFrame.Updating = False
+            
+            
+        
+        
         
     
     

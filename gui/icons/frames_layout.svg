@@ -23,17 +23,52 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.94993169"
-     inkscape:cx="174.74941"
-     inkscape:cy="796.37305"
+     inkscape:zoom="1.8998634"
+     inkscape:cx="393.71252"
+     inkscape:cy="871.9048"
      inkscape:window-width="1920"
      inkscape:window-height="1004"
      inkscape:window-x="0"
      inkscape:window-y="28"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="true" />
   <defs
-     id="defs2" />
+     id="defs2">
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect927"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="m 141.04903,302.21089 c 2.93516,-8.17297 -7.23963,-16.27148 -19.97058,-16.44333"
+       prop_scale="0.72841698"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect2361"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="m 141.04903,242.63121 c 2.93516,-8.17297 -7.23963,-16.27148 -19.97058,-16.44333"
+       prop_scale="0.72841698"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2260"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
@@ -293,10 +328,138 @@
        id="rect2047-3"
        width="25.627909"
        height="20.415432"
-       x="96.854401"
-       y="213.35394"
+       x="19.656958"
+       y="272.14212"
        inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/base.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
+    <g
+       id="restore_blocks"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/restore_blocks.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <path
+         id="rect1171"
+         style="fill:none;stroke:#000000;stroke-width:1.75038;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 504.27539 869.31641 L 504.27539 915.73828 L 445.98828 915.73828 L 445.98828 976.81445 L 580.68164 976.81445 L 580.68164 869.31641 L 504.27539 869.31641 z "
+         transform="scale(0.26458333)" />
+      <path
+         id="rect1173"
+         style="fill:none;stroke:#000000;stroke-width:1.75039;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 504.27539 876.28516 L 504.27539 886.625 L 572.67773 886.625 L 572.67773 876.28516 L 504.27539 876.28516 z "
+         transform="scale(0.26458333)" />
+      <path
+         id="rect1175"
+         style="fill:none;stroke:#000000;stroke-width:1.75039;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 504.27539 891.58594 L 504.27539 915.73828 L 453.99023 915.73828 L 453.99023 927.88867 L 509.94922 927.88867 L 509.94922 891.58594 L 504.27539 891.58594 z "
+         transform="scale(0.26458333)" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463123;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1177"
+         width="14.805776"
+         height="9.6047592"
+         x="120.11842"
+         y="247.00031" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.463124;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1179"
+         width="14.805776"
+         height="20.706144"
+         x="136.71513"
+         y="235.89893" />
+      <g
+         id="g1191"
+         transform="matrix(0.63806056,0,0,0.63768857,84.585472,183.22379)"
+         inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/standard.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"
+         style="stroke-width:1.56771">
+        <rect
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.726039;stroke-miterlimit:4;stroke-dasharray:none"
+           id="rect1183"
+           width="55.853008"
+           height="44.60215"
+           x="20.687668"
+           y="48.021988" />
+        <g
+           id="g1189"
+           transform="translate(0.08805275,-0.50991987)"
+           style="stroke-width:1.56771">
+          <rect
+             style="fill:none;stroke:#000000;stroke-width:0.726042;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1185"
+             width="49.215538"
+             height="4.289588"
+             x="23.91835"
+             y="51.4235" />
+          <rect
+             style="fill:none;stroke:#000000;stroke-width:0.726041;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect1187"
+             width="49.215538"
+             height="32.470623"
+             x="23.91835"
+             y="57.771843" />
+        </g>
+      </g>
+      <g
+         id="g4082"
+         transform="matrix(1.2923138,0,0,1.2946109,-31.646717,-99.062845)"
+         style="stroke-width:0.773119">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.204554px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 120.38784,269.13395 5.26114,4.23876"
+           id="path3996" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.204554px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 125.64898,269.13395 -5.26114,4.23876"
+           id="path4078" />
+      </g>
+      <g
+         id="g4088"
+         transform="matrix(1.2961334,0,0,1.2984655,-15.196473,-101.79979)"
+         style="stroke-width:0.770833">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.203949px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 120.38784,269.13395 5.26114,4.23876"
+           id="path4084" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.203949px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 125.64898,269.13395 -5.26114,4.23876"
+           id="path4086" />
+      </g>
+      <g
+         id="g973"
+         transform="matrix(0.63806056,0,0,0.63768857,84.585472,183.22379)"
+         inkscape:export-filename="/home/acroper/Projects/BeamerQt/gui/icons/standard.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"
+         style="stroke-width:1.56771">
+        <g
+           id="g971"
+           transform="translate(0.08805275,-0.50991987)"
+           style="stroke-width:1.56771">
+          <rect
+             style="fill:none;stroke:#000000;stroke-width:0.726042;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect967"
+             width="49.215538"
+             height="4.289588"
+             x="23.91835"
+             y="51.4235" />
+          <rect
+             style="fill:none;stroke:#000000;stroke-width:0.726041;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect969"
+             width="49.215538"
+             height="32.470623"
+             x="23.91835"
+             y="57.771843" />
+        </g>
+      </g>
+      <path
+         id="rect1901"
+         style="fill:#787878;fill-opacity:1;stroke:#000000;stroke-width:0.264583"
+         d="m 130.7005,232.39554 c 0.10851,-0.87498 0.18151,-1.761 0.22009,-2.65582 1.80954,0.74088 3.49728,1.71165 4.98446,2.93885 1.5523,1.28968 2.88017,2.81631 3.52564,4.55064 0.60597,1.55471 0.63908,3.36567 0.0555,4.90854 l 3.07087,1.13735 c 0.85417,-2.33917 0.8151,-4.9233 -0.0733,-7.22804 0,0 0,0 0,0 -0.9598,-2.41141 -2.61635,-4.39029 -4.51168,-5.90738 -1.77458,-1.42825 -3.73596,-2.55919 -5.80538,-3.41935 0.64516,-0.64446 1.31912,-1.26786 2.02237,-1.86778 -2.34757,-0.33426 -4.63317,-0.3323 -6.81789,-0.0807 -2.18471,0.25156 -4.26854,0.75278 -6.21261,1.4171 1.92185,0.72614 3.73351,1.63666 5.35163,2.68622 1.61812,1.04955 3.0427,2.23812 4.19037,3.52035 z"
+         inkscape:path-effect="#path-effect2361"
+         inkscape:original-d="m 159.9031,231.97194 1.23231,3.47875 h -23.96628 v 4.49451 h 23.96652 l -1.23255,3.47875 7.24296,-2.86306 7.24295,-2.86282 -7.24295,-2.86307 z" />
+    </g>
   </g>
 </svg>
