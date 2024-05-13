@@ -137,7 +137,11 @@
        <number>0</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="ElementsGrid"/>
+       <layout class="QGridLayout" name="ElementsGrid">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+       </layout>
       </item>
      </layout>
     </widget>

@@ -71,7 +71,7 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.title_text.setTabChangesFocus(True)
         
-        
+        self.LeftColumnProportion = 100
         
         self.refresh_Layout()
         
@@ -79,6 +79,47 @@ class FrameWidget(QtWidgets.QWidget):
                       
         # self.show()
         
+    
+    def updateColumnSize(self):
+        ### Use the left column proportion to alter the size of the widgets
+        # if self.LeftColumnProportion != 100:
+        #     # modify
+        
+        print("Trying to update size")
+        
+        if len(self.Columns) == 0:
+            return
+        
+        if len(self.Columns[0]) == 0 or len(self.Columns[1]) == 0:
+            return
+        
+        CLeft = self.Columns[0][0].width()
+        CRight = self.Columns[1][0].width()
+        
+        CHeight = self.Columns[0][0].height()
+        
+        Total = CLeft + CRight
+        
+        proportion = self.LeftColumnProportion
+        
+        if proportion > 75:
+            proportion = 75
+        
+        NLeft = int(Total*proportion/100)
+        
+        NRight = int(Total - NLeft)
+        
+        # NSize = QtCore.QSize(NLeft, CHeight)
+        
+        
+
+        for block in self.Columns[0]:
+            block.setMinimumWidth(NLeft-10)
+            block.setMaximumWidth(NLeft)
+            print("Updating size...")
+            # block.resize(NLeft, CHeight)
+
+
     
     def selectBlock(self):
         for block in self.Blocks:
@@ -90,6 +131,8 @@ class FrameWidget(QtWidgets.QWidget):
         self.SelectedBlock = block
         
         self.BlockSelected.emit()
+        
+        self.updateColumnSize()
         
     
     
@@ -187,6 +230,9 @@ class FrameWidget(QtWidgets.QWidget):
             
         if self.CurrentLayout == "layout_restore":
             # Restore all
+            
+            self.LeftColumnProportion = 100
+            
             self.setMinBlocks(1)
             nblock = self.Blocks[0]
             # self.Blocks.clear()
@@ -205,6 +251,9 @@ class FrameWidget(QtWidgets.QWidget):
         if self.CurrentLayout == "layout_2cols":
             # Needs at least 2 Blocks
             self.setMinBlocks(2)
+            
+            if self.LeftColumnProportion == 100:
+                self.LeftColumnProportion = 50
                 
             # Needs at least 1 element per column
             if len(self.Columns[0]) == 0:
@@ -241,6 +290,9 @@ class FrameWidget(QtWidgets.QWidget):
         if self.CurrentLayout == "layout_2rows1col":
             self.setMinBlocks(3)
             
+            if self.LeftColumnProportion == 100:
+                self.LeftColumnProportion = 50
+            
             if len(self.Columns[0]) == 0:
                 self.Columns[0].append(self.Blocks[0])
                 self.Columns[0].append(self.Blocks[1])
@@ -264,7 +316,9 @@ class FrameWidget(QtWidgets.QWidget):
             
         if self.CurrentLayout == "layout_4blocks":
             
-            print("configuring layout_4blocks ...")
+            if self.LeftColumnProportion == 100:
+                self.LeftColumnProportion = 50
+                
             self.setMinBlocks(4)
             
             if len(self.Columns[0]) == 0:
@@ -291,7 +345,7 @@ class FrameWidget(QtWidgets.QWidget):
             
     
     def MoveLeft(self):
-        print("Moving left")
+        
         if self.SelectedBlock != None:
             if self.SelectedBlock in self.Columns[1]:
                 self.Columns[1].remove(self.SelectedBlock)
@@ -306,7 +360,7 @@ class FrameWidget(QtWidgets.QWidget):
         
         
     def MoveRight(self):
-        print("Moving right")
+        
         if self.SelectedBlock != None:
             if self.SelectedBlock in self.Columns[0]:
                 self.Columns[0].remove(self.SelectedBlock)
@@ -317,7 +371,7 @@ class FrameWidget(QtWidgets.QWidget):
                 self.refresh_columns()
     
     def MoveUp(self):
-        print("Moving Up")
+        
         if self.SelectedBlock != None:
             if self.SelectedBlock in self.Columns[0]:
                 index = self.Columns[0].index(self.SelectedBlock)
@@ -336,7 +390,7 @@ class FrameWidget(QtWidgets.QWidget):
 
         
     def MoveDown(self):
-        print("Moving Down")
+        
         if self.SelectedBlock != None:
             if self.SelectedBlock in self.Columns[0]:
                 index = self.Columns[0].index(self.SelectedBlock)
@@ -402,6 +456,8 @@ class FrameWidget(QtWidgets.QWidget):
             self.BeamerSlide.Columns[1].clear()
             self.BeamerSlide.Blocks.clear()
             
+            self.BeamerSlide.LeftColumnProportion = self.LeftColumnProportion 
+            
             for block in self.Columns[0]:
                 block.ColumnNumber = 0
                 block.UpdateBlock()
@@ -431,6 +487,8 @@ class FrameWidget(QtWidgets.QWidget):
         self.CurrentLayout = slide.CurrentLayout
         
         self.BeamerSlide = slide
+        
+        self.LeftColumnProportion = self.BeamerSlide.LeftColumnProportion 
         
         N = 0
         
@@ -471,9 +529,11 @@ class FrameWidget(QtWidgets.QWidget):
         
         
         self.refresh_Layout()
-        # self.Updating = True
+        
         self.Updated.emit()
-        # self.Updating = False
+        
+        self.updateColumnSize()
+
         
         
         

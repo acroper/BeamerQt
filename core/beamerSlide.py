@@ -42,6 +42,8 @@ class BeamerSlide():
         
         self.Preview = None
         
+        self.LeftColumnProportion = 100
+        
 
 
     def setPreview(self, pixmap):

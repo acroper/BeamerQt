@@ -37,6 +37,10 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         self.SelectedBlock = None
         
+        self.LeftColumnValue = 100
+        
+        
+        
         self.LoadActions()
                       
         # self.show()
@@ -61,8 +65,11 @@ class ConfiguratorWidget(QtWidgets.QWidget):
     
     def SelectBlock(self):
         self.SelectedBlock = self.CurrentFrame.SelectedBlock
+        self.blockLayout.setVisible(True)
         
         # self.toolBox.setCurrentIndex(2)
+    def UnSelectBlock(self):
+        self.blockLayout.setVisible(False)
     
     
     def LoadActions(self):
@@ -79,6 +86,34 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         self.layout_title.toggled.connect(lambda: self.layoutchange("layout_title"))
         self.layout_restore.toggled.connect(self.restoreLayout)
         
+        self.LeftColumnSize.valueChanged.connect(self.UpdateLeftColumn)
+        # self.RightColumnSize.valueChanged.connect(self.UpdateRightColumn)
+        
+        
+        
+    
+    def UpdateLeftColumn(self):
+                
+        self.LeftColumnValue = self.LeftColumnSize.value()
+        self.RightColumnText.setText( str(100-self.LeftColumnValue)  )
+        # self.RightColumnSize.setValue(100-self.LeftColumnValue)
+        
+        
+        if self.CurrentFrame.LeftColumnProportion != self.LeftColumnValue:
+            self.CurrentFrame.LeftColumnProportion = self.LeftColumnValue
+            self.CurrentFrame.updateColumnSize()
+
+
+    def UpdateRightColumn(self):
+        
+        self.LeftColumnValue = 100 - self.RightColumnSize.value()
+        self.LeftColumnSize.setValue(self.LeftColumnValue)   
+        self.CurrentFrame.LeftColumnProportion = self.LeftColumnValue
+        # self.CurrentFrame.updateColumnSize()
+
+        
+    
+    
     
     def restoreLayout(self):
         if self.CurrentFrame.Updating == False and self.layout_restore.isChecked() :
@@ -132,6 +167,12 @@ class ConfiguratorWidget(QtWidgets.QWidget):
             # self.layout_restore.setChecked(False)
             
         self.CurrentFrame.Updating = False
+        
+        self.UnSelectBlock()
+        
+        self.LeftColumnSize.setValue(self.CurrentFrame.LeftColumnProportion)
+        
+        
             
             
         
