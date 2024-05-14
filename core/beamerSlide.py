@@ -26,8 +26,8 @@ class BeamerSlide():
     
     def __init__(self):
         
-        self.Title = "New slide title"
-        self.Subtitle = "New slide subtitle"
+        self.Title = ""
+        self.Subtitle = ""
         self.TitleVisible = True
         self.nombre = ""
         

@@ -73,6 +73,8 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.LeftColumnProportion = 100
         
+        self.TotalSize = 861
+        
         self.refresh_Layout()
         
         
@@ -87,18 +89,27 @@ class FrameWidget(QtWidgets.QWidget):
         
         print("Trying to update size")
         
-        if len(self.Columns) == 0:
+        
+        if self.CurrentLayout == "layout_standard" or self.CurrentLayout == "layout_2rows":
+            # reset proportions
+            print("Assigning for only one column")
+            for block in self.Columns[0]:
+                block.setMinimumWidth(self.TotalSize)
+                block.setMaximumWidth(self.TotalSize)
+                
             return
+            
         
-        if len(self.Columns[0]) == 0 or len(self.Columns[1]) == 0:
-            return
+        # if len(self.Columns[0]) == 0 or len(self.Columns[1]) == 0:
+        #     return
         
-        CLeft = self.Columns[0][0].width()
-        CRight = self.Columns[1][0].width()
+        # CLeft = self.Columns[0][0].width()
+        # CRight = self.Columns[1][0].width()
         
-        CHeight = self.Columns[0][0].height()
+        # CHeight = self.Columns[0][0].height()
         
-        Total = CLeft + CRight
+        # Total = CLeft + CRight
+        Total = self.TotalSize
         
         proportion = self.LeftColumnProportion
         
@@ -111,12 +122,16 @@ class FrameWidget(QtWidgets.QWidget):
         
         # NSize = QtCore.QSize(NLeft, CHeight)
         
-        
+        print("Total size: " + str(Total))
 
         for block in self.Columns[0]:
-            block.setMinimumWidth(NLeft-10)
+            block.setMinimumWidth(NLeft)
             block.setMaximumWidth(NLeft)
-            print("Updating size...")
+            
+        for block in self.Columns[1]:
+            block.setMinimumWidth(NRight)
+            block.setMaximumWidth(NRight)
+            
             # block.resize(NLeft, CHeight)
 
 
@@ -342,6 +357,7 @@ class FrameWidget(QtWidgets.QWidget):
             self.refresh_columns()
             
         self.SaveSlide()
+        self.updateColumnSize()
             
     
     def MoveLeft(self):
