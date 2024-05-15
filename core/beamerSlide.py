@@ -21,6 +21,7 @@ import os
 
 import xml.etree.ElementTree as ET
 
+from core.beamerBlock import *
 
 class BeamerSlide():
     
@@ -67,9 +68,13 @@ class BeamerSlide():
         FrameLayout = ET.SubElement(FrameXML, 'FrameLayout')
         FrameLayout.text = self.CurrentLayout
         
-        colAttributes={"id":"0", "Proportion":str(self.LeftColumnProportion)}
+        # colAttributes={"id":"0", "Proportion":str(self.LeftColumnProportion)}
         
-        ColumnXML0 = ET.SubElement(FrameXML, 'Column', colAttributes)
+        ColumnProportion = ET.SubElement(FrameXML, 'ColumnProportion')
+        ColumnProportion.text = str(self.LeftColumnProportion)
+        
+        
+        ColumnXML0 = ET.SubElement(FrameXML, 'Column', id='0')
         ColumnXML1 = ET.SubElement(FrameXML, 'Column', id='1')
         
         ColXML = [ColumnXML0, ColumnXML1]
@@ -96,6 +101,39 @@ class BeamerSlide():
         
         self.Title = xblock.findall('TitleBar')[0].text
         self.Subtitle = xblock.findall('SubTitleBar')[0].text
+        
+        self.CurrentLayout =  xblock.findall('FrameLayout')[0].text
+        
+        self.LeftColumnProportion = int( xblock.findall('ColumnProportion')[0].text )
+        
+        columns = xblock.findall('Column')
+        
+        k = 0
+
+        for column in columns:
+            # get the blocks
+            for xmlblock in column.findall('Block'):
+
+                block = BeamerBlock()   
+                block.ReadXMLContent(xmlblock)
+                
+                self.Columns[k].append(block)
+            
+            k += 1
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+        
+        
+        
 
         # Build the internal elements
         
