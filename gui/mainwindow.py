@@ -160,6 +160,8 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.CurrentFrame.ReadSlide(self.Document.Slides[0])
             
+            self.Slidebar.SetDocument(self.Document)
+            
             self.refreshPreviews()
             
             
@@ -220,7 +222,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def refreshPreviews(self):
         self.CurrentFrame.SaveSlide()
-        self.Slidebar.RefreshSlides(self.Slides)
+        self.Slidebar.RefreshSlides()
         
         
         

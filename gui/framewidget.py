@@ -92,7 +92,7 @@ class FrameWidget(QtWidgets.QWidget):
         
         if self.CurrentLayout == "layout_standard" or self.CurrentLayout == "layout_2rows":
             # reset proportions
-            print("Assigning for only one column")
+            # print("Assigning for only one column")
             for block in self.Columns[0]:
                 block.setMinimumWidth(self.TotalSize)
                 block.setMaximumWidth(self.TotalSize)

@@ -43,16 +43,13 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.Document = None
         
+        
+        
         # self.ListWidget = ThumbListWidget()
         
         # self.verticalLayout.addWidget(self.ListWidget)
         # self.ListWidget = self.listWidget_2
-        
-        
         self.SlidePos = 0
-
-              
-        
         # self.show()
     
     def AddPrevWidget(self, slidePrev):
@@ -63,10 +60,6 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.ListWidget.addItem(qitem)
         self.ListWidget.setItemWidget(qitem, slidePrev)
         
-        
-        
-        
-
     
     def SetDocument(self, Doc):
         self.Document = Doc
@@ -82,7 +75,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.SlidePos = self.SlideList.index(slidesel)
         
-        self.CurrentFrame.ReadSlide(slidesel.Slide)
+        self.CurrentFrame.ReadSlide(self.Document.Slides[self.SlidePos])
         
         
     def selectNext(self):
@@ -148,10 +141,44 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         slidePrev.Selected.connect(self.setSelected)
         slidePrev.setSelected()
+    
+        
+    def ResetPrevs(self):
+        self.SlideList.clear()
+
+    def RefreshSlides(self):
+        # Restore previews
+        # TODO: Needs to be updated to use Document.Slides
+        #
+        #
+        # Test with one slide by now
+        # if len(Slides) > len(self.SlideList):
+        
+        ### Need to improve this part    
+        for k in range(len(self.SlideList), len(self.Document.Slides) ):
+            slidePrev = SlidePrev()
+            slidePrev.setInnerFrame(self.CurrentFrame)
+            
+            self.SlideList.append(slidePrev)
+            
+            # self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
+            self.AddPrevWidget(slidePrev)
+            
+            slidePrev.setNumber(len(self.SlideList))
+            
+            slidePrev.Selected.connect(self.setSelected)
+            
+
+        for k in range(len(self.SlideList)):
+            # self.SlideList[k].refresh(Slides[k])
+            self.SlideList[k].refresh(self.Document.Slides[k])
+            self.SlideList[k].slidepos = k
+            
+            # if self.Document != None:
+            #     self.SlideList[k].Slide2 = self.Document.Slides[k]
         
         
-        
-    def RefreshSlides(self, Slides):
+    def RefreshSlides_old(self, Slides):
         # Restore previews
         # TODO: Needs to be updated to use Document.Slides
         #
@@ -210,6 +237,8 @@ class SlidePrev(QtWidgets.QWidget):
         
         self.Slide = None
         
+        self.slidepos = 0
+        
         # self.Slide2 = None
         
         
@@ -219,8 +248,9 @@ class SlidePrev(QtWidgets.QWidget):
         self.InnerFrame = NewFrame
         
     def refresh(self, slide):
-        self.LabelPix.setPixmap(slide.Preview)
-        self.Slide = slide
+        if slide.Preview != None:
+            self.LabelPix.setPixmap(slide.Preview)
+            self.Slide = slide
         
     def setNumber(self, number):
         self.slideNumber.setText(str(number))
