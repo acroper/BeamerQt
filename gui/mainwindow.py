@@ -114,9 +114,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Initial slide
         
         ## TODO: Replace this code for the new beamerSlide code
-        self.CurrentSlide = Slide()
-        self.Slides.append(self.CurrentSlide)
-        self.CurrentFrame.ReadSlideOld(self.CurrentSlide)
+        # self.CurrentSlide = Slide()
+        # self.Slides.append(self.CurrentSlide)
+        
+        # self.CurrentFrame.ReadSlideOld(self.CurrentSlide)
         
         
         # Create new slide for the document

@@ -73,7 +73,7 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.LeftColumnProportion = 100
         
-        self.TotalSize = 861
+        self.TotalSize = 980
         
         self.refresh_Layout()
         
@@ -87,7 +87,7 @@ class FrameWidget(QtWidgets.QWidget):
         # if self.LeftColumnProportion != 100:
         #     # modify
         
-        print("Trying to update size")
+        # return
         
         
         if self.CurrentLayout == "layout_standard" or self.CurrentLayout == "layout_2rows":
@@ -122,7 +122,7 @@ class FrameWidget(QtWidgets.QWidget):
         
         # NSize = QtCore.QSize(NLeft, CHeight)
         
-        print("Total size: " + str(Total))
+        # print("Total size: " + str(Total))
 
         for block in self.Columns[0]:
             block.setMinimumWidth(NLeft)
@@ -608,7 +608,7 @@ class FrameWidget(QtWidgets.QWidget):
                     
             except Exception as error:
                 print(error)
-                print("Cannot read slide")
+                print("Cannot read slide - old")
                 None
             
             

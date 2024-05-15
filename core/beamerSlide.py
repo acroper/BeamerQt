@@ -67,7 +67,9 @@ class BeamerSlide():
         FrameLayout = ET.SubElement(FrameXML, 'FrameLayout')
         FrameLayout.text = self.CurrentLayout
         
-        ColumnXML0 = ET.SubElement(FrameXML, 'Column', id='0')
+        colAttributes={"id":"0", "Proportion":str(self.LeftColumnProportion)}
+        
+        ColumnXML0 = ET.SubElement(FrameXML, 'Column', colAttributes)
         ColumnXML1 = ET.SubElement(FrameXML, 'Column', id='1')
         
         ColXML = [ColumnXML0, ColumnXML1]

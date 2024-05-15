@@ -171,6 +171,9 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
+        <property name="spacing">
+         <number>2</number>
+        </property>
        </layout>
       </item>
      </layout>
