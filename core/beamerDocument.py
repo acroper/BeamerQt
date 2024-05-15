@@ -79,7 +79,19 @@ class beamerDocument():
         tree.write(self.DocLocation+"/BeamerQt.xml", encoding="utf-8", xml_declaration=True)
         
         
+    def ReadXML(self, xmlDocument):
+        print('Opening XML file')
+        tree = ET.parse(xmlDocument)
+        root = tree.getroot()
         
+        for subslide in root:
+            newslide = self.NewSlide()
+            newslide.ReadXMLContent(subslide)
+            
+        
+        
+    
+    
     def GenLaTeX(self):
         None
     

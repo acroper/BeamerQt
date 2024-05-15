@@ -28,6 +28,8 @@ from gui.slidewidget import *
 from gui.configurator import *
 from gui.slidebar import *
 
+from gui.guidialogs import *
+
 from core.beamerDocument import *
 
 
@@ -114,10 +116,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Initial slide
         
         ## TODO: Replace this code for the new beamerSlide code
-        # self.CurrentSlide = Slide()
-        # self.Slides.append(self.CurrentSlide)
+        self.CurrentSlide = Slide()
+        self.Slides.append(self.CurrentSlide)
         
-        # self.CurrentFrame.ReadSlideOld(self.CurrentSlide)
+        self.CurrentFrame.ReadSlideOld(self.CurrentSlide)
         
         
         # Create new slide for the document
@@ -146,10 +148,20 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def showOpenFile(self):
         
-        filename = openFileNameDialog(self, "", "Project files | *.txt (*.txt)")
+        filename = openFileNameDialog(self, "", "BeamerQT files | *.xml (*.xml)")
+        
+        print("Selected file: " + filename)
         
         if filename != "":
-            self.openProject(filename)
+            Document2 = beamerDocument(self.WorkDirectory)
+            Document2.ReadXML(filename)
+            
+            self.Document = Document2
+            
+            self.CurrentFrame.ReadSlide(self.Document.Slides[0])
+            
+            self.refreshPreviews()
+            
             
         
     
@@ -221,19 +233,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Save contents to /tmp/BeamerQt.xml
         
         self.Document.SaveXML()
-        
-        # Documento = ET.Element('BeamerDoc')
-        
-        # for slide in self.Slides:
-        #     Documento.append(slide.FrameXML)
-            
-        # tree = ET.ElementTree(Documento)
-        # ET.indent(tree, '  ')
-        
-        # # DocLocation =  tempfile.mkdtemp(prefix= self.WorkDirectory+"/" )  
-        # DocLocation = self.WorkDirectory
 
-        # tree.write(DocLocation+"/BeamerQt.xml", encoding="utf-8", xml_declaration=True)
         
         
         

@@ -94,9 +94,9 @@ class BeamerSlide():
     
     def ReadXMLContent(self, xblock):
         
-        self.Title = xblock.findall('BlockTitle')[0].text
-        self.Text = xblock.findall('BlockText')[0].text
-        
+        self.Title = xblock.findall('TitleBar')[0].text
+        self.Subtitle = xblock.findall('SubTitleBar')[0].text
+
         # Build the internal elements
         
         

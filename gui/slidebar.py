@@ -153,6 +153,9 @@ class SlideBarWidget(QtWidgets.QWidget):
         
     def RefreshSlides(self, Slides):
         # Restore previews
+        # TODO: Needs to be updated to use Document.Slides
+        #
+        #
         # Test with one slide by now
         # if len(Slides) > len(self.SlideList):
         
@@ -165,7 +168,6 @@ class SlideBarWidget(QtWidgets.QWidget):
             
             # self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
             self.AddPrevWidget(slidePrev)
-            
             
             slidePrev.setNumber(len(self.SlideList))
             
