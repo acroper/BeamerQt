@@ -47,9 +47,30 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.ColumnNumber = -1
         
+        self.SetActions()
+        
         self.Block = BeamerBlock()
+        
 
         
+    
+    def SetActions(self):
+        self.mUp.clicked.connect(lambda: self.setMoveBlock("up"))
+        self.mDown.clicked.connect(lambda: self.setMoveBlock("down"))
+        self.mLeft.clicked.connect(lambda: self.setMoveBlock("left"))
+        self.mRight.clicked.connect(lambda: self.setMoveBlock("right"))
+        
+        
+    def setMoveBlock(self, direction):
+        if direction == "up":
+            print("Moving up")
+        if direction == "left":
+            print("Moving left")
+        if direction == "right":
+            print("Moving right")
+        if direction == "down":
+            print("Moving down")
+    
     
     def ReadBlock(self, outBlock):
         self.Block = outBlock
