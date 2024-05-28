@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="content_widget_icons.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="5.3736252"
+     inkscape:cx="236.43257"
+     inkscape:cy="257.83339"
+     inkscape:window-width="1920"
+     inkscape:window-height="1004"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="true" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect927"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="m 141.04903,302.21089 c 2.93516,-8.17297 -7.23963,-16.27148 -19.97058,-16.44333"
+       prop_scale="0.72841698"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect2361"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="m 141.04903,242.63121 c 2.93516,-8.17297 -7.23963,-16.27148 -19.97058,-16.44333"
+       prop_scale="0.72841698"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2260"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="format-bold"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/format-bold.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1146"
+         width="12.964167"
+         height="12.964167"
+         x="22.457855"
+         y="27.461926" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.0565px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264582"
+         x="24.607496"
+         y="37.974125"
+         id="text3249"><tspan
+           sodipodi:role="line"
+           id="tspan3247"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.0565px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264582"
+           x="24.607496"
+           y="37.974125">B</tspan></text>
+    </g>
+    <g
+       id="format-italic"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/format-italic.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect4758"
+         width="12.964167"
+         height="12.964167"
+         x="39.453423"
+         y="27.461926" />
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.0565px;line-height:1.25;font-family:C059;-inkscape-font-specification:'C059, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264582"
+         x="43.735264"
+         y="37.935406"
+         id="text4762"><tspan
+           sodipodi:role="line"
+           id="tspan4760"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.0565px;font-family:C059;-inkscape-font-specification:'C059, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264582"
+           x="43.735264"
+           y="37.935406">I</tspan></text>
+    </g>
+    <g
+       id="align-justified"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/align-justified.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect13076"
+         width="12.964167"
+         height="12.964167"
+         x="67.182472"
+         y="27.461926" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 69.071431,29.425793 H 78.25768"
+         id="path13195" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 69.071431,31.175677 H 78.25768"
+         id="path13277" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 69.071431,33.104749 H 78.25768"
+         id="path13279" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 69.071431,34.854632 H 78.25768"
+         id="path13281" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 69.071431,36.598708 H 78.25768"
+         id="path13283" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 69.071431,38.348591 H 78.25768"
+         id="path13285" />
+    </g>
+    <g
+       id="align-left"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/align-left.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect13287"
+         width="12.964167"
+         height="12.964167"
+         x="86.008324"
+         y="27.461926" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 87.897285,29.425793 h 9.186249"
+         id="path13289" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 87.897285,31.175677 h 5.880941"
+         id="path13291"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 87.897285,33.104749 7.83632,0"
+         id="path13293"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 87.897285,34.854632 h 5.880941"
+         id="path13295"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 87.897285,36.598708 h 9.186249"
+         id="path13297" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 87.897285,38.348591 h 5.880941"
+         id="path13299"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <g
+       id="align-right"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/align-right.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect13859"
+         width="12.964167"
+         height="12.964167"
+         x="-135.34052"
+         y="27.461926"
+         transform="scale(-1,1)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 133.45154,29.425793 h -9.18625"
+         id="path13861" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 133.45154,31.175677 H 127.5706"
+         id="path13863"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 133.45154,33.104749 h -7.83632"
+         id="path13865"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 133.45154,34.854632 H 127.5706"
+         id="path13867"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 133.45154,36.598708 h -9.18625"
+         id="path13869" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 133.45154,38.348591 H 127.5706"
+         id="path13871"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <g
+       id="align-center"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/align-center.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect13873"
+         width="12.964167"
+         height="12.964167"
+         x="-117.11426"
+         y="27.461926"
+         transform="scale(-1,1)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 115.2253,29.425793 h -9.18625"
+         id="path13875" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 113.57264,31.175677 H 107.6917"
+         id="path13877"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 114.55033,33.104749 h -7.83632"
+         id="path13879"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 113.57264,34.854632 H 107.6917"
+         id="path13881"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 115.2253,36.598708 h -9.18625"
+         id="path13883" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 113.57264,38.348591 H 107.6917"
+         id="path13885"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <g
+       id="arrow-up"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/arrow-up.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect13933"
+         width="12.964167"
+         height="12.964167"
+         x="22.457855"
+         y="44.705864" />
+      <path
+         id="rect14077"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 28.939938,47.13507 -2.652034,4.593519 h 1.622123 v 3.644738 h 2.059306 v -3.644738 h 1.62264 z" />
+    </g>
+    <g
+       id="arrow-down"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/arrow-down.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect14202"
+         width="12.964167"
+         height="12.964167"
+         x="39.553814"
+         y="44.705864" />
+      <path
+         id="path14204"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 46.035897,55.240825 -2.652034,-4.593519 h 1.622123 v -3.644738 h 2.059306 v 3.644738 h 1.62264 z" />
+    </g>
+    <g
+       id="arrow-right"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/arrow-right.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect14206"
+         width="12.964167"
+         height="12.964167"
+         x="58.347729"
+         y="44.705864" />
+      <path
+         id="path14208"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 68.948941,51.121697 -4.593519,2.652034 v -1.622123 h -3.644738 v -2.059306 h 3.644738 v -1.62264 z" />
+    </g>
+    <g
+       id="arrow-left"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/arrow-left.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect14210"
+         width="12.964167"
+         height="12.964167"
+         x="75.973061"
+         y="44.705864" />
+      <path
+         id="path14212"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 78.468518,51.121697 4.593519,2.652034 v -1.622123 h 3.644738 v -2.059306 h -3.644738 v -1.62264 z" />
+    </g>
+    <g
+       id="add-image"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/add-image.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <g
+         id="g16356">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+           id="rect14269"
+           width="12.964167"
+           height="12.964167"
+           x="-118.36095"
+           y="46.127529"
+           transform="scale(-1,1)" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 105.44713,56.77038 c 1.13934,-2.167394 1.35463,-6.003493 3.18326,-6.261279 1.82863,-0.257786 2.60352,6.310052 9.6752,6.11543"
+           id="path14485"
+           sodipodi:nodetypes="czc" />
+        <ellipse
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+           id="path14509"
+           cx="113.23122"
+           cy="48.438347"
+           rx="0.86320508"
+           ry="0.79468262" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 111.82321,53.840217 c 0.52461,-1.122843 0.75522,-2.4915 1.80118,-2.584582 2.19104,-0.194984 2.86454,4.786186 4.66979,4.662744"
+           id="path14609"
+           sodipodi:nodetypes="cac" />
+      </g>
+    </g>
+    <g
+       id="format-item"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/format-item.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect16381"
+         width="12.964167"
+         height="12.964167"
+         x="-158.47255"
+         y="27.461926"
+         transform="scale(-1,1)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 156.58357,29.425793 H 148.3242"
+         id="path16383"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 154.20514,31.175677 H 148.3242"
+         id="path16385"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 156.58357,33.104749 H 148.3242"
+         id="path16387"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 154.20514,34.854632 H 148.3242"
+         id="path16389"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 156.58357,36.598708 H 148.3242"
+         id="path16391"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 154.20514,38.348591 H 148.3242"
+         id="path16393"
+         sodipodi:nodetypes="cc" />
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path16426"
+         cx="147.30597"
+         cy="29.355816"
+         r="0.31132764" />
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+         id="circle16633"
+         cx="147.30597"
+         cy="33.173832"
+         r="0.31132764" />
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none"
+         id="circle16635"
+         cx="147.30597"
+         cy="36.518761"
+         r="0.31132764" />
+    </g>
+    <path
+       sodipodi:type="star"
+       style="fill:#000000;stroke:#000000;stroke-width:1.00157"
+       id="uparrow"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="100.55565"
+       sodipodi:cy="275.36603"
+       sodipodi:r1="11.178009"
+       sodipodi:r2="5.5890045"
+       sodipodi:arg1="2.0943951"
+       sodipodi:arg2="3.1415927"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 94.966644,285.04647 0,-19.36088 16.767016,9.68044 z"
+       transform="matrix(0,-0.26458333,0.26458333,0,-46.891418,99.687946)"
+       inkscape:transform-center-y="-0.73937858"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/uparrow.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#000000;stroke:#000000;stroke-width:1.00157"
+       id="downarrow"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="100.55565"
+       sodipodi:cy="275.36603"
+       sodipodi:r1="11.178009"
+       sodipodi:r2="5.5890045"
+       sodipodi:arg1="2.0943951"
+       sodipodi:arg2="3.1415927"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 94.966644,285.04647 0,-19.36088 16.767016,9.68044 z"
+       transform="matrix(0,0.26458333,-0.26458333,0,107.84913,44.865992)"
+       inkscape:transform-center-x="-6.6528643e-06"
+       inkscape:transform-center-y="0.73937818"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/downarrow.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#000000;stroke:#000000;stroke-width:1.00157"
+       id="leftarrow"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="100.55565"
+       sodipodi:cy="275.36603"
+       sodipodi:r1="11.178009"
+       sodipodi:r2="5.5890045"
+       sodipodi:arg1="2.0943951"
+       sodipodi:arg2="3.1415927"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 94.966644,285.04647 0,-19.36088 16.767016,9.68044 z"
+       transform="matrix(-0.26458333,0,0,0.26458333,72.212697,0.22533684)"
+       inkscape:transform-center-x="0.73937799"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/leftarrow.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       sodipodi:type="star"
+       style="fill:#000000;stroke:#000000;stroke-width:1.00157"
+       id="rightarrow"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="100.55565"
+       sodipodi:cy="275.36603"
+       sodipodi:r1="11.178009"
+       sodipodi:r2="5.5890045"
+       sodipodi:arg1="2.0943951"
+       sodipodi:arg2="3.1415927"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 94.966644,285.04647 0,-19.36088 16.767016,9.68044 z"
+       transform="matrix(0.26458333,0,0,0.26458333,26.228887,0.22626245)"
+       inkscape:transform-center-x="-0.73937839"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/rightarrow.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="trash"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/trash.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:#000000;stroke:#000000;stroke-width:0.264999"
+         id="rect941"
+         width="2.2871332"
+         height="3.4189203"
+         x="68.944862"
+         y="70.642036" />
+      <rect
+         style="fill:#000000;stroke:#000000;stroke-width:0.264999"
+         id="rect943"
+         width="2.4365466"
+         height="0.38676482"
+         x="35.775864"
+         y="91.409256"
+         transform="rotate(-23.099403)" />
+    </g>
+    <g
+       id="cancel"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/cancel.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:#000000;stroke:#000000;stroke-width:0.264999"
+         id="rect1153"
+         width="3.6788278"
+         height="0.48950103"
+         x="106.63454"
+         y="-7.8862519"
+         transform="rotate(45)" />
+      <rect
+         style="fill:#000000;stroke:#000000;stroke-width:0.264999"
+         id="rect1235"
+         width="3.6788278"
+         height="0.48950103"
+         x="-9.4809151"
+         y="108.2292"
+         transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,0,0)" />
+    </g>
+  </g>
+</svg>
