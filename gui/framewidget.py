@@ -149,6 +149,25 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.updateColumnSize()
         
+        if self.SelectedBlock.moveDirection != "":
+            self.MoveBlock(self.SelectedBlock.moveDirection)
+            
+            
+        
+        
+    def MoveBlock(self, direction):
+        
+        self.SelectedBlock.moveDirection = ""
+        
+        if direction == "up":
+            self.MoveUp()
+        if direction == "left":
+            self.MoveLeft()
+        if direction == "right":
+            self.MoveRight()
+        if direction == "down":
+            self.MoveDown()
+    
     
     
     def config_title(self, visibility):

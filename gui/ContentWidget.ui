@@ -129,58 +129,66 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QLineEdit" name="blockTitle">
-              <property name="font">
-               <font>
-                <pointsize>16</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="placeholderText">
-               <string>Block title</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
               <property name="sizeConstraint">
                <enum>QLayout::SetDefaultConstraint</enum>
               </property>
               <item>
-               <widget class="QToolButton" name="toolButton_2">
+               <widget class="QToolButton" name="addImageButton">
                 <property name="text">
                  <string>Add Image</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QToolButton" name="toolButton_3">
+               <widget class="QToolButton" name="addTextButton">
                 <property name="text">
                  <string>Add Text</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QToolButton" name="toolButton">
+               <widget class="QToolButton" name="AddMoreButton">
                 <property name="text">
                  <string>Add more...</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QToolButton" name="toolButton_4">
+               <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>Title visible</string>
+                 <string>Cols</string>
                 </property>
-                <property name="checkable">
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="maxCols">
+                <property name="minimumSize">
+                 <size>
+                  <width>40</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>Columns in previsualization</string>
+                </property>
+                <property name="statusTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string/>
+                </property>
+                <property name="wrapping">
+                 <bool>false</bool>
+                </property>
+                <property name="frame">
                  <bool>true</bool>
                 </property>
-                <property name="checked">
-                 <bool>false</bool>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>4</number>
                 </property>
                </widget>
               </item>
@@ -224,11 +232,14 @@
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>...</string>
+                   <string/>
                   </property>
                   <property name="icon">
                    <iconset>
                     <normaloff>icons/leftarrow.png</normaloff>icons/leftarrow.png</iconset>
+                  </property>
+                  <property name="autoRaise">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -250,6 +261,9 @@
                    <iconset>
                     <normaloff>icons/uparrow.png</normaloff>icons/uparrow.png</iconset>
                   </property>
+                  <property name="autoRaise">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item row="1" column="2">
@@ -269,6 +283,9 @@
                   <property name="icon">
                    <iconset>
                     <normaloff>icons/rightarrow.png</normaloff>icons/rightarrow.png</iconset>
+                  </property>
+                  <property name="autoRaise">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -290,6 +307,9 @@
                    <iconset>
                     <normaloff>icons/downarrow.png</normaloff>icons/downarrow.png</iconset>
                   </property>
+                  <property name="autoRaise">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -298,7 +318,10 @@
             </item>
             <item>
              <layout class="QGridLayout" name="gridLayout">
-              <item row="0" column="0">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item row="1" column="0">
                <widget class="QTextEdit" name="blockText">
                 <property name="maximumSize">
                  <size>
@@ -317,6 +340,23 @@
                 </property>
                 <property name="placeholderText">
                  <string>Add text here...</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLineEdit" name="blockTitle">
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="placeholderText">
+                 <string>Block title</string>
                 </property>
                </widget>
               </item>

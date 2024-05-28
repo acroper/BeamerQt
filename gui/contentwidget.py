@@ -29,6 +29,7 @@ from PyQt6.QtCore import pyqtSignal, QObject
 import xml.etree.ElementTree as ET
 
 from core.beamerBlock import *
+from gui.contentitem import *
 
 
 class ContentWidget(QtWidgets.QWidget):
@@ -47,10 +48,17 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.ColumnNumber = -1
         
+        self.WidgetList = []
+        
+        self.WidgetList.append(self.blockText)
+        
         self.SetActions()
         
         self.Block = BeamerBlock()
         
+        self.moveDirection = ""
+        
+       
 
         
     
@@ -60,16 +68,64 @@ class ContentWidget(QtWidgets.QWidget):
         self.mLeft.clicked.connect(lambda: self.setMoveBlock("left"))
         self.mRight.clicked.connect(lambda: self.setMoveBlock("right"))
         
+        self.addTextButton.clicked.connect(lambda: self.AddWidgetItem("Text"))
         
+        self.maxCols.valueChanged.connect(self.RefreshItemList)
+        
+    
+
+    
+    
+    def AddWidgetItem(self, itemtype):
+        # add a content item
+        
+        cItem = ContentItem()
+        self.WidgetList.append(cItem)
+        cItem.setItemType(itemtype)
+        cItem.Activated.connect(self.ActivatedItem)
+        
+        self.RefreshItemList()
+        
+    
+    def RefreshItemList(self):
+        # Remove all items from the gridlayout, and relocate them
+        for i in reversed(range(self.gridLayout.count())):
+            tmpwidget = self.gridLayout.itemAt(i)
+            self.gridLayout.removeItem(tmpwidget)
+            # tmpwidget.widget().hide()
+            
+        maxcols = self.maxCols.value()
+        
+        LastCol = 0
+        LastRow = 0
+        
+        for cItem in self.WidgetList:
+        
+            if LastCol == maxcols:
+                LastCol = 0
+                LastRow += 1
+            self.gridLayout.addWidget(cItem, LastRow, LastCol)
+            
+            LastCol += 1
+        
+        
+        
+    
+    
+    def ActivatedItem(self):
+        selected = self.sender()
+        action = selected.CurrentAction
+        selected.CurrentAction = "" # Delete action
+        
+        print(action)
+    
+    
     def setMoveBlock(self, direction):
-        if direction == "up":
-            print("Moving up")
-        if direction == "left":
-            print("Moving left")
-        if direction == "right":
-            print("Moving right")
-        if direction == "down":
-            print("Moving down")
+        self.moveDirection = direction
+        
+        self.ClickSelected = True
+        self.Selected.emit()
+        
     
     
     def ReadBlock(self, outBlock):
