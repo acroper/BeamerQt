@@ -185,6 +185,13 @@
                </widget>
               </item>
               <item>
+               <widget class="QToolButton" name="toolButton_5">
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -214,10 +221,14 @@
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: rgb(0, 0, 0);</string>
+                   <string notr="true"/>
                   </property>
                   <property name="text">
                    <string>...</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/leftarrow.png</normaloff>icons/leftarrow.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -230,10 +241,14 @@
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: rgb(0, 0, 0);</string>
+                   <string notr="true"/>
                   </property>
                   <property name="text">
                    <string>...</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/uparrow.png</normaloff>icons/uparrow.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -246,10 +261,14 @@
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: rgb(0, 0, 0);</string>
+                   <string notr="true"/>
                   </property>
                   <property name="text">
                    <string>...</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/rightarrow.png</normaloff>icons/rightarrow.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -262,10 +281,14 @@
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: rgb(0, 0, 0);</string>
+                   <string notr="true"/>
                   </property>
                   <property name="text">
                    <string>...</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/downarrow.png</normaloff>icons/downarrow.png</iconset>
                   </property>
                  </widget>
                 </item>
