@@ -41,6 +41,8 @@ class BeamerBlock():
         
         self.BlockType = "Normal"
         
+        self.ColumnCount = 1
+        
         
 
 

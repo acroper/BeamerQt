@@ -50,13 +50,15 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.WidgetList = []
         
-        self.WidgetList.append(self.blockText)
+        # self.WidgetList.append(self.blockText)
         
         self.SetActions()
         
         self.Block = BeamerBlock()
         
         self.moveDirection = ""
+        
+        self.AddWidgetItem("Text")
         
        
 
@@ -69,6 +71,8 @@ class ContentWidget(QtWidgets.QWidget):
         self.mRight.clicked.connect(lambda: self.setMoveBlock("right"))
         
         self.addTextButton.clicked.connect(lambda: self.AddWidgetItem("Text"))
+        
+        self.addImageButton.clicked.connect(lambda: self.AddWidgetItem("Image"))
         
         self.maxCols.valueChanged.connect(self.RefreshItemList)
         
@@ -85,6 +89,8 @@ class ContentWidget(QtWidgets.QWidget):
         cItem.Activated.connect(self.ActivatedItem)
         
         self.RefreshItemList()
+        
+        return cItem
         
     
     def RefreshItemList(self):
@@ -133,17 +139,35 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.blockTitle.setText(self.Block.Title)
         
-        self.blockText.setPlainText(self.Block.Text)
+        # self.blockText.setPlainText(self.Block.Text)
         
         self.ColumnNumber = self.Block.ColumnNumber
         
         self.nombre = self.Block.nombre
+                
+        self.maxCols.setValue(self.Block.ColumnCount)
+        
+        for subblock in self.Block.SubBlocks:
+          
+            itemtype = subblock.Type
+            cItem = self.AddWidgetItem(itemtype)
+            cItem.SetInnerObject(subblock)
+               
+                
         
     
     def UpdateBlock(self):
         self.Block.Title = self.blockTitle.text()
-        self.Block.Text = self.blockText.toPlainText()
+        # self.Block.Text = self.blockText.toPlainText()
         self.Block.ColumnNumber = self.ColumnNumber
+        
+        self.Block.ColumnCount = self.maxCols.value()
+        
+        self.Block.SubBlocks.clear()
+        
+        for subblock in self.WidgetList:
+            self.Block.SubBlocks.append( subblock.GetInnerObject() )
+            
     
     
     

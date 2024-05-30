@@ -29,20 +29,34 @@ from PyQt6.QtCore import pyqtSignal, QObject
 import xml.etree.ElementTree as ET
 
 
-class itemWidgetText(QtWidgets.QWidget):
+class itemWidgetImage(QtWidgets.QWidget):
     
     def __init__(self):
         
-        super(itemWidgetText, self).__init__()
+        super(itemWidgetImage, self).__init__()
         
-        uic.loadUi('gui/ContentItems/Text/ItemText.ui', self)
+        uic.loadUi('gui/ContentItems/Image/ItemImage.ui', self)
         
-        self.InnerObject = itemText()
+        self.InnerObject = itemImage()
+        
+        
 
+        # layout = QHBoxLayout()
+        # layout.setSpacing(0)
+        # layout.setContentsMargins(QtCore.QMargins(0,0,0,0))
         
+        # self.TextEditor = QTextEdit()
+        
+        # self.TextEditor.setPlaceholderText("This is supposed to be image")
+        
+        # layout.addWidget(self.TextEditor)
+        
+        # self.setLayout(layout)
+        
+        # self.show()
         
     def GetInnerObject(self):
-        self.InnerObject.Text = self.TextEditor.toPlainText()
+        # self.InnerObject.Text = self.TextEditor.toPlainText()
         return self.InnerObject
     
     def SetInnerObject(self, inner):
@@ -50,14 +64,15 @@ class itemWidgetText(QtWidgets.QWidget):
         self.Refresh()
         
     def Refresh(self):
-        self.TextEditor.setText(self.InnerObject.Text)
+        # self.TextEditor.setText(self.InnerObject.Text)
+        None
         
 
         
-class itemText():
+class itemImage():
     def __init__(self):
         
-        self.Type = "Text"
+        self.Type = "Image"
         
         self.Text = ""
         

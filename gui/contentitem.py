@@ -47,6 +47,8 @@ class ContentItem(QtWidgets.QWidget):
         
         self.CurrentAction = ""
         
+        self.InnerWidget = None
+        
         self.SetActions()
         
 
@@ -75,6 +77,18 @@ class ContentItem(QtWidgets.QWidget):
         my_instance = my_class()
         
         self.Layout.addWidget(my_instance)
+        
+        self.InnerWidget = my_instance
+        
+        
+    def GetInnerObject(self):
+        
+        return self.InnerWidget.GetInnerObject()
+    
+    def SetInnerObject(self, obj):
+        
+        self.InnerWidget.SetInnerObject(obj)
+        
         
         
 
