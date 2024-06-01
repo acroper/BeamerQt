@@ -40,7 +40,7 @@ class ImageWidget(QWidget):
         self.image_label = QLabel(self)
         
         # self.image_label.setText("Hello")
-        self.max_image_size_percent = 0.5
+        self.max_image_size_percent = 1
 
         self.load_image()
 
@@ -56,7 +56,7 @@ class ImageWidget(QWidget):
         Adjusts the widget size to maintain the aspect ratio of the image 
         and limit the maximum size based on a percentage of the parent size.
         """
-        # self.image_label.setAlignment(Qt.AlignCenter)
+        self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # Get the parent widget size
         parent_size = self.parentWidget().size()
@@ -77,14 +77,6 @@ class ImageWidget(QWidget):
 
         # Set the widget size based on the scaled image
         self.setFixedSize(self.pixmap.size())
-
-
-    # def adjust_size(self):
-    #     """
-    #     Adjusts the widget size to maintain the aspect ratio of the image.
-    #     """
-    #     # self.image_label.setAlignment(Qt  )  # Center the image within the widget
-    #     self.setFixedSize(self.image_label.sizeHint())  # Use sizeHint for dynamic sizing
 
 
 
