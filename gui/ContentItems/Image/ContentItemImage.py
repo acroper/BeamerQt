@@ -40,7 +40,7 @@ class ImageWidget(QWidget):
         self.image_label = QLabel(self)
         
         # self.image_label.setText("Hello")
-        self.max_image_size_percent = 1
+        self.max_image_size_percent = 0.5
 
         self.load_image()
 
