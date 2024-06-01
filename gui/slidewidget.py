@@ -41,6 +41,9 @@ class SlideWidget(QtWidgets.QWidget):
               
         self.show()
         
+        self.ControlDown = False
+        self.ReptitionControl = 0
+        
         
     def createScene(self):
         self._scene = QtWidgets.QGraphicsScene(self)
@@ -56,12 +59,44 @@ class SlideWidget(QtWidgets.QWidget):
 
         self.layout.addWidget(self._view)
     
-        
     
-    def zoom_in(self):
+    def keyPressEvent(self, event):
+        key = event.key()
+        if key == 16777249:
+            self.ControlDown = True
+            
+    def keyReleaseEvent(self, event):
+        self.ControlDown = False
+        self.ReptitionControl = 0
+       
+
+    def wheelEvent(self, event):
+        
+        if self.ControlDown:
+            
+            if self.ReptitionControl == 0:
+                
+                delta = event.angleDelta().y()
+                
+                if delta > 0:
+                    self.zoom_in(0.05)
+                else:
+                    self.zoom_out(0.05)
+            
+            self.ReptitionControl += 1
+            
+            if self.ReptitionControl == 10:
+                self.ReptitionControl = 0
+            
+            
+            
+            
+            
+    
+    def zoom_in(self, inc = 0.2):
         
         # Lets try to increase in 10%
-        target = self.ZoomFactor+0.2
+        target = self.ZoomFactor+inc
         scale = target/self.ZoomFactor
         
         if self.ZoomFactor > 8:
@@ -72,10 +107,10 @@ class SlideWidget(QtWidgets.QWidget):
         self.ApplyZoom(scale)
 
     
-    def zoom_out(self):
+    def zoom_out(self, inc = 0.2):
         
         # Lets try to decrease in 10%
-        target = self.ZoomFactor-0.2
+        target = self.ZoomFactor-inc
         
         scale = target/self.ZoomFactor
         
@@ -93,7 +128,7 @@ class SlideWidget(QtWidgets.QWidget):
         #     self.ZoomFactor = 0.2
         self.ZoomFactor = self.ZoomFactor*scale
             
-        print(self.ZoomFactor)
+        # print(self.ZoomFactor)
         
         scale_tr = QtGui.QTransform()
         scale_tr.scale(scale, scale)
