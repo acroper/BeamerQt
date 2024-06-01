@@ -163,9 +163,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.Slidebar.SetDocument(self.Document)
             
             self.refreshPreviews()
-            
-            
-        
     
         
     

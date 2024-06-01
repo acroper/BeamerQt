@@ -24,9 +24,68 @@ import os
 
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
-from PyQt6.QtCore import pyqtSignal, QObject
+from PyQt6.QtCore import pyqtSignal, QObject, Qt
+from PyQt6.QtGui import QPixmap
 
 import xml.etree.ElementTree as ET
+import pathlib
+
+
+
+class ImageWidget(QWidget):
+    def __init__(self, image_path, parent=None):
+        super().__init__(parent)
+
+        self.image_path = image_path
+        self.image_label = QLabel(self)
+        
+        # self.image_label.setText("Hello")
+        self.max_image_size_percent = 0.5
+
+        self.load_image()
+
+    def load_image(self):
+        self.pixmap =QPixmap(self.image_path)  # Use walrus operator for concise assignment
+        self.image_label.setPixmap(self.pixmap)
+        self.adjust_size()
+        # print("Image loaded")
+     
+        
+    def adjust_size(self):
+        """
+        Adjusts the widget size to maintain the aspect ratio of the image 
+        and limit the maximum size based on a percentage of the parent size.
+        """
+        # self.image_label.setAlignment(Qt.AlignCenter)
+
+        # Get the parent widget size
+        parent_size = self.parentWidget().size()
+
+        # Calculate the maximum allowed image size
+        max_image_size = parent_size * self.max_image_size_percent
+
+        # Load the image and get its actual size
+        image_size = self.pixmap.size()
+
+        # Calculate the scaling factor to fit within the maximum size while maintaining aspect ratio
+        scale_factor = min(max_image_size.width() / image_size.width(),
+                          max_image_size.height() / image_size.height())
+
+        # Apply scaling to the image
+        self.pixmap = self.pixmap.scaled(image_size * scale_factor, Qt.AspectRatioMode.KeepAspectRatio)
+        self.image_label.setPixmap(self.pixmap)
+
+        # Set the widget size based on the scaled image
+        self.setFixedSize(self.pixmap.size())
+
+
+    # def adjust_size(self):
+    #     """
+    #     Adjusts the widget size to maintain the aspect ratio of the image.
+    #     """
+    #     # self.image_label.setAlignment(Qt  )  # Center the image within the widget
+    #     self.setFixedSize(self.image_label.sizeHint())  # Use sizeHint for dynamic sizing
+
 
 
 class itemWidgetImage(QtWidgets.QWidget):
@@ -40,20 +99,24 @@ class itemWidgetImage(QtWidgets.QWidget):
         self.InnerObject = itemImage()
         
         
+        
+        initialImage = os.path.join( pathlib.Path(__file__).parent.resolve() , 'add-image.png')
+        
+        # initialImage = "/tmp/ToPrint/IMG_20230212_123510.jpg"
+        
+        self.Image = ImageWidget(initialImage, self)
+        
+        self.layout.addWidget(self.Image)
+        
+        self.Image.show()
+        
+        
+        
+        
+        
+        
 
-        # layout = QHBoxLayout()
-        # layout.setSpacing(0)
-        # layout.setContentsMargins(QtCore.QMargins(0,0,0,0))
-        
-        # self.TextEditor = QTextEdit()
-        
-        # self.TextEditor.setPlaceholderText("This is supposed to be image")
-        
-        # layout.addWidget(self.TextEditor)
-        
-        # self.setLayout(layout)
-        
-        # self.show()
+
         
     def GetInnerObject(self):
         # self.InnerObject.Text = self.TextEditor.toPlainText()
