@@ -147,6 +147,8 @@ class ContentWidget(QtWidgets.QWidget):
                 
         self.maxCols.setValue(self.Block.ColumnCount)
         
+        self.WidgetList.clear()
+        
         for subblock in self.Block.SubBlocks:
           
             itemtype = subblock.Type
@@ -164,6 +166,8 @@ class ContentWidget(QtWidgets.QWidget):
         self.Block.ColumnCount = self.maxCols.value()
         
         self.Block.SubBlocks.clear()
+        
+        
         
         for subblock in self.WidgetList:
             self.Block.SubBlocks.append( subblock.GetInnerObject() )
