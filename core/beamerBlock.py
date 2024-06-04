@@ -21,6 +21,8 @@ import os
 
 import xml.etree.ElementTree as ET
 
+import importlib
+
 
 class BeamerBlock():
     
@@ -55,13 +57,51 @@ class BeamerBlock():
         BlockText.text = self.Text
         
         
+        ColsCount = ET.SubElement(ContentXML, 'ColumnCount')
+        ColsCount.text = str(self.ColumnCount)  
+        
+        
+        for Elem in self.SubBlocks:
+            blockElem = Elem.GetXMLContent()
+            ContentXML.append(blockElem)
+            
+            
+        
+        
         self.ContentXML = ContentXML
         
         return ContentXML
+    
+    
     
     def ReadXMLContent(self, xblock):
         
         self.Title = xblock.findall('BlockTitle')[0].text
         self.Text = xblock.findall('BlockText')[0].text
+        
+        self.ColumnCount = int( xblock.findall('ColumnCount')[0].text  )  
+        
+        self.SubBlocks.clear()
+        
+        for xmlWidget in xblock.findall('ItemWidget'):
+            itemtype = xmlWidget.get('ItemType')
+            
+            Item = self.GetItemType(itemtype)
+            Item.ReadXMLContent(xmlWidget)
+            
+            self.SubBlocks.append(Item)
+            
+            
+            
+    def GetItemType(self, itemtype):
+        
+        typeloc = 'gui.ContentItems.'+itemtype+ ".ContentItem"+itemtype
+        
+        module = importlib.import_module(typeloc)
+        my_class = getattr(module, "item" + itemtype )
+        my_instance = my_class()
+        
+        return my_instance
+            
         
         

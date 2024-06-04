@@ -130,5 +130,17 @@ class itemImage():
         self.Type = "Image"
         
         self.Text = ""
+     
+        
+    def GetXMLContent(self):
+        ContentXML = ET.Element('ItemWidget', ItemType='Image')
+        
+        ContentXML.text = self.Text
+        
+        return ContentXML
+
+    
+    def ReadXMLContent(self, xblock):
+        self.Text = xblock.text    
         
         

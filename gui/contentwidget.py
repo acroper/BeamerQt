@@ -206,15 +206,21 @@ class ContentWidget(QtWidgets.QWidget):
         BlockTitle = ET.SubElement(ContentXML, 'BlockTitle')
         BlockTitle.text = self.blockTitle.text()
         
-        BlockText = ET.SubElement(ContentXML, 'BlockText')
-        BlockText.text = self.blockText.toPlainText()
+        ColsCount = ET.SubElement(ContentXML, 'ColumnCount')
+        ColsCount.text = str(self.maxCols.value())  
+        
+        
+        # BlockText = ET.SubElement(ContentXML, 'BlockText')
+        # BlockText.text = self.blockText.toPlainText()
+        
+        
         
         return ContentXML
     
     def ReadXMLContent(self, xblock):
         
         self.blockTitle.setText( xblock.findall('BlockTitle')[0].text  ) 
-        self.blockText.setPlainText( xblock.findall('BlockText')[0].text  )
+        self.maxCols.setValue( int( xblock.findall('ColumnCount')[0].text  )  )
         
 
 

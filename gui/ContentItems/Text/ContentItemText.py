@@ -55,10 +55,27 @@ class itemWidgetText(QtWidgets.QWidget):
 
         
 class itemText():
+    
     def __init__(self):
         
         self.Type = "Text"
         
         self.Text = ""
+        
+    
+    def GetXMLContent(self):
+        ContentXML = ET.Element('ItemWidget', ItemType='Text')
+        
+        ContentXML.text = self.Text
+        
+        return ContentXML
+        
+        
+        
+    def ReadXMLContent(self, xblock):
+        self.Text = xblock.text
+        
+        
+    
         
         
