@@ -123,7 +123,28 @@ class ContentWidget(QtWidgets.QWidget):
         action = selected.CurrentAction
         selected.CurrentAction = "" # Delete action
         
+        index = self.WidgetList.index(selected)
+        
+        if action == "delete":
+            self.WidgetList.pop(index)
+            self.RefreshItemList()
+            
+        
+        if action == "prev" and index > 0:
+            self.WidgetList.pop(index)
+            self.WidgetList.insert(index-1, selected)
+            self.RefreshItemList()
+            
+        if action == "next" and index < len(self.WidgetList) :
+            self.WidgetList.pop(index)
+            self.WidgetList.insert(index+1,selected)
+            self.RefreshItemList()
+            
         print(action)
+            
+        
+        
+        
     
     
     def setMoveBlock(self, direction):
