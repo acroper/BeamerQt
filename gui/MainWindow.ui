@@ -54,7 +54,7 @@
      <x>0</x>
      <y>0</y>
      <width>1142</width>
-     <height>29</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -68,6 +68,8 @@
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
+    <addaction name="separator"/>
+    <addaction name="actionGenerateLaTeX"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -196,6 +198,7 @@
    <addaction name="actionAdd_new_slide"/>
    <addaction name="actionReset_slide_number"/>
    <addaction name="actionReorder_slides"/>
+   <addaction name="actionGenerateLaTeX"/>
   </widget>
   <action name="actionNew_File">
    <property name="text">
@@ -255,6 +258,11 @@
   <action name="actionReorder_slides">
    <property name="text">
     <string>Reorder slides</string>
+   </property>
+  </action>
+  <action name="actionGenerateLaTeX">
+   <property name="text">
+    <string>Generate LaTeX</string>
    </property>
   </action>
  </widget>

@@ -93,6 +93,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionReset_slide_number.triggered.connect(self.resetSlideNumber)
         
         
+        self.actionGenerateLaTeX.triggered.connect(self.GenerateLatex)
+        
+        
        
     
     
@@ -232,6 +235,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Save contents to /tmp/BeamerQt.xml
         
         self.Document.SaveXML()
+        
+        
+    def GenerateLatex(self):
+        self.Document.GenLaTeX()
 
         
         

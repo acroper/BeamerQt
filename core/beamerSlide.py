@@ -120,21 +120,27 @@ class BeamerSlide():
                 self.Columns[k].append(block)
             
             k += 1
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
-        
-        
-        
+
 
         # Build the internal elements
+        
+    def GenLaTeX(self):
+        latexcontent = []
+        latexcontent.append("\\begin{frame}{" + self.Title + "}")
+        
+        
+        if len(self.Columns[1]) > 0:
+            # Export as columns
+            None
+            
+        latexcontent.append("\end{frame}")
+        
+        
+        
+        
+        
+        
+        
+        return latexcontent
         
         

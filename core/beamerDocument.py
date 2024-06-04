@@ -21,6 +21,8 @@ import os
 import xml.etree.ElementTree as ET
 import tempfile
 
+import subprocess
+
 from core.beamerSlide import *
 
 
@@ -92,11 +94,11 @@ class beamerDocument():
         
     
     
-    def GenLaTeX(self):
-        None
+
+        
+        
     
-    def ExportPDF(self, filename):
-        None
+    
     
     
     def WriteFile(self, filename):
@@ -104,4 +106,59 @@ class beamerDocument():
     
     def ReadFile(self, filename):
         None
+        
+        
+    def GenLaTeX(self):
+        
+        filename = "/tmp/LaTeX/Output.tex"
+        # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )
+        outputfile = open(filename, 'w' )
+        
+        
+        preamble = open(  os.path.join( os.path.dirname(__file__) , "preamble.tex" ), 'r').readlines()
+           
+        outputfile.writelines(preamble)
+        
+        
+        for slide in self.Slides:
+            latexcontent = slide.GenLaTeX()
+            
+            for line in latexcontent:
+                outputfile.write(line)
+                outputfile.write('\n')
+            
+        
+        outputfile.write("\end{document}")
+        
+        outputfile.close()
+        
+        self.ExportPDF(filename)
+        
+        
+        
+        
+    def ExportPDF(self, filename):
+        
+        current_working_directory = os.getcwd()
+        
+        os.chdir("/tmp/LaTeX")
+    
+        subprocess.call("pdflatex Output.tex", shell=True) 
+        
+        os.chdir(current_working_directory)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
