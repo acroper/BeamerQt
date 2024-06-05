@@ -73,12 +73,12 @@ class ContentItem(QtWidgets.QWidget):
         
         
         module = importlib.import_module(typeloc)
-        my_class = getattr(module, "itemWidget" + itemtype )
-        my_instance = my_class()
+        itemClass = getattr(module, "itemWidget" + itemtype )
+        Item = itemClass()
         
-        self.Layout.addWidget(my_instance)
+        self.Layout.addWidget(Item)
         
-        self.InnerWidget = my_instance
+        self.InnerWidget = Item
         
         
     def GetInnerObject(self):

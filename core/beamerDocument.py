@@ -90,16 +90,7 @@ class beamerDocument():
             newslide = self.NewSlide()
             newslide.ReadXMLContent(subslide)
             
-        
-        
-    
-    
-
-        
-        
-    
-    
-    
+   
     
     def WriteFile(self, filename):
         None
@@ -110,8 +101,16 @@ class beamerDocument():
         
     def GenLaTeX(self):
         
-        filename = "/tmp/LaTeX/Output.tex"
+        
+        # Create LaTeX folder
+        latexfolder = os.path.join(self.DocLocation, "LaTeX")
+        
+        os.makedirs(latexfolder, exist_ok=True)
+        
+        filename = os.path.join(latexfolder, "output.tex")
         # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )
+        
+        
         outputfile = open(filename, 'w' )
         
         
@@ -132,18 +131,20 @@ class beamerDocument():
         
         outputfile.close()
         
-        self.ExportPDF(filename)
+        self.ExportPDF(latexfolder)
         
         
         
         
-    def ExportPDF(self, filename):
+    def ExportPDF(self, latexfolder):
         
         current_working_directory = os.getcwd()
         
-        os.chdir("/tmp/LaTeX")
+        os.chdir(latexfolder)
     
-        subprocess.call("pdflatex Output.tex", shell=True) 
+        subprocess.call("pdflatex output.tex", shell=True) 
+        
+        subprocess.call(('xdg-open', 'output.pdf'))
         
         os.chdir(current_working_directory)
         

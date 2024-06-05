@@ -98,10 +98,28 @@ class BeamerBlock():
         typeloc = 'gui.ContentItems.'+itemtype+ ".ContentItem"+itemtype
         
         module = importlib.import_module(typeloc)
-        my_class = getattr(module, "item" + itemtype )
-        my_instance = my_class()
+        itemClass = getattr(module, "item" + itemtype )
+        Item = itemClass()
         
-        return my_instance
+        return Item
+    
+    
+    def GenLatex(self):
+        latexcontent = []
+        
+        # Add code to starting the block
+        latexcontent.append( "\\begin{block}{" + str(self.Title) + "}"  )
+        
+        for item in self.SubBlocks:
+            
+            itemlatex = item.GenLatex()
+            latexcontent.extend(itemlatex)
+            
+        latexcontent.append("\\end{block}")
+            
+        return latexcontent
+            
+            
             
         
         

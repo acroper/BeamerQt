@@ -76,6 +76,15 @@ class itemText():
         self.Text = xblock.text
         
         
+    def GenLatex(self):
+        
+        latexcontent = []
+        
+        latexcontent.append(self.Text)
+        
+        return latexcontent
+        
+        
     
         
         

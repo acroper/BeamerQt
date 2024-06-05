@@ -234,10 +234,13 @@ class MainWindow(QtWidgets.QMainWindow):
     def Save(self):
         # Save contents to /tmp/BeamerQt.xml
         
+        self.CurrentFrame.SaveSlide()
+        
         self.Document.SaveXML()
         
         
     def GenerateLatex(self):
+        self.CurrentFrame.SaveSlide()
         self.Document.GenLaTeX()
 
         

@@ -128,17 +128,52 @@ class BeamerSlide():
         latexcontent = []
         latexcontent.append("\\begin{frame}{" + self.Title + "}")
         
+        useColumns = False
         
         if len(self.Columns[1]) > 0:
-            # Export as columns
-            None
+            useColumns = True
+            # Add something to start the column environment
+            latexcontent.append("\\begin{columns}[t]")
+            
+            framesize = 10
+            
+            leftcol = round (self.LeftColumnProportion*10/100) 
+            rightcol = framesize - leftcol
+            
+            columnsizes = [leftcol, rightcol ]
+            
+            
+        k = 0
+        
+        for column in self.Columns:
+            
+            # Add code to starting column
+            if useColumns:
+                latexcontent.append("\\column{"+str(columnsizes[k])+"cm}")
+            
+            for block in column:
+                blockLatex = block.GenLatex()
+                latexcontent.extend(blockLatex)
+                
+                print("Adding block content: ")
+                print(blockLatex)
+                
+            k += 1
+            # Add code to ending column
+            
+        # Add code to ending column environment
+        if useColumns:
+            latexcontent.append("\\end{columns}")
+            
+            
+                
+            
+            
+            
+            
+        
             
         latexcontent.append("\end{frame}")
-        
-        
-        
-        
-        
         
         
         return latexcontent
