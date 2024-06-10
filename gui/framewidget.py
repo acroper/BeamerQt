@@ -194,6 +194,9 @@ class FrameWidget(QtWidgets.QWidget):
             
     def refresh_rows(self):
         k = 1
+        # self.Columns[0].clear()
+        # self.Columns[1].clear()
+        
         for block in self.Blocks:
             block.ColumnNumber = -1
             self.ElementsGrid.addWidget(block, k , 1)
@@ -247,6 +250,13 @@ class FrameWidget(QtWidgets.QWidget):
         if self.CurrentLayout == "layout_2rows": 
             # Needs at least 2 Blocks
             self.setMinBlocks(2)
+            self.Columns[0].clear()
+            self.Columns[1].clear()
+            
+            for nblock in self.Blocks:
+                self.Columns[0].append(nblock)
+            
+            
             self.refresh_rows()
   
         if self.CurrentLayout == "layout_standard":
