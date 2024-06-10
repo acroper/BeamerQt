@@ -107,13 +107,16 @@ class beamerDocument():
         #Now compress the whole Doc folder
         
         current_working_directory = os.getcwd()
-        os.chdir(self.docfolder)
+        # os.chdir(self.DocLocation)
         
-        subprocess.call("zip -r ../beamerqt.bqt * ", shell=True)
+        tmpfile = os.path.join(self.DocLocation, "beamerqt")
         
-        shutil.copy(os.path.join(self.DocLocation, "beamerqt.bqt"), filename)
+        # subprocess.call("zip -r ../beamerqt.bqt * ", shell=True)
+        shutil.make_archive( tmpfile  , 'zip', self.docfolder)
         
-        os.chdir(current_working_directory)
+        shutil.copy(tmpfile+".zip", filename)
+        
+        # os.chdir(current_working_directory)
         
         self.NewFile = False
         
