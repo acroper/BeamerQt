@@ -36,6 +36,17 @@ def openFileNameDialog(parent, location="", Filter = "All files (*.*)"):
         return fileName[0]
     else:
         return ""
+
+    
+def saveFileNameDialog(parent, location="", Filter = "All files (*.*)"):
+    title = "Select a file"
+    
+    fileName = QFileDialog.getSaveFileName(parent, title, location, Filter)
+
+    if fileName:
+        return fileName[0]
+    else:
+        return ""
     
 def openFolderNameDialog(self, location):
     title = "Select a folder"

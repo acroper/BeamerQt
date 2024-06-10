@@ -83,7 +83,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # close
         self.actionQuit.triggered.connect(self.closing)
-        self.actionOpen_File.triggered.connect(self.showOpenFile)
+        self.actionOpen_File.triggered.connect(self.Open)
         
         self.actionSave.triggered.connect(self.Save)
         
@@ -151,7 +151,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def showOpenFile(self):
         
-        filename = openFileNameDialog(self, "", "BeamerQT files | *.xml (*.xml)")
+        filename = openFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
         
         print("Selected file: " + filename)
         
@@ -166,7 +166,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.Slidebar.SetDocument(self.Document)
             
             self.refreshPreviews()
-    
+            
         
     
     def openProject(self, filename):
@@ -233,10 +233,36 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def Save(self):
         # Save contents to /tmp/BeamerQt.xml
-        
         self.CurrentFrame.SaveSlide()
+        # self.Document.SaveXML()
         
-        self.Document.SaveXML()
+        if self.Document.NewFile:
+            # Create a new document
+            filename = saveFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+            self.Document.WriteFile(filename)
+        else:
+            self.Document.WriteFile(self.Document.RealLocation)
+            
+            
+    def Open(self):
+        
+        filename = openFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+        
+        print("Selected file: " + filename)
+        
+        if filename != "":
+            Document2 = beamerDocument(self.WorkDirectory)
+            
+            Document2.ReadFile(filename)
+            
+            self.Document = Document2
+            
+            self.CurrentFrame.ReadSlide(self.Document.Slides[0])
+            
+            self.Slidebar.SetDocument(self.Document)
+            
+            self.refreshPreviews()        
+        
         
         
     def GenerateLatex(self):

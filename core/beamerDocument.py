@@ -20,6 +20,8 @@ import sys
 import os
 import xml.etree.ElementTree as ET
 import tempfile
+import zipfile
+import shutil
 
 import subprocess
 
@@ -37,6 +39,11 @@ class beamerDocument():
         
         # Store everything in DocLocation
         
+        
+        self.NewFile = True
+        self.RealLocation =  ""
+        
+        self.CreateFolders()
         
         self.Slides = []
         
@@ -78,7 +85,7 @@ class beamerDocument():
         tree = ET.ElementTree(Documento)
         ET.indent(tree, '  ')
         
-        tree.write(self.DocLocation+"/BeamerQt.xml", encoding="utf-8", xml_declaration=True)
+        tree.write( os.path.join(self.docfolder, "BeamerQt.xml"), encoding="utf-8", xml_declaration=True)
         
         
     def ReadXML(self, xmlDocument):
@@ -93,21 +100,55 @@ class beamerDocument():
    
     
     def WriteFile(self, filename):
-        None
+        self.RealLocation = filename
+        
+        self.SaveXML()
+        
+        #Now compress the whole Doc folder
+        
+        current_working_directory = os.getcwd()
+        os.chdir(self.docfolder)
+        
+        subprocess.call("zip -r ../beamerqt.bqt * ", shell=True)
+        
+        shutil.copy(os.path.join(self.DocLocation, "beamerqt.bqt"), filename)
+        
+        os.chdir(current_working_directory)
+        
+        self.NewFile = False
+        
     
     def ReadFile(self, filename):
-        None
+        self.RealLocation = filename
+        self.NewFile = False
+
+        with zipfile.ZipFile(filename, 'r') as zip_ref:
+            zip_ref.extractall(self.docfolder)
+        
+        print("Extracted file in :" + self.docfolder)
+            
+        self.ReadXML( os.path.join(self.docfolder, "BeamerQt.xml"  )    )
         
         
+        
+        
+    def CreateFolders(self):
+        
+        self.latexfolder = os.path.join(self.DocLocation, "LaTeX")
+        os.makedirs(self.latexfolder, exist_ok=True)
+        
+        self.docfolder = os.path.join(self.DocLocation, "Doc")
+        os.makedirs(self.docfolder, exist_ok=True)
+        
+        self.mediafolder = os.path.join(self.docfolder, "Media")
+        os.makedirs(self.mediafolder, exist_ok=True)
+        
+        
+        
+    
     def GenLaTeX(self):
         
-        
-        # Create LaTeX folder
-        latexfolder = os.path.join(self.DocLocation, "LaTeX")
-        
-        os.makedirs(latexfolder, exist_ok=True)
-        
-        filename = os.path.join(latexfolder, "output.tex")
+        filename = os.path.join(self.latexfolder, "output.tex")
         # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )
         
         
@@ -131,16 +172,16 @@ class beamerDocument():
         
         outputfile.close()
         
-        self.ExportPDF(latexfolder)
+        self.ExportPDF()
         
         
         
         
-    def ExportPDF(self, latexfolder):
+    def ExportPDF(self):
         
         current_working_directory = os.getcwd()
         
-        os.chdir(latexfolder)
+        os.chdir(self.latexfolder)
     
         subprocess.call("pdflatex output.tex", shell=True) 
         
