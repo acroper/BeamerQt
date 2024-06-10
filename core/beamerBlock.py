@@ -56,6 +56,9 @@ class BeamerBlock():
         BlockText = ET.SubElement(ContentXML, 'BlockText')
         BlockText.text = self.Text
         
+        BlockType = ET.SubElement(ContentXML, 'BlockType')
+        BlockType.text = self.BlockType
+        
         
         ColsCount = ET.SubElement(ContentXML, 'ColumnCount')
         ColsCount.text = str(self.ColumnCount)  
@@ -80,6 +83,8 @@ class BeamerBlock():
         self.Text = xblock.findall('BlockText')[0].text
         
         self.ColumnCount = int( xblock.findall('ColumnCount')[0].text  )  
+        
+        self.BlockType = xblock.findall('BlockType')[0].text
         
         self.SubBlocks.clear()
         

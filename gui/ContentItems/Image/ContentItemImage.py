@@ -125,6 +125,11 @@ class itemWidgetImage(QtWidgets.QWidget):
 
         
 class itemImage():
+    
+    # Once implemented, this module should store the files
+    # inside the temporal folder 
+    
+    
     def __init__(self):
         
         self.Type = "Image"
