@@ -60,9 +60,15 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.ListWidget.addItem(qitem)
         self.ListWidget.setItemWidget(qitem, slidePrev)
         
+        
+    def ClearLists(self):
+        self.SlideList.clear()
+        self.ListWidget.clear()
+    
     
     def SetDocument(self, Doc):
         self.Document = Doc
+        self.ClearLists()
         # Assign the document, and then extract the parameters from it
     
     
