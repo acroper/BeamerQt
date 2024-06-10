@@ -108,14 +108,37 @@ class BeamerBlock():
         latexcontent = []
         
         # Add code to starting the block
-        latexcontent.append( "\\begin{block}{" + str(self.Title) + "}"  )
+        if self.BlockType == "Normal":
+            latexcontent.append( "\\begin{block}{" + str(self.Title) + "}"  )
+        
+        if self.BlockType == "Example":
+            latexcontent.append( "\\begin{exampleblock}{" + str(self.Title) + "}"  )
+            
+        
+        if self.BlockType == "Alert":
+            latexcontent.append( "\\begin{alertblock}{" + str(self.Title) + "}"  )
+            
+            
+            
         
         for item in self.SubBlocks:
             
             itemlatex = item.GenLatex()
             latexcontent.extend(itemlatex)
+        
             
-        latexcontent.append("\\end{block}")
+        if self.BlockType == "Normal":
+            latexcontent.append("\\end{block}")
+            
+        if self.BlockType == "Example":
+            latexcontent.append("\\end{exampleblock}")
+            
+        
+        if self.BlockType == "Alert":
+            latexcontent.append("\\end{alertblock}")
+            
+            
+            
             
         return latexcontent
             

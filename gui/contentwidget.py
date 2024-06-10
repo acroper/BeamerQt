@@ -58,6 +58,8 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.moveDirection = ""
         
+        self.BlockType = "Normal"
+        
         self.AddWidgetItem("Text")
         
        
@@ -76,8 +78,21 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.maxCols.valueChanged.connect(self.RefreshItemList)
         
+        self.BlockNormal.clicked.connect(lambda: self.SetBlockType("Normal"))
+        
+        self.BlockExample.clicked.connect(lambda: self.SetBlockType("Example"))
+        
+        self.BlockAlert.clicked.connect(lambda: self.SetBlockType("Alert"))
+        
+        self.BlockSimple.clicked.connect(lambda: self.SetBlockType("Simple"))
+        
     
 
+    
+    def SetBlockType(self, blocktype):
+        
+        self.BlockType = blocktype
+        
     
     
     def AddWidgetItem(self, itemtype):
@@ -175,6 +190,21 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.WidgetList.clear()
         
+        self.BlockType = self.Block.BlockType
+        
+        # update the marker
+        if self.BlockType == "Normal":
+            self.BlockNormal.setChecked(True)
+            
+        if self.BlockType == "Example":
+            self.BlockExample.setChecked(True)
+            
+        if self.BlockType == "Alert":
+            self.BlockAlert.setChecked(True)
+            
+        if self.BlockType == "Simple":
+            self.BlockSimple.setChecked(True)
+        
         for subblock in self.Block.SubBlocks:
           
             itemtype = subblock.Type
@@ -193,6 +223,7 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.Block.SubBlocks.clear()
         
+        self.Block.BlockType = self.BlockType
         
         
         for subblock in self.WidgetList:
