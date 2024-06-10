@@ -67,6 +67,9 @@ class SlideBarWidget(QtWidgets.QWidget):
     
     
     def setSelected(self):
+        
+        # self.RefreshSlides()
+        
         for slide in self.SlideList:
             slide.unSelected()
             

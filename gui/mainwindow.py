@@ -71,7 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Create timer for refresh previous
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.refreshPreviews)
-        self.timer.start(20000)
+        self.timer.start(4000)
         self.refreshPreviews()
         
         

@@ -164,8 +164,11 @@ class beamerDocument():
             latexcontent = slide.GenLaTeX()
             
             for line in latexcontent:
-                outputfile.write(line)
-                outputfile.write('\n')
+                try:
+                    outputfile.write(line)
+                    outputfile.write('\n')
+                except:
+                    None
             
         
         outputfile.write("\end{document}")
