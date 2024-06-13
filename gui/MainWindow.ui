@@ -199,6 +199,7 @@
    <addaction name="actionReset_slide_number"/>
    <addaction name="actionReorder_slides"/>
    <addaction name="actionGenerateLaTeX"/>
+   <addaction name="actionFrontMatter"/>
   </widget>
   <action name="actionNew_File">
    <property name="text">
@@ -263,6 +264,11 @@
   <action name="actionGenerateLaTeX">
    <property name="text">
     <string>Generate LaTeX</string>
+   </property>
+  </action>
+  <action name="actionFrontMatter">
+   <property name="text">
+    <string>Configure Front Matter</string>
    </property>
   </action>
  </widget>

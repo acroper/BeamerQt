@@ -27,6 +27,8 @@ import subprocess
 
 from core.beamerSlide import *
 
+from core.frontMatter import *
+
 
 class beamerDocument():
     
@@ -42,6 +44,8 @@ class beamerDocument():
         
         self.NewFile = True
         self.RealLocation =  ""
+        
+        self.FrontMatter = frontMatter()
         
         self.CreateFolders()
         

@@ -32,6 +32,8 @@ from gui.guidialogs import *
 
 from core.beamerDocument import *
 
+from gui.FrontMatter.frontmatterwidget import *
+
 
 import xml.etree.ElementTree as ET
 import tempfile
@@ -95,8 +97,17 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.actionGenerateLaTeX.triggered.connect(self.GenerateLatex)
         
+        self.actionFrontMatter.triggered.connect(self.ConfigFrontMatter)
+        
         
        
+    def ConfigFrontMatter(self):
+        fmw = FrontMatterWidget()
+        
+        fmw.SetFrontMatter(self.Document.FrontMatter)
+        
+        fmw.exec()
+    
     
     
     def loadPanels(self):
