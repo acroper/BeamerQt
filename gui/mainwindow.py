@@ -106,7 +106,11 @@ class MainWindow(QtWidgets.QMainWindow):
         
         fmw.SetFrontMatter(self.Document.FrontMatter)
         
-        fmw.exec()
+        res = fmw.exec()
+        
+        if res:
+            fmw.Save()
+            
     
     
     

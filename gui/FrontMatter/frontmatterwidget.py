@@ -53,6 +53,9 @@ class FrontMatterWidget(QtWidgets.QDialog):
     
     def LoadElements(self):
         self.Title.setText(self.FrontMatter.Title)
+        self.Subtitle.setText(self.FrontMatter.Subtitle)
+        self.Authors.setPlainText(self.FrontMatter.Author)
+        self.Options.setPlainText(self.FrontMatter.Options)
         
     def Save(self):
         self.FrontMatter.Title = self.Title.text()

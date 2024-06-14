@@ -83,6 +83,9 @@ class beamerDocument():
         
         Documento = ET.Element('BeamerDoc')
         
+        FM = self.FrontMatter.GetXMLContent()
+        Documento.append(FM)
+        
         for slide in self.Slides:
             Documento.append(slide.GetXMLContent())
             
@@ -97,7 +100,12 @@ class beamerDocument():
         tree = ET.parse(xmlDocument)
         root = tree.getroot()
         
-        for subslide in root:
+        FM = root.findall('FrontMatter')[0]
+        
+        self.FrontMatter.ReadXMLContent(FM)
+        
+        
+        for subslide in root.findall('Frame'):
             newslide = self.NewSlide()
             newslide.ReadXMLContent(subslide)
             
