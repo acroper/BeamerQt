@@ -165,12 +165,6 @@ class BeamerSlide():
         if useColumns:
             latexcontent.append("\\end{columns}")
             
-            
-                
-            
-            
-            
-            
         
             
         latexcontent.append("\end{frame}")

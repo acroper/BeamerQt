@@ -174,6 +174,17 @@ class beamerDocument():
            
         outputfile.writelines(preamble)
         
+        # add front matter
+        latexcontent = self.FrontMatter.GenLaTeX()
+        
+        for line in latexcontent:
+            try:
+                outputfile.write(line)
+                outputfile.write('\n')
+            except:
+                None
+        
+        
         
         for slide in self.Slides:
             latexcontent = slide.GenLaTeX()

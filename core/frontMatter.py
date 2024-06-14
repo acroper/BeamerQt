@@ -89,6 +89,21 @@ class frontMatter:
         self.Background.ReadXMLContent(xblock.findall('ItemWidget')[1])
         
         
+    def GenLaTeX(self):
+        latexcontent = []
+        
+        latexcontent.append("\\title{" + self.Title + "}")
+        
+        latexcontent.append("\\subtitle{" + self.Subtitle + "}")
+        
+        latexcontent.append("\\author{" + self.Author + "}")
+        
+        latexcontent.append("\\makebeamertitle")
+        
+        
+        return latexcontent
+        
+        
         
         
         
