@@ -75,12 +75,28 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.TotalSize = 980
         
+        self.setActions()
+        
         self.refresh_Layout()
         
         
                       
         # self.show()
         
+    def setActions(self):
+        self.sectionCheck.clicked.connect(self.ActivateSection)
+        self.subsectionCheck.clicked.connect(self.ActivateSubsection)
+        
+    
+    def ActivateSection(self):
+        if self.sectionCheck.isChecked():
+            self.subsectionCheck.setChecked(False)
+        
+    def ActivateSubsection(self):
+        if self.subsectionCheck.isChecked():
+            self.sectionCheck.setChecked(False)
+
+    
     
     def updateColumnSize(self):
         ### Use the left column proportion to alter the size of the widgets
@@ -493,6 +509,16 @@ class FrameWidget(QtWidgets.QWidget):
             self.BeamerSlide.Title = self.title_text.toPlainText()
             self.BeamerSlide.Subtitle = self.subtitle_text.text()
             
+            self.BeamerSlide.TitleMode = "Normal"
+            
+            if self.sectionCheck.isChecked():
+                self.BeamerSlide.TitleMode = "Section"
+            
+            if self.subsectionCheck.isChecked():
+                self.BeamerSlide.TitleMode = "Subsection"
+                
+            
+            
             
             ## Go through the columns and replicate their structure
             ## Re do this directly in the main functions requires additional code
@@ -536,6 +562,15 @@ class FrameWidget(QtWidgets.QWidget):
         self.LeftColumnProportion = self.BeamerSlide.LeftColumnProportion 
         
         N = 0
+        
+        self.sectionCheck.setChecked(False)
+        self.subsectionCheck.setChecked(False)
+        
+        if self.BeamerSlide.TitleMode == "Section":
+            self.sectionCheck.setChecked(True)
+        
+        if self.BeamerSlide.TitleMode == "Subsection":
+            self.subsectionCheck.setChecked(True)
         
         self.Blocks.clear()
         

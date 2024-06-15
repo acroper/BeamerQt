@@ -89,22 +89,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QTextEdit" name="title_text">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border: 1px solid black</string>
-          </property>
-          <property name="placeholderText">
-           <string>Title of the frame</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="subtitle_label">
           <property name="styleSheet">
@@ -124,6 +108,52 @@
            <string>Subtitle of the frame</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QTextEdit" name="title_text">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 1px solid black</string>
+          </property>
+          <property name="placeholderText">
+           <string>Title of the frame</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QCheckBox" name="sectionCheck">
+            <property name="text">
+             <string>Section</string>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+            <property name="tristate">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="subsectionCheck">
+            <property name="text">
+             <string>Subsection</string>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+            <property name="tristate">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -226,6 +256,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>title_text</tabstop>
+  <tabstop>subtitle_text</tabstop>
+  <tabstop>sectionCheck</tabstop>
+  <tabstop>subsectionCheck</tabstop>
+  <tabstop>pushButton_5</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

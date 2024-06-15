@@ -43,6 +43,8 @@ class BeamerSlide():
         
         self.Preview = None
         
+        self.TitleMode = "Normal"
+        
         self.LeftColumnProportion = 100
         
 
@@ -64,6 +66,10 @@ class BeamerSlide():
         
         SubTitleBar = ET.SubElement(FrameXML, 'SubTitleBar')
         SubTitleBar.text = self.Subtitle
+        
+        TitleMode = ET.SubElement(FrameXML, 'TitleMode')
+        TitleMode.text = self.TitleMode
+        
         
         FrameLayout = ET.SubElement(FrameXML, 'FrameLayout')
         FrameLayout.text = self.CurrentLayout
@@ -106,6 +112,8 @@ class BeamerSlide():
         
         self.LeftColumnProportion = int( xblock.findall('ColumnProportion')[0].text )
         
+        self.TitleMode = xblock.findall('TitleMode')[0].text
+        
         columns = xblock.findall('Column')
         
         k = 0
@@ -126,6 +134,14 @@ class BeamerSlide():
         
     def GenLaTeX(self):
         latexcontent = []
+        
+        if self.TitleMode == "Section":
+            latexcontent.append("\\section{" + self.Title + "}")
+        
+        if self.TitleMode == "Subsection":
+            latexcontent.append("\\subsection{" + self.Title + "}")
+        
+        
         latexcontent.append("\\begin{frame}{" + self.Title + "}")
         
         useColumns = False
