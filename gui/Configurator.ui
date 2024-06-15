@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>757</width>
-        <height>1052</height>
+        <width>752</width>
+        <height>1187</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -113,6 +113,9 @@
                </item>
               </layout>
              </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="themeBox"/>
             </item>
            </layout>
           </item>

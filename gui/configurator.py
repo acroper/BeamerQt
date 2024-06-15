@@ -26,6 +26,8 @@ from PyQt6 import QtWidgets, uic, QtCore, QtGui
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
 
+from core.template import *
+
 
 class ConfiguratorWidget(QtWidgets.QWidget):
     
@@ -39,12 +41,60 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         self.LeftColumnValue = 100
         
-        
+        self.ThemeList = []
         
         self.LoadActions()
+        
+        self.RefreshThemeList()
+        
+        self.Document = None
+        
+        
                       
         # self.show()
         
+        
+    def SetDocument(self, documento):
+        self.Document = documento
+        
+        # Check template
+        tempName = self.Document.Template.Name
+        
+        self.themeBox.setCurrentText(tempName)
+        
+    
+    def UpdateTheme(self):
+        
+        index = self.themeBox.currentIndex()
+        self.Document.Template = self.ThemeList[index]
+        
+        
+        
+    
+    def RefreshThemeList(self):
+        
+        # check in template folder
+        filelist = os.listdir("templates")
+        for file in filelist:
+            if file.endswith("xml"):
+                filename = os.path.join("templates", file  )
+                
+                if os.path.exists(filename):
+                    
+                    print("Opening file " + filename)
+                    
+                
+                    templ = BeamerTemplate()
+                    templ.ReadXMLFile( filename )
+                    self.themeBox.addItem(templ.Name)
+                    self.ThemeList.append(templ)
+                    
+        
+        self.themeBox.currentIndexChanged.connect(self.UpdateTheme)
+            
+            
+        
+    
     def ConnectFrame(self, NewFrame):
         self.CurrentFrame = NewFrame
         
@@ -171,6 +221,10 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         self.UnSelectBlock()
         
         self.LeftColumnSize.setValue(self.CurrentFrame.LeftColumnProportion)
+        
+        
+    
+
         
         
             

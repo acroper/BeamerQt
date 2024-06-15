@@ -163,6 +163,10 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.Configurator.ConnectFrame(self.CurrentFrame)
         
+        self.Configurator.SetDocument(self.Document)
+        
+        
+        
         
     def showOpenFile(self):
         
@@ -276,7 +280,7 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.Slidebar.SetDocument(self.Document)
             
-            
+            self.Configurator.SetDocument(self.Document)
             
             self.refreshPreviews()        
         

@@ -29,6 +29,7 @@ from core.beamerSlide import *
 
 from core.frontMatter import *
 
+from core.template import *
 
 class beamerDocument():
     
@@ -44,6 +45,8 @@ class beamerDocument():
         
         self.NewFile = True
         self.RealLocation =  ""
+        
+        self.Template = BeamerTemplate()
         
         self.FrontMatter = frontMatter()
         
@@ -83,6 +86,9 @@ class beamerDocument():
         
         Documento = ET.Element('BeamerDoc')
         
+        BT = self.Template.GetXMLContent()
+        Documento.append(BT)
+        
         FM = self.FrontMatter.GetXMLContent()
         Documento.append(FM)
         
@@ -99,6 +105,9 @@ class beamerDocument():
         print('Opening XML file')
         tree = ET.parse(xmlDocument)
         root = tree.getroot()
+        
+        BT = root.findall('Template')[0]
+        self.Template.ReadXMLContent(BT)
         
         FM = root.findall('FrontMatter')[0]
         
@@ -159,7 +168,17 @@ class beamerDocument():
         os.makedirs(self.mediafolder, exist_ok=True)
         
         
+    
+    def WriteLines(self, lines, outputfile):
         
+        for line in lines:
+            try:
+                outputfile.write(line)
+                outputfile.write('\n')
+            except:
+                None
+        
+    
     
     def GenLaTeX(self):
         
@@ -174,27 +193,20 @@ class beamerDocument():
            
         outputfile.writelines(preamble)
         
+        # add template
+        latexcontent = self.Template.GenLaTeX()
+        self.WriteLines(latexcontent, outputfile)  
+        
+        
+        
         # add front matter
         latexcontent = self.FrontMatter.GenLaTeX()
-        
-        for line in latexcontent:
-            try:
-                outputfile.write(line)
-                outputfile.write('\n')
-            except:
-                None
-        
-        
+        self.WriteLines(latexcontent, outputfile)
+
         
         for slide in self.Slides:
             latexcontent = slide.GenLaTeX()
-            
-            for line in latexcontent:
-                try:
-                    outputfile.write(line)
-                    outputfile.write('\n')
-                except:
-                    None
+            self.WriteLines(latexcontent, outputfile)
             
         
         outputfile.write("\end{document}")
