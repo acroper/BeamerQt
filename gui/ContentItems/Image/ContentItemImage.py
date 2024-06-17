@@ -68,8 +68,11 @@ class ImageWidget(QWidget):
         self.image_label.setIcon(self.icon)
         
         self.pixmap =QPixmap(self.image_path)
-        parent_size = self.parentWidget().size()
-        max_image_size = parent_size * self.max_image_size_percent
+        # parent_size = self.parentWidget().parentWidget().size()
+        
+        # max_image_size = parent_size * self.max_image_size_percent
+        max_image_size = QtCore.QSize(300,300)
+        
         image_size = self.pixmap.size()
         
         scale_factor = min(max_image_size.width() / image_size.width(),
@@ -77,7 +80,7 @@ class ImageWidget(QWidget):
         
         self.image_label.setIconSize(image_size * scale_factor)
         
-        self.setFixedSize(image_size * scale_factor*1.1)
+        # self.setFixedSize(image_size * scale_factor*1.1)
         
         
         
@@ -153,6 +156,7 @@ class itemWidgetImage(QtWidgets.QWidget):
         res = ImgBrw.exec()
         if res:
             self.InnerObject.image_path = ImgBrw.image_path
+            self.InnerObject.Width = ImgBrw.percentage
             self.InnerObject.pixmap = None
             self.Refresh(True)
 
@@ -195,6 +199,8 @@ class itemImage():
         self.image_path = ""
         
         self.Pixmap = None # Used to store the image, and not load it everytime
+        
+        self.Width = 50
      
         
     def GetXMLContent(self):
@@ -203,6 +209,9 @@ class itemImage():
         
         ImagePath = ET.SubElement(ContentXML, "ImagePath")
         ImagePath.text = self.image_path
+        
+        Width = ET.SubElement(ContentXML, "Width")
+        Width.text = str(self.Width)
         
         
         return ContentXML
@@ -213,13 +222,25 @@ class itemImage():
         ImagePath = xblock.findall("ImagePath")[0]
         self.image_path = ImagePath.text
         
+        try:
+            Width = xblock.findall("Width")[0].text
+            self.Width = int(Width)
+        except:
+            None
+            
+        
+        
+        
+        
         
     def GenLatex(self):
         
         latexcontent = []
         
         if os.path.exists(self.image_path):
-            latexcontent.append("\\includegraphics[width=2.5cm]{" + self.image_path +"}")
+            widthText = 10
+            width = round( widthText * self.Width / 100 , 1)
+            latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + self.image_path +"}")
         
         return latexcontent
             

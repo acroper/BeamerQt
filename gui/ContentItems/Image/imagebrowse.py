@@ -54,6 +54,10 @@ class ImageBrowse(QtWidgets.QDialog):
         self.ImageItem = imageitem
         self.image_path = self.ImageItem.image_path
         
+        self.percentage = self.ImageItem.Width
+        self.SizeSlider.setValue(self.percentage)
+        
+        
         if os.path.exists(self.image_path):
             self.PathText.setText(self.image_path)
             self.LoadImage()
