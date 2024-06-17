@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="ImageFileName"/>
+      <widget class="QLineEdit" name="PathText"/>
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="BrowseButton">

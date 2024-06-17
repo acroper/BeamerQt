@@ -46,8 +46,22 @@ class ImageBrowse(QtWidgets.QDialog):
         
         self.BrowseButton.clicked.connect(self.BrowseImage)
         
+        self.ImageItem = None
+        
        
 
+    def SetImageItem(self, imageitem):
+        self.ImageItem = imageitem
+        self.image_path = self.ImageItem.image_path
+        
+        if os.path.exists(self.image_path):
+            self.PathText.setText(self.image_path)
+            self.LoadImage()
+        
+        
+        
+        
+        
         
     def UpdatePercentage(self):
         self.percentage = self.SizeSlider.value()
@@ -56,11 +70,13 @@ class ImageBrowse(QtWidgets.QDialog):
         
     def BrowseImage(self):
         filename = openFileNameDialog(self, "", "Supported Imagen files (*.png, *.jpg, *.jpeg)")
-        
+                
         if os.path.exists(filename):
             # assign image to the elements
             self.image_path = filename
             self.LoadImage()
+            
+            self.PathText.setText(filename)
             
     def LoadImage(self):
         

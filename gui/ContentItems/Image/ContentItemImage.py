@@ -29,12 +29,17 @@ from PyQt6.QtGui import QPixmap, QIcon
 
 from gui.ContentItems.Image.imagebrowse import *
 
+from PyQt6.QtCore import pyqtSignal, QObject
+
 import xml.etree.ElementTree as ET
 import pathlib
 
 
 
 class ImageWidget(QWidget):
+    
+    ImageClicked = pyqtSignal()
+    
     def __init__(self, image_path, parent=None):
         super().__init__(parent)
 
@@ -48,17 +53,19 @@ class ImageWidget(QWidget):
 
         self.load_image()
 
+        
     def showImageDLG(self):
-        print("Image clicked")
-        ImgBrw = ImageBrowse()
+        self.ImageClicked.emit()
         
-        ImgBrw.exec()
-        
-        
+    def load_pixmap(self, pixmap):
+        self.image_label.setIcon(pixmap)
 
     def load_image(self):
         
-        self.image_label.setIcon(QIcon(self.image_path))
+        
+        self.icon = QIcon(self.image_path)
+        
+        self.image_label.setIcon(self.icon)
         
         self.pixmap =QPixmap(self.image_path)
         parent_size = self.parentWidget().size()
@@ -71,6 +78,8 @@ class ImageWidget(QWidget):
         self.image_label.setIconSize(image_size * scale_factor)
         
         self.setFixedSize(image_size * scale_factor*1.1)
+        
+        
         
         
         
@@ -121,24 +130,32 @@ class itemWidgetImage(QtWidgets.QWidget):
         
         
         
-        initialImage = os.path.join( pathlib.Path(__file__).parent.resolve() , 'add-image.png')
+        self.initialImage = os.path.join( pathlib.Path(__file__).parent.resolve() , 'add-image.png')
         
         # initialImage = "/tmp/ToPrint/IMG_20230212_123510.jpg"
         
-        self.Image = ImageWidget(initialImage, self)
+        self.Image = ImageWidget(self.initialImage, self)
         
         self.layout.addWidget(self.Image)
         
         self.Image.show()
         
-        
-        
-        
+        self.Image.ImageClicked.connect(self.showImageDLG)
         
         
 
-
+    def showImageDLG(self):
+        print("Image clicked")
+        ImgBrw = ImageBrowse()
         
+        ImgBrw.SetImageItem(self.InnerObject)
+        
+        res = ImgBrw.exec()
+        if res:
+            self.InnerObject.image_path = ImgBrw.image_path
+            self.InnerObject.pixmap = None
+            self.Refresh(True)
+
     def GetInnerObject(self):
         # self.InnerObject.Text = self.TextEditor.toPlainText()
         return self.InnerObject
@@ -147,9 +164,19 @@ class itemWidgetImage(QtWidgets.QWidget):
         self.InnerObject = inner
         self.Refresh()
         
-    def Refresh(self):
+    
+    def Refresh(self, forced = False):
         # self.TextEditor.setText(self.InnerObject.Text)
-        None
+        if os.path.exists(self.InnerObject.image_path):
+            self.Image.image_path = self.InnerObject.image_path
+            
+            
+            if not forced and self.InnerObject.Pixmap != None:
+                self.Image.load_pixmap(self.InnerObject.Pixmap)
+            else:
+                self.Image.load_image()
+                self.InnerObject.Pixmap = self.Image.icon
+        
         
 
         
@@ -164,25 +191,35 @@ class itemImage():
         self.Type = "Image"
         
         self.Text = ""
+        
+        self.image_path = ""
+        
+        self.Pixmap = None # Used to store the image, and not load it everytime
      
         
     def GetXMLContent(self):
         ContentXML = ET.Element('ItemWidget', ItemType='Image')
-        
         ContentXML.text = self.Text
+        
+        ImagePath = ET.SubElement(ContentXML, "ImagePath")
+        ImagePath.text = self.image_path
+        
         
         return ContentXML
 
     
     def ReadXMLContent(self, xblock):
         self.Text = xblock.text    
+        ImagePath = xblock.findall("ImagePath")[0]
+        self.image_path = ImagePath.text
         
         
     def GenLatex(self):
         
         latexcontent = []
         
-        latexcontent.append(self.Text)
+        if os.path.exists(self.image_path):
+            latexcontent.append("\\includegraphics[width=2.5cm]{" + self.image_path +"}")
         
         return latexcontent
             
