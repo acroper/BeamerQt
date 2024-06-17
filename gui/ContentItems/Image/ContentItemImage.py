@@ -25,7 +25,9 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject, Qt
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QIcon
+
+from gui.ContentItems.Image.imagebrowse import *
 
 import xml.etree.ElementTree as ET
 import pathlib
@@ -37,17 +39,44 @@ class ImageWidget(QWidget):
         super().__init__(parent)
 
         self.image_path = image_path
-        self.image_label = QLabel(self)
+        self.image_label = QPushButton(self)
         
         # self.image_label.setText("Hello")
         self.max_image_size_percent = 0.5
+        
+        self.image_label.clicked.connect(self.showImageDLG)
 
         self.load_image()
 
+    def showImageDLG(self):
+        print("Image clicked")
+        ImgBrw = ImageBrowse()
+        
+        ImgBrw.exec()
+        
+        
+
     def load_image(self):
-        self.pixmap =QPixmap(self.image_path)  # Use walrus operator for concise assignment
-        self.image_label.setPixmap(self.pixmap)
-        self.adjust_size()
+        
+        self.image_label.setIcon(QIcon(self.image_path))
+        
+        self.pixmap =QPixmap(self.image_path)
+        parent_size = self.parentWidget().size()
+        max_image_size = parent_size * self.max_image_size_percent
+        image_size = self.pixmap.size()
+        
+        scale_factor = min(max_image_size.width() / image_size.width(),
+                          max_image_size.height() / image_size.height())
+        
+        self.image_label.setIconSize(image_size * scale_factor)
+        
+        self.setFixedSize(image_size * scale_factor*1.1)
+        
+        
+        
+        # self.pixmap =QPixmap(self.image_path)  # Use walrus operator for concise assignment
+        # self.image_label.setPixmap(self.pixmap)
+        # self.adjust_size()
         # print("Image loaded")
      
         
