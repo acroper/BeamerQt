@@ -62,6 +62,8 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.AddWidgetItem("Text")
         
+        self.maxCols.setValue(2)
+        
        
 
         

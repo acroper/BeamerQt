@@ -123,13 +123,34 @@ class BeamerBlock():
         if self.BlockType == "Alert":
             latexcontent.append( "\\begin{alertblock}{" + str(self.Title) + "}"  )
             
-            
-            
+        
+        ## Create table mode
+        ## Create tabular letters
+        cletter = "c"
+        for k in range(1, self.ColumnCount):
+            cletter += "c"
+        
+        
+        
+        
+        k = 0    
+        # latexcontent.append("\\begin{tabular}{"+cletter+"}")
+        latexcontent.append("\\begin{tabular}{ccccc}")
+        
         
         for item in self.SubBlocks:
             
             itemlatex = item.GenLatex()
             latexcontent.extend(itemlatex)
+            
+            latexcontent.append(" & ")
+            k += 1
+            
+            if k == self.ColumnCount:
+                latexcontent.append("\\tabularnewline")
+            
+        
+        latexcontent.append("\\end{tabular}")
         
             
         if self.BlockType == "Normal":

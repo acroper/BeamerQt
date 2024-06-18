@@ -240,7 +240,9 @@ class itemImage():
         if os.path.exists(self.image_path):
             widthText = 10
             width = round( widthText * self.Width / 100 , 1)
+            # latexcontent.append("\\begin{center}")
             latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + self.image_path +"}")
+            # latexcontent.append("\\end{center}")
         
         return latexcontent
             
