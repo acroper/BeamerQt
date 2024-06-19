@@ -144,9 +144,13 @@ class ContentWidget(QtWidgets.QWidget):
         
         if action == "delete":
             self.WidgetList.pop(index)
-            
+
             if len(self.WidgetList) == 0:  # failsafe
                 self.AddWidgetItem("Text")
+                
+            selected.hide()
+            
+            selected.deleteLater()
             
             
             self.RefreshItemList()

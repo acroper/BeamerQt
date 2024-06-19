@@ -41,7 +41,7 @@ class ContentItem(QtWidgets.QWidget):
         
         super(ContentItem, self).__init__()
         
-        uic.loadUi('gui/ContentItem.ui', self)
+        uic.loadUi('gui/ContentItem2.ui', self)
         
         self.ItemType = "Text"
         
