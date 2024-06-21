@@ -36,6 +36,8 @@ class ContentWidget(QtWidgets.QWidget):
     
     Selected = pyqtSignal()
     
+    SetDelete = pyqtSignal()
+    
     def __init__(self):
         
         super(ContentWidget, self).__init__()
@@ -88,8 +90,13 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.BlockSimple.clicked.connect(lambda: self.SetBlockType("Simple"))
         
+        self.deleteBlockBtn.clicked.connect(self.DeleteBlock)
+        
     
 
+    def DeleteBlock(self):
+        print("Deleting block")
+        self.SetDelete.emit()
     
     def SetBlockType(self, blocktype):
         

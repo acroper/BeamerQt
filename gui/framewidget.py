@@ -169,8 +169,26 @@ class FrameWidget(QtWidgets.QWidget):
             self.MoveBlock(self.SelectedBlock.moveDirection)
             
             
+    def deleteBlock(self):
+        block = self.sender()
+        
+        if len(self.Blocks) > 1:
+            if block in self.Columns[0]:
+                self.Columns[0].remove(block)
+                self.Blocks.remove(block)
+                self.CurrentLayout = "Custom"
+            
+            if block in self.Columns[1]:
+                self.Columns[1].remove(block)
+                self.Blocks.remove(block)
+                self.CurrentLayout = "Custom"
+                
+            self.refresh_Layout()
         
         
+        
+        
+    
     def MoveBlock(self, direction):
         
         self.SelectedBlock.moveDirection = ""
@@ -235,6 +253,7 @@ class FrameWidget(QtWidgets.QWidget):
             nWidget.setContentName("Block # " + str(N+1))
             
             nWidget.Selected.connect(self.selectBlock)
+            nWidget.SetDelete.connect(self.deleteBlock)
             
             self.Blocks.append(nWidget)
             
