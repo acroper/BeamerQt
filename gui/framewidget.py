@@ -86,6 +86,7 @@ class FrameWidget(QtWidgets.QWidget):
     def setActions(self):
         self.sectionCheck.clicked.connect(self.ActivateSection)
         self.subsectionCheck.clicked.connect(self.ActivateSubsection)
+        self.addBlockBtn.clicked.connect(self.AddBlock)
         
     
     def ActivateSection(self):
@@ -97,6 +98,21 @@ class FrameWidget(QtWidgets.QWidget):
             self.sectionCheck.setChecked(False)
 
     
+    def AddBlock(self):
+        ## Add a new block
+        N = len(self.Blocks)
+        nWidget = ContentWidget()
+        nWidget.setContentName("Block # " + str(N+1))
+        
+        nWidget.Selected.connect(self.selectBlock)
+        nWidget.SetDelete.connect(self.deleteBlock)
+        
+        self.Columns[0].append(nWidget)
+        
+        self.Blocks.append(nWidget)
+        
+        self.refresh_Layout()
+        
     
     def updateColumnSize(self):
         ### Use the left column proportion to alter the size of the widgets
@@ -171,6 +187,8 @@ class FrameWidget(QtWidgets.QWidget):
             
     def deleteBlock(self):
         block = self.sender()
+        print("length of blocks:")
+        print(len(self.Blocks))
         
         if len(self.Blocks) > 1:
             if block in self.Columns[0]:
@@ -603,6 +621,7 @@ class FrameWidget(QtWidgets.QWidget):
                 nWidget = ContentWidget()
                 nWidget.setContentName("Block # " + str(N+1))
                 nWidget.Selected.connect(self.selectBlock)
+                nWidget.SetDelete.connect(self.deleteBlock)
                 self.Blocks.append(nWidget)
                 
                 nWidget.ReadBlock(block)
