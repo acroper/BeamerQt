@@ -183,7 +183,7 @@ class BeamerSlide():
             
         
             
-        latexcontent.append("\end{frame}")
+        latexcontent.append("\\end{frame}")
         
         
         return latexcontent
