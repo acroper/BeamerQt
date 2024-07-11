@@ -24,7 +24,6 @@ import shutil
 
 
 def main():
-    
    
     # Launching GUI
     app = QtWidgets.QApplication(sys.argv)
