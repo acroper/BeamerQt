@@ -37,11 +37,19 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
+<<<<<<< ours
      inkscape:zoom="1.8998634"
      inkscape:cx="482.84859"
      inkscape:cy="886.25769"
      inkscape:window-width="1920"
      inkscape:window-height="985"
+=======
+     inkscape:zoom="7.5994536"
+     inkscape:cx="465.23081"
+     inkscape:cy="351.73581"
+     inkscape:window-width="1920"
+     inkscape:window-height="997"
+>>>>>>> theirs
      inkscape:window-x="0"
      inkscape:window-y="32"
      inkscape:window-maximized="1"
@@ -728,6 +736,7 @@
          d="m 162.32326,74.198575 -3.10275,1.267673 v -0.775375 h -2.46189 v -0.984349 h 2.46189 v -0.775622 z" />
     </g>
     <g
+<<<<<<< ours
        id="newBlock"
        inkscape:label="#g1056"
        inkscape:export-xdpi="96"
@@ -861,6 +870,31 @@
              inkscape:connector-curvature="0" />
         </g>
       </g>
+=======
+       id="clipboard"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/clipboard.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect926"
+         width="12.964167"
+         height="5.105155"
+         x="-119.39717"
+         y="84.286591"
+         transform="scale(-1,1)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.86644px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="106.84026"
+         y="88.226891"
+         id="text22632"><tspan
+           sodipodi:role="line"
+           id="tspan22630"
+           style="stroke-width:0.264583"
+           x="106.84026"
+           y="88.226891">PASTE</tspan></text>
+>>>>>>> theirs
     </g>
   </g>
 </svg>
