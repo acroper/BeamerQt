@@ -48,6 +48,8 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__()
 
         uic.loadUi('gui/MainWindow.ui', self)
+        
+        self.ConfigStatusPanel()
                
         self.CurrentFrame = None
         
@@ -76,6 +78,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer.start(4000)
         self.refreshPreviews()
         
+    
+    
+    def ConfigStatusPanel(self):
+        
+        
+        self.CentralPanel.removeWidget(self.ZoomPanel)
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
+        
+        self.statusBar.addPermanentWidget(self.ZoomPanel)
+
         
         
         
