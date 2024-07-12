@@ -29,6 +29,8 @@ from gui.framewidget import *
 
 class SlideWidget(QtWidgets.QWidget):
     
+    UpdatedZoom = pyqtSignal()
+    
     def __init__(self):
         
         super(SlideWidget, self).__init__()
@@ -91,7 +93,13 @@ class SlideWidget(QtWidgets.QWidget):
             
             
             
-            
+    
+    def zoomVal(self, target):
+        
+        scale = target/self.ZoomFactor
+        
+        self.ApplyZoom(scale)
+    
     
     def zoom_in(self, inc = 0.2):
         
@@ -99,11 +107,9 @@ class SlideWidget(QtWidgets.QWidget):
         target = self.ZoomFactor+inc
         scale = target/self.ZoomFactor
         
-        if self.ZoomFactor > 8:
+        if self.ZoomFactor > 1.8:
             scale = 1
-        
-        
-        
+  
         self.ApplyZoom(scale)
 
     
@@ -127,6 +133,14 @@ class SlideWidget(QtWidgets.QWidget):
         # if self.ZoomFactor < 0.2:
         #     self.ZoomFactor = 0.2
         self.ZoomFactor = self.ZoomFactor*scale
+        
+        rounded = round(self.ZoomFactor, 1)
+        
+        if abs( self.ZoomFactor - rounded ) < 0.01 :
+            self.ZoomFactor = rounded
+        
+        
+        
             
         # print(self.ZoomFactor)
         
@@ -135,6 +149,8 @@ class SlideWidget(QtWidgets.QWidget):
 
         tr = self._view.transform() * scale_tr
         self._view.setTransform(tr)
+        
+        self.UpdatedZoom.emit()
         
 
         

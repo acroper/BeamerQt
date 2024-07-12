@@ -52,6 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ConfigStatusPanel()
                
         self.CurrentFrame = None
+        self.UpdatingZoom = False
         
         # self.Documento = ET.Element('BeamerDoc')
         
@@ -78,6 +79,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer.start(4000)
         self.refreshPreviews()
         
+        self.zoomValues = range(40,200,20)
+        
     
     
     def ConfigStatusPanel(self):
@@ -88,6 +91,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setStatusBar(self.statusBar)
         
         self.statusBar.addPermanentWidget(self.ZoomPanel)
+        
+        
 
         
         
@@ -102,7 +107,10 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.actionSave.triggered.connect(self.Save)
         
+        self.zoomInCtrl.clicked.connect(self.zoomIn)
         self.actionZoom_In.triggered.connect(self.zoomIn)
+        
+        self.zoomOutCtrl.clicked.connect(self.zoomOut)
         self.actionZoom_Out.triggered.connect(self.zoomOut)
         self.actionAdd_new_slide.triggered.connect(self.newSlide)
         self.actionReset_slide_number.triggered.connect(self.resetSlideNumber)
@@ -111,6 +119,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionGenerateLaTeX.triggered.connect(self.GenerateLatex)
         
         self.actionFrontMatter.triggered.connect(self.ConfigFrontMatter)
+        
+        self.ZoomSlider.valueChanged.connect(self.ZoomSlideValue)
         
         
        
@@ -133,6 +143,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.InternalPanel = SlideWidget()
         self.CentralPanel.addWidget(self.InternalPanel)
+        
+        self.InternalPanel.UpdatedZoom.connect(self.zoomUpdate)
+        
         
         self.CurrentFrame = self.InternalPanel.CurrentFrame
         
@@ -159,10 +172,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.CurrentFrame.ReadSlide(self.Document.Slides[0])
         
         
-        
-        
-        
-        
+
         
         # self.InternalPanel = ProcessListWidget()
         # self.CentralPanel.addWidget(self.InternalPanel)
@@ -209,13 +219,31 @@ class MainWindow(QtWidgets.QMainWindow):
         self.MainProject.readFile(filename)
         self.InternalPanel.LoadProject()
         
+    def ZoomSlideValue(self):
         
+        if self.UpdatingZoom == False:
+            zoomFactor = self.ZoomSlider.value()
+            self.InternalPanel.zoomVal(zoomFactor/100)
     
     def zoomIn(self):
         self.InternalPanel.zoom_in()
     
     def zoomOut(self):
         self.InternalPanel.zoom_out()
+        
+    def zoomUpdate(self):
+        
+        self.UpdatingZoom = True
+        
+        zoomFactor = int( self.InternalPanel.ZoomFactor*100 )
+        
+        self.zoomLabel.setText(str(zoomFactor) + "%")
+        
+        self.ZoomSlider.setValue(zoomFactor)
+        
+        self.UpdatingZoom = False
+        
+        
     
     ### Check how to improve to ask to save the file
     def closeEvent(self, event):

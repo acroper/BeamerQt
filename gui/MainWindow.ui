@@ -68,7 +68,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_3">
+          <widget class="QToolButton" name="zoomOutCtrl">
            <property name="maximumSize">
             <size>
              <width>20</width>
@@ -81,7 +81,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider_2">
+          <widget class="QSlider" name="ZoomSlider">
            <property name="minimumSize">
             <size>
              <width>150</width>
@@ -95,10 +95,10 @@
             </size>
            </property>
            <property name="minimum">
-            <number>30</number>
+            <number>20</number>
            </property>
            <property name="maximum">
-            <number>170</number>
+            <number>200</number>
            </property>
            <property name="singleStep">
             <number>10</number>
@@ -121,7 +121,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_4">
+          <widget class="QToolButton" name="zoomInCtrl">
            <property name="maximumSize">
             <size>
              <width>20</width>
@@ -134,7 +134,13 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="zoomLabel">
+           <property name="minimumSize">
+            <size>
+             <width>40</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -143,6 +149,9 @@
            </property>
            <property name="text">
             <string>100%</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
