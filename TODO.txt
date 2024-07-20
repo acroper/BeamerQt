@@ -15,3 +15,9 @@ Pending activities
 
 [] Create class for converters and integrate it to the core
 
+[] Title of file in the bar title
+
+[] Open files in new window, except when the current file is new
+
+[] Allow change of slides while moving on the slide prev with keyboard
+
