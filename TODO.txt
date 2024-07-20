@@ -1,0 +1,17 @@
+Pending activities
+
+
+[] Add recent files
+
+[] Put the elements in Box if there are more than 1
+
+[] Enable alignment of elements
+
+[] Enable draging elements along blocks
+
+[] Save images inside the file .bqt
+
+[] Save slide previews inside the file .bqt
+
+[] Create class for converters and integrate it to the core
+
