@@ -114,6 +114,9 @@ class BeamerBlock():
     def GenLatex(self):
         latexcontent = []
         
+        if self.Title == None:
+            self.Title = ""
+        
         # Add code to starting the block
         if self.BlockType == "Normal":
             latexcontent.append( "\\begin{block}{" + str(self.Title) + "}"  )

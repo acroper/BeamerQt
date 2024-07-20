@@ -54,6 +54,8 @@ class beamerDocument():
         
         self.Slides = []
         
+        self.ExportCounts = 0
+        
     
     def NewSlide(self, Location=-1):
         
@@ -223,8 +225,16 @@ class beamerDocument():
         current_working_directory = os.getcwd()
         
         os.chdir(self.latexfolder)
+
     
         subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
+        
+        
+        if self.ExportCounts == 0:
+            # some processes need pdflatex to run twice!
+            subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
+        
+        self.ExportCounts += 1
         
         subprocess.call(('xdg-open', 'output.pdf'))
         
