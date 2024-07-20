@@ -73,7 +73,7 @@ class ImageBrowse(QtWidgets.QDialog):
         
         
     def BrowseImage(self):
-        filename = openFileNameDialog(self, "", "Supported Imagen files (*.png, *.jpg, *.jpeg)")
+        filename = openFileNameDialog(self, "", "Supported Imagen files (*.png *.jpg *.jpeg *.svg)")
                 
         if os.path.exists(filename):
             # assign image to the elements

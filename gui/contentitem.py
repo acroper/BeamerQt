@@ -25,6 +25,8 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
+from PyQt6.QtGui import QClipboard
+
 
 import xml.etree.ElementTree as ET
 
@@ -57,6 +59,7 @@ class ContentItem(QtWidgets.QWidget):
         self.prevBtn.clicked.connect(lambda: self.SetOption("prev"))
         self.nextBtn.clicked.connect(lambda: self.SetOption("next"))
         self.deleteBtn.clicked.connect(lambda: self.SetOption("delete"))
+        
         
     
     def SetOption(self, option):

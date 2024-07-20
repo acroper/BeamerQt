@@ -59,11 +59,11 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QToolButton" name="toolButton">
+         <widget class="QToolButton" name="AlignDefaultBtn">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>10</height>
+            <height>15</height>
            </size>
           </property>
           <property name="toolTip">
@@ -76,14 +76,20 @@
            <iconset>
             <normaloff>icons/align_default.png</normaloff>icons/align_default.png</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_2">
+         <widget class="QToolButton" name="AlignLeftBtn">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>10</height>
+            <height>15</height>
            </size>
           </property>
           <property name="toolTip">
@@ -96,14 +102,20 @@
            <iconset>
             <normaloff>icons/align_left.png</normaloff>icons/align_left.png</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_3">
+         <widget class="QToolButton" name="AlignCenterBtn">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>10</height>
+            <height>15</height>
            </size>
           </property>
           <property name="toolTip">
@@ -116,14 +128,20 @@
            <iconset>
             <normaloff>icons/align_center.png</normaloff>icons/align_center.png</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_4">
+         <widget class="QToolButton" name="AlignRightBtn">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>10</height>
+            <height>15</height>
            </size>
           </property>
           <property name="toolTip">
@@ -136,14 +154,20 @@
            <iconset>
             <normaloff>icons/align_right.png</normaloff>icons/align_right.png</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_5">
+         <widget class="QToolButton" name="PasteBtn">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>10</height>
+            <height>15</height>
            </size>
           </property>
           <property name="toolTip">
@@ -155,6 +179,12 @@
           <property name="icon">
            <iconset>
             <normaloff>icons/clipboard.png</normaloff>icons/clipboard.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
           </property>
          </widget>
         </item>
