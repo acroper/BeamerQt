@@ -25,6 +25,8 @@ import shutil
 
 import subprocess
 
+import threading
+
 from core.beamerSlide import *
 
 from core.frontMatter import *
@@ -55,6 +57,10 @@ class beamerDocument():
         self.Slides = []
         
         self.ExportCounts = 0
+        
+        self.Status = False
+        
+        self.Message = ""
         
     
     def NewSlide(self, Location=-1):
@@ -183,6 +189,11 @@ class beamerDocument():
     
     
     def GenLaTeX(self):
+        x = threading.Thread(target=self.GenLaTeXThread, args=(self,))
+        x.start()
+        
+    def GenLaTeXThread(self, arg):
+
         
         filename = os.path.join(self.latexfolder, "output.tex")
         # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )

@@ -111,7 +111,7 @@ class BeamerBlock():
         return Item
     
     
-    def GenLatex(self):
+    def GenLatex(self, arg = None):
         latexcontent = []
         
         if self.Title == None:
