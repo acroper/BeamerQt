@@ -224,7 +224,7 @@ class beamerDocument():
         
         os.chdir(self.latexfolder)
     
-        subprocess.call("pdflatex output.tex", shell=True) 
+        subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
         
         subprocess.call(('xdg-open', 'output.pdf'))
         

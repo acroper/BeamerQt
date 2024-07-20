@@ -33,7 +33,7 @@ from PyQt6.QtCore import pyqtSignal, QObject
 
 import xml.etree.ElementTree as ET
 import pathlib
-
+import subprocess
 
 
 class ImageWidget(QWidget):
@@ -230,7 +230,24 @@ class itemImage():
             
         
         
+    def VerifyImage(self, image_path):
         
+        output_path = image_path
+        
+        if image_path.endswith(".svg"):
+            # convert the image
+            output_path = image_path + ".pdf"
+            
+            # if not os.path.exists(self.image_path):
+            subprocess.call("inkscape --file="+image_path + " --export-area-drawing --without-gui --export-pdf=" + output_path , shell=True) 
+            
+            
+            
+            
+        return output_path
+            
+            
+            
         
         
     def GenLatex(self):
@@ -238,10 +255,13 @@ class itemImage():
         latexcontent = []
         
         if os.path.exists(self.image_path):
+            
+            image_path = self.VerifyImage(self.image_path)
+            
             widthText = 10
             width = round( widthText * self.Width / 100 , 1)
             # latexcontent.append("\\begin{center}")
-            latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + self.image_path +"}")
+            latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + image_path +"}")
             # latexcontent.append("\\end{center}")
         
         return latexcontent
