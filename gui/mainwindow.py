@@ -284,6 +284,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.CurrentFrame.SaveSlide()
         self.Slidebar.RefreshSlides()
         
+        # check for document message
+        
+        if self.Document.Status:
+            self.statusBar.showMessage(self.Document.Message)
+        else:
+            self.statusBar.clearMessage()
         
         
         
@@ -328,8 +334,11 @@ class MainWindow(QtWidgets.QMainWindow):
         
         
     def GenerateLatex(self):
+        
+        self.statusBar.showMessage("Generating LaTeX document... ")
         self.CurrentFrame.SaveSlide()
         self.Document.GenLaTeX()
+        
 
         
         

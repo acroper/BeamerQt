@@ -26,6 +26,7 @@ import shutil
 import subprocess
 
 import threading
+import time
 
 from core.beamerSlide import *
 
@@ -189,11 +190,12 @@ class beamerDocument():
     
     
     def GenLaTeX(self):
+        self.Status = True
+        self.Message = "Generating LaTeX..."
         x = threading.Thread(target=self.GenLaTeXThread, args=(self,))
         x.start()
         
     def GenLaTeXThread(self, arg):
-
         
         filename = os.path.join(self.latexfolder, "output.tex")
         # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )
@@ -233,6 +235,8 @@ class beamerDocument():
         
     def ExportPDF(self):
         
+        self.Message = "Generating PDF document..."
+        
         current_working_directory = os.getcwd()
         
         os.chdir(self.latexfolder)
@@ -250,6 +254,17 @@ class beamerDocument():
         subprocess.call(('xdg-open', 'output.pdf'))
         
         os.chdir(current_working_directory)
+        
+        self.Status = True
+        self.Message = "Document generated"
+        
+        time.sleep(10)
+        self.Status = False
+        self.Message = ""
+        
+        
+        
+        
         
         
         
