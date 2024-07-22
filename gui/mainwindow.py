@@ -129,6 +129,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.zoomOutCtrl.clicked.connect(self.zoomOut)
         self.actionZoom_Out.triggered.connect(self.zoomOut)
         self.actionAdd_new_slide.triggered.connect(self.newSlide)
+        self.actionDuplicate_slide.triggered.connect(self.duplicateSlide)
         self.actionReset_slide_number.triggered.connect(self.resetSlideNumber)
         
         
@@ -292,7 +293,31 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.Slidebar.selectNext()
         
+    def duplicateSlide(self):
+        # Temporal refresh slide
+        newSlide = Slide()
         
+        xmldoc = self.CurrentFrame.BeamerSlide.GetXMLContent()
+        
+        
+        
+        nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
+        
+        nSlide.ReadXMLContent(xmldoc)
+
+        self.Slides.append(newSlide)
+
+        # self.CurrentFrame.ReadSlideOld(newSlide)
+        
+        self.CurrentFrame.ReadSlide(nSlide)
+        
+        # self.CurrentSlide = newSlide
+        
+        # self.CurrentFrame.ReadSlide()
+
+        self.refreshPreviews()
+        
+        self.Slidebar.selectNext()        
         
         
         

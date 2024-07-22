@@ -211,6 +211,7 @@
      <string>Slide</string>
     </property>
     <addaction name="actionAdd_new_slide"/>
+    <addaction name="actionDuplicate_slide"/>
     <addaction name="actionReset_slide_number"/>
     <addaction name="actionReorder_slides"/>
    </widget>
@@ -316,6 +317,7 @@
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
    <addaction name="actionAdd_new_slide"/>
+   <addaction name="actionDuplicate_slide"/>
    <addaction name="actionReset_slide_number"/>
    <addaction name="actionReorder_slides"/>
    <addaction name="actionGenerateLaTeX"/>
@@ -389,6 +391,11 @@
   <action name="actionNew_file">
    <property name="text">
     <string>Previous files</string>
+   </property>
+  </action>
+  <action name="actionDuplicate_slide">
+   <property name="text">
+    <string>Duplicate slide</string>
    </property>
   </action>
  </widget>
