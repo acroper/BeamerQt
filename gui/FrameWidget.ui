@@ -101,6 +101,13 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="subtitle_text">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true">border: 1px solid black</string>
           </property>
@@ -117,8 +124,18 @@
             <height>50</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true">border: 1px solid black</string>
+          </property>
+          <property name="acceptRichText">
+           <bool>false</bool>
           </property>
           <property name="placeholderText">
            <string>Title of the frame</string>
@@ -241,8 +258,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>994</width>
-           <height>594</height>
+           <width>992</width>
+           <height>592</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">

@@ -1,7 +1,7 @@
 Pending activities
 
 
-[] Add recent files
+[X] Add recent files
 
 [] Put the elements in Box if there are more than 1
 
