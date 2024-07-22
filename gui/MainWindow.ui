@@ -168,17 +168,23 @@
      <x>0</x>
      <y>0</y>
      <width>1096</width>
-     <height>26</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuOpen_recent">
+     <property name="title">
+      <string>Open recent</string>
+     </property>
+     <addaction name="separator"/>
+    </widget>
     <addaction name="actionNew_File"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_File"/>
-    <addaction name="actionRecent_Files"/>
+    <addaction name="menuOpen_recent"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
@@ -325,11 +331,6 @@
     <string>Open...</string>
    </property>
   </action>
-  <action name="actionRecent_Files">
-   <property name="text">
-    <string>Open recent</string>
-   </property>
-  </action>
   <action name="actionSave">
    <property name="text">
     <string>Save</string>
@@ -383,6 +384,11 @@
   <action name="actionFrontMatter">
    <property name="text">
     <string>Configure Front Matter</string>
+   </property>
+  </action>
+  <action name="actionNew_file">
+   <property name="text">
+    <string>Previous files</string>
    </property>
   </action>
  </widget>

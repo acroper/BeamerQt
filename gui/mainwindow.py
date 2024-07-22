@@ -34,6 +34,8 @@ from core.beamerDocument import *
 
 from gui.FrontMatter.frontmatterwidget import *
 
+from gui.RecentFiles import *
+
 
 import xml.etree.ElementTree as ET
 import tempfile
@@ -81,6 +83,10 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.zoomValues = range(40,200,20)
         
+        self.RecentFiles = RecentFiles()
+        
+        self.UpdateRecentFiles()
+        
     
     
     def ConfigStatusPanel(self):
@@ -94,8 +100,18 @@ class MainWindow(QtWidgets.QMainWindow):
         
         
 
+    def UpdateRecentFiles(self):
+        RecentList = self.RecentFiles.RecentList.copy()
         
+        RecentList.reverse()
         
+        self.menuOpen_recent.clear()
+        
+        for elem in RecentList:
+            rfile = QAction(elem, self)
+            self.menuOpen_recent.addAction(rfile)
+            rfile.triggered.connect(lambda: self.Open( elem  ))
+            
         
     
     def setMenuActions(self):
@@ -306,13 +322,22 @@ class MainWindow(QtWidgets.QMainWindow):
             # Create a new document
             filename = saveFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
             self.Document.WriteFile(filename)
+            self.RecentFiles.AppendFile(filename)
+            self.UpdateRecentFiles()
         else:
             self.Document.WriteFile(self.Document.RealLocation)
             
             
-    def Open(self):
+    def Open(self, openfilename = False):
         
-        filename = openFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+        if openfilename == False:
+            filename = openFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+        
+        else:
+            filename = openfilename
+            
+        print(filename)
+        
         
         print("Selected file: " + filename)
         
@@ -329,7 +354,14 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.Configurator.SetDocument(self.Document)
             
-            self.refreshPreviews()        
+            self.refreshPreviews()  
+            
+            self.RecentFiles.AppendFile(filename)
+            
+            self.UpdateRecentFiles()
+            
+            
+            
         
         
         
