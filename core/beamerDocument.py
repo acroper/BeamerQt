@@ -253,10 +253,19 @@ class beamerDocument():
         
         subprocess.call(('xdg-open', 'output.pdf'))
         
+        self.Status = True
+        
+        if os.path.exists('output.pdf'):
+            self.Message = "Document generated"
+            copylocation = self.RealLocation.replace("bqt", "")+"pdf" 
+            shutil.copy( os.path.join(self.latexfolder, 'output.pdf')  , copylocation)
+            print("Exported file to: " + copylocation)
+        else:
+            self.Message = "Error generating PDF document"
+        
         os.chdir(current_working_directory)
         
-        self.Status = True
-        self.Message = "Document generated"
+        
         
         time.sleep(10)
         self.Status = False
