@@ -355,6 +355,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.Document.WriteFile(filename)
             self.RecentFiles.AppendFile(filename)
             self.UpdateRecentFiles()
+            
+            self.setWindowTitle("Beamer QT  - " + os.path.basename(filename))
         else:
             self.Document.WriteFile(self.Document.RealLocation)
             
@@ -364,8 +366,8 @@ class MainWindow(QtWidgets.QMainWindow):
         sender = self.sender()  # QAction
         texto = sender.text()
         
-        print(texto)
-        # self.Open(texto)
+        # print(texto)
+        self.Open(texto)
         
         
         
@@ -406,6 +408,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.RecentFiles.AppendFile(filename)
             
             self.UpdateRecentFiles()
+            
+            self.setWindowTitle("Beamer QT  - " + os.path.basename(filename))
             
         
     def GenerateLatex(self):
