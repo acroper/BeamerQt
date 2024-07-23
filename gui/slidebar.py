@@ -58,6 +58,29 @@ class SlideBarWidget(QtWidgets.QWidget):
         self.SlidePos = 0
         # self.show()
     
+    def UpdateSlideOrder(self):
+        
+        self.Document.Slides.clear()
+        for k in range(self.ListWidget.count()):
+            qitem = self.ListWidget.item(k)
+            slideprev = self.ListWidget.itemWidget(qitem)
+            slide = slideprev.Slide
+            self.Document.Slides.append(slide)
+
+            print("Re appending slide!")
+            
+            if slide == None:
+                print("Null slide")
+            else:
+                print(slide.Title)
+                
+        print("Checking final order")
+        for slide in self.Document.Slides:
+            print(slide.Title)
+            
+            
+            
+            
     def AddPrevWidget(self, slidePrev):
         
         qitem = QListWidgetItem() 
@@ -177,6 +200,39 @@ class SlideBarWidget(QtWidgets.QWidget):
         
     def ResetPrevs(self):
         self.SlideList.clear()
+        
+    
+    def RefreshSlides_nah(self):
+        
+        self.ClearLists()
+        
+        print("Refreshing...")
+        
+        for slide in self.Document.Slides:
+            print(slide.Title)
+        
+        for k in range(len(self.Document.Slides)):
+            
+            slidePrev = SlidePrev()
+            slidePrev.setInnerFrame(self.CurrentFrame)
+            
+            self.SlideList.append(slidePrev)
+            
+            # self.SlidePanel.insertWidget( len(self.SlidePanel) -1,   slidePrev)
+            self.AddPrevWidget(slidePrev)
+            
+            slidePrev.setNumber(len(self.SlideList))
+            
+            slidePrev.Selected.connect(self.setSelected)
+            
+
+        for k in range(len(self.SlideList)):
+            # self.SlideList[k].refresh(Slides[k])
+            self.SlideList[k].refresh(self.Document.Slides[k])
+            self.SlideList[k].slidepos = k
+            
+            
+            
 
     def RefreshSlides(self):
         # Restore previews
@@ -243,15 +299,14 @@ class SlideBarWidget(QtWidgets.QWidget):
             
     def ResetSlideNumber(self):
         # Resets the slide numbers:
+        print("Resetting also the order")
+        
+        self.UpdateSlideOrder()
+        
         k = 1
         for slide in self.SlideList:
             slide.setNumber(k)
             k += 1
-            
-      
-        
-        
-            
             
 
 

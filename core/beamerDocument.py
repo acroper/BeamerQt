@@ -75,8 +75,11 @@ class beamerDocument():
         newslide = BeamerSlide()
         
         newslide.Document = self
-
-        self.Slides.insert(Location, newslide)
+        
+        if Location == -1:
+            self.Slides.append(newslide)
+        else:
+            self.Slides.insert(Location, newslide)
 
         self.ReIndexSlides()
         
@@ -142,6 +145,8 @@ class beamerDocument():
             newslide = self.NewSlide()
             newslide.ReadXMLContent(subslide)
             
+            print(newslide.Title)
+            
    
     
     def WriteFile(self, filename):
@@ -176,6 +181,10 @@ class beamerDocument():
         print("Extracted file in :" + self.docfolder)
             
         self.ReadXML( os.path.join(self.docfolder, "BeamerQt.xml"  )    )
+        
+        print("After read")
+        for slide in self.Slides:
+            print(slide.Title)
         
         
         
