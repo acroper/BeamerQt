@@ -203,6 +203,8 @@ class itemImage():
         self.Pixmap = None # Used to store the image, and not load it everytime
         
         self.Width = 50
+        
+        self.uuid = str(uuid.uuid4())
      
         
     def GetXMLContent(self):
@@ -214,6 +216,10 @@ class itemImage():
         
         Width = ET.SubElement(ContentXML, "Width")
         Width.text = str(self.Width)
+        
+        
+        Uid = ET.SubElement(ContentXML, "UUID")
+        Uid.text = self.uuid
         
         
         return ContentXML
@@ -229,6 +235,12 @@ class itemImage():
             self.Width = int(Width)
         except:
             None
+            
+        try: 
+            self.uuid = xblock.findall("UUID")[0].text
+        except:
+            None
+            
             
         
         
