@@ -106,11 +106,17 @@ class MainWindow(QtWidgets.QMainWindow):
         RecentList.reverse()
         
         self.menuOpen_recent.clear()
-        
+        k = 1
+        ListMenus = []
         for elem in RecentList:
-            rfile = QAction(elem, self)
-            self.menuOpen_recent.addAction(rfile)
-            rfile.triggered.connect(lambda: self.Open( elem  ))
+            ListMenus.append( QAction( elem, self) )
+            self.menuOpen_recent.addAction(ListMenus[-1])
+            ListMenus[-1].triggered.connect(self.OpenRecent)
+            
+            # rfile = QAction(str(k)+". "+elem, self)
+            # self.menuOpen_recent.addAction(rfile)
+            # rfile.triggered.connect(lambda: self.OpenRecent( "Test " + str(k)  ))
+            k+= 1
             
         
     
@@ -352,8 +358,22 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.Document.WriteFile(self.Document.RealLocation)
             
+
             
+    def OpenRecent(self):
+        sender = self.sender()  # QAction
+        texto = sender.text()
+        
+        print(texto)
+        # self.Open(texto)
+        
+        
+        
+        
+    
     def Open(self, openfilename = False):
+        
+        
         
         if openfilename == False:
             filename = openFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
