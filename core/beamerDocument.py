@@ -64,14 +64,22 @@ class beamerDocument():
         self.Message = ""
         
     
+    def ReIndexSlides(self):
+        k = 0
+        for slide in self.Slides:
+            slide.Number = k
+            k += 1
+    
     def NewSlide(self, Location=-1):
         
         newslide = BeamerSlide()
-        if Location == -1 or Location >= len(self.Slides):
-            self.Slides.append(newslide)
-        else:
-            self.Slides.insert(Location, newslide)
-            
+        
+        newslide.Document = self
+
+        self.Slides.insert(Location, newslide)
+
+        self.ReIndexSlides()
+        
         return newslide
     
     
@@ -81,14 +89,20 @@ class beamerDocument():
             return self.Slides.pop(Location)
         else:
             return None
+        
+        self.ReIndexSlides()
                 
         
     def InsertSlide(self, Slide, Location=-1):
+        
+        Slide.Document = self
         
         if Location == -1 or Location >= len(self.Slides):
             self.Slides.append(Slide)
         else:
             self.Slides.insert(Location, Slide)
+            
+        self.ReIndexSlides()
             
     
     def SaveXML (self):
@@ -103,6 +117,7 @@ class beamerDocument():
         
         for slide in self.Slides:
             Documento.append(slide.GetXMLContent())
+            slide.savePreview()
             
         tree = ET.ElementTree(Documento)
         ET.indent(tree, '  ')
@@ -175,6 +190,9 @@ class beamerDocument():
         
         self.mediafolder = os.path.join(self.docfolder, "Media")
         os.makedirs(self.mediafolder, exist_ok=True)
+        
+        self.slidesprev = os.path.join(self.mediafolder, "SlidesPrev")
+        os.makedirs(self.slidesprev, exist_ok=True)
         
         
     

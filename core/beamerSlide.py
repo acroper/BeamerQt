@@ -47,12 +47,22 @@ class BeamerSlide():
         
         self.LeftColumnProportion = 100
         
+        self.Document = None
+        
+        self.Number = -1
+        
 
 
     def setPreview(self, pixmap):
         self.Preview = pixmap
         self.Modified = True
-
+        
+    def savePreview(self):
+        if self.Preview != None and self.Document != None and self.Number != -1:
+            slidename = os.path.join(self.Document.slidesprev, "Slide_"+str(self.Number)+".png")
+            print("Saving slide prev at: " + slidename)
+            self.Preview.save(slidename, "PNG", 0)
+        
 
     def GetXMLContent(self):
         

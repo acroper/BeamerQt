@@ -539,7 +539,9 @@ class FrameWidget(QtWidgets.QWidget):
             
             self.BeamerSlide.CurrentLayout = self.CurrentLayout
             
-            pixmap = QPixmap(self.size())
+            size = self.size()
+            
+            pixmap = QPixmap(size)
             self.render(pixmap)
             self.BeamerSlide.setPreview(pixmap)
             

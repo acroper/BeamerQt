@@ -43,6 +43,12 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.Document = None
         
+        self.RefreshCount = 0
+        
+        self.timer = QtCore.QTimer()
+        
+        self.timer.timeout.connect(self.ReadNextTimer)
+        
         
         
         # self.ListWidget = ThumbListWidget()
@@ -81,12 +87,29 @@ class SlideBarWidget(QtWidgets.QWidget):
             
         slidesel = self.sender()
         slidesel.setSelected()
-        
         self.SlidePos = self.SlideList.index(slidesel)
-        
         self.CurrentFrame.ReadSlide(self.Document.Slides[self.SlidePos])
         
+    def RefreshOpen(self):
+        None
+        # self.timer.start(100)
         
+    def ReadNextTimer(self):
+        
+        if self.RefreshCount < len(self.Document.Slides):
+            slide = self.Document.Slides[self.RefreshCount]
+            self.CurrentFrame.ReadSlide(slide)
+            
+            self.RefreshCount += 1
+        else:
+            self.CurrentFrame.ReadSlide(self.Document.Slides[0])
+            self.timer.stop()
+            
+        
+        
+        
+    
+    
     def selectNext(self):
         # Select next slide after new creation
         
@@ -260,6 +283,7 @@ class SlidePrev(QtWidgets.QWidget):
         if slide.Preview != None:
             self.LabelPix.setPixmap(slide.Preview)
             self.Slide = slide
+            
         
     def setNumber(self, number):
         self.slideNumber.setText(str(number))

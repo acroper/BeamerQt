@@ -35,6 +35,8 @@ import xml.etree.ElementTree as ET
 import pathlib
 import subprocess
 
+import uuid
+
 
 class ImageWidget(QWidget):
     

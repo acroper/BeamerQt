@@ -381,14 +381,12 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.refreshPreviews()  
             
+            self.Slidebar.RefreshOpen()
+            
             self.RecentFiles.AppendFile(filename)
             
             self.UpdateRecentFiles()
             
-            
-            
-        
-        
         
     def GenerateLatex(self):
         
