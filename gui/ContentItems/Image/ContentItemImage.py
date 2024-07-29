@@ -35,6 +35,8 @@ import xml.etree.ElementTree as ET
 import pathlib
 import subprocess
 
+import threading
+
 import uuid
 
 
@@ -63,8 +65,7 @@ class ImageWidget(QWidget):
         self.image_label.setIcon(pixmap)
 
     def load_image(self):
-        
-        
+
         self.icon = QIcon(self.image_path)
         
         self.image_label.setIcon(self.icon)
@@ -173,6 +174,7 @@ class itemWidgetImage(QtWidgets.QWidget):
     
     def Refresh(self, forced = False):
         # self.TextEditor.setText(self.InnerObject.Text)
+
         if os.path.exists(self.InnerObject.image_path):
             self.Image.image_path = self.InnerObject.image_path
             
@@ -182,6 +184,7 @@ class itemWidgetImage(QtWidgets.QWidget):
             else:
                 self.Image.load_image()
                 self.InnerObject.Pixmap = self.Image.icon
+
         
         
 
@@ -206,7 +209,19 @@ class itemImage():
         
         self.uuid = str(uuid.uuid4())
      
-        
+    
+    
+    
+    def LoadPixmap(self):    
+        if os.path.exists(self.image_path ):
+            # Try to load the image
+            x = threading.Thread(target=self.LoadPixmapThread, args=(self,))
+            x.start()
+            
+    def LoadPixmapThread(self, arg):
+        self.Pixmap =QPixmap(self.image_path)  
+    
+    
     def GetXMLContent(self):
         ContentXML = ET.Element('ItemWidget', ItemType='Image')
         ContentXML.text = self.Text
@@ -229,6 +244,9 @@ class itemImage():
         self.Text = xblock.text    
         ImagePath = xblock.findall("ImagePath")[0]
         self.image_path = ImagePath.text
+        
+        if self.image_path == None:
+            self.image_path = ""
         
         try:
             Width = xblock.findall("Width")[0].text
