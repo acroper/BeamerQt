@@ -338,7 +338,11 @@ class SlidePrev(QtWidgets.QWidget):
         if slide.Preview != None:
             self.LabelPix.setPixmap(slide.Preview)
             self.Slide = slide
-            self.slideText.setText(slide.Title)
+            
+            if slide.TitleMode =="Normal":
+                self.slideText.setText(slide.Title)
+            else:
+                self.slideText.setText( "(" + slide.TitleMode + "): " +    slide.Title)
         
         else:
             slidename = slide.getSlideName()
