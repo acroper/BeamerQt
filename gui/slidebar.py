@@ -338,6 +338,18 @@ class SlidePrev(QtWidgets.QWidget):
         if slide.Preview != None:
             self.LabelPix.setPixmap(slide.Preview)
             self.Slide = slide
+        
+        else:
+            slidename = slide.getSlideName()
+            if os.path.exists(slidename):
+                pixmap = QPixmap(slidename)
+                slide.Preview = pixmap
+                self.refresh(slide)
+                
+                
+            
+            
+            
             
         
     def setNumber(self, number):

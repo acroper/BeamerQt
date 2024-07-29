@@ -62,6 +62,16 @@ class BeamerSlide():
             slidename = os.path.join(self.Document.slidesprev, "Slide_"+str(self.Number)+".png")
             print("Saving slide prev at: " + slidename)
             self.Preview.save(slidename, "PNG", 0)
+            
+    def getSlideName(self):
+        slidename = ""
+        
+        if self.Document != None:
+            slidename = os.path.join(self.Document.slidesprev, "Slide_"+str(self.Number)+".png")
+        
+        return slidename
+        
+        
         
 
     def GetXMLContent(self):
