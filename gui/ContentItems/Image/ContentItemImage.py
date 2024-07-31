@@ -63,6 +63,7 @@ class ImageWidget(QWidget):
         
     def load_pixmap(self, pixmap):
         self.image_label.setIcon(pixmap)
+        
 
     def load_image(self):
 
@@ -219,7 +220,7 @@ class itemImage():
             x.start()
             
     def LoadPixmapThread(self, arg):
-        self.Pixmap =QPixmap(self.image_path)  
+        self.Pixmap =QIcon(self.image_path)  
     
     
     def GetXMLContent(self):
@@ -247,6 +248,9 @@ class itemImage():
         
         if self.image_path == None:
             self.image_path = ""
+        else:
+            self.LoadPixmap()
+            
         
         try:
             Width = xblock.findall("Width")[0].text
