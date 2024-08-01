@@ -80,7 +80,12 @@ class itemText():
         
         latexcontent = []
         
-        latexcontent.append(self.Text)
+        outText = self.Text
+        
+        outText = self.Text.replace("\n", "\\"+"\\ \n")
+        
+        # latexcontent.append(self.Text)
+        latexcontent.append(outText)
         
         return latexcontent
         

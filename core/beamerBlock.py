@@ -45,7 +45,7 @@ class BeamerBlock():
         
         self.ColumnCount = 1
         
-        self.TableMode = False
+        self.TableMode = True
         
         
 
@@ -133,8 +133,9 @@ class BeamerBlock():
         ## Create tabular letters
         k = 0    
         # latexcontent.append("\\begin{tabular}{"+cletter+"}")
+       
         if self.TableMode:
-            latexcontent.append("\\begin{tabular}{ccccc}")
+            latexcontent.append("\\begin{tabular}{lllll}")
         
         
         for item in self.SubBlocks:
