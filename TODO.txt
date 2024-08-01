@@ -11,11 +11,11 @@ Pending activities
 
 [] Save images inside the file .bqt
 
-[] Save slide previews inside the file .bqt
+[X] Save slide previews inside the file .bqt
 
 [] Create class for converters and integrate it to the core
 
-[] Title of file in the bar title
+[X] Title of file in the bar title
 
 [] Open files in new window, except when the current file is new
 
