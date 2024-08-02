@@ -63,6 +63,8 @@ class beamerDocument():
         
         self.Message = ""
         
+        self.Config = None
+        
     
     def ReIndexSlides(self):
         k = 0

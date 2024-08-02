@@ -71,6 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.WorkDirectory = tempfile.mkdtemp(prefix="beamerQT_")
         
         self.Document = beamerDocument(self.WorkDirectory)
+        self.Document.Config = self.Config
         
         
         self.setMenuActions()
@@ -395,6 +396,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
         if filename != "":
             Document2 = beamerDocument(self.WorkDirectory)
+            
+            Document2.Config = self.Config
             
             Document2.ReadFile(filename)
             
