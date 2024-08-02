@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 
-
+from core.configFile import *
 
 class RecentFiles:
     
@@ -29,7 +29,9 @@ class RecentFiles:
         
         self.RecentNames = []
         
-        self.HistoryFile = "history.txt"
+        Cc = Config()
+        
+        self.HistoryFile = os.path.join ( Cc.ConfigFolder , "history.txt")
         
         self.LoadList()
         
