@@ -36,6 +36,8 @@ from gui.FrontMatter.frontmatterwidget import *
 
 from gui.RecentFiles import *
 
+from core.configFile import *
+
 
 import xml.etree.ElementTree as ET
 import tempfile
@@ -50,6 +52,8 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__()
 
         uic.loadUi('gui/MainWindow.ui', self)
+        
+        self.Config = Config()
         
         self.ConfigStatusPanel()
                
@@ -83,7 +87,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.zoomValues = range(40,200,20)
         
-        self.RecentFiles = RecentFiles()
+        self.RecentFiles = RecentFiles( self.Config )
         
         self.UpdateRecentFiles()
         

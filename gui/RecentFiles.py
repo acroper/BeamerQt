@@ -19,19 +19,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 
-from core.configFile import *
+
 
 class RecentFiles:
     
-    def __init__(self):
+    def __init__(self, config):
         # Load recent files from disk
         self.RecentList = []
         
         self.RecentNames = []
         
-        Cc = Config()
-        
-        self.HistoryFile = os.path.join ( Cc.ConfigFolder , "history.txt")
+        self.HistoryFile = os.path.join ( config.ConfigFolder , "history.txt")
         
         self.LoadList()
         

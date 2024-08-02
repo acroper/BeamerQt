@@ -12,6 +12,8 @@ import platform
 
 from pathlib import Path
 
+import configparser
+
 
 class Config:
     
@@ -20,6 +22,10 @@ class Config:
         self.ConfigFolder = ""
         
         self.DefineFolder()
+        
+        self.config = None
+        
+        self.StartConfig()
 
         
     def DefineFolder(self):
@@ -35,6 +41,36 @@ class Config:
         
         if not os.path.exists(self.ConfigFolder):
             os.makedirs(self.ConfigFolder)
+
+            
+    def StartConfig(self):
+        
+        self.configFile = os.path.join ( self.ConfigFolder, "config.ini")
+        
+        self.config = configparser.ConfigParser()
+        
+        if not os.path.exists(self.configFile):
+            self.DefaultSettings()
+            self.SaveConfig()
+        
+        self.config.read ( self.configFile )
+        
+    
+    def DefaultSettings(self):
+        self.config.add_section("CustomThemes")
+        self.config.add_section("Converters")
+        
+        self.config.add_section("SoftwarePath")
+        
+        self.config.set("Converters", "TEX-PDF", "pdflatex -interaction=nonstopmode $$i ")
+        self.config.set("Converters", "SVG-PDF", "inkscape --file=$$i --export-area-drawing --without-gui --export-pdf=$$o ")
+        
+    
+    def SaveConfig(self):
+        with open(self.configFile,"w") as file_object:
+            self.config.write(file_object)
+        
+        
         
         
     
