@@ -47,6 +47,8 @@ class BeamerBlock():
         
         self.TableMode = True
         
+        self.BlockWidth = 100 # percentage
+        
         
 
 
@@ -135,15 +137,30 @@ class BeamerBlock():
         # latexcontent.append("\\begin{tabular}{"+cletter+"}")
        
         if self.TableMode:
+            
+            latexcontent.append("\\setlength\\tabcolsep{0pt}")
+            
             latexcontent.append("\\begin{tabular}{lllll}")
         
         
         for item in self.SubBlocks:
             
+            # recalculate width
+            
+            SBSize = self.BlockWidth/min(len(self.SubBlocks),self.ColumnCount)
+            SBSize = 8*SBSize/100 # cm
+            ### Need to recalculate the formula, since it is not that linear!
+            
+            
+            #latexcontent.append("\\fbox{\\begin{minipage}[t]{"+str(SBSize)+"cm}")
+            latexcontent.append("\\begin{minipage}[t]{"+str(SBSize)+"cm}")
+            
             itemlatex = item.GenLatex()
             latexcontent.extend(itemlatex)
             
-            # latexcontent.append(" & ")
+            latexcontent.append("\\end{minipage}")
+            
+            latexcontent.append(" & ")
             k += 1
             
             if k == self.ColumnCount:
