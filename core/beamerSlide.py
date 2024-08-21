@@ -178,6 +178,8 @@ class BeamerSlide():
             
             columnsizes = [leftcol, rightcol ]
             
+            columnper = [ self.LeftColumnProportion, (100-self.LeftColumnProportion) ]
+            
             
         k = 0
         
@@ -188,6 +190,9 @@ class BeamerSlide():
                 latexcontent.append("\\column{"+str(columnsizes[k])+"cm}")
             
             for block in column:
+                
+                block.BlockWidth = columnper[k]
+                
                 blockLatex = block.GenLatex()
                 latexcontent.extend(blockLatex)
                 
