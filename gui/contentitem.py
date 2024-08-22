@@ -61,6 +61,14 @@ class ContentItem(QtWidgets.QWidget):
         self.deleteBtn.clicked.connect(lambda: self.SetOption("delete"))
         
         
+        toct = QWidgetAction(self)
+        toct.setDefaultWidget(self.ButtonsWidget)
+        self.opcButton.addAction(toct)
+        
+        
+
+        
+        
     
     def SetOption(self, option):
         self.CurrentAction = option
