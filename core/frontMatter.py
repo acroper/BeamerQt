@@ -22,6 +22,8 @@ import os
 import xml.etree.ElementTree as ET
 from core.beamerBlock import *
 
+from core.xmlutils import *
+
 
 class frontMatter:
     
@@ -77,12 +79,17 @@ class frontMatter:
     
     def ReadXMLContent(self, xblock):
         
-        self.Title = xblock.findall('Title')[0].text
-        self.Subtitle = xblock.findall('Subtitle')[0].text
+        # self.Title = xblock.findall('Title')[0].text
+        # self.Subtitle = xblock.findall('Subtitle')[0].text
+        # self.Author = xblock.findall('Author')[0].text
+        # self.Options = xblock.findall('Options')[0].text
         
-        self.Author = xblock.findall('Author')[0].text
+        xmlblock = xmlutils(xblock)
         
-        self.Options = xblock.findall('Options')[0].text
+        self.Title = xmlblock.GetField('Title', '')
+        self.Subtitle = xmlblock.GetField('Subtitle', '')
+        self.Author = xmlblock.GetField('Author', '')
+        self.Options = xmlblock.GetField('Options', '')
         
         
         self.Logo.ReadXMLContent(xblock.findall('ItemWidget')[0])
