@@ -166,6 +166,8 @@ class BeamerSlide():
         
         useColumns = False
         
+        columnper = [100]
+        
         if len(self.Columns[1]) > 0:
             useColumns = True
             # Add something to start the column environment

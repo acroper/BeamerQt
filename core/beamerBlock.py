@@ -49,6 +49,8 @@ class BeamerBlock():
         
         self.BlockWidth = 100 # percentage
         
+        self.DebugMode = True
+        
         
 
 
@@ -134,12 +136,16 @@ class BeamerBlock():
         ## Create table mode
         ## Create tabular letters
         k = 0    
-        # latexcontent.append("\\begin{tabular}{"+cletter+"}")
+        
+        if len(self.SubBlocks) > 1:
+            self.TableMode = True
+        else:
+            self.TableMode = False
+            
        
         if self.TableMode:
             
             latexcontent.append("\\setlength\\tabcolsep{0pt}")
-            
             latexcontent.append("\\begin{tabular}{lllll}")
         
         
@@ -152,15 +158,25 @@ class BeamerBlock():
             ### Need to recalculate the formula, since it is not that linear!
             
             
-            #latexcontent.append("\\fbox{\\begin{minipage}[t]{"+str(SBSize)+"cm}")
-            latexcontent.append("\\begin{minipage}[t]{"+str(SBSize)+"cm}")
+            
+            
+            if self.DebugMode and self.TableMode:
+                latexcontent.append("\\fbox{")
+                
+            if self.TableMode:
+                latexcontent.append("\\begin{minipage}[t]{"+str(SBSize)+"cm}")
             
             itemlatex = item.GenLatex()
             latexcontent.extend(itemlatex)
             
-            latexcontent.append("\\end{minipage}")
+            if self.TableMode:
+                latexcontent.append("\\end{minipage}")
             
-            latexcontent.append(" & ")
+            if self.DebugMode and self.TableMode:
+                latexcontent.append("}")
+            
+            if self.TableMode:
+                latexcontent.append(" & ")
             k += 1
             
             if k == self.ColumnCount:
