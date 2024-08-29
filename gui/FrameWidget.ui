@@ -52,7 +52,7 @@
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>150</height>
+       <height>100</height>
       </size>
      </property>
      <property name="frameShape">
@@ -62,6 +62,9 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -75,131 +78,141 @@
        <number>0</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="layout_title">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <property name="spacing">
+         <number>0</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="title_label">
-          <property name="styleSheet">
-           <string notr="true">border: 1px solid white</string>
+        <item>
+         <layout class="QGridLayout" name="layout_title">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetMinimumSize</enum>
           </property>
-          <property name="text">
-           <string>Title</string>
+          <property name="spacing">
+           <number>2</number>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="subtitle_label">
-          <property name="styleSheet">
-           <string notr="true">border: 1px solid white</string>
-          </property>
-          <property name="text">
-           <string>Subtitle</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="subtitle_text">
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border: 1px solid black</string>
-          </property>
-          <property name="placeholderText">
-           <string>Subtitle of the frame</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QTextEdit" name="title_text">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border: 1px solid black</string>
-          </property>
-          <property name="acceptRichText">
-           <bool>false</bool>
-          </property>
-          <property name="placeholderText">
-           <string>Title of the frame</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
-           <widget class="QCheckBox" name="sectionCheck">
+          <item row="1" column="2">
+           <widget class="QToolButton" name="addBlockBtn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>25</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>25</height>
+             </size>
+            </property>
             <property name="text">
-             <string>Section</string>
+             <string>...</string>
             </property>
-            <property name="autoExclusive">
-             <bool>false</bool>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/newBlock.png</normaloff>icons/newBlock.png</iconset>
             </property>
-            <property name="tristate">
-             <bool>false</bool>
+            <property name="iconSize">
+             <size>
+              <width>23</width>
+              <height>23</height>
+             </size>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QCheckBox" name="subsectionCheck">
+          <item row="1" column="0">
+           <widget class="QLabel" name="subtitle_label">
+            <property name="styleSheet">
+             <string notr="true">border: 1px solid white</string>
+            </property>
             <property name="text">
-             <string>Subsection</string>
+             <string>Subtitle</string>
             </property>
-            <property name="autoExclusive">
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="title_label">
+            <property name="styleSheet">
+             <string notr="true">border: 1px solid white</string>
+            </property>
+            <property name="text">
+             <string>Title</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="subtitle_text">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 1px solid black</string>
+            </property>
+            <property name="placeholderText">
+             <string>Subtitle of the frame</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QCheckBox" name="sectionCheck">
+              <property name="text">
+               <string>Section</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+              <property name="tristate">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="subsectionCheck">
+              <property name="text">
+               <string>Subsection</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+              <property name="tristate">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="1">
+           <widget class="QTextEdit" name="title_text">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 1px solid black</string>
+            </property>
+            <property name="acceptRichText">
              <bool>false</bool>
             </property>
-            <property name="tristate">
-             <bool>false</bool>
+            <property name="placeholderText">
+             <string>Title of the frame</string>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-        <item row="1" column="2">
-         <widget class="QToolButton" name="addBlockBtn">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>icons/newBlock.png</normaloff>icons/newBlock.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>23</width>
-            <height>23</height>
-           </size>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>
@@ -227,6 +240,9 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="sizeConstraint">
        <enum>QLayout::SetMaximumSize</enum>
       </property>
@@ -243,6 +259,52 @@
        <number>0</number>
       </property>
       <item>
+       <widget class="QFrame" name="frameBar">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="FrameBarLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QScrollArea" name="scrollArea">
         <property name="horizontalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -258,8 +320,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>992</width>
-           <height>592</height>
+           <width>994</width>
+           <height>584</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -343,10 +405,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>title_text</tabstop>
-  <tabstop>subtitle_text</tabstop>
-  <tabstop>sectionCheck</tabstop>
-  <tabstop>subsectionCheck</tabstop>
   <tabstop>pushButton_5</tabstop>
  </tabstops>
  <resources/>

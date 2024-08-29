@@ -30,6 +30,8 @@ from core.beamerSlide import *
 from gui.contentwidget import *
 from gui.Slide import *
 
+from gui.DualSlider import *
+
 import xml.etree.ElementTree as ET
 
 
@@ -74,6 +76,14 @@ class FrameWidget(QtWidgets.QWidget):
         self.LeftColumnProportion = 100
         
         self.TotalSize = 980
+        
+        self.BarSlider = DualSlider()
+        self.FrameBarLayout.addWidget(self.BarSlider)
+        self.BarSlider.setSliders(1)
+        self.BarSlider.Minimum = 25
+        self.BarSlider.Maximum = 75
+        
+        
         
         self.setActions()
         

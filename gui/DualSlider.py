@@ -39,19 +39,26 @@ class DualSlider(QWidget):
         self.selected2 = False
         self.selected3 = False
         
-        self.ActiveSliders = 3
+        self.Minimum = 10
+        self.Maximum = 90
         
+        self.ActiveSliders = 3
+    
+    def setSliders(self, number):
+        self.ActiveSliders = number
+        self.update()
+    
     def adjustValues(self, PosValues):
         	current = 0
         	for k in range(len(PosValues)):
-        		if PosValues[k]-current < 10:
-        			PosValues[k] = current + 10
+        		if PosValues[k]-current < self.Minimum:
+        			PosValues[k] = current + self.Minimum
         		current = PosValues[k]
         		
         	current = 100
         	for k in range(len(PosValues)):
-        		if current-PosValues[-1-k] < 10:
-        			PosValues[-1-k] = current - 10
+        		if current-PosValues[-1-k] < self.Minimum:
+        			PosValues[-1-k] = current - self.Minimum
         		current = PosValues[-1-k]
         	return PosValues
     
@@ -65,10 +72,10 @@ class DualSlider(QWidget):
             PosValues = [self.value1]
         
         PosValues = self.adjustValues(PosValues)       	
-        if PosValues[0] < 10:
-       		PosValues[0] = 10
-       	if PosValues[-1] > 90:
-       		PosValues[-1] = 90
+        if PosValues[0] < self.Minimum:
+       		PosValues[0] = self.Minimum
+       	if PosValues[-1] > self.Maximum:
+       		PosValues[-1] = self.Maximum
        
         if self.ActiveSliders > 0:
             self.value1 = int(PosValues[0])
@@ -103,7 +110,7 @@ class DualSlider(QWidget):
 
 
         # Draw the slider labels (optional)
-        labelFont = QFont("Arial", 7)
+        labelFont = QFont("Arial", 5)
         labelMetrics = QFontMetrics(labelFont)
         painter.setFont(labelFont)
 
@@ -114,17 +121,17 @@ class DualSlider(QWidget):
         
         if self.ActiveSliders > 0:
             painter.fillRect(handle1Rect, self.palette().brush(QPalette.ColorRole.Shadow))
-            label1Rect = QRect(handle1Rect.left() - 5, handle1Rect.bottom() + 5, 10, 10)
+            label1Rect = QRect(handle1Rect.left() - 5, handle1Rect.bottom() , 10, 10)
             painter.drawText(label1Rect, Qt.AlignmentFlag.AlignCenter , value1Label)
         
         if self.ActiveSliders > 1:
             painter.fillRect(handle2Rect, self.palette().brush(QPalette.ColorRole.Shadow))
-            label2Rect = QRect(handle2Rect.left() - 5, handle2Rect.bottom() + 5, 10, 10)
+            label2Rect = QRect(handle2Rect.left() - 5, handle2Rect.bottom() , 10, 10)
             painter.drawText(label2Rect, Qt.AlignmentFlag.AlignCenter, value2Label)
         
         if self.ActiveSliders > 2:
             painter.fillRect(handle3Rect, self.palette().brush(QPalette.ColorRole.Shadow))        
-            label3Rect = QRect(handle3Rect.left() - 5, handle3Rect.bottom() + 5, 10, 10)
+            label3Rect = QRect(handle3Rect.left() - 5, handle3Rect.bottom() , 10, 10)
             painter.drawText(label3Rect, Qt.AlignmentFlag.AlignCenter, value3Label)
         
         
