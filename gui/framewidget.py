@@ -135,7 +135,10 @@ class FrameWidget(QtWidgets.QWidget):
         #     # modify
         
         # return
-        
+        if (len(self.Columns[1]) == 0) or (self.CurrentLayout == "layout_standard"):
+            self.BarSlider.setVisible(False)
+        else:
+            self.BarSlider.setVisible(True)
         
         if self.CurrentLayout == "layout_standard" or self.CurrentLayout == "layout_2rows":
             # reset proportions
@@ -273,6 +276,9 @@ class FrameWidget(QtWidgets.QWidget):
     def refresh_columns(self):
         
         self.BarSlider.UpdateValues([self.LeftColumnProportion])
+        if len(self.Columns[1]) > 0:
+            self.BarSlider.setVisible(True)
+        
         
         for column in range(2):
             k = 1
