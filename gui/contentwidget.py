@@ -31,6 +31,8 @@ import xml.etree.ElementTree as ET
 from core.beamerBlock import *
 from gui.contentitem import *
 
+from gui.DualSlider import *
+
 
 class ContentWidget(QtWidgets.QWidget):
     
@@ -65,6 +67,12 @@ class ContentWidget(QtWidgets.QWidget):
         self.AddWidgetItem("Text")
         
         self.maxCols.setValue(2)
+        
+        self.BarSlider = DualSlider()
+        self.FrameBarLayout.addWidget(self.BarSlider)
+        # self.BarSlider.setSliders(1)
+        # self.BarSlider.Minimum = 25
+        # self.BarSlider.Maximum = 75
         
        
 

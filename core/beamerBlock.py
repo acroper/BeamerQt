@@ -49,7 +49,7 @@ class BeamerBlock():
         
         self.BlockWidth = 100 # percentage
         
-        self.DebugMode = True
+        self.DebugMode = False
         
         
 

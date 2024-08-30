@@ -48,6 +48,8 @@ class DualSlider(QWidget):
         self.ActiveSliders = 3
         
         self.Updating = False
+        
+        self.showNumbers = True
     
     
     def UpdateValues(self, values):
@@ -154,17 +156,20 @@ class DualSlider(QWidget):
         if self.ActiveSliders > 0:
             painter.fillRect(handle1Rect, self.palette().brush(QPalette.ColorRole.Shadow))
             label1Rect = QRect(handle1Rect.left() - 5, handle1Rect.bottom() , 10, 10)
-            painter.drawText(label1Rect, Qt.AlignmentFlag.AlignCenter , value1Label)
+            if self.showNumbers:
+                painter.drawText(label1Rect, Qt.AlignmentFlag.AlignCenter , value1Label)
         
         if self.ActiveSliders > 1:
             painter.fillRect(handle2Rect, self.palette().brush(QPalette.ColorRole.Shadow))
             label2Rect = QRect(handle2Rect.left() - 5, handle2Rect.bottom() , 10, 10)
-            painter.drawText(label2Rect, Qt.AlignmentFlag.AlignCenter, value2Label)
+            if self.showNumbers:
+                painter.drawText(label2Rect, Qt.AlignmentFlag.AlignCenter, value2Label)
         
         if self.ActiveSliders > 2:
             painter.fillRect(handle3Rect, self.palette().brush(QPalette.ColorRole.Shadow))        
             label3Rect = QRect(handle3Rect.left() - 5, handle3Rect.bottom() , 10, 10)
-            painter.drawText(label3Rect, Qt.AlignmentFlag.AlignCenter, value3Label)
+            if self.showNumbers:
+                painter.drawText(label3Rect, Qt.AlignmentFlag.AlignCenter, value3Label)
         
         
         
