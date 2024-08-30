@@ -141,6 +141,7 @@ class DualSlider(QWidget):
         handle2Rect = QRect(int(self.mapFromValue(self.value2)), int(self.rect().y()), 2, self.handleHeight)
         handle3Rect = QRect(int(self.mapFromValue(self.value3)), int(self.rect().y()), 2, self.handleHeight)
         
+        lineRect = QRect(int(self.mapFromValue(0)), 0, int(self.mapFromValue(100)), 1)
 
 
         # Draw the slider labels (optional)
@@ -152,6 +153,7 @@ class DualSlider(QWidget):
         value2Label = str(self.value2)
         value3Label = str(self.value3)
         
+        painter.fillRect(lineRect, self.palette().brush(QPalette.ColorRole.Dark))
         
         if self.ActiveSliders > 0:
             painter.fillRect(handle1Rect, self.palette().brush(QPalette.ColorRole.Shadow))
