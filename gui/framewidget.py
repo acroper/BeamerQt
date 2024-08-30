@@ -82,6 +82,8 @@ class FrameWidget(QtWidgets.QWidget):
         self.BarSlider.setSliders(1)
         self.BarSlider.Minimum = 25
         self.BarSlider.Maximum = 75
+        self.BarSlider.UpdateValues([self.LeftColumnProportion])
+        self.BarSlider.ValueUpdated.connect(self.BarSliderUpdated)
         
         
         
@@ -92,7 +94,10 @@ class FrameWidget(QtWidgets.QWidget):
         
                       
         # self.show()
-        
+    def BarSliderUpdated(self):
+        self.LeftColumnProportion = self.BarSlider.value1
+        self.updateColumnSize()
+    
     def setActions(self):
         self.sectionCheck.clicked.connect(self.ActivateSection)
         self.subsectionCheck.clicked.connect(self.ActivateSubsection)
@@ -266,6 +271,9 @@ class FrameWidget(QtWidgets.QWidget):
             block.show()
     
     def refresh_columns(self):
+        
+        self.BarSlider.UpdateValues([self.LeftColumnProportion])
+        
         for column in range(2):
             k = 1
             for block in self.Columns[column]:

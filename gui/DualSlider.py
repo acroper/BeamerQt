@@ -20,11 +20,14 @@ This module was created with the assistance of Google Gemini chat
 """
 
 import sys
-from PyQt6.QtCore import Qt, QSize, QRect
+from PyQt6.QtCore import Qt, QSize, QRect, pyqtSignal
 from PyQt6.QtGui import QPainter, QPen, QBrush, QFontMetrics, QPalette, QFont
 from PyQt6.QtWidgets import *
 
 class DualSlider(QWidget):
+    
+    ValueUpdated = pyqtSignal()
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         self.minimum = 0
@@ -32,7 +35,7 @@ class DualSlider(QWidget):
         self.value1 = 25
         self.value2 = 50
         self.value3 = 75
-        self.handleWidth = 5
+        self.handleWidth = 20
         self.handleHeight = 10
 
         self.selected1 = False
@@ -43,6 +46,24 @@ class DualSlider(QWidget):
         self.Maximum = 90
         
         self.ActiveSliders = 3
+        
+        self.Updating = False
+    
+    
+    def UpdateValues(self, values):
+        self.Updating = True
+        
+        if len(values) > 0:
+            self.value1 = values[0]
+        if len(values) > 1:
+            self.value2 = values[1]
+        if len(values) > 2:
+            self.value3 = values[2]
+        
+        self.update()
+        
+        self.Updating = False
+    
     
     def setSliders(self, number):
         self.ActiveSliders = number
@@ -85,7 +106,18 @@ class DualSlider(QWidget):
         
         if self.ActiveSliders > 2:
             self.value3 = int(PosValues[2])
+            
+        if not self.Updating:
+            self.ValueUpdated.emit()
         
+    
+    def extraRound(self):
+        k = 5
+        self.value1 = k*round(self.value1/k)
+        self.value2 = k*round(self.value2/k)
+        self.value3 = k*round(self.value3/k)
+        
+        self.update()
         
         
 
@@ -99,13 +131,13 @@ class DualSlider(QWidget):
         painter.fillRect(rect, self.palette().brush(QPalette.ColorRole.Mid))
 
         # Draw the slider handles
-        self.handle1Rect = QRect( int( self.mapFromValue(self.value1)) , int( self.rect().y() ), self.handleWidth, self.handleHeight)
-        self.handle2Rect = QRect(int(self.mapFromValue(self.value2)), int(self.rect().y()), self.handleWidth, self.handleHeight)
-        self.handle3Rect = QRect(int(self.mapFromValue(self.value3)), int(self.rect().y()), self.handleWidth, self.handleHeight)
+        self.handle1Rect = QRect( int( self.mapFromValue(self.value1-0.9)) , int( self.rect().y() ), self.handleWidth, self.handleHeight)
+        self.handle2Rect = QRect(int(self.mapFromValue(self.value2-0.9)), int(self.rect().y()), self.handleWidth, self.handleHeight)
+        self.handle3Rect = QRect(int(self.mapFromValue(self.value3-0.9)), int(self.rect().y()), self.handleWidth, self.handleHeight)
         
-        handle1Rect = self.handle1Rect
-        handle2Rect = self.handle2Rect
-        handle3Rect = self.handle3Rect
+        handle1Rect = QRect( int( self.mapFromValue(self.value1)) , int( self.rect().y() ), 2, self.handleHeight)
+        handle2Rect = QRect(int(self.mapFromValue(self.value2)), int(self.rect().y()), 2, self.handleHeight)
+        handle3Rect = QRect(int(self.mapFromValue(self.value3)), int(self.rect().y()), 2, self.handleHeight)
         
 
 
@@ -178,6 +210,7 @@ class DualSlider(QWidget):
         self.selected1 = False
         self.selected2 = False
         self.selected3 = False
+        self.extraRound()
 
 
     def sizeHint(self):
