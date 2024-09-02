@@ -22,6 +22,7 @@ import xml.etree.ElementTree as ET
 import tempfile
 import zipfile
 import shutil
+import platform
 
 import subprocess
 
@@ -253,7 +254,7 @@ class beamerDocument():
             self.WriteLines(latexcontent, outputfile)
             
         
-        outputfile.write("\end{document}")
+        outputfile.write("\\end{document}")
         
         outputfile.close()
         
@@ -265,6 +266,8 @@ class beamerDocument():
     def ExportPDF(self):
         
         self.Message = "Generating PDF document..."
+        
+        LocalSystem = platform.system() 
         
         current_working_directory = os.getcwd()
         
@@ -280,7 +283,12 @@ class beamerDocument():
         
         self.ExportCounts += 1
         
-        subprocess.call(('xdg-open', 'output.pdf'))
+        
+        if LocalSystem == "Windows":
+            os.startfile('output.pdf')
+        else:
+            subprocess.call(('xdg-open', 'output.pdf'))
+        
         
         self.Status = True
         
