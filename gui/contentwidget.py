@@ -63,6 +63,7 @@ class ContentWidget(QtWidgets.QWidget):
         self.ColumnProportions = [100, 100, 100, 100]
         self.BarSlider.Minimum = 10
         self.BarSlider.Maximum = 90
+        self.BarSlider.NextRounding = 1
         
         self.SetActions()
         
