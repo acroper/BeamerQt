@@ -50,6 +50,8 @@ class DualSlider(QWidget):
         self.Updating = False
         
         self.showNumbers = True
+        
+        self.NextRounding = 5
     
     
     def UpdateValues(self, values):
@@ -93,6 +95,8 @@ class DualSlider(QWidget):
             PosValues = [self.value1, self.value2]
         if self.ActiveSliders == 1:
             PosValues = [self.value1]
+        if self.ActiveSliders ==0:
+            return
         
         PosValues = self.adjustValues(PosValues)       	
         if PosValues[0] < self.Minimum:
@@ -114,7 +118,7 @@ class DualSlider(QWidget):
         
     
     def extraRound(self):
-        k = 5
+        k = self.NextRounding
         self.value1 = k*round(self.value1/k)
         self.value2 = k*round(self.value2/k)
         self.value3 = k*round(self.value3/k)

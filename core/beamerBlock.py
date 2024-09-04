@@ -23,6 +23,10 @@ import xml.etree.ElementTree as ET
 
 import importlib
 
+import json
+
+from core.xmlutils import *
+
 
 class BeamerBlock():
     
@@ -51,6 +55,8 @@ class BeamerBlock():
         
         self.DebugMode = False
         
+        self.ColumnProportions = [100, 100, 100, 100]
+        
         
 
 
@@ -69,6 +75,9 @@ class BeamerBlock():
         ColsCount = ET.SubElement(ContentXML, 'ColumnCount')
         ColsCount.text = str(self.ColumnCount)  
         
+        ColsProp = ET.SubElement(ContentXML, 'ColumnProportions')
+        ColsProp.text = str(self.ColumnProportions)
+        
         
         for Elem in self.SubBlocks:
             blockElem = Elem.GetXMLContent()
@@ -85,12 +94,20 @@ class BeamerBlock():
     
     def ReadXMLContent(self, xblock):
         
+        xmlblock = xmlutils(xblock)
+        
         self.Title = xblock.findall('BlockTitle')[0].text
         self.Text = xblock.findall('BlockText')[0].text
         
         self.ColumnCount = int( xblock.findall('ColumnCount')[0].text  )  
         
         self.BlockType = xblock.findall('BlockType')[0].text
+        
+        ColProportions = xmlblock.GetField('ColumnProportions', '[100,100,100,100]')
+        
+        self.ColumnProportions = json.loads(ColProportions)
+        
+        
         
         self.SubBlocks.clear()
         

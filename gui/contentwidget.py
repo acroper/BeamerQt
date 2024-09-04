@@ -33,6 +33,8 @@ from gui.contentitem import *
 
 from gui.DualSlider import *
 
+from core.xmlutils import *
+
 
 class ContentWidget(QtWidgets.QWidget):
     
@@ -56,6 +58,12 @@ class ContentWidget(QtWidgets.QWidget):
         
         # self.WidgetList.append(self.blockText)
         
+        self.BarSlider = DualSlider()
+        self.FrameBarLayout.addWidget(self.BarSlider)
+        self.ColumnProportions = [100, 100, 100, 100]
+        self.BarSlider.Minimum = 10
+        self.BarSlider.Maximum = 90
+        
         self.SetActions()
         
         self.Block = BeamerBlock()
@@ -68,11 +76,12 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.maxCols.setValue(2)
         
-        self.BarSlider = DualSlider()
-        self.FrameBarLayout.addWidget(self.BarSlider)
-        # self.BarSlider.setSliders(1)
-        # self.BarSlider.Minimum = 25
-        # self.BarSlider.Maximum = 75
+        
+        
+        
+        
+        
+        
         
        
 
@@ -99,6 +108,8 @@ class ContentWidget(QtWidgets.QWidget):
         self.BlockSimple.clicked.connect(lambda: self.SetBlockType("Simple"))
         
         self.deleteBlockBtn.clicked.connect(self.DeleteBlock)
+        
+        self.BarSlider.ValueUpdated.connect(self.BarSliderUpdated)
         
     
 
@@ -145,6 +156,49 @@ class ContentWidget(QtWidgets.QWidget):
             self.gridLayout.addWidget(cItem, LastRow, LastCol)
             
             LastCol += 1
+        
+        self.UpdateDualSlider()
+        
+        
+        
+    def UpdateDualSlider(self):
+        controls = min(self.maxCols.value(), len(self.WidgetList))
+        self.BarSlider.setSliders(controls - 1)
+        
+        # Initial values, next, I need to assign them from a list
+        values = []
+        current = 0
+        for cproportion in self.ColumnProportions:
+            current = cproportion+current
+            values.append(current/controls)
+            
+        print(values)
+        self.BarSlider.UpdateValues( values  )
+        
+        
+    def BarSliderUpdated(self):
+        # take the values from BarSlider
+        values = [self.BarSlider.value1, self.BarSlider.value2, self.BarSlider.value3]
+        
+        controls = min(self.maxCols.value(), len(self.WidgetList))
+        
+        proportions = []
+        
+        current = 0
+        
+        for val in values:
+            cproportion = (val - current)*controls
+            current = val
+            proportions.append(cproportion)
+            
+        
+        
+        remain = (100-val)*controls
+        proportions.append(remain)
+            
+        self.ColumnProportions = proportions
+        
+            
         
         
         
@@ -205,6 +259,8 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.ColumnNumber = self.Block.ColumnNumber
         
+        self.ColumnProportions = self.Block.ColumnProportions
+        
         self.nombre = self.Block.nombre
                 
         self.maxCols.setValue(self.Block.ColumnCount)
@@ -242,6 +298,8 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.Block.ColumnCount = self.maxCols.value()
         
+        self.Block.ColumnProportions = self.ColumnProportions
+        
         self.Block.SubBlocks.clear()
         
         self.Block.BlockType = self.BlockType
@@ -260,6 +318,9 @@ class ContentWidget(QtWidgets.QWidget):
         
         ColsCount = ET.SubElement(ContentXML, 'ColumnCount')
         ColsCount.text = str(self.maxCols.value())  
+        
+        
+        
         
         
         # BlockText = ET.SubElement(ContentXML, 'BlockText')
