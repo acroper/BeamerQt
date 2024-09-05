@@ -1,6 +1,12 @@
 # BeamerQt
 PyQt-based application to create Beamer-LaTeX Presentations
 
+## Dependences:
+- PyQt6
+- LaTex (pdflatex command available in command line)
+- LaTeX Beamer Libraries
+- Inkscape (Optional, to handle SVG files. Needs to be available in command line)
+
 
 ## Current state:
 - Development ideas
