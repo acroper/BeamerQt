@@ -165,15 +165,22 @@ class BeamerBlock():
             latexcontent.append("\\setlength\\tabcolsep{0pt}")
             latexcontent.append("\\begin{tabular}{lllll}")
         
+        LastCol = 0
         
         for item in self.SubBlocks:
             
             # recalculate width
             
+            
+            
             SBSize = self.BlockWidth/min(len(self.SubBlocks),self.ColumnCount)
-            SBSize = 8*SBSize/100 # cm
+            SBSize = self.ColumnProportions[LastCol]*8*SBSize/10000 # cm
             ### Need to recalculate the formula, since it is not that linear!
             
+            LastCol += 1
+        
+            if LastCol == self.ColumnCount:
+                LastCol = 0
             
             
             

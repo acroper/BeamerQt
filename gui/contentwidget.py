@@ -165,7 +165,32 @@ class ContentWidget(QtWidgets.QWidget):
         self.UpdateDualSlider()
         
     
+    def FixProportions(self):
+        
+        controls = min(self.maxCols.value(), len(self.WidgetList))
+        #Column proportions must be equal to 100*controls
+        Total = 0
+        
+        print("Before", self.ColumnProportions)
+        
+        for k in range(controls ):
+            Total = Total + self.ColumnProportions[k]
+        
+        diff = 100*controls - Total
+        
+        if diff > 100:
+            self.ColumnProportions[k] -= diff
+        else:
+            self.ColumnProportions[k] += diff
+            
+            
+        print("After", self.ColumnProportions)
+        print(diff)
+    
+    
     def updateColumnSize(self):
+        
+        self.FixProportions()
         
         controls = min(self.maxCols.value(), len(self.WidgetList))
         
@@ -182,7 +207,7 @@ class ContentWidget(QtWidgets.QWidget):
             cItem.setMinimumWidth(int(  proportion*self.TotalSize/100 ) )
             cItem.setMaximumWidth(int(  proportion*self.TotalSize/100 ) )
             
-            print(proportion, LastCol)
+            # print(proportion, LastCol)
             
             LastCol += 1
         
@@ -204,7 +229,7 @@ class ContentWidget(QtWidgets.QWidget):
             current = cproportion+current
             values.append(current/controls)
             
-        print(values)
+        # print(values)
         self.BarSlider.UpdateValues( values  )
         
         
