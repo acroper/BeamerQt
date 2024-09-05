@@ -54,6 +54,8 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.ColumnNumber = -1
         
+        self.GUIWaiting = 0
+        
         self.WidgetList = []
         
         # self.WidgetList.append(self.blockText)
@@ -112,6 +114,8 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.BarSlider.ValueUpdated.connect(self.BarSliderUpdated)
         
+        self.BarSlider.Released.connect(self.BarSliderReleased)
+        
     
 
     def DeleteBlock(self):
@@ -160,7 +164,34 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.UpdateDualSlider()
         
+    
+    def updateColumnSize(self):
         
+        controls = min(self.maxCols.value(), len(self.WidgetList))
+        
+        self.TotalSize = self.width()
+        LastCol = 0
+        
+        maxcols = self.maxCols.value()
+        print("--------")
+        
+        for cItem in self.WidgetList:
+            
+            proportion = self.ColumnProportions[LastCol]/controls
+            
+            cItem.setMinimumWidth(int(  proportion*self.TotalSize/100 ) )
+            cItem.setMaximumWidth(int(  proportion*self.TotalSize/100 ) )
+            
+            print(proportion, LastCol)
+            
+            LastCol += 1
+        
+            if LastCol == maxcols:
+                LastCol = 0
+            
+            
+        
+    
         
     def UpdateDualSlider(self):
         controls = min(self.maxCols.value(), len(self.WidgetList))
@@ -177,6 +208,11 @@ class ContentWidget(QtWidgets.QWidget):
         self.BarSlider.UpdateValues( values  )
         
         
+    def BarSliderReleased(self):
+        self.GUIWaiting = 0
+        # print("Released!")
+    
+    
     def BarSliderUpdated(self):
         # take the values from BarSlider
         values = [self.BarSlider.value1, self.BarSlider.value2, self.BarSlider.value3]
@@ -198,6 +234,16 @@ class ContentWidget(QtWidgets.QWidget):
         proportions.append(remain)
             
         self.ColumnProportions = proportions
+        
+        # Wait 10 repetitions before resizing the columns
+        
+        if self.GUIWaiting == 0:
+            self.updateColumnSize()
+        
+        self.GUIWaiting+= 1
+        
+        if self.GUIWaiting == 10:
+            self.GUIWaiting = 0
         
             
         

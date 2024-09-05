@@ -27,6 +27,7 @@ from PyQt6.QtWidgets import *
 class DualSlider(QWidget):
     
     ValueUpdated = pyqtSignal()
+    Released = pyqtSignal()
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -222,6 +223,7 @@ class DualSlider(QWidget):
         self.selected2 = False
         self.selected3 = False
         self.extraRound()
+        self.Released.emit()
 
 
     def sizeHint(self):
