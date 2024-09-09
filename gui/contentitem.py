@@ -87,6 +87,8 @@ class ContentItem(QtWidgets.QWidget):
         itemClass = getattr(module, "itemWidget" + itemtype )
         Item = itemClass()
         
+        Item.ContentItem = self
+        
         self.Layout.addWidget(Item)
         
         self.InnerWidget = Item

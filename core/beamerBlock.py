@@ -177,6 +177,9 @@ class BeamerBlock():
             SBSize = self.ColumnProportions[LastCol]*8*SBSize/10000 # cm
             ### Need to recalculate the formula, since it is not that linear!
             
+            item.MaxItemSize = SBSize
+            
+            
             LastCol += 1
         
             if LastCol == self.ColumnCount:

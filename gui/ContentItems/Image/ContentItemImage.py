@@ -295,6 +295,8 @@ class itemImage():
             image_path = self.VerifyImage(self.image_path)
             
             widthText = 10
+            widthText = self.MaxItemSize
+            
             width = round( widthText * self.Width / 100 , 1)
             # latexcontent.append("\\begin{center}")
             latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + image_path +"}")
