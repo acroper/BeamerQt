@@ -66,6 +66,7 @@ class ContentWidget(QtWidgets.QWidget):
         self.BarSlider.Minimum = 10
         self.BarSlider.Maximum = 90
         self.BarSlider.NextRounding = 1
+        self.BarSlider.LabelPosition = "Right"
         
         self.SetActions()
         

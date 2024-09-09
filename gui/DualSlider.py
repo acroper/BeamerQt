@@ -53,6 +53,8 @@ class DualSlider(QWidget):
         self.showNumbers = True
         
         self.NextRounding = 5
+        
+        self.LabelPosition = "Down"
     
     
     def UpdateValues(self, values):
@@ -160,21 +162,29 @@ class DualSlider(QWidget):
         
         painter.fillRect(lineRect, self.palette().brush(QPalette.ColorRole.Dark))
         
+        adjustB = 0
+        adjustS = 0
+        
+        if self.LabelPosition == "Right":
+            adjustB = 9
+            adjustS = -10
+        
+        
         if self.ActiveSliders > 0:
             painter.fillRect(handle1Rect, self.palette().brush(QPalette.ColorRole.Shadow))
-            label1Rect = QRect(handle1Rect.left() - 5, handle1Rect.bottom() , 10, 10)
+            label1Rect = QRect(handle1Rect.left() - 5 + adjustB, handle1Rect.bottom() + adjustS , 10, 10)
             if self.showNumbers:
                 painter.drawText(label1Rect, Qt.AlignmentFlag.AlignCenter , value1Label)
         
         if self.ActiveSliders > 1:
             painter.fillRect(handle2Rect, self.palette().brush(QPalette.ColorRole.Shadow))
-            label2Rect = QRect(handle2Rect.left() - 5, handle2Rect.bottom() , 10, 10)
+            label2Rect = QRect(handle2Rect.left() - 5 + adjustB, handle2Rect.bottom()  + adjustS, 10, 10)
             if self.showNumbers:
                 painter.drawText(label2Rect, Qt.AlignmentFlag.AlignCenter, value2Label)
         
         if self.ActiveSliders > 2:
             painter.fillRect(handle3Rect, self.palette().brush(QPalette.ColorRole.Shadow))        
-            label3Rect = QRect(handle3Rect.left() - 5, handle3Rect.bottom() , 10, 10)
+            label3Rect = QRect(handle3Rect.left() - 5 + adjustB, handle3Rect.bottom()  + adjustS, 10, 10)
             if self.showNumbers:
                 painter.drawText(label3Rect, Qt.AlignmentFlag.AlignCenter, value3Label)
         
