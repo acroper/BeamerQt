@@ -208,12 +208,14 @@ class ContentWidget(QtWidgets.QWidget):
             cItem.setMinimumWidth(int(  proportion*self.TotalSize/100 ) )
             cItem.setMaximumWidth(int(  proportion*self.TotalSize/100 ) )
             
-            # print(proportion, LastCol)
+            print(proportion, LastCol)
             
             LastCol += 1
         
             if LastCol == maxcols:
                 LastCol = 0
+        
+        self.Block.ColumnProportions = self.ColumnProportions
             
             
         
@@ -324,6 +326,8 @@ class ContentWidget(QtWidgets.QWidget):
     
     
     def ReadBlock(self, outBlock):
+        
+        
         self.Block = outBlock
         
         self.blockTitle.setText(self.Block.Title)
@@ -370,6 +374,8 @@ class ContentWidget(QtWidgets.QWidget):
         self.Block.ColumnNumber = self.ColumnNumber
         
         self.Block.ColumnCount = self.maxCols.value()
+        
+        self.FixProportions()
         
         self.Block.ColumnProportions = self.ColumnProportions
         
