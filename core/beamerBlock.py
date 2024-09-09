@@ -191,7 +191,7 @@ class BeamerBlock():
                 latexcontent.append("\\fbox{")
                 
             if self.TableMode:
-                latexcontent.append("\\begin{minipage}[t]{"+str(SBSize)+"cm}")
+                latexcontent.append("\\begin{minipage}[b]{"+str(SBSize)+"cm}")
             
             itemlatex = item.GenLatex()
             latexcontent.extend(itemlatex)
