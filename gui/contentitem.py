@@ -53,6 +53,10 @@ class ContentItem(QtWidgets.QWidget):
         
         self.SetActions()
         
+        self.Alignment = "Default"
+        
+        self.Aligning = False
+        
 
     def SetActions(self):
         
@@ -60,13 +64,56 @@ class ContentItem(QtWidgets.QWidget):
         self.nextBtn.clicked.connect(lambda: self.SetOption("next"))
         self.deleteBtn.clicked.connect(lambda: self.SetOption("delete"))
         
+        self.AlignLeftBtn.clicked.connect(lambda: self.SetAlignment("Left"))
+        self.AlignRightBtn.clicked.connect(lambda: self.SetAlignment("Right"))
+        self.AlignCenterBtn.clicked.connect(lambda: self.SetAlignment("Center"))
+        self.AlignDefaultBtn.clicked.connect(lambda: self.SetAlignment("Default"))
         
         toct = QWidgetAction(self)
         toct.setDefaultWidget(self.ButtonsWidget)
         self.opcButton.addAction(toct)
         
         
+        
+        
+    def SetAlignment(self, option):
+        self.Alignment = option
+        
+        if self.Aligning == False:
+            self.CheckAlignment()
+    
+    
+    def CheckAlignment(self):
+        self.Aligning = True
+        
+        self.AlignCenterBtn.setChecked(False)
+        self.AlignLeftBtn.setChecked(False)
+        self.AlignRightBtn.setChecked(False)
+        self.AlignDefaultBtn.setChecked(False)
+        
+        
+        if self.Alignment == "Center":
+            self.AlignCenterBtn.setChecked(True)
+        
+        if self.Alignment == "Left":
+            self.AlignLeftBtn.setChecked(True)
+        
+        if self.Alignment == "Right":
+            self.AlignRightBtn.setChecked(True)
+        
+        if self.Alignment == "Default":
+            self.AlignDefaultBtn.setChecked(True)
+        
+        self.InnerWidget.GetInnerObject().Alignment = self.Alignment    
+        
+        self.Aligning = False
+        
+        
+        
+        
 
+        
+    
         
         
     
@@ -94,6 +141,8 @@ class ContentItem(QtWidgets.QWidget):
         self.InnerWidget = Item
         
         
+        
+        
     def GetInnerObject(self):
         
         return self.InnerWidget.GetInnerObject()
@@ -101,6 +150,14 @@ class ContentItem(QtWidgets.QWidget):
     def SetInnerObject(self, obj):
         
         self.InnerWidget.SetInnerObject(obj)
+        
+        self.Alignment = self.InnerWidget.GetInnerObject().Alignment
+        
+        # print(self.Alignment)
+        
+        self.Aligning = False
+        
+        self.CheckAlignment()
         
         
         
