@@ -103,6 +103,7 @@ class itemText():
         except:
             outText = " "
             
+        outText += "\\phantom{-}"
         # latexcontent.append(self.Text)
         latexcontent.append(outText)
         
