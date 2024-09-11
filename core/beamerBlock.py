@@ -192,9 +192,29 @@ class BeamerBlock():
                 
             if self.TableMode:
                 latexcontent.append("\\begin{minipage}[b]{"+str(SBSize)+"cm}")
+                
+            # Alignment
+            if item.Alignment == "Left":
+                latexcontent.append("\\begin{flushleft}")
+            if item.Alignment == "Right":
+                latexcontent.append("\\begin{flushright}")
+            if item.Alignment == "Center":
+                latexcontent.append("\\begin{center}")
             
             itemlatex = item.GenLatex()
             latexcontent.extend(itemlatex)
+            
+            
+            # end Alignment
+            
+            if item.Alignment == "Left":
+                latexcontent.append("\\end{flushleft}")
+            if item.Alignment == "Right":
+                latexcontent.append("\\end{flushright}")
+            if item.Alignment == "Center":
+                latexcontent.append("\\end{center}")
+            
+            
             
             if self.TableMode:
                 latexcontent.append("\\end{minipage}")
