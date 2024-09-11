@@ -28,6 +28,8 @@ from PyQt6.QtCore import pyqtSignal, QObject
 
 import xml.etree.ElementTree as ET
 
+from core.xmlutils import *
+
 
 class itemWidgetText(QtWidgets.QWidget):
     
@@ -62,18 +64,32 @@ class itemText():
         
         self.Text = ""
         
+        self.Alignment = "Left"
+        
     
     def GetXMLContent(self):
+        
+        
         ContentXML = ET.Element('ItemWidget', ItemType='Text')
         
         ContentXML.text = self.Text
+        
+        Alignment = ET.SubElement(ContentXML, "Alignment")
+        Alignment.text = self.Alignment
+        
+        
         
         return ContentXML
         
         
         
     def ReadXMLContent(self, xblock):
+        
+        xmlblock = xmlutils(xblock)
+        
         self.Text = xblock.text
+        
+        self.Alignment = xmlblock.GetField("Alignment", "Left")
         
         
     def GenLatex(self):
@@ -82,8 +98,11 @@ class itemText():
         
         outText = self.Text
         
-        outText = self.Text.replace("\n", "\\"+"\\ \n")
-        
+        try:
+            outText = self.Text.replace("\n", "\\"+"\\ \n")
+        except:
+            outText = " "
+            
         # latexcontent.append(self.Text)
         latexcontent.append(outText)
         
