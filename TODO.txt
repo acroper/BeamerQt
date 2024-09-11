@@ -3,7 +3,7 @@ Pending activities
 
 [X] Add recent files
 
-[] Put the elements in Box if there are more than 1
+[X] Put the elements in Box if there are more than 1
 
 [] Enable alignment of elements
 

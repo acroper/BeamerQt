@@ -172,7 +172,7 @@ class ContentWidget(QtWidgets.QWidget):
         #Column proportions must be equal to 100*controls
         Total = 0
         
-        print("Before", self.ColumnProportions)
+        # print("Before", self.ColumnProportions)
         
         for k in range(controls ):
             Total = Total + self.ColumnProportions[k]
@@ -185,8 +185,8 @@ class ContentWidget(QtWidgets.QWidget):
             self.ColumnProportions[k] += diff
             
             
-        print("After", self.ColumnProportions)
-        print(diff)
+        # print("After", self.ColumnProportions)
+        # print(diff)
     
     
     def updateColumnSize(self):
@@ -199,7 +199,7 @@ class ContentWidget(QtWidgets.QWidget):
         LastCol = 0
         
         maxcols = self.maxCols.value()
-        print("--------")
+        # print("--------")
         
         for cItem in self.WidgetList:
             
