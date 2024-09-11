@@ -39,6 +39,8 @@ import threading
 
 import uuid
 
+from core.xmlutils import *
+
 
 class ImageWidget(QWidget):
     
@@ -202,6 +204,8 @@ class itemImage():
         
         self.Text = ""
         
+        self.Alignment = "Left"
+        
         self.image_path = ""
         
         self.Pixmap = None # Used to store the image, and not load it everytime
@@ -237,14 +241,22 @@ class itemImage():
         Uid = ET.SubElement(ContentXML, "UUID")
         Uid.text = self.uuid
         
+        Alignment = ET.SubElement(ContentXML, "Alignment")
+        Alignment.text = self.Alignment
+        
+        
         
         return ContentXML
 
     
     def ReadXMLContent(self, xblock):
+        
+        xmlblock = xmlutils(xblock)
+        
         self.Text = xblock.text    
         ImagePath = xblock.findall("ImagePath")[0]
         self.image_path = ImagePath.text
+        
         
         if self.image_path == None:
             self.image_path = ""
@@ -262,6 +274,9 @@ class itemImage():
             self.uuid = xblock.findall("UUID")[0].text
         except:
             None
+            
+        
+        self.Alignment = xmlblock.GetField("Alignment", "Left")
             
             
         
