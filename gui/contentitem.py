@@ -94,15 +94,19 @@ class ContentItem(QtWidgets.QWidget):
         
         if self.Alignment == "Center":
             self.AlignCenterBtn.setChecked(True)
+            self.opcButton.setIcon(self.AlignCenterBtn.icon())
         
         if self.Alignment == "Left":
             self.AlignLeftBtn.setChecked(True)
+            self.opcButton.setIcon(self.AlignLeftBtn.icon())
         
         if self.Alignment == "Right":
             self.AlignRightBtn.setChecked(True)
+            self.opcButton.setIcon(self.AlignRightBtn.icon())
         
         if self.Alignment == "Default":
             self.AlignDefaultBtn.setChecked(True)
+            self.opcButton.setIcon(self.AlignDefaultBtn.icon())
         
         self.InnerWidget.GetInnerObject().Alignment = self.Alignment    
         
