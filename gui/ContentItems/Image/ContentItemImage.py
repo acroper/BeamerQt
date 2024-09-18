@@ -152,6 +152,8 @@ class itemWidgetImage(QtWidgets.QWidget):
         self.Image.ImageClicked.connect(self.showImageDLG)
         
         
+        
+        
 
     def showImageDLG(self):
         print("Image clicked")
@@ -168,6 +170,8 @@ class itemWidgetImage(QtWidgets.QWidget):
 
     def GetInnerObject(self):
         # self.InnerObject.Text = self.TextEditor.toPlainText()
+        self.InnerObject.PrevText = self.prevText.text()
+        self.InnerObject.PostText = self.posText.text()
         return self.InnerObject
     
     def SetInnerObject(self, inner):
@@ -177,6 +181,9 @@ class itemWidgetImage(QtWidgets.QWidget):
     
     def Refresh(self, forced = False):
         # self.TextEditor.setText(self.InnerObject.Text)
+        
+        self.prevText.setText( self.InnerObject.PrevText )
+        self.posText.setText(self.InnerObject.PostText)
 
         if os.path.exists(self.InnerObject.image_path):
             self.Image.image_path = self.InnerObject.image_path
@@ -203,6 +210,10 @@ class itemImage():
         self.Type = "Image"
         
         self.Text = ""
+        
+        self.PrevText = ""
+        
+        self.PostText = ""
         
         self.Alignment = "Left"
         
@@ -244,6 +255,12 @@ class itemImage():
         Alignment = ET.SubElement(ContentXML, "Alignment")
         Alignment.text = self.Alignment
         
+        PrevText = ET.SubElement(ContentXML, "PrevText")
+        PrevText.text = self.PrevText
+        
+        PostText = ET.SubElement(ContentXML, "PostText")
+        PostText.text = self.PostText
+        
         
         
         return ContentXML
@@ -277,6 +294,9 @@ class itemImage():
             
         
         self.Alignment = xmlblock.GetField("Alignment", "Left")
+        
+        self.PrevText = xmlblock.GetField("PrevText", "")
+        self.PostText = xmlblock.GetField("PostText", "")
             
             
         
@@ -313,9 +333,16 @@ class itemImage():
             widthText = self.MaxItemSize
             
             width = round( widthText * self.Width / 100 , 1)
+            
+            if self.PrevText != "":
+                latexcontent.append( self.PrevText + "\\"+"\\"  )
+            
             # latexcontent.append("\\begin{center}")
             latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + image_path +"}")
             # latexcontent.append("\\end{center}")
+            
+            if self.PostText != "":
+                latexcontent.append( "\\"+"\\" + self.PostText    )
         
         return latexcontent
             
