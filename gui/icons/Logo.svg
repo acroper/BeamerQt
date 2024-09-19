@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="Logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.8998634"
+     inkscape:cx="234.49054"
+     inkscape:cy="762.68641"
+     inkscape:window-width="1920"
+     inkscape:window-height="997"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="true" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect927"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="m 141.04903,302.21089 c 2.93516,-8.17297 -7.23963,-16.27148 -19.97058,-16.44333"
+       prop_scale="0.72841698"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect2361"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="m 141.04903,242.63121 c 2.93516,-8.17297 -7.23963,-16.27148 -19.97058,-16.44333"
+       prop_scale="0.72841698"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2260"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter58552"
+       x="-0.052067298"
+       y="-0.059819686"
+       width="1.1402924"
+       height="1.1611808">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood58542" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite58544" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="0.6"
+         result="blur"
+         id="feGaussianBlur58546" />
+      <feOffset
+         dx="1"
+         dy="1"
+         result="offset"
+         id="feOffset58548" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite58550" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:MathJax_Caligraphic;-inkscape-font-specification:'MathJax_Caligraphic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="12.180667"
+       y="56.709824"
+       id="text2374"
+       transform="rotate(-23.481322)"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan2372"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.8168px;font-family:MathJax_Caligraphic;-inkscape-font-specification:'MathJax_Caligraphic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="12.180667"
+         y="56.709824">B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="43.047676"
+       y="44.960526"
+       id="text3352"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan3350"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="43.047676"
+         y="44.960526">Q</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.08721px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="55.47047"
+       y="36.123642"
+       id="text4028"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan4026"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.08721px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="55.47047"
+         y="36.123642">T</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:15.778px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="51.871735"
+       y="61.835888"
+       id="text5056"
+       transform="scale(0.83850347,1.1926009)"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan5054"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:15.778px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="51.871735"
+         y="61.835888">B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="9.8447742"
+       y="85.037224"
+       id="text6924"
+       transform="rotate(-19.371244)"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan6922"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="9.8447742"
+         y="85.037224">V</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="62.608334"
+       y="65.261505"
+       id="text7816"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan7814"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="62.608334"
+         y="65.261505">Visual</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="62.608334"
+         y="72.146652"
+         id="tspan7972">Beamer</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="43.047676"
+       y="109.46974"
+       id="text8938"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan8936"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="43.047676"
+         y="109.46974">B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="31.073883"
+       y="104.01741"
+       id="text8942"
+       transform="rotate(-1.116418)"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan8940"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="31.073883"
+         y="104.01741">P</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="62.608334"
+       y="100.98571"
+       id="text8948"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan8944"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="62.608334"
+         y="100.98571">Power</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="62.608334"
+         y="107.87086"
+         id="tspan8946">Beamer</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="61.796566"
+       y="41.296665"
+       id="text15203"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.50812px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="61.796566"
+         y="41.296665"
+         id="tspan15201">Beamer QT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="135.08693"
+       y="33.588448"
+       id="text23574"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan23572"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="135.08693"
+         y="33.588448">B<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan28900" /></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="146.45219"
+       y="40.179989"
+       id="text24262"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan24260"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="146.45219"
+         y="40.179989">Q<tspan
+   style="font-size:8.46667px;baseline-shift:sub"
+   id="tspan34904">T</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="134.63078"
+       y="90.303436"
+       id="text47738"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan47736"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="134.63078"
+         y="90.303436">B<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan47734" /></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="146.45219"
+       y="90.529236"
+       id="text47744"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan47742"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="146.45219"
+         y="90.529236">Q<tspan
+   style="font-size:8.46667px;baseline-shift:sub"
+   id="tspan47740">T</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="134.63078"
+       y="121.19968"
+       id="text47750"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan47748"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="134.63078"
+         y="121.19968">B<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan47746" /></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="146.45219"
+       y="121.42548"
+       id="text47756"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan47754"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="146.45219"
+         y="121.42548">Q<tspan
+   style="font-size:65%;baseline-shift:super"
+   id="tspan47752">T</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="135.08693"
+       y="62.367989"
+       id="text53150"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan53148"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="135.08693"
+         y="62.367989">B<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan53146" /></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+       x="146.45219"
+       y="68.959534"
+       id="text53156"
+       inkscape:export-filename="/tmp/text2374.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan53154"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+         x="146.45219"
+         y="68.959534">Q<tspan
+   style="font-size:65%;baseline-shift:super"
+   id="tspan53152">T</tspan></tspan></text>
+    <g
+       id="g58210"
+       style="filter:url(#filter58552)"
+       inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/BQTIcon.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+         x="39.656441"
+         y="218.91548"
+         id="text58196"
+         inkscape:export-filename="/tmp/text2374.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"><tspan
+           sodipodi:role="line"
+           id="tspan58194"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+           x="39.656441"
+           y="218.91548">B<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan58192" /></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264584"
+         x="51.021706"
+         y="225.50702"
+         id="text58202"
+         inkscape:export-filename="/tmp/text2374.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"><tspan
+           sodipodi:role="line"
+           id="tspan58200"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264584"
+           x="51.021706"
+           y="225.50702">Q<tspan
+   style="font-size:8.46667px;baseline-shift:sub"
+   id="tspan58198">T</tspan></tspan></text>
+    </g>
+  </g>
+</svg>
