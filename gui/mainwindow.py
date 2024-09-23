@@ -38,6 +38,8 @@ from gui.RecentFiles import *
 
 from core.configFile import *
 
+from gui.AboutWidget import *
+
 
 import xml.etree.ElementTree as ET
 import tempfile
@@ -150,8 +152,15 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.ZoomSlider.valueChanged.connect(self.ZoomSlideValue)
         
+        self.actionAbout.triggered.connect(self.ShowAboutDialog)
+        
         
        
+    def ShowAboutDialog(self):
+        about = AboutWidget()
+        about.exec()
+        
+    
     def ConfigFrontMatter(self):
         fmw = FrontMatterWidget()
         

@@ -172,7 +172,7 @@
      <x>0</x>
      <y>0</y>
      <width>1096</width>
-     <height>22</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -201,7 +201,7 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_QFLowmon"/>
+    <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -342,7 +342,7 @@
     <string>Save</string>
    </property>
   </action>
-  <action name="actionAbout_QFLowmon">
+  <action name="actionAbout">
    <property name="text">
     <string>About Beamer QT</string>
    </property>
