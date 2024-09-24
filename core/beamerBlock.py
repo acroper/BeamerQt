@@ -57,6 +57,10 @@ class BeamerBlock():
         
         self.ColumnProportions = [100, 100, 100, 100]
         
+        # for interpolation of column size
+        self.mval = [1.16, 1.17, 1.16]
+        self.bval = [-1.8, -2.4, -2.8]
+        
         
 
 
@@ -171,10 +175,20 @@ class BeamerBlock():
             
             # recalculate width
             
+            colsize = 10*self.BlockWidth/100
+            
+            divisions = min(len(self.SubBlocks),self.ColumnCount)
+            
+            if divisions > 1:
+                colsize = colsize*self.mval[divisions-2]+self.bval[divisions-2]
+                
+           
+
+            
+            SBSize = self.BlockWidth/divisions
+            SBSize = (self.ColumnProportions[LastCol]*colsize/divisions)/100 # cm
             
             
-            SBSize = self.BlockWidth/min(len(self.SubBlocks),self.ColumnCount)
-            SBSize = self.ColumnProportions[LastCol]*8*SBSize/10000 # cm
             ### Need to recalculate the formula, since it is not that linear!
             
             item.MaxItemSize = SBSize
