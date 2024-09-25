@@ -92,6 +92,17 @@ class itemText():
         self.Alignment = xmlblock.GetField("Alignment", "Left")
         
         
+    def CheckLaTeX(self, text):
+        # Try to check if there is some basic latex command
+        options = "\\begin"
+        
+        if options in text:
+            return True
+        else:
+            return False
+        
+        
+        
     def GenLatex(self):
         
         latexcontent = []
@@ -99,7 +110,8 @@ class itemText():
         outText = self.Text
         
         try:
-            outText = self.Text.replace("\n", "\\"+"\\ \n")
+            if not self.CheckLaTeX(self.Text):
+                outText = self.Text.replace("\n", "\\"+"\\ \n")
         except:
             outText = " "
             
