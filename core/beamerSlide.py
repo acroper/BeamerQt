@@ -23,12 +23,15 @@ import xml.etree.ElementTree as ET
 
 from core.beamerBlock import *
 
+from core.xmlutils import *
+
 class BeamerSlide():
     
     def __init__(self):
         
         self.Title = ""
         self.Subtitle = ""
+        self.SectionLabel = ""
         self.TitleVisible = True
         self.nombre = ""
         
@@ -78,6 +81,8 @@ class BeamerSlide():
         
         FrameXML = ET.Element('Frame', id='frame_0')
         
+        xmlblock = xmlutils(FrameXML)
+        
         TitleBar = ET.SubElement(FrameXML, 'TitleBar')
         TitleVisible = ET.SubElement(TitleBar, 'Visible')
         TitleVisible.text = str(self.TitleVisible)
@@ -86,6 +91,9 @@ class BeamerSlide():
         
         SubTitleBar = ET.SubElement(FrameXML, 'SubTitleBar')
         SubTitleBar.text = self.Subtitle
+        
+        xmlblock.SetField('SectionLabel', self.SectionLabel)        
+        
         
         TitleMode = ET.SubElement(FrameXML, 'TitleMode')
         TitleMode.text = self.TitleMode
@@ -125,8 +133,12 @@ class BeamerSlide():
     
     def ReadXMLContent(self, xblock):
         
+        xmlblock = xmlutils(xblock)
+        
         self.Title = xblock.findall('TitleBar')[0].text
         self.Subtitle = xblock.findall('SubTitleBar')[0].text
+        
+        self.SectionLabel = xmlblock.GetField('SectionLabel', '')
         
         self.CurrentLayout =  xblock.findall('FrameLayout')[0].text
         
@@ -156,10 +168,10 @@ class BeamerSlide():
         latexcontent = []
         
         if self.TitleMode == "Section":
-            latexcontent.append("\\section{" + self.Title + "}")
+            latexcontent.append("\\section{" + self.SectionLabel + "}")
         
         if self.TitleMode == "Subsection":
-            latexcontent.append("\\subsection{" + self.Title + "}")
+            latexcontent.append("\\subsection{" + self.SectionLabel + "}")
         
         
         latexcontent.append("\\begin{frame}{" + self.Title + "}")

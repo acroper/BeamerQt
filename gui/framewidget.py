@@ -107,12 +107,20 @@ class FrameWidget(QtWidgets.QWidget):
     def ActivateSection(self):
         if self.sectionCheck.isChecked():
             self.subsectionCheck.setChecked(False)
+        self.SectionEmpty()
+            
         
     def ActivateSubsection(self):
         if self.subsectionCheck.isChecked():
             self.sectionCheck.setChecked(False)
+        self.SectionEmpty()
 
     
+    def SectionEmpty(self):
+        if self.sectionLabel.text() == "":
+            self.sectionLabel.setText( self.title_text.toPlainText()  )
+            
+
     def AddBlock(self):
         ## Add a new block
         N = len(self.Blocks)
@@ -572,6 +580,9 @@ class FrameWidget(QtWidgets.QWidget):
             self.BeamerSlide.Title = self.title_text.toPlainText()
             self.BeamerSlide.Subtitle = self.subtitle_text.text()
             
+            self.BeamerSlide.SectionLabel = self.sectionLabel.text()
+            
+            
             self.BeamerSlide.TitleMode = "Normal"
             
             if self.sectionCheck.isChecked():
@@ -617,6 +628,7 @@ class FrameWidget(QtWidgets.QWidget):
         ### Extract the parameters from the slide
         self.title_text.setPlainText(slide.Title)
         self.subtitle_text.setText(slide.Subtitle)
+        self.sectionLabel.setText(slide.SectionLabel)
         
         self.CurrentLayout = slide.CurrentLayout
         

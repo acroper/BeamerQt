@@ -39,4 +39,10 @@ class xmlutils:
             result = default
         
         return result
+    
+    def SetField(self, field, value):
+        
+        LocalField = ET.SubElement(self.xblock, field)
+        LocalField.text = value
+        
             
