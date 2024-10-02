@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1096</width>
-    <height>584</height>
+    <width>1402</width>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -171,7 +171,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1096</width>
+     <width>1402</width>
      <height>29</height>
     </rect>
    </property>
@@ -322,10 +322,8 @@
    <addaction name="actionZoom_Out"/>
    <addaction name="actionAdd_new_slide"/>
    <addaction name="actionDuplicate_slide"/>
-   <addaction name="actionReset_slide_number"/>
-   <addaction name="actionReorder_slides"/>
-   <addaction name="actionGenerateLaTeX"/>
    <addaction name="actionFrontMatter"/>
+   <addaction name="actionGenerateLaTeX"/>
   </widget>
   <action name="actionNew_File">
    <property name="text">

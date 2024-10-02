@@ -143,6 +143,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionZoom_Out.triggered.connect(self.zoomOut)
         self.actionAdd_new_slide.triggered.connect(self.newSlide)
         self.actionDuplicate_slide.triggered.connect(self.duplicateSlide)
+        
         self.actionReset_slide_number.triggered.connect(self.resetSlideNumber)
         
         
