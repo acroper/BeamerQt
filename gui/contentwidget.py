@@ -208,7 +208,7 @@ class ContentWidget(QtWidgets.QWidget):
             cItem.setMinimumWidth(int(  proportion*self.TotalSize/100 ) )
             cItem.setMaximumWidth(int(  proportion*self.TotalSize/100 ) )
             
-            print(proportion, LastCol)
+            # print(proportion, LastCol)
             
             LastCol += 1
         
