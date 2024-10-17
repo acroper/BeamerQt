@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>971</width>
-    <height>588</height>
+    <height>756</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="Title"/>
+          <widget class="QLineEdit" name="Title">
+           <property name="placeholderText">
+            <string>Presentation Title</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
@@ -53,7 +57,11 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="Subtitle"/>
+          <widget class="QLineEdit" name="Subtitle">
+           <property name="placeholderText">
+            <string>Subtitle</string>
+           </property>
+          </widget>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_4">
@@ -63,7 +71,11 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QPlainTextEdit" name="Authors"/>
+          <widget class="QPlainTextEdit" name="Authors">
+           <property name="placeholderText">
+            <string>Author names</string>
+           </property>
+          </widget>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_5">
@@ -73,7 +85,11 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLineEdit" name="Logo"/>
+          <widget class="QLineEdit" name="Logo">
+           <property name="placeholderText">
+            <string>Path to the logo file</string>
+           </property>
+          </widget>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="label_6">
@@ -83,7 +99,11 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QLineEdit" name="Background"/>
+          <widget class="QLineEdit" name="Background">
+           <property name="placeholderText">
+            <string>Path to the background file</string>
+           </property>
+          </widget>
          </item>
          <item row="6" column="0">
           <widget class="QLabel" name="label_7">
@@ -93,7 +113,11 @@
           </widget>
          </item>
          <item row="6" column="1">
-          <widget class="QPlainTextEdit" name="Options"/>
+          <widget class="QPlainTextEdit" name="Options">
+           <property name="placeholderText">
+            <string>Unimplemented yet</string>
+           </property>
+          </widget>
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="label_8">
@@ -121,6 +145,26 @@
             </spacer>
            </item>
           </layout>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>LaTeX preamble:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QPlainTextEdit" name="preambleText">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>250</height>
+            </size>
+           </property>
+           <property name="placeholderText">
+            <string>Place your LaTeX code here...</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
