@@ -23,3 +23,9 @@ PyQt-based application to create Beamer-LaTeX Presentations
 <img src="https://github.com/user-attachments/assets/be7b2e0c-20a4-41f0-b09d-93131973c4d4" width="600">
 
 
+## Support
+You can contact me at acroper@gmail.com
+
+Please donate to help me developing this software
+
+https://www.paypal.com/donate/?business=2PP5H8Z8L5E8E&no_recurring=0&item_name=Support+the+development+of+BeamerQT&currency_code=USD
