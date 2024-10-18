@@ -57,6 +57,12 @@ class FrontMatterWidget(QtWidgets.QDialog):
         self.Authors.setPlainText(self.FrontMatter.Author)
         self.Options.setPlainText(self.FrontMatter.Options)
         
+        self.preambleText.setPlainText(self.FrontMatter.Preamble)
+        
+        self.Logo.setText(self.FrontMatter.LogoPath)
+        self.Background.setText(self.FrontMatter.BackgroundPath)
+        
+        
     def Save(self):
         self.FrontMatter.Title = self.Title.text()
         self.FrontMatter.Subtitle = self.Subtitle.text()
@@ -66,6 +72,11 @@ class FrontMatterWidget(QtWidgets.QDialog):
         # assign the background locations
         
         self.FrontMatter.Options = self.Options.toPlainText()
+        
+        self.FrontMatter.Preamble = self.preambleText.toPlainText()
+        
+        self.FrontMatter.LogoPath = self.Logo.text()
+        self.FrontMatter.BackgroundPath = self.Background.text()
         
         
         

@@ -38,7 +38,13 @@ class frontMatter:
         
         self.Background = None
         
+        self.LogoPath = ""
+        
+        self.BackgroundPath = ""
+        
         self.Options = ""
+        
+        self.Preamble = ""
         
         self.getImageObjects()
         
@@ -53,6 +59,8 @@ class frontMatter:
         
     def GetXMLContent(self):
         ContentXML = ET.Element('FrontMatter')
+        xmlblock = xmlutils(ContentXML)
+        
         Title = ET.SubElement(ContentXML, 'Title')
         Title.text = self.Title
         
@@ -70,6 +78,10 @@ class frontMatter:
         
         Background = self.Background.GetXMLContent()
         ContentXML.append(Background)
+        
+        xmlblock.SetField('Preamble', self.Preamble)
+        xmlblock.SetField('LogoPath', self.LogoPath)
+        xmlblock.SetField('BackgroundPath', self.BackgroundPath)
         
         
         self.ContentXML = ContentXML
@@ -91,6 +103,10 @@ class frontMatter:
         self.Author = xmlblock.GetField('Author', '')
         self.Options = xmlblock.GetField('Options', '')
         
+        self.Preamble = xmlblock.GetField('Preamble', '')
+        self.LogoPath = xmlblock.GetField('LogoPath', '')
+        self.BackgroundPath =  xmlblock.GetField('BackgroundPath', '')
+        
         
         self.Logo.ReadXMLContent(xblock.findall('ItemWidget')[0])
         self.Background.ReadXMLContent(xblock.findall('ItemWidget')[1])
@@ -98,6 +114,8 @@ class frontMatter:
         
     def GenLaTeX(self):
         latexcontent = []
+        
+        latexcontent.append(self.Preamble)
         
         latexcontent.append("\\title{" + self.Title + "}")
         
