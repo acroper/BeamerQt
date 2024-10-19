@@ -223,7 +223,7 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         self.UnSelectBlock()
         
-        self.LeftColumnSize.setValue(self.CurrentFrame.LeftColumnProportion)
+        # self.LeftColumnSize.setValue(self.CurrentFrame.LeftColumnProportion)
         
         
     

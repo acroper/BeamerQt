@@ -37,7 +37,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         uic.loadUi('gui/Slidebar.ui', self)
         
-        self.setAcceptDrops(True)
+        # self.setAcceptDrops(True)
         
         self.SlideList = []
         
@@ -59,7 +59,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         # self.show()
     
     def UpdateSlideOrder(self):
-        
+        print("Updating order...")
         self.Document.Slides.clear()
         for k in range(self.ListWidget.count()):
             qitem = self.ListWidget.item(k)
@@ -302,6 +302,10 @@ class SlideBarWidget(QtWidgets.QWidget):
         print("Resetting also the order")
         
         self.UpdateSlideOrder()
+        self.ClearLists()
+        self.RefreshSlides()
+        
+        return
         
         k = 1
         for slide in self.SlideList:

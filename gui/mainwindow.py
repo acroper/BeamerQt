@@ -364,6 +364,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Save contents to /tmp/BeamerQt.xml
         self.CurrentFrame.SaveSlide()
         # self.Document.SaveXML()
+        self.Slidebar.ResetSlideNumber()
         
         if self.Document.NewFile:
             # Create a new document
@@ -436,6 +437,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def GenerateLatex(self):
         
+        self.Slidebar.ResetSlideNumber()
         self.statusBar.showMessage("Generating LaTeX document... ")
         self.CurrentFrame.SaveSlide()
         self.Document.GenLaTeX()
