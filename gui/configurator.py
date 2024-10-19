@@ -105,27 +105,29 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         # Actions for reposition the blocks. The signals will be sent to
         # the Frame directly
-        self.Left.clicked.connect(self.CurrentFrame.MoveLeft)
-        self.Right.clicked.connect(self.CurrentFrame.MoveRight)
-        self.Up.clicked.connect(self.CurrentFrame.MoveUp)
-        self.Down.clicked.connect(self.CurrentFrame.MoveDown)
+        # self.Left.clicked.connect(self.CurrentFrame.MoveLeft)
+        # self.Right.clicked.connect(self.CurrentFrame.MoveRight)
+        # self.Up.clicked.connect(self.CurrentFrame.MoveUp)
+        # self.Down.clicked.connect(self.CurrentFrame.MoveDown)
         
         
         
     
     def SelectBlock(self):
-        self.SelectedBlock = self.CurrentFrame.SelectedBlock
-        self.blockLayout.setVisible(True)
+        return
+        # self.SelectedBlock = self.CurrentFrame.SelectedBlock
+        # self.blockLayout.setVisible(True)
         
         # self.toolBox.setCurrentIndex(2)
     def UnSelectBlock(self):
-        self.blockLayout.setVisible(False)
+        return
+        # self.blockLayout.setVisible(False)
     
     
     def LoadActions(self):
         # Most actions are passed directly to the Frame object
-        self.show_title.stateChanged.connect(self.titlechange)
-        self.show_subtitle.stateChanged.connect(self.subtitlechange)
+        # self.show_title.stateChanged.connect(self.titlechange)
+        # self.show_subtitle.stateChanged.connect(self.subtitlechange)
         
         self.layout_standard.toggled.connect(lambda: self.layoutchange("layout_standard"))
         self.layout_2cols.toggled.connect(lambda: self.layoutchange("layout_2cols"))
@@ -136,13 +138,14 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         self.layout_title.toggled.connect(lambda: self.layoutchange("layout_title"))
         self.layout_restore.toggled.connect(self.restoreLayout)
         
-        self.LeftColumnSize.valueChanged.connect(self.UpdateLeftColumn)
+        # self.LeftColumnSize.valueChanged.connect(self.UpdateLeftColumn)
         # self.RightColumnSize.valueChanged.connect(self.UpdateRightColumn)
         
         
         
     
     def UpdateLeftColumn(self):
+        return
                 
         self.LeftColumnValue = self.LeftColumnSize.value()
         self.RightColumnText.setText( str(100-self.LeftColumnValue)  )

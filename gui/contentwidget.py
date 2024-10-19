@@ -424,10 +424,12 @@ class ContentWidget(QtWidgets.QWidget):
     
     
     def setSelected(self):
+        return
         self.frame.setLineWidth(3)
 
     
     def unSelected(self):
+        return
         self.frame.setLineWidth(1)
         
                       
