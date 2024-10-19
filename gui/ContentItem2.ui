@@ -31,8 +31,11 @@
    </property>
    <item>
     <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(0, 0, 0);</string>
+     </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Box</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
@@ -42,16 +45,16 @@
        <number>0</number>
       </property>
       <property name="leftMargin">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="topMargin">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>1</number>
+       <number>0</number>
       </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">

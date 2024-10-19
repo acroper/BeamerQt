@@ -23,7 +23,9 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background:rgb(255, 255, 255)</string>
+   <string notr="true">background-color: rgb(244, 244, 244);
+border-color: rgb(0, 0, 0);
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
@@ -50,13 +52,13 @@
       </size>
      </property>
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::Box</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
      <property name="lineWidth">
-      <number>0</number>
+      <number>1</number>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
@@ -475,13 +477,13 @@
       </size>
      </property>
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::Box</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
      <property name="lineWidth">
-      <number>0</number>
+      <number>1</number>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_8">
       <property name="spacing">
@@ -515,13 +517,13 @@
       <string notr="true">border-color: rgb(255, 0, 0);</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::Box</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
      <property name="lineWidth">
-      <number>0</number>
+      <number>1</number>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
