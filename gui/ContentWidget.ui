@@ -23,8 +23,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(244, 244, 244);
-border-color: rgb(0, 0, 0);
+   <string notr="true">border-color: rgb(0, 0, 0);
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
