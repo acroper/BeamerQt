@@ -221,7 +221,7 @@ class itemImage():
         
         self.Pixmap = None # Used to store the image, and not load it everytime
         
-        self.Width = 50
+        self.Width = 100
         
         self.uuid = str(uuid.uuid4())
      
