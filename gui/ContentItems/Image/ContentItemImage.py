@@ -81,8 +81,11 @@ class ImageWidget(QWidget):
         
         image_size = self.pixmap.size()
         
-        scale_factor = min(max_image_size.width() / image_size.width(),
-                          max_image_size.height() / image_size.height())
+        if image_size.width() == 0 or image_size.height() == 0:
+            scale_factor = 1
+        else:
+            scale_factor = min(max_image_size.width() / image_size.width(),
+                               max_image_size.height() / image_size.height())
         
         self.image_label.setIconSize(image_size * scale_factor)
         
