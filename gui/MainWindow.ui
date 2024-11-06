@@ -209,6 +209,8 @@
     </property>
     <addaction name="actionZoom_In"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="separator"/>
+    <addaction name="actionLaTeX_Folder"/>
    </widget>
    <widget class="QMenu" name="menuSlide">
     <property name="title">
@@ -323,6 +325,7 @@
    <addaction name="actionAdd_new_slide"/>
    <addaction name="actionDuplicate_slide"/>
    <addaction name="actionFrontMatter"/>
+   <addaction name="actionLaTeX_Folder"/>
    <addaction name="actionGenerateLaTeX"/>
   </widget>
   <action name="actionNew_File">
@@ -398,6 +401,11 @@
   <action name="actionDuplicate_slide">
    <property name="text">
     <string>Duplicate slide</string>
+   </property>
+  </action>
+  <action name="actionLaTeX_Folder">
+   <property name="text">
+    <string>LaTeX Folder</string>
    </property>
   </action>
  </widget>

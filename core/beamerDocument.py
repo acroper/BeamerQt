@@ -218,6 +218,14 @@ class beamerDocument():
                 None
         
     
+    def ShowLaTeXFolder(self):
+        LocalSystem = platform.system() 
+        
+        if LocalSystem == "Windows":
+            os.startfile(self.latexfolder)
+        else:
+            subprocess.call(('xdg-open', self.latexfolder))
+        
     
     def GenLaTeX(self):
         self.Status = True
@@ -237,6 +245,7 @@ class beamerDocument():
         preamble = open(  os.path.join( os.path.dirname(__file__) , "preamble.tex" ), 'r').readlines()
            
         outputfile.writelines(preamble)
+        self.WriteLines([self.FrontMatter.Preamble], outputfile)
         
         # add template
         latexcontent = self.Template.GenLaTeX()

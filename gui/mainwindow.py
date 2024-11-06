@@ -155,6 +155,13 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.actionAbout.triggered.connect(self.ShowAboutDialog)
         
+        self.actionLaTeX_Folder.triggered.connect(self.ShowLaTeXFolder)
+        
+        
+    
+    def ShowLaTeXFolder(self):
+        self.Document.ShowLaTeXFolder()
+            
         
        
     def ShowAboutDialog(self):
