@@ -115,7 +115,7 @@ class frontMatter:
     def GenLaTeX(self):
         latexcontent = []
         
-        latexcontent.append(self.Preamble)
+        # latexcontent.append(self.Preamble)
         
         latexcontent.append("\\title{" + self.Title + "}")
         

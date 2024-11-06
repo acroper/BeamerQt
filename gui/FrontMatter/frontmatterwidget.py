@@ -78,6 +78,8 @@ class FrontMatterWidget(QtWidgets.QDialog):
         self.FrontMatter.LogoPath = self.Logo.text()
         self.FrontMatter.BackgroundPath = self.Background.text()
         
+        # print(self.FrontMatter.Preamble)
+        
         
         
         
