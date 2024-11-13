@@ -87,7 +87,7 @@ class BeamerTemplate:
             latexcontent.append(self.CustomCode)
             
             
-        latexcontent.append("\\begin{document}")
+        # latexcontent.append("\\begin{document}")
         
         
         return latexcontent

@@ -123,7 +123,7 @@ class frontMatter:
         
         latexcontent.append("\\author{" + self.Author + "}")
         
-        latexcontent.append("\\makebeamertitle")
+        # latexcontent.append("\\makebeamertitle")
         
         
         return latexcontent

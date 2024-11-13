@@ -245,19 +245,26 @@ class beamerDocument():
         preamble = open(  os.path.join( os.path.dirname(__file__) , "preamble.tex" ), 'r').readlines()
            
         outputfile.writelines(preamble)
-        self.WriteLines([self.FrontMatter.Preamble], outputfile)
+        
         
         # add template
         latexcontent = self.Template.GenLaTeX()
         self.WriteLines(latexcontent, outputfile)  
+        
+        self.WriteLines([self.FrontMatter.Preamble], outputfile)
         
         
         
         # add front matter
         latexcontent = self.FrontMatter.GenLaTeX()
         self.WriteLines(latexcontent, outputfile)
-
         
+
+        self.WriteLines(["\\begin{document}", "\\makebeamertitle"], outputfile)  
+        
+        
+
+
         for slide in self.Slides:
             latexcontent = slide.GenLaTeX()
             self.WriteLines(latexcontent, outputfile)
