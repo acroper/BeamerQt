@@ -94,12 +94,15 @@ class itemText():
         
     def CheckLaTeX(self, text):
         # Try to check if there is some basic latex command
-        options = "\\begin"
+        result = False
         
-        if options in text:
-            return True
-        else:
-            return False
+        options = ["\\begin", "\\["]
+        
+        for option in options:
+            if option in text:
+                return True
+        
+        return result
         
         
         
