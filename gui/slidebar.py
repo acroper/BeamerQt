@@ -57,6 +57,25 @@ class SlideBarWidget(QtWidgets.QWidget):
         # self.ListWidget = self.listWidget_2
         self.SlidePos = 0
         # self.show()
+        self.NextSel = False
+        
+        self.ListWidget.currentRowChanged.connect(self.ChangeSelection)
+        
+        
+    def ChangeSelection(self):
+        if self.NextSel:
+            return 
+            
+        row = self.ListWidget.currentRow()
+        qitem = self.ListWidget.item(row)
+        slideprev = self.ListWidget.itemWidget(qitem)
+        
+        if slideprev != None:
+            slideprev.extSelected()
+        
+        
+        
+        
     
     def UpdateSlideOrder(self):
         print("Updating order...")
@@ -74,7 +93,7 @@ class SlideBarWidget(QtWidgets.QWidget):
             else:
                 print(slide.Title)
                 
-        print("Checking final order")
+        # print("Checking final order")
         for slide in self.Document.Slides:
             print(slide.Title)
             
@@ -134,6 +153,7 @@ class SlideBarWidget(QtWidgets.QWidget):
     
     
     def selectNext(self):
+        self.NextSel = True
         # Select next slide after new creation
         
         self.SlideList[self.SlidePos].unSelected()
@@ -144,6 +164,7 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.SlidePos += 1
         
+        self.NextSel = False
         
         
     # def dragEnterEvent(self, e):
@@ -374,11 +395,13 @@ class SlidePrev(QtWidgets.QWidget):
         self.frame.setStyleSheet('background-color: rgb(255, 255, 255)')
     
         
-    def mouseReleaseEvent(self, event):
+    # def mouseReleaseEvent(self, event):
+        # self.ClickSelected = True
+        # self.Selected.emit()
+        
+    def extSelected(self):
         self.ClickSelected = True
         self.Selected.emit()
-        
-    
         
     
     # def mouseMoveEvent(self, e):
