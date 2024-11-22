@@ -7,6 +7,9 @@ PyQt-based application to create Beamer-LaTeX Presentations
 - LaTeX Beamer Libraries
 - Inkscape (Optional, to handle SVG files. Needs to be available in command line)
 
+## Example video
+https://www.youtube.com/watch?v=XQKJbuT8q1g
+
 
 ## Current state:
 - Development ideas
