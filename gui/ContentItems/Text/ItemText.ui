@@ -31,11 +31,19 @@
    </property>
    <item>
     <widget class="QTextEdit" name="TextEditor">
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
+     </property>
+     <property name="acceptRichText">
+      <bool>false</bool>
      </property>
      <property name="placeholderText">
       <string>Add text here...</string>
