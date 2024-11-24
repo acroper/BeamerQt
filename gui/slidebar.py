@@ -25,7 +25,7 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData
-from PyQt6.QtGui import QDrag, QPixmap
+from PyQt6.QtGui import QDrag, QPixmap, QAction
 
 from gui.ThumbListWidget import *
 
@@ -61,7 +61,15 @@ class SlideBarWidget(QtWidgets.QWidget):
         
         self.ListWidget.currentRowChanged.connect(self.ChangeSelection)
         
+        self.context_menu = None
         
+        
+    
+    def contextMenuEvent(self, event):
+        # Show the context menu
+        self.context_menu.exec(event.globalPos())
+        
+    
     def ChangeSelection(self):
         if self.NextSel:
             return 
@@ -262,6 +270,9 @@ class SlideBarWidget(QtWidgets.QWidget):
         #
         # Test with one slide by now
         # if len(Slides) > len(self.SlideList):
+            
+        if len(self.SlideList) > len(self.Document.Slides):
+            self.ClearLists()
         
         ### Need to improve this part    
         for k in range(len(self.SlideList), len(self.Document.Slides) ):

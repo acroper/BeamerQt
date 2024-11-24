@@ -220,6 +220,9 @@
     <addaction name="actionDuplicate_slide"/>
     <addaction name="actionReset_slide_number"/>
     <addaction name="actionReorder_slides"/>
+    <addaction name="actionCopy_Slide"/>
+    <addaction name="actionPaste_Slide"/>
+    <addaction name="actionDelete_Slide"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -406,6 +409,21 @@
   <action name="actionLaTeX_Folder">
    <property name="text">
     <string>LaTeX Folder</string>
+   </property>
+  </action>
+  <action name="actionCopy_Slide">
+   <property name="text">
+    <string>Copy</string>
+   </property>
+  </action>
+  <action name="actionPaste_Slide">
+   <property name="text">
+    <string>Paste</string>
+   </property>
+  </action>
+  <action name="actionDelete_Slide">
+   <property name="text">
+    <string>Delete</string>
    </property>
   </action>
  </widget>

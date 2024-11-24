@@ -24,6 +24,9 @@ from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
 
+# from PyQt6.QtGui import QAction
+
+
 from gui.slidewidget import *
 from gui.configurator import *
 from gui.slidebar import *
@@ -158,6 +161,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionLaTeX_Folder.triggered.connect(self.ShowLaTeXFolder)
         
         
+        self.actionCopy_Slide.triggered.connect(self.copySlide)
+        self.actionPaste_Slide.triggered.connect(self.pasteSlide)
+        self.actionDelete_Slide.triggered.connect(self.deleteSlide)
+        
+        
     
     def ShowLaTeXFolder(self):
         self.Document.ShowLaTeXFolder()
@@ -200,6 +208,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.LeftWidget.addWidget(self.Slidebar)
         
         self.Slidebar.ConnectFrame(self.CurrentFrame)
+        
+        context_menu = QMenu(self)
+        
+        context_menu.addAction(self.actionCopy_Slide)
+        context_menu.addAction(self.actionPaste_Slide)
+        context_menu.addAction(self.actionDelete_Slide)
+        context_menu.addAction(self.actionDuplicate_slide)
+        
+        self.Slidebar.context_menu = context_menu
         
         
         # Initial slide
@@ -327,28 +344,48 @@ class MainWindow(QtWidgets.QMainWindow):
         
         xmldoc = self.CurrentFrame.BeamerSlide.GetXMLContent()
         
-        
-        
         nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
         
         nSlide.ReadXMLContent(xmldoc)
 
         self.Slides.append(newSlide)
 
-        # self.CurrentFrame.ReadSlideOld(newSlide)
-        
         self.CurrentFrame.ReadSlide(nSlide)
         
-        # self.CurrentSlide = newSlide
-        
-        # self.CurrentFrame.ReadSlide()
-
         self.refreshPreviews()
         
         self.Slidebar.selectNext()        
         
         
+    def deleteSlide(self):
         
+        pos  = self.Slidebar.SlidePos
+        
+        maxn = min( len(self.Document.Slides)-1, pos  ) 
+        
+        print("Deleting slide in the position: ", pos)
+        self.Document.Slides.pop(pos)
+        self.Slides.pop(pos)
+        
+        if len(self.Document.Slides) == 0:
+            self.Document.NewSlide(0)
+        
+        cSlide = self.Document.Slides[maxn]
+        
+        self.CurrentFrame.ReadSlide(cSlide)
+        
+        self.refreshPreviews()
+        self.Slidebar.selectNext()
+        
+        
+    
+    def copySlide(self):
+        None
+        
+    def pasteSlide(self):
+        None
+        
+    
     def refreshPreviews(self):
         
         self.CurrentFrame.SaveSlide()
