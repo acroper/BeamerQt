@@ -95,6 +95,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.RecentFiles = RecentFiles( self.Config )
         
+        self.ClipboardFrame = None
+        
         self.UpdateRecentFiles()
         
     
@@ -380,10 +382,30 @@ class MainWindow(QtWidgets.QMainWindow):
         
     
     def copySlide(self):
-        None
+        self.ClipboardFrame = self.CurrentFrame.BeamerSlide.GetXMLContent()
         
     def pasteSlide(self):
-        None
+        
+        if self.ClipboardFrame == None:
+            return
+        
+        newSlide = Slide()
+        
+        xmldoc = self.ClipboardFrame
+        
+        nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
+        
+        nSlide.ReadXMLContent(xmldoc)
+
+        self.Slides.append(newSlide)
+
+        self.CurrentFrame.ReadSlide(nSlide)
+        
+        self.refreshPreviews()
+        
+        self.Slidebar.selectNext()   
+
+        
         
     
     def refreshPreviews(self):
