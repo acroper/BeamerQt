@@ -139,7 +139,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionQuit.triggered.connect(self.closing)
         self.actionOpen_File.triggered.connect(self.Open)
         
+        self.actionNew_File.triggered.connect(self.NewFile)
         self.actionSave.triggered.connect(self.Save)
+        self.actionSave_as.triggered.connect(self.SaveAs)
         
         self.zoomInCtrl.clicked.connect(self.zoomIn)
         self.actionZoom_In.triggered.connect(self.zoomIn)
@@ -257,6 +259,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def showOpenFile(self):
         
+        # This should ask for saving file
+        
         filename = openFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
         
         print("Selected file: " + filename)
@@ -273,7 +277,26 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.refreshPreviews()
             
+    
+    def NewFile(self):
         
+        ### This should ask for saving changes
+
+        Document2 = beamerDocument(self.WorkDirectory)
+
+        self.Document = Document2
+        
+        self.CurrentSlide = Slide()
+        
+        self.Document.NewSlide()
+        
+        
+        self.CurrentFrame.ReadSlide(self.Document.Slides[0])
+        
+        self.Slidebar.SetDocument(self.Document)
+        
+        self.refreshPreviews()    
+    
     
     def openProject(self, filename):
         ### Restart the GUI and loads the new project
@@ -442,6 +465,18 @@ class MainWindow(QtWidgets.QMainWindow):
             self.setWindowTitle("Beamer QT  - " + os.path.basename(filename))
         else:
             self.Document.WriteFile(self.Document.RealLocation)
+            
+    def SaveAs(self):
+
+        # Create a new document
+        filename = saveFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+        self.Document.WriteFile(filename)
+        self.RecentFiles.AppendFile(filename)
+        self.UpdateRecentFiles()
+        
+        self.setWindowTitle("Beamer QT  - " + os.path.basename(filename))
+        
+        
             
 
             
