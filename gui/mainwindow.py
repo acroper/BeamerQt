@@ -457,12 +457,13 @@ class MainWindow(QtWidgets.QMainWindow):
         
         if self.Document.NewFile:
             # Create a new document
-            filename = saveFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
-            self.Document.WriteFile(filename)
-            self.RecentFiles.AppendFile(filename)
-            self.UpdateRecentFiles()
+            self.SaveAs()
+            # filename = saveFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+            # self.Document.WriteFile(filename)
+            # self.RecentFiles.AppendFile(filename)
+            # self.UpdateRecentFiles()
             
-            self.setWindowTitle("Beamer QT  - " + os.path.basename(filename))
+            # self.setWindowTitle("Beamer QT  - " + os.path.basename(filename))
         else:
             self.Document.WriteFile(self.Document.RealLocation)
             
@@ -470,6 +471,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Create a new document
         filename = saveFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+        
+        if (filename == ""):
+            return
+        
+        if not filename.endswith(".bqt"):
+            filename = filename + ".bqt"
+        
+        
         self.Document.WriteFile(filename)
         self.RecentFiles.AppendFile(filename)
         self.UpdateRecentFiles()
