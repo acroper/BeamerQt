@@ -132,7 +132,7 @@ background-color: rgb(234, 234, 243);</string>
                  </font>
                 </property>
                 <property name="placeholderText">
-                 <string>Testing...</string>
+                 <string>Block Title...</string>
                 </property>
                </widget>
               </item>
