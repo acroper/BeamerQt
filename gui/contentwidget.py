@@ -124,9 +124,23 @@ class ContentWidget(QtWidgets.QWidget):
         self.SetDelete.emit()
     
     def SetBlockType(self, blocktype):
-        
         self.BlockType = blocktype
+        self.updateColors()
         
+        
+    def updateColors(self):
+        
+        blocktype = self.BlockType
+        
+        if blocktype == "Simple":
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(255, 255, 255);')
+        if blocktype == "Normal":    
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(234, 234, 243);')
+        if blocktype == "Alert":    
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(249, 230, 230);')
+        if blocktype == "Example":    
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(230, 239, 230);')
+    
     
     
     def AddWidgetItem(self, itemtype):
@@ -358,6 +372,8 @@ class ContentWidget(QtWidgets.QWidget):
             
         if self.BlockType == "Simple":
             self.BlockSimple.setChecked(True)
+        
+        self.updateColors()
         
         for subblock in self.Block.SubBlocks:
           
