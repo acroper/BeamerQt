@@ -33,7 +33,7 @@
     <widget class="QTextEdit" name="TextEditor">
      <property name="font">
       <font>
-       <pointsize>15</pointsize>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="frameShape">
