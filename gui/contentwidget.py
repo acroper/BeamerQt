@@ -80,6 +80,7 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.maxCols.setValue(2)
         
+        self.updateColors()
         
         
         
@@ -130,16 +131,24 @@ class ContentWidget(QtWidgets.QWidget):
         
     def updateColors(self):
         
+        # update intensity
+        low = 230
+        high = 255
+        
+        if os.name != 'posix':
+            low = 190
+        
+        
         blocktype = self.BlockType
         
         if blocktype == "Simple":
-            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(255, 255, 255);')
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(high, high, high)   )
         if blocktype == "Normal":    
-            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(234, 234, 243);')
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(low, low, high)   )
         if blocktype == "Alert":    
-            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(249, 230, 230);')
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(high, low, low)   )
         if blocktype == "Example":    
-            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(230, 239, 230);')
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(low, high, low)   )
     
     
     
