@@ -160,17 +160,27 @@ class SlideBarWidget(QtWidgets.QWidget):
         
     
     
+    def reSelect(self):
+        npos = min(self.SlidePos, len(self.SlideList)-1)
+        self.ListWidget.setCurrentRow(npos)
+
+        
+    
     def selectNext(self):
         self.NextSel = True
         # Select next slide after new creation
         
-        self.SlideList[self.SlidePos].unSelected()
+        npos = min(self.SlidePos, len(self.SlideList)-1)
+        
+        self.SlideList[npos].unSelected()
         
         self.ListWidget.setCurrentRow(self.SlidePos+1, QtCore.QItemSelectionModel.SelectionFlag.ClearAndSelect)
         
-        self.SlideList[self.SlidePos+1].setSelected()
+        npos = min(self.SlidePos+1, len(self.SlideList)-1)
         
-        self.SlidePos += 1
+        self.SlideList[npos].setSelected()
+        
+        self.SlidePos = npos
         
         self.NextSel = False
         

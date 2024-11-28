@@ -384,9 +384,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def deleteSlide(self):
         
-        pos  = self.Slidebar.SlidePos
-        
-        maxn = min( len(self.Document.Slides)-1, pos  ) 
+        pos  = min(self.Slidebar.SlidePos, len(self.Document.Slides)-1)
         
         print("Deleting slide in the position: ", pos)
         self.Document.Slides.pop(pos)
@@ -395,12 +393,14 @@ class MainWindow(QtWidgets.QMainWindow):
         if len(self.Document.Slides) == 0:
             self.Document.NewSlide(0)
         
+        maxn = min( len(self.Document.Slides)-1, pos  ) 
+        
         cSlide = self.Document.Slides[maxn]
         
         self.CurrentFrame.ReadSlide(cSlide)
         
         self.refreshPreviews()
-        self.Slidebar.selectNext()
+        self.Slidebar.reSelect()
         
         
     
@@ -455,6 +455,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.Document.SaveXML()
         self.Slidebar.ResetSlideNumber()
         
+        self.Slidebar.reSelect()
+        
         if self.Document.NewFile:
             # Create a new document
             self.SaveAs()
@@ -466,6 +468,8 @@ class MainWindow(QtWidgets.QMainWindow):
             # self.setWindowTitle("Beamer QT  - " + os.path.basename(filename))
         else:
             self.Document.WriteFile(self.Document.RealLocation)
+            
+            
             
     def SaveAs(self):
 
