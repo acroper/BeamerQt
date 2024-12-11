@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>971</width>
-    <height>756</height>
+    <width>1066</width>
+    <height>887</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,102 +34,181 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
+        <widget class="QLabel" name="label_14">
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Front Matter Options</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::PlainText</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QFormLayout" name="formLayout">
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>Title:</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item row="1" column="1">
           <widget class="QLineEdit" name="Title">
            <property name="placeholderText">
             <string>Presentation Title</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Short Title:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="ShortTitle">
+           <property name="placeholderText">
+            <string>Short Title</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
             <string>Subtitle:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="3" column="1">
           <widget class="QLineEdit" name="Subtitle">
            <property name="placeholderText">
             <string>Subtitle</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="4" column="0">
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>Author(s):</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="4" column="1">
           <widget class="QPlainTextEdit" name="Authors">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>100</height>
+            </size>
+           </property>
            <property name="placeholderText">
             <string>Author names</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Short Author(s):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="ShortAuthor">
+           <property name="placeholderText">
+            <string>Short Authors</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
             <string>Logo:</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="6" column="1">
           <widget class="QLineEdit" name="Logo">
            <property name="placeholderText">
             <string>Path to the logo file - not implemented</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="7" column="0">
           <widget class="QLabel" name="label_6">
            <property name="text">
             <string>Background:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="7" column="1">
           <widget class="QLineEdit" name="Background">
            <property name="placeholderText">
             <string>Path to the background file - not implemented</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="label_7">
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_15">
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Presentation Options</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::PlainText</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_16">
            <property name="text">
-            <string>Options:</string>
+            <string>Page Aspect:</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="1">
-          <widget class="QPlainTextEdit" name="Options">
-           <property name="placeholderText">
-            <string>Not implemented yet</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>Preset Options:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout">
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QComboBox" name="PresetsBox"/>
+            <widget class="QRadioButton" name="Aspect43">
+             <property name="text">
+              <string>4:3</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="Aspect169">
+             <property name="text">
+              <string>16:9</string>
+             </property>
+            </widget>
            </item>
            <item>
             <spacer name="horizontalSpacer">
@@ -146,23 +225,55 @@
            </item>
           </layout>
          </item>
-         <item row="7" column="0">
-          <widget class="QLabel" name="label_9">
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_17">
            <property name="text">
-            <string>LaTeX preamble:</string>
+            <string>Sectioning:</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="ShowSectionPage">
+           <property name="text">
+            <string>Create title frame for section</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QCheckBox" name="ShowSectionOutline">
+             <property name="text">
+              <string>Show the outline</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="OutlineTitle">
+             <property name="placeholderText">
+              <string>Outline Title</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="4" column="1">
           <widget class="QPlainTextEdit" name="preambleText">
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>250</height>
+             <height>100</height>
             </size>
            </property>
            <property name="placeholderText">
             <string>Place your LaTeX code here...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>LaTeX preamble:</string>
            </property>
           </widget>
          </item>
@@ -173,7 +284,7 @@
      <widget class="QFrame" name="frame_2">
       <property name="maximumSize">
        <size>
-        <width>400</width>
+        <width>800</width>
         <height>16777215</height>
        </size>
       </property>

@@ -1,4 +1,4 @@
-\documentclass[english, mathserif]{beamer}
+%\documentclass[english, aspectratio=169]{beamer}
 \usepackage{lmodern}
 \renewcommand{\sfdefault}{lmss}
 \renewcommand{\ttdefault}{lmtt}
@@ -7,6 +7,37 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{amsmath}
+
+
+\usepackage{animate}
+
+\usecolortheme{orchid}
+
+
+\usepackage{tikz}
+
+\usepackage{pgfgantt}
+\usetikzlibrary{shadows}
+\usetikzlibrary{shadings}
+
+\usepackage{seqsplit}
+
+
+\newcommand\sectionText[1]{
+\begin{center}
+    \begin{tikzpicture}[remember picture,overlay] 
+         \scalebox{1.5}{
+            \node[black!30!white, text width=7cm ] at (0.03,-0.19) {
+            {\begin{center} \Huge{#1} \end{center}} 
+          };
+            \node [ text width=7cm] at (0,0) {
+               {\begin{center} \Huge{#1} \end{center} } 
+            };
+        }
+    \end{tikzpicture} 
+\end{center}
+}
+
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.

@@ -243,6 +243,8 @@ class beamerDocument():
         
         
         preamble = open(  os.path.join( os.path.dirname(__file__) , "preamble.tex" ), 'r').readlines()
+        
+        outputfile.write(self.FrontMatter.GenLaTeXOptions())
            
         outputfile.writelines(preamble)
         

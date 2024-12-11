@@ -53,30 +53,64 @@ class FrontMatterWidget(QtWidgets.QDialog):
     
     def LoadElements(self):
         self.Title.setText(self.FrontMatter.Title)
+        self.ShortTitle.setText(self.FrontMatter.ShortTitle)
+        
         self.Subtitle.setText(self.FrontMatter.Subtitle)
         self.Authors.setPlainText(self.FrontMatter.Author)
-        self.Options.setPlainText(self.FrontMatter.Options)
+        self.ShortAuthor.setText(self.FrontMatter.ShortAuthor)
+        # self.Options.setPlainText(self.FrontMatter.Options)
         
         self.preambleText.setPlainText(self.FrontMatter.Preamble)
         
         self.Logo.setText(self.FrontMatter.LogoPath)
         self.Background.setText(self.FrontMatter.BackgroundPath)
         
+        self.OutlineTitle.setText(self.FrontMatter.OutlineTitle)
+        
+        if self.FrontMatter.ShowSectionPage == "True":
+            self.ShowSectionPage.setChecked(True)
+            
+        if self.FrontMatter.ShowSectionOutline == "True":
+            self.ShowSectionOutline.setChecked(True)
+        
+        if self.FrontMatter.AspectRatio == "169":
+            self.Aspect169.setChecked(True)
+        
         
     def Save(self):
         self.FrontMatter.Title = self.Title.text()
+        self.FrontMatter.ShortTitle = self.ShortTitle.text()
         self.FrontMatter.Subtitle = self.Subtitle.text()
         self.FrontMatter.Author = self.Authors.toPlainText()
-        
+        self.FrontMatter.ShortAuthor = self.ShortAuthor.text()
         # assign the logo locations
         # assign the background locations
         
-        self.FrontMatter.Options = self.Options.toPlainText()
+        # self.FrontMatter.Options = self.Options.toPlainText()
         
         self.FrontMatter.Preamble = self.preambleText.toPlainText()
         
         self.FrontMatter.LogoPath = self.Logo.text()
         self.FrontMatter.BackgroundPath = self.Background.text()
+        
+        self.FrontMatter.OutlineTitle = self.OutlineTitle.text()
+        
+        if self.Aspect169.isChecked():
+            self.FrontMatter.AspectRatio = "169"
+        else:
+            self.FrontMatter.AspectRatio = "43"
+        
+        
+        if self.ShowSectionPage.isChecked():
+            self.FrontMatter.ShowSectionPage = "True"
+        else:
+            self.FrontMatter.ShowSectionPage = "False"
+            
+        if self.ShowSectionOutline.isChecked():
+            self.FrontMatter.ShowSectionOutline = "True"
+        else:
+            self.FrontMatter.ShowSectionOutline = "False"
+            
         
         # print(self.FrontMatter.Preamble)
         

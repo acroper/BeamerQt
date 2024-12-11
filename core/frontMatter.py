@@ -29,10 +29,12 @@ class frontMatter:
     
     def __init__(self):
         self.Title = ""
+        self.ShortTitle = ""
         
         self.Subtitle = ""
         
         self.Author = ""
+        self.ShortAuthor = ""
         
         self.Logo = None
         
@@ -45,6 +47,14 @@ class frontMatter:
         self.Options = ""
         
         self.Preamble = ""
+        
+        self.AspectRatio = "43"
+        
+        self.ShowSectionPage = "False"
+        
+        self.ShowSectionOutline = "False"
+        
+        self.OutlineTitle = ""
         
         self.getImageObjects()
         
@@ -63,6 +73,8 @@ class frontMatter:
         
         Title = ET.SubElement(ContentXML, 'Title')
         Title.text = self.Title
+        
+        
         
         Subtitle = ET.SubElement(ContentXML, 'Subtitle')
         Subtitle.text = self.Subtitle
@@ -83,6 +95,14 @@ class frontMatter:
         xmlblock.SetField('LogoPath', self.LogoPath)
         xmlblock.SetField('BackgroundPath', self.BackgroundPath)
         
+        xmlblock.SetField('ShortTitle', self.ShortTitle)
+        xmlblock.SetField('ShortAuthor', self.ShortAuthor)
+        
+        xmlblock.SetField('AspectRatio', self.AspectRatio)
+        
+        xmlblock.SetField('ShowSectionPage', self.ShowSectionPage)
+        xmlblock.SetField('ShowSectionOutline', self.ShowSectionOutline)
+        xmlblock.SetField('OutlineTitle', self.OutlineTitle)
         
         self.ContentXML = ContentXML
         
@@ -99,17 +119,35 @@ class frontMatter:
         xmlblock = xmlutils(xblock)
         
         self.Title = xmlblock.GetField('Title', '')
+        self.ShortTitle = xmlblock.GetField('ShortTitle', '')
         self.Subtitle = xmlblock.GetField('Subtitle', '')
         self.Author = xmlblock.GetField('Author', '')
+        self.ShortAuthor = xmlblock.GetField('ShortAuthor', '')
         self.Options = xmlblock.GetField('Options', '')
         
         self.Preamble = xmlblock.GetField('Preamble', '')
         self.LogoPath = xmlblock.GetField('LogoPath', '')
         self.BackgroundPath =  xmlblock.GetField('BackgroundPath', '')
         
+        self.AspectRatio =  xmlblock.GetField('AspectRatio', '43')
+        
+        self.ShowSectionPage =  xmlblock.GetField('ShowSectionPage', '')
+        self.ShowSectionOutline =  xmlblock.GetField('ShowSectionOutline', '')
+        self.OutlineTitle =  xmlblock.GetField('OutlineTitle', '')
         
         self.Logo.ReadXMLContent(xblock.findall('ItemWidget')[0])
         self.Background.ReadXMLContent(xblock.findall('ItemWidget')[1])
+        
+    
+    def GenLaTeXOptions(self):
+        latexcontent = "\\documentclass[english" #  ", aspectratio=169]{beamer}"
+        if self.AspectRatio == "169":
+            latexcontent = latexcontent + ", aspectratio=169"
+        
+        latexcontent = latexcontent + "]{beamer}\n"
+        
+        return latexcontent
+
         
         
     def GenLaTeX(self):
@@ -117,13 +155,36 @@ class frontMatter:
         
         # latexcontent.append(self.Preamble)
         
-        latexcontent.append("\\title{" + self.Title + "}")
+        latexcontent.append("\\title["+self.ShortTitle+"]{" + self.Title + "}")
         
         latexcontent.append("\\subtitle{" + self.Subtitle + "}")
         
-        latexcontent.append("\\author{" + self.Author + "}")
+        latexcontent.append("\\author["+self.ShortAuthor+"]{" + self.Author + "}")
         
         # latexcontent.append("\\makebeamertitle")
+        
+        # Sections
+        
+        sectionCode = []
+        
+        if self.ShowSectionPage == "True":
+            spage = "\\begin{frame} \n  \\sectionText{\\secname} \n \\end{frame}"
+            sectionCode.append(spage)
+            
+        if self.ShowSectionOutline == "True":
+            spage = "\\frame<beamer>{ \n \\frametitle{"+self.OutlineTitle+"}     \\tableofcontents[currentsection,currentsubsection]  }"
+            sectionCode.append(spage)
+        
+        if len(sectionCode) > 0:
+            latexcontent.append( "\\AtBeginSection[]{" )
+            latexcontent.extend(sectionCode)
+            latexcontent.append("}")
+            
+        
+        
+        
+        
+        
         
         
         return latexcontent
