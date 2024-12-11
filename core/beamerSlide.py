@@ -190,9 +190,16 @@ class BeamerSlide():
             leftcol = round (self.LeftColumnProportion*10/100) 
             rightcol = framesize - leftcol
             
-            columnsizes = [leftcol, rightcol ]
+            leftcol = round( self.LeftColumnProportion/100, 2 )
+            
+            rightcol= 1 - leftcol
+            
+            
+            columnsizes = [leftcol-0.02, rightcol-0.02 ]
             
             columnper = [ self.LeftColumnProportion, (100-self.LeftColumnProportion) ]
+            
+            
             
             
         k = 0
@@ -201,7 +208,7 @@ class BeamerSlide():
             
             # Add code to starting column
             if useColumns:
-                latexcontent.append("\\column{"+str(columnsizes[k])+"cm}")
+                latexcontent.append("\\column{"+str(columnsizes[k])+"\\linewidth}")
             
             for block in column:
                 

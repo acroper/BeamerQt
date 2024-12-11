@@ -164,10 +164,10 @@ class BeamerBlock():
             self.TableMode = False
             
        
-        if self.TableMode:
+        # if self.TableMode:
             
-            latexcontent.append("\\setlength\\tabcolsep{0pt}")
-            latexcontent.append("\\begin{tabular}{lllll}")
+        #     latexcontent.append("\\setlength\\tabcolsep{0pt}")
+        #     latexcontent.append("\\begin{tabular}{lllll}")
         
         LastCol = 0
         
@@ -187,8 +187,11 @@ class BeamerBlock():
             
             SBSize = self.BlockWidth/divisions
             SBSize = (self.ColumnProportions[LastCol]*colsize/divisions)/100 # cm
+            SBSize = round((self.ColumnProportions[LastCol]//divisions)/100, 2)
             
+            # self.TableMode = False
             
+            latexcontent.append("{\\fboxsep 0pt%")
             ### Need to recalculate the formula, since it is not that linear!
             
             item.MaxItemSize = SBSize
@@ -202,11 +205,14 @@ class BeamerBlock():
             
             
             if self.DebugMode and self.TableMode:
-                latexcontent.append("\\fbox{")
+                latexcontent.append("\\fbox{%")
                 
             if self.TableMode:
-                latexcontent.append("\\begin{minipage}[b]{"+str(SBSize)+"cm}")
+                # latexcontent.append("\\begin{minipage}[b]{"+str(SBSize)+"\linewidth}")
+                # latexcontent.append("\\begin{minipage}[t]{0.33\linewidth}")
+                latexcontent.append("\\begin{minipage}[c]{"+str(SBSize)+"\\linewidth}%")
                 
+            
             # Alignment
             if item.Alignment == "Left":
                 latexcontent.append("\\begin{flushleft}")
@@ -231,24 +237,27 @@ class BeamerBlock():
             
             
             if self.TableMode:
-                latexcontent.append("\\end{minipage}")
+                latexcontent.append("\\end{minipage}}%")
+            else:
+                latexcontent.append("}%")
+                
             
             if self.DebugMode and self.TableMode:
-                latexcontent.append("}")
+                latexcontent.append("}%")
             
-            if self.TableMode:
-                latexcontent.append(" & ")
+            # if self.TableMode:
+            #     latexcontent.append(" & ")
             k += 1
             
             if k == self.ColumnCount:
-                if self.TableMode:
-                    latexcontent.append("\\tabularnewline")
-                else:
-                    latexcontent.append("\\"+"\\")
+                # if self.TableMode:
+                #     latexcontent.append("\\tabularnewline")
+                # else:
+                latexcontent.append("\\"+"\\")
  
             
-        if self.TableMode:
-            latexcontent.append("\\end{tabular}")
+        # if self.TableMode:
+        #     latexcontent.append("\\end{tabular}")
         
             
         if self.BlockType == "Normal":

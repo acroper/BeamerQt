@@ -332,13 +332,15 @@ class itemImage():
             widthText = 10
             widthText = self.MaxItemSize
             
-            width = round( widthText * self.Width / 100 , 1)
+            # width = round( widthText * self.Width / 100 , 1)
+            width = round(self.Width/100, 2)
             
             if self.PrevText != "":
                 latexcontent.append( self.PrevText + "\\"+"\\"  )
             
             # latexcontent.append("\\begin{center}")
-            latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + image_path +"}")
+            # latexcontent.append("\\includegraphics[width="+str(width)+"cm]{" + image_path +"}")
+            latexcontent.append("\\includegraphics[width="+str(width)+"\\linewidth]{" + image_path +"}")
             # latexcontent.append("\\end{center}")
             
             if self.PostText != "":
