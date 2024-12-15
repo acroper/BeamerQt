@@ -190,8 +190,8 @@ class BeamerBlock():
             SBSize = round((self.ColumnProportions[LastCol]//divisions)/100, 2)
             
             # self.TableMode = False
-            
-            latexcontent.append("{\\fboxsep 0pt%")
+            if self.TableMode:
+                latexcontent.append("{\\fboxsep 0pt%")
             ### Need to recalculate the formula, since it is not that linear!
             
             item.MaxItemSize = SBSize
@@ -238,8 +238,7 @@ class BeamerBlock():
             
             if self.TableMode:
                 latexcontent.append("\\end{minipage}}%")
-            else:
-                latexcontent.append("}%")
+                # latexcontent.append("}%")
                 
             
             if self.DebugMode and self.TableMode:
