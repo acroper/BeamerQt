@@ -172,7 +172,7 @@ class frontMatter:
             sectionCode.append(spage)
             
         if self.ShowSectionOutline == "True":
-            spage = "\\frame<beamer>{ \n \\frametitle{"+self.OutlineTitle+"}     \\tableofcontents[currentsection,currentsubsection]  }"
+            spage = "\\frame<beamer>{ \n \\frametitle{"+self.OutlineTitle+"}     \\tableofcontents[currentsection]  }"
             sectionCode.append(spage)
         
         if len(sectionCode) > 0:
