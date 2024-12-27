@@ -172,6 +172,12 @@ class BeamerSlide():
         
         if self.TitleMode == "Subsection":
             latexcontent.append("\\subsection{" + self.SectionLabel + "}")
+            
+        if self.CurrentLayout == "layout_title":
+            latexcontent.append("\\begin{frame}" )
+            latexcontent.append("\\sectionText{" + self.Title + "}" )
+            latexcontent.append("\\end{frame}" )
+            return latexcontent
         
         
         latexcontent.append("\\begin{frame}{" + self.Title + "}")
