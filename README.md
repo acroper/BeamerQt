@@ -102,6 +102,9 @@ BeamerQT uses a .bqt file format, which is essentially a zipped directory contai
 * (Future feature) Embedded images and custom themes to ensure portability.
 
 This approach ensures that .bqt files can be easily shared, backed up, and edited across different systems without losing essential data.
+## Example video:
+
+https://www.youtube.com/watch?v=XQKJbuT8q1g
 
 ## Screenshots:
 ### BeamerQT GUI
