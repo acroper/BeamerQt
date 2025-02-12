@@ -3,7 +3,6 @@ BeamerQT is a user-friendly graphical interface designed to facilitate the creat
 <img src="https://github.com/user-attachments/assets/b123f050-dff5-4584-b40d-c2fd581c2f16" width="600">
 
 
-
 # Features
 BeamerQT features a graphical user interface that provides easy access to most desired Beamer/LaTeX features without adding LaTeX code. 
 
@@ -102,6 +101,44 @@ BeamerQT uses a .bqt file format, which is essentially a zipped directory contai
 * (Future feature) Embedded images and custom themes to ensure portability.
 
 This approach ensures that .bqt files can be easily shared, backed up, and edited across different systems without losing essential data.
+
+
+## Installation
+
+* Windows
+
+  Install MikTex:
+  
+  https://miktex.org/download
+
+  Install BeamerQT:
+  
+  https://sourceforge.net/projects/beamerqt/
+
+* Linux
+  Install python3, TexLive and Inkscape, according to your distribution:
+  
+
+  Debian based:
+  ```
+  apt-get install python3 texlive-beamer inkscape 
+  ```
+  Install PyQt6:
+  ```
+  pip install pyqt6
+  ```
+  
+
+  Run BeamerQT:
+
+  Download the source code of BeamerQT from this repository.
+  
+  Open a terminal in the directory that contains the file main.py
+  ```
+  python3 main.py
+  ```
+
+
 ## Example video:
 
 https://www.youtube.com/watch?v=XQKJbuT8q1g
