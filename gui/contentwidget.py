@@ -76,7 +76,7 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.BlockType = "Normal"
         
-        self.AddWidgetItem("Text")
+        self.AddWidgetItem("RTF")
         
         self.maxCols.setValue(2)
         
@@ -101,6 +101,8 @@ class ContentWidget(QtWidgets.QWidget):
         self.addTextButton.clicked.connect(lambda: self.AddWidgetItem("Text"))
         
         self.addImageButton.clicked.connect(lambda: self.AddWidgetItem("Image"))
+        
+        self.addRTF.clicked.connect(lambda: self.AddWidgetItem("RTF"))
         
         self.maxCols.valueChanged.connect(self.RefreshItemList)
         

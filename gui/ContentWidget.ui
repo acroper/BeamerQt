@@ -128,6 +128,7 @@ background-color: rgb(234, 234, 243);</string>
                 <property name="font">
                  <font>
                   <pointsize>20</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -216,6 +217,18 @@ background-color: rgb(234, 234, 243);</string>
              </widget>
             </item>
             <item>
+             <widget class="QToolButton" name="addRTF">
+              <property name="font">
+               <font>
+                <pointsize>9</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Add Rich Text</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QToolButton" name="addTextButton">
               <property name="font">
                <font>
@@ -223,7 +236,7 @@ background-color: rgb(234, 234, 243);</string>
                </font>
               </property>
               <property name="text">
-               <string>Add Text</string>
+               <string>Add Plain Text</string>
               </property>
              </widget>
             </item>

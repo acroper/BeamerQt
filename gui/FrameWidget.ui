@@ -137,7 +137,7 @@
             <property name="font">
              <font>
               <pointsize>23</pointsize>
-              
+              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -369,7 +369,7 @@
            <x>0</x>
            <y>0</y>
            <width>1000</width>
-           <height>665</height>
+           <height>668</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -438,16 +438,6 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="styleSheet">
-           <string notr="true">border: 1px solid black</string>
-          </property>
-          <property name="text">
-           <string>Configure footer...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -467,9 +457,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>pushButton_5</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>
