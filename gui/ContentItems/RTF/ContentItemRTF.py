@@ -84,6 +84,16 @@ class itemWidgetRTF(QtWidgets.QWidget):
         self.TextEditor.setCurrentCharFormat(fmt)
         
     
+    # -----------------------------------------------------------------------------
+    # This source code was created with assistance from ChatGPT (OpenAI o3-mini-high).
+    # -----------------------------------------------------------------------------
+    # Functions 
+    # toggle_bold
+    # toggle_italic
+    # toggle_bullet_list
+    # toggle_numbered_list
+    # change_font_size 
+   
     def toggle_bold(self):
         cursor = self.TextEditor.textCursor()
         fmt = QTextCharFormat()
