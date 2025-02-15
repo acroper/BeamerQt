@@ -67,7 +67,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # self.Documento = ET.Element('BeamerDoc')
         
-        self.Slides = []
         
         self.CurrentSlide = None
         
@@ -251,7 +250,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         ## TODO: Replace this code for the new beamerSlide code
         self.CurrentSlide = Slide()
-        self.Slides.append(self.CurrentSlide)
         
         self.CurrentFrame.ReadSlideOld(self.CurrentSlide)
         
@@ -369,11 +367,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def newSlide(self):
         # Temporal refresh slide
-        newSlide = Slide()
-        
         nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
-
-        self.Slides.append(newSlide)
 
         # self.CurrentFrame.ReadSlideOld(newSlide)
         
@@ -389,15 +383,12 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def duplicateSlide(self):
         # Temporal refresh slide
-        newSlide = Slide()
-        
         xmldoc = self.CurrentFrame.BeamerSlide.GetXMLContent()
         
         nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
         
         nSlide.ReadXMLContent(xmldoc)
 
-        self.Slides.append(newSlide)
 
         self.CurrentFrame.ReadSlide(nSlide)
         
@@ -412,7 +403,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         print("Deleting slide in the position: ", pos)
         self.Document.Slides.pop(pos)
-        self.Slides.pop(pos)
         
         if len(self.Document.Slides) == 0:
             self.Document.NewSlide(0)
@@ -436,15 +426,11 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.ClipboardFrame == None:
             return
         
-        newSlide = Slide()
-        
         xmldoc = self.ClipboardFrame
         
         nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
         
         nSlide.ReadXMLContent(xmldoc)
-
-        self.Slides.append(newSlide)
 
         self.CurrentFrame.ReadSlide(nSlide)
         
