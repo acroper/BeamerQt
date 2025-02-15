@@ -61,14 +61,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.Config = Config()
         
         self.ConfigStatusPanel()
-               
+
+        # Initialised in loadPanels()
         self.CurrentFrame = None
         self.UpdatingZoom = False
         
         # self.Documento = ET.Element('BeamerDoc')
-        
-        
-        self.CurrentSlide = None
         
         # Create Temporal Working directory
         
@@ -245,15 +243,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.Slidebar.context_menu = context_menu
         
-        
-        # Initial slide
-        
-        ## TODO: Replace this code for the new beamerSlide code
-        self.CurrentSlide = Slide()
-        
-        self.CurrentFrame.ReadSlideOld(self.CurrentSlide)
-        
-        
         # Create new slide for the document
         self.Document.NewSlide()
         self.Slidebar.SetDocument(self.Document)
@@ -307,11 +296,8 @@ class MainWindow(QtWidgets.QMainWindow):
         Document2 = beamerDocument(self.WorkDirectory)
 
         self.Document = Document2
-        
-        self.CurrentSlide = Slide()
-        
+
         self.Document.NewSlide()
-        
         
         self.CurrentFrame.ReadSlide(self.Document.Slides[0])
         
@@ -368,14 +354,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def newSlide(self):
         # Temporal refresh slide
         nSlide = self.Document.NewSlide( self.Slidebar.SlidePos + 1 )
-
-        # self.CurrentFrame.ReadSlideOld(newSlide)
         
         self.CurrentFrame.ReadSlide(nSlide)
-        
-        # self.CurrentSlide = newSlide
-        
-        # self.CurrentFrame.ReadSlide()
 
         self.refreshPreviews()
         
