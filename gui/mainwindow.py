@@ -159,8 +159,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.zoomOutCtrl.clicked.connect(self.zoomOut)
         self.actionZoom_Out.triggered.connect(self.zoomOut)
         self.actionZoom_Out.setShortcut("Ctrl+-")
-        # NOTE: this is the slider in the bottom right,
-        # this is not part of the menu
+
         self.ZoomSlider.valueChanged.connect(self.ZoomSlideValue)
 
         self.actionLaTeX_Folder.triggered.connect(self.ShowLaTeXFolder)
@@ -184,7 +183,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionDelete_Slide.triggered.connect(self.deleteSlide)
         self.actionDelete_Slide.setShortcut("backspace")
 
-        # NOTE: This is also not a (dropdown) menu item
         self.actionFrontMatter.triggered.connect(self.ConfigFrontMatter)
 
         # About dropdown
