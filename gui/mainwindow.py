@@ -134,40 +134,64 @@ class MainWindow(QtWidgets.QMainWindow):
     
     def setMenuActions(self):
         # Assign actions for the GUI menu
-
-        # close
-        self.actionQuit.triggered.connect(self.closing)
-        self.actionOpen_File.triggered.connect(self.Open)
-        
+        # File dropdown
         self.actionNew_File.triggered.connect(self.NewFile)
+        self.actionNew_File.setShortcut("Ctrl+N")
+
+        self.actionOpen_File.triggered.connect(self.Open)
+        self.actionOpen_File.setShortcut("Ctrl+O")
+
         self.actionSave.triggered.connect(self.Save)
+        self.actionSave.setShortcut("Ctrl+S")
+
         self.actionSave_as.triggered.connect(self.SaveAs)
-        
+        self.actionSave_as.setShortcut("Ctrl+Shift+S")
+
+        self.actionGenerateLaTeX.triggered.connect(self.GenerateLatex)
+        self.actionGenerateLaTeX.setShortcut("Ctrl+L")
+
+        self.actionQuit.triggered.connect(self.closing)
+
+        # View dropdown
         self.zoomInCtrl.clicked.connect(self.zoomIn)
         self.actionZoom_In.triggered.connect(self.zoomIn)
-        
+        # = is the same key on most keyboards as +
+        # but does not need to press shift
+        self.actionZoom_In.setShortcut("Ctrl+=")
+
         self.zoomOutCtrl.clicked.connect(self.zoomOut)
         self.actionZoom_Out.triggered.connect(self.zoomOut)
+        self.actionZoom_Out.setShortcut("Ctrl+-")
+        # NOTE: this is the slider in the bottom right,
+        # this is not part of the menu
+        self.ZoomSlider.valueChanged.connect(self.ZoomSlideValue)
+
+        self.actionLaTeX_Folder.triggered.connect(self.ShowLaTeXFolder)
+
+        # Slide dropdown
         self.actionAdd_new_slide.triggered.connect(self.newSlide)
         self.actionDuplicate_slide.triggered.connect(self.duplicateSlide)
-        
+
         self.actionReset_slide_number.triggered.connect(self.resetSlideNumber)
-        
-        
-        self.actionGenerateLaTeX.triggered.connect(self.GenerateLatex)
-        
-        self.actionFrontMatter.triggered.connect(self.ConfigFrontMatter)
-        
-        self.ZoomSlider.valueChanged.connect(self.ZoomSlideValue)
-        
-        self.actionAbout.triggered.connect(self.ShowAboutDialog)
-        
-        self.actionLaTeX_Folder.triggered.connect(self.ShowLaTeXFolder)
-        
-        
+
+        # NOTE: is self.actionReorder_Slides missing here?
+        # There is no corresponding function, so this may have been
+        # deleted from code but not GUI
+
         self.actionCopy_Slide.triggered.connect(self.copySlide)
+        self.actionCopy_Slide.setShortcut("Ctrl+C")
+
         self.actionPaste_Slide.triggered.connect(self.pasteSlide)
+        self.actionPaste_Slide.setShortcut("Ctrl+V")
+
         self.actionDelete_Slide.triggered.connect(self.deleteSlide)
+        self.actionDelete_Slide.setShortcut("backspace")
+
+        # NOTE: This is also not a (dropdown) menu item
+        self.actionFrontMatter.triggered.connect(self.ConfigFrontMatter)
+
+        # About dropdown
+        self.actionAbout.triggered.connect(self.ShowAboutDialog)
         
         
     
