@@ -155,3 +155,9 @@ https://www.youtube.com/watch?v=XQKJbuT8q1g
 Please donate to help me developing this software. Paypal donation link:
 
 https://www.paypal.com/donate/?business=2PP5H8Z8L5E8E&no_recurring=0&item_name=Support+the+development+of+BeamerQT&currency_code=USD
+
+
+## Science Fiction Book
+If you enjoyed this, you might also like my science fiction book, Synapses: The Chaos of Order.
+
+http://synapsesbook.wordpress.com/
