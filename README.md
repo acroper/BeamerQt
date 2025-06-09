@@ -161,3 +161,5 @@ https://www.paypal.com/donate/?business=2PP5H8Z8L5E8E&no_recurring=0&item_name=S
 If you enjoyed this, you might also like my science fiction book, Synapses: The Chaos of Order.
 
 http://synapsesbook.wordpress.com/
+
+Jorge Guerrero
