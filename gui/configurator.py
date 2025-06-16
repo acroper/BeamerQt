@@ -55,12 +55,18 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         self.ThemeLayout.addWidget(self.PrevThemeList)
         
+        self.PrevThemeList.Selected.connect(self.ChangeSelectionTheme)
         
-        QtCore.QTimer.singleShot(500, self.PrevThemeList.RefreshThemeList)
+        
+        QtCore.QTimer.singleShot(200, self.PrevThemeList.RefreshThemeList)
         
         
                       
         # self.show()
+        
+    def ChangeSelectionTheme(self):
+        self.themeBox.setCurrentText(self.PrevThemeList.SelectedTheme.Name)
+        
         
         
     def SetDocument(self, documento):

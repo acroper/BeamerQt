@@ -35,6 +35,8 @@ from gui.PreviewPDF import *
 
 class ThemePreview(QtWidgets.QWidget):
     
+    Selected = pyqtSignal()
+    
     def __init__(self):
         
         super(ThemePreview, self).__init__()
@@ -137,6 +139,8 @@ class ThemePreview(QtWidgets.QWidget):
         print(template.Preview)
         
         self.PrevWindow.ShowPDF(pdfpath)
+        
+        self.Selected.emit()
         
         
 
