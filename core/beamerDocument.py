@@ -66,6 +66,8 @@ class beamerDocument():
         
         self.Config = None
         
+        self.ShowPreview = True
+        
     
     def ReIndexSlides(self):
         k = 0
@@ -302,10 +304,11 @@ class beamerDocument():
         self.ExportCounts += 1
         
         
-        if LocalSystem == "Windows":
-            os.startfile('output.pdf')
-        else:
-            subprocess.call(('xdg-open', 'output.pdf'))
+        if self.ShowPreview:
+            if LocalSystem == "Windows":
+                os.startfile('output.pdf')
+            else:
+                subprocess.call(('xdg-open', 'output.pdf'))
         
         
         self.Status = True

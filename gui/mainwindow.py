@@ -263,6 +263,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.Configurator.SetDocument(self.Document)
         
+        self.Configurator.PrevThemeList.WorkDirectory = self.WorkDirectory
+        
         
         
         

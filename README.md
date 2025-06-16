@@ -123,9 +123,9 @@ This approach ensures that .bqt files can be easily shared, backed up, and edite
   ```
   apt-get install python3 texlive-beamer inkscape 
   ```
-  Install PyQt6:
+  Install PyQt6 and PyMuPDF:
   ```
-  pip install pyqt6
+  pip install pyqt6 pymupdf
   ```
   
 

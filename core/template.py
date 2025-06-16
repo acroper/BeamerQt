@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 import os
+import shutil
 
 import xml.etree.ElementTree as ET
 
@@ -28,7 +29,13 @@ class BeamerTemplate:
         
         self.Name = "Warsaw"
         
+        self.ValidPDF = None
+        
+        self.ValidIcon = False
+        
         self.Preview = None
+        
+        self.PreviewPDF = None
         
         self.UseTheme = ""
         
@@ -73,9 +80,104 @@ class BeamerTemplate:
         
     
     def GetPreview(self):
+        
+        if self.ValidIcon:
+            return
         # Try to generate a preview
-        None
+        iconpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".png" ) 
+        
+        if os.path.exists(iconpath):
+            self.Preview = iconpath
+            self.ValidIcon = True
+        else:
+            # self.Preview = "/tmp/notfound.png"
+            self.Preview = os.path.join( os.path.join("templates", "gen"), "notfound.png" ) 
+            
+
     
+    def GetPreviewPDF(self):
+        #try to compile the example file and generate it
+        
+        # print("Getting preview...")
+        
+        
+        if self.PreviewPDF != None:
+            return self.PreviewPDF
+        
+        # Try to generate a preview
+        pdfpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".pdf" ) 
+
+        if os.path.exists(pdfpath):
+            self.PreviewPDF = pdfpath
+            self.ValidPDF = True
+        else:
+            self.PreviewPDF = os.path.join( os.path.join("templates", "gen"), "notfound.pdf" ) 
+
+        
+        if self.ValidIcon == False and self.ValidPDF:
+            self.GeneratePreviewPNG()
+            
+        return self.PreviewPDF
+
+
+    def GeneratePreviewPNG(self):
+        import fitz  # PyMuPDF
+        from PyQt6.QtGui import QPixmap, QImage, QIcon
+        
+        
+        
+        pdf_document = fitz.open(self.PreviewPDF)
+        page = pdf_document.load_page(1)
+        pix = page.get_pixmap(dpi=40)
+        image_format = QImage.Format.Format_RGB888
+        qimage = QImage(pix.samples, pix.width, pix.height, pix.stride, image_format)
+        iconpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".png" ) 
+        qimage.save(iconpath)
+        
+        
+        
+
+    def GenPreviewFile(self, WorkDirectory):
+        import core.beamerDocument as beamdoc
+        import time
+        
+        if WorkDirectory == None:
+            return
+        
+        basefile = os.path.abspath(os.path.join( os.path.join("templates", "gen"), "PreviewFile.bqt" ) )
+        previewfile = os.path.abspath(os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".bqt" ) )
+        
+        
+        shutil.copy(basefile, previewfile)
+        
+        tmpfolder = os.path.join( WorkDirectory, "temp")
+        
+        print("Using the folder:")
+        print(tmpfolder)
+        try:
+            os.mkdir( tmpfolder )
+        except:
+            None
+        
+        TestDoc = beamdoc.beamerDocument(tmpfolder)
+        
+        TestDoc.ReadFile(previewfile)
+        
+        TestDoc.ShowPreview = False
+        
+        TestDoc.Template = self
+        
+        TestDoc.GenLaTeX()
+        
+        self.ValidIcon = False
+        
+        self.Preview = None
+        self.PreviewPDF = None
+        
+        
+        
+        
+        
     
     def GenLaTeX(self):
         latexcontent = []

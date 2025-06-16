@@ -6,7 +6,7 @@ Planned features:
 - Visual previsualization of templates
 - Template editor
 
-### v0.20
+### v0.2.1
 
 Create a previsualiation of the templates/themes in the interface.
 
@@ -22,5 +22,5 @@ Planned features:
 - Support of pictures
 - Support of basic templates
 
-### v0.14 - Release
+### v0.1.4 - Release
 Last stable release.

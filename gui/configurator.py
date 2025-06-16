@@ -28,6 +28,8 @@ from PyQt6.QtCore import pyqtSignal, QObject
 
 from core.template import *
 
+from gui.ThemePreview import *
+
 
 class ConfiguratorWidget(QtWidgets.QWidget):
     
@@ -49,6 +51,12 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         self.Document = None
         
+        self.PrevThemeList = ThemePreview()        
+        
+        self.ThemeLayout.addWidget(self.PrevThemeList)
+        
+        
+        self.PrevThemeList.RefreshThemeList()
         
                       
         # self.show()
