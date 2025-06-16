@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 
-import fitz  # PyMuPDF
+
 
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
@@ -127,6 +127,8 @@ class PreviewPDF(QtWidgets.QWidget):
     
     
     def ShowPDF(self, file_path):
+        
+        import fitz  # PyMuPDF
 
         print("Opening pdf:")
         
@@ -142,6 +144,7 @@ class PreviewPDF(QtWidgets.QWidget):
 
             
     def LoadPreviews(self):
+        
         
         if not self.pdf_document:
             return
