@@ -56,7 +56,8 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         self.ThemeLayout.addWidget(self.PrevThemeList)
         
         
-        self.PrevThemeList.RefreshThemeList()
+        QtCore.QTimer.singleShot(500, self.PrevThemeList.RefreshThemeList)
+        
         
                       
         # self.show()
