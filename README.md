@@ -1,5 +1,11 @@
 # BeamerQt
 BeamerQT is a user-friendly graphical interface designed to facilitate the creation of Beamer presentations without manually editing LaTeX code associated with the Slides. It provides a comprehensive set of features that allow users to define layouts, insert content (including text, blocks, and images), and configure some advance settings of the theme. BeamerQT provides both beginners and advanced LaTeX users the ability to create amazing presentations and focus in the contents rather than in the code.
+
+### Library requirements:
+* PyQt6
+
+* PyMuPDF
+
 <img src="https://github.com/user-attachments/assets/b123f050-dff5-4584-b40d-c2fd581c2f16" width="600">
 
 
