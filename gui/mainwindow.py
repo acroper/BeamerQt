@@ -43,6 +43,8 @@ from core.configFile import *
 
 from gui.AboutWidget import *
 
+from gui.ThemeEditorWindow import *
+
 
 import xml.etree.ElementTree as ET
 import tempfile
@@ -75,6 +77,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.Document = beamerDocument(self.WorkDirectory)
         self.Document.Config = self.Config
         
+        self.ThemeEditor = None
         
         self.setMenuActions()
         
@@ -184,10 +187,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionDelete_Slide.setShortcut("backspace")
 
         self.actionFrontMatter.triggered.connect(self.ConfigFrontMatter)
+        
+        
+        # Open Theme Editor
+        self.actionOpen_Theme_Editor.triggered.connect(self.OpenThemeEditor)
 
         # About dropdown
         self.actionAbout.triggered.connect(self.ShowAboutDialog)
         
+
+    def OpenThemeEditor(self):
+        if self.ThemeEditor == None:
+            self.ThemeEditor = ThemeEditorWindow()
+        else:
+            self.ThemeEditor.hide()
+            
+        self.ThemeEditor.show()
         
     
     def ShowLaTeXFolder(self):

@@ -20,6 +20,8 @@ import sys
 import os
 import shutil
 
+import base64
+
 import xml.etree.ElementTree as ET
 
 
@@ -41,6 +43,10 @@ class BeamerTemplate:
         
         self.CustomCode = ""
         
+        self.incorporated_files = []
+        
+        self.OutputDirectory = ""
+        
         
     def GetXMLContent(self):
         
@@ -51,18 +57,76 @@ class BeamerTemplate:
         TemplateXML.text = self.Name
         
         return TemplateXML
+    
+    
+    def GenXMLContent(self):
         
+        TemplateXML = ET.Element('Template')
+        TemplateXML.text = self.Name
+        
+        ET.SubElement(TemplateXML, 'Name').text = self.Name
+        
+        ET.SubElement(TemplateXML, 'UseTheme').text = self.UseTheme
+        ET.SubElement(TemplateXML, 'CustomCode').text = self.CustomCode
+        
+        
+        files_el = ET.SubElement(TemplateXML, "incorporatedFiles")
+        for file_data in self.incorporated_files:
+            file_el = ET.SubElement(files_el, "file")
+            ET.SubElement(file_el, "filename").text = file_data['filename']
+            ET.SubElement(file_el, "type").text = file_data['type']
+            ET.SubElement(file_el, "content").text = file_data['content']
+            
+        
+        return TemplateXML
+
+    
         
     def ReadXMLFile(self, file):
         tree = ET.parse(file)
-        root = tree.getroot()[0]
+        root = tree.getroot()
         self.ReadXMLContent(root)
     
     
+    # def ReadXMLContent(self, xblock):
+    #     self.SetTemplate( xblock.text )
+        
+        
     def ReadXMLContent(self, xblock):
-        self.SetTemplate( xblock.text )
+        
+        try:
+            # self.Name = xblock[0].text
+            
+            if xblock.find('Name') != None:
+                self.Name = xblock.find('Name').text
+            else:
+                self.Name = xblock[0].text
+                
+            
+            self.UseTheme = xblock.findall('UseTheme')[0].text
+            self.CustomCode = xblock.findall('CustomCode')[0].text
+            
+            files_el = xblock.find("incorporatedFiles")
+            
+            if files_el is not None:
+                for file_el in files_el.findall("file"):
+                    filename = file_el.find("filename").text
+                    file_type = file_el.find("type").text
+                    content = file_el.find("content").text
+                    self.incorporated_files.append({
+                        'filename': filename,
+                        'type': file_type,
+                        'content': content
+                    })
+                
+        
+        except:
+            ### Keep compatibility with previous template format
+            self.SetTemplate( xblock.text )
+                
         
         
+
         
     def SetTemplate(self, name):
         self.Name = name
@@ -70,9 +134,9 @@ class BeamerTemplate:
         # try to reach the template file
         tempfile = os.path.join("templates", self.Name.lower()+".xml")
         
-        
         tree = ET.parse(tempfile)
         
+        self.Name = tree.findall('Name')[0].text
         self.UseTheme = tree.findall('UseTheme')[0].text
         self.CustomCode = tree.findall('CustomCode')[0].text
         
@@ -191,8 +255,32 @@ class BeamerTemplate:
             
         # latexcontent.append("\\begin{document}")
         
+        self.ExtractFiles()
+        
         
         return latexcontent
+
+    
+    def ExtractFiles(self):
+
+        folder_path = self.OutputDirectory
+        if not folder_path:
+            return
+
+        try:
+            for file_data in self.incorporated_files:
+                out_path = os.path.join(folder_path, file_data['filename'])
+                if file_data['type'] == 'text':
+                    with open(out_path, 'w', encoding='utf-8') as f:
+                        f.write(file_data['content'])
+                elif file_data['type'] == 'binary':
+                    # Decode the Base64 string back to bytes
+                    binary_content = base64.b64decode(file_data['content'])
+                    with open(out_path, 'wb') as f:
+                        f.write(binary_content)
+
+        except Exception as e:
+            None
         
         
         

@@ -240,6 +240,8 @@ class beamerDocument():
         filename = os.path.join(self.latexfolder, "output.tex")
         # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )
         
+        self.Template.OutputDirectory = self.latexfolder
+        
         
         outputfile = open(filename, 'w' )
         

@@ -224,9 +224,16 @@
     <addaction name="actionPaste_Slide"/>
     <addaction name="actionDelete_Slide"/>
    </widget>
+   <widget class="QMenu" name="menuTheme">
+    <property name="title">
+     <string>Theme</string>
+    </property>
+    <addaction name="actionOpen_Theme_Editor"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
    <addaction name="menuSlide"/>
+   <addaction name="menuTheme"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -424,6 +431,11 @@
   <action name="actionDelete_Slide">
    <property name="text">
     <string>Delete</string>
+   </property>
+  </action>
+  <action name="actionOpen_Theme_Editor">
+   <property name="text">
+    <string>Open Theme Editor...</string>
    </property>
   </action>
  </widget>
