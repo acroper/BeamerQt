@@ -12,6 +12,14 @@ BeamerQT is a user-friendly graphical interface designed to facilitate the creat
 # Features
 BeamerQT features a graphical user interface that provides easy access to most desired Beamer/LaTeX features without adding LaTeX code. 
 
+## Theme Editor (New Feature!)
+Edit source code of templates. 
+
+* Supports attaching included files.
+* Extract attached files during LaTeX generation.
+* Share the custom .xml file with ease.
+* New features in the near future.
+
 ## Layout Selection
 BeamerQT provides a range of predefined layout schemes inspired by common presentation tools such as PowerPoint or LibreOffice Impress. Instead of manually writing LaTeX code for columns and blocks, the user can simply select a layout and BeamerQT will automatically insert and manage the required Beamer columns and blocks.
 
