@@ -26,6 +26,8 @@ import platform
 
 import subprocess
 
+from multiprocessing import Process
+
 import threading
 import time
 
@@ -67,6 +69,8 @@ class beamerDocument():
         self.Config = None
         
         self.ShowPreview = True
+        
+        self.Proc = None
         
     
     def ReIndexSlides(self):
@@ -230,10 +234,19 @@ class beamerDocument():
         
     
     def GenLaTeX(self):
+        
+        
+        if self.Proc != None:
+            self.Proc.join(100)
+        
         self.Status = True
         self.Message = "Generating LaTeX..."
-        x = threading.Thread(target=self.GenLaTeXThread, args=(self,))
-        x.start()
+        self.Proc = Process(target=self.GenLaTeXThread, args=(self,))
+        self.Proc.start()
+        
+        # self.Proc.join(10000)
+        # x = threading.Thread(target=self.GenLaTeXThread, args=(self,))
+        # x.start()
         
     def GenLaTeXThread(self, arg):
         
@@ -325,11 +338,11 @@ class beamerDocument():
         
         os.chdir(current_working_directory)
         
-        
-        
         time.sleep(10)
         self.Status = False
         self.Message = ""
+        
+        
         
         
         

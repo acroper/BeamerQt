@@ -24,6 +24,10 @@ import base64
 
 import xml.etree.ElementTree as ET
 
+# import subprocess
+
+# from multiprocessing import Process
+
 
 class BeamerTemplate:
     
@@ -281,6 +285,74 @@ class BeamerTemplate:
 
         except Exception as e:
             None
+            
+
+    # def VerifyPreviews(self):
+        
+    #     import tempfile
+        
+    #     self.WorkDirectory = tempfile.mkdtemp(prefix="beamerQT_Test_")
+        
+    #     filelist = os.listdir("templates")
+        
+    #     filelist.sort()
+        
+    #     self.ItemsWithoutPreview = []
+        
+    #     self.ProcessingReview = False
+        
+    #     for file in filelist:
+    #         if file.endswith("xml"):
+    #             filename = os.path.join("templates", file  )
+    #             if os.path.exists(filename):
+    #                 # print("Opening file " + filename)
+    #                 templ = BeamerTemplate()
+    #                 templ.ReadXMLFile( filename )
+    #                 templ.GetPreview()
+    #                 self.ItemsWithoutPreview.append(templ)
+                    
+    #     self.Proc = Process(target=self.VerifyThread, args=(self,))
+    #     self.Proc.start()
+
+        
+    # def VerifyThread(self, arg):
+        
+    #     import time
+        
+        
+    #     if len (self.ItemsWithoutPreview) == 0:
+    #         return
+
+    #     template = self.ItemsWithoutPreview[0]
+        
+        
+    #     if self.ProcessingReview:
+    #         # Already asked to generate the PDF
+            
+    #         template.PreviewPDF = None
+            
+    #         path = template.GetPreviewPDF()
+            
+    #         if template.ValidPDF:
+
+    #             self.ItemsWithoutPreview.pop(0)
+    #             self.ProcessingReview = False
+    #             print("Pass")
+    #         else:
+    #             print("Didn't pass")
+        
+    #     else:
+    #         print("Starting other slide")
+    #         template.GenPreviewFile(self.WorkDirectory)
+    #         self.ProcessingReview = True
+            
+    #     time.sleep(100)
+        
+    #     self.VerifyThread()
+            
+        
+                    
+
         
         
         

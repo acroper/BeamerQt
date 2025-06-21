@@ -68,7 +68,11 @@ class ThemePreview(QtWidgets.QWidget):
         
         self.ProcessingReview = False
         
+        self.PreviewAttempts = 0
+        
         QtCore.QTimer.singleShot(1000, self.reviewPreviews)
+        
+        
 
 
     def reviewPreviews(self):
@@ -102,10 +106,18 @@ class ThemePreview(QtWidgets.QWidget):
                 print("Pass")
             else:
                 print("Didn't pass")
+                self.PreviewAttempts += 1
+                
+                if self.PreviewAttempts > 10:
+                    self.ItemsWithoutPreview.pop(0)
+                    self.ProcessingReview = False
+                    
+                
         
         else:
             print("Starting other slide")
             template.GenPreviewFile(self.WorkDirectory)
+            self.PreviewAttempts = 0
             self.ProcessingReview = True
         
         QtCore.QTimer.singleShot(1000, self.reviewPreviews)
