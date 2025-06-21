@@ -52,6 +52,8 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
         
         self.InnerTemplate = None
         
+        self.current_file_path = None
+        
         
         
             
@@ -155,7 +157,7 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
 
 
     def save_xml_file(self):
-        if self.current_file_path:
+        if self.current_file_path != None:
             self.save_to_xml(self.current_file_path)
         else:
             self.save_xml_file_as()
@@ -168,6 +170,9 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
             self.setWindowTitle(f"Beamer/LaTeX Template Editor - {os.path.basename(path)}")        
             
     def save_to_xml(self, filepath):
+        
+        if self.InnerTemplate == None:
+            self.InnerTemplate = BeamerTemplate()
         
         self.InnerTemplate.CustomCode = self.SourceCodeText.toPlainText()
         self.InnerTemplate.UseTheme = self.BaseName.text()
