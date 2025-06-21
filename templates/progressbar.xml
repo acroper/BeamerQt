@@ -1,0 +1,847 @@
+<?xml version="1.0" ?>
+<Template>
+   ProgressBar
+   <Name>ProgressBar</Name>
+   <UseTheme>progressbar</UseTheme>
+   <CustomCode/>
+   <incorporatedFiles>
+      <file>
+         <filename>beamercolorthemeprogressbar.sty</filename>
+         <type>text</type>
+         <content>\ProvidesPackage{beamercolorthemeprogressbar}[2011/05/02]
+
+% Beamer theme by Sylvain Bouveret &lt;sylvain[dot]bouveret[aT]cert[DoT]fr&gt;
+% based on the LaTeX-Beamer package :
+%
+% Copyright 2003 by Till Tantau &lt;tantau@users.sourceforge.net&gt;
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+% This fork was created to satisfy personnal taste in code.
+%
+% Last modified by Cédric Mauclair.
+
+
+\definecolor{pb@yellow}      {rgb} {0.95,0.95,0.85}
+\definecolor{pb@gray}        {rgb} {0.90,0.90,0.90}
+\definecolor{pb@blue}        {rgb} {0.20,0.30,0.50}
+\definecolor{pb@lightblue}   {rgb} {0.92,0.93,0.95}
+\definecolor{pb@darkblueone} {rgb} {0.01,0.05,0.15}
+\definecolor{pb@darkbluetwo} {rgb} {0.25,0.45,0.5}
+
+\setbeamercolor{background canvas}{parent=palette primary}
+
+\setbeamercolor{palette primary}    {fg=pb@blue, bg=pb@lightblue}
+\setbeamercolor{palette secondary}  {fg=white!90!pb@blue, bg=pb@blue}
+\setbeamercolor{palette tertiary}   {fg=pb@blue, bg=pb@lightblue}
+\setbeamercolor{palette quaternary} {fg=pb@blue, bg=pb@lightblue}
+
+\setbeamercolor{structure}            {fg=pb@blue, bg=white}
+\setbeamercolor{title}                {parent=structure}
+\setbeamercolor{subtitle}             {parent=title}
+\setbeamercolor{frametitle}           {fg=pb@lightblue!90!pb@blue, bg=pb@blue}
+\setbeamercolor{section in head/foot} {parent=palette secondary}
+
+\setbeamercolor{alerted text}{fg=black!40!red}
+\setbeamercolor{example text}{fg=black!40!green}
+
+\setbeamercolor{block title}         {fg=structure.fg,    bg=pb@gray}
+\setbeamercolor{block title alerted} {fg=alerted text.fg, bg=alerted text.fg!10!bg}
+\setbeamercolor{block title example} {fg=example text.fg, bg=example text.fg!10!bg}
+
+\setbeamercolor{block body}         {fg=normal text.fg, bg=pb@gray}
+\setbeamercolor{block body alerted} {fg=normal text.fg, bg=alerted text.fg!10!bg}
+\setbeamercolor{block body example} {fg=normal text.fg, bg=example text.fg!10!bg}
+
+
+%%% Local Variables:
+%%% TeX-master: &quot;./demo-slides.tex&quot;
+%%% End:
+</content>
+      </file>
+      <file>
+         <filename>beamerfontthemeprogressbar.sty</filename>
+         <type>text</type>
+         <content>\ProvidesPackage{beamerfontthemeprogressbar}[2011/05/02]
+
+% Beamer theme by Sylvain Bouveret &lt;sylvain[dot]bouveret[aT]cert[DoT]fr&gt;
+% based on the LaTeX-Beamer package :
+%
+% Copyright 2003 by Till Tantau &lt;tantau@users.sourceforge.net&gt;
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+% This fork was created to satisfy personnal taste in code.
+%
+% Last modified by Cédric Mauclair.
+
+
+\usefonttheme{default}
+
+
+% titlepage
+\setbeamerfont{title}     {parent=structure, size=\normalsize, series=\bfseries}
+\setbeamerfont{subtitle}  {parent=title}
+\setbeamerfont{author}    {parent=title}
+\setbeamerfont{institute} {parent=structure, size=\scriptsize, series=\mdseries}
+\setbeamerfont{date}      {parent=institute}
+
+% items
+\setbeamerfont{itemize/enumerate body}       {size=\small}
+\setbeamerfont{itemize/enumerate subbody}    {size=\footnotesize}
+\setbeamerfont{itemize/enumerate subsubbody} {size=\scriptsize}
+
+\setbeamerfont{enumerate item}    {size=\tiny, series=\bfseries}
+\setbeamerfont{enumerate subitem} {size=\Tiny, series=\bfseries}
+
+% sections
+\setbeamerfont{section in toc}
+  {parent=structure, size=\scriptsize, series=\bfseries}
+\setbeamerfont{subsection in toc}
+  {parent=structure, size=\scriptsize, series=\bfseries}
+\setbeamerfont{section text in toc}
+  {parent=section in toc, size=\normalsize}
+\setbeamerfont{subsection text in toc}
+  {parent=subsection in toc, size=\scriptsize}
+\setbeamerfont{section in head/foot}
+  {size=\tiny, series=\bfseries}
+
+% bibliography
+\setbeamerfont{bibliography entry author}
+  {size=\scriptsize, shape=\upshape, series=\bfseries}
+\setbeamerfont{bibliography entry title}
+  {size=\tiny, shape=\upshape, series=\mdseries}
+\setbeamerfont{bibliography entry journal}
+  {size=\tiny, shape=\upshape, series=\mdseries}
+\setbeamerfont{bibliography entry note}
+  {size=\tiny, shape=\upshape, series=\mdseries}
+\setbeamertemplate{bibliography item}[progressbar]
+
+% miscs
+\setbeamerfont{block title}
+  {parent={structure, block body}, size=\normalsize, series=\bfseries}
+
+\expandafter\let\csname beamerx@\string\emph\endcsname\relax
+\renewcommand&lt;&gt;\emph[1]{{\only#2{\color{structure.fg}\bfseries}#1}}
+
+
+%%% Local Variables:
+%%% TeX-master: &quot;./demo-slides.tex&quot;
+%%% End:
+</content>
+      </file>
+      <file>
+         <filename>beamerinnerthemeprogressbar.sty</filename>
+         <type>text</type>
+         <content>\ProvidesPackage{beamerinnerthemeprogressbar}[2011/05/02]
+
+% Beamer theme by Sylvain Bouveret &lt;sylvain[dot]bouveret[aT]cert[DoT]fr&gt;
+% based on the LaTeX-Beamer package :
+%
+% Copyright 2003 by Till Tantau &lt;tantau@users.sourceforge.net&gt;
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+% This fork was created to satisfy personnal taste in code.
+%
+% Last modified by Cédric Mauclair.
+
+
+\RequirePackage{pgfkeys, tikz}
+\usetikzlibrary[fadings]
+
+
+%&lt;&lt; Processing options &gt;&gt;
+
+\pgfkeys{/handlers/.append to/.code=
+  \pgfkeysdef{\pgfkeyscurrentpath}{%
+    \expandafter\@temptokena\expandafter{#1,##1}%
+    \expandafter\edef\csname\expandafter\@gobble\string#1\endcsname{%
+      \the\@temptokena}}}
+
+\pgfkeys{/pb/.is family}
+
+\pgfqkeys{/pb}{%
+  .frametitle/.store in=\pb@frametitle,
+  frametitle/.is choice,
+  frametitle/center/.style={%
+    /pb/.frametitle=center},
+  frametitle/picture-section/.style={%
+    /pb/.frametitle=picture-section},
+  frametitle/picture-subsection/.style={%
+    /pb/.frametitle=picture-subsection},
+  frametitle/picture/.style={%
+    /pb/.frametitle=picture},
+  frametitle/rulelength/.store in=\pb@frametitlerulelength,
+  frametitle/rulewidth/.store in=\pb@frametitlerulewidth,
+  blocks/width/.store in=\pb@blockswidth,
+  blocks/rule/.append to=\pb@blocksrule,
+  blocks/frame/.append to=\pb@blocksframe}
+
+\providecommand\progressbaroptions{\pgfqkeys{/pb}}
+
+\def\pb@blocksrule{}
+\def\pb@blocksframe{}
+
+% default values
+\progressbaroptions{%
+  frametitle=picture,% also 'center' and 'picture-(sub)section'
+  frametitle/rulelength=0.7\linewidth,
+  frametitle/rulewidth=0.5pt,
+  blocks/width=0.95\textwidth,
+  blocks/rule={draw=fg!20!bg},
+  blocks/frame={draw=fg!20!bg, fill=bg, rounded corners=2pt}}
+
+%&gt;&gt;
+
+
+\mode
+&lt;presentation&gt;
+
+%&lt;&lt; Bibliography       &gt;&gt;
+
+\definecolor{bibstruct}{rgb}{0.95,0.95,0.85}
+\setbeamercolor{bibliography structure}{fg=normal text.fg, bg=bibstruct}
+
+% no new macro to learn for the user
+\AtBeginDocument{%
+  \let\bibliographyorig\bibliography
+  \@ifpackageloaded{bibunits}{%
+    \def\bibliography#1{%
+      \begingroup
+        \setbeamercolor{block body}
+          {use=bibliography structure, bg=bibliography structure.bg}
+        \begin{block}{}
+          \putbib[#1]\vskip2mm
+        \end{block}
+      \endgroup}}{%
+    \def\bibliography#1{%
+      \begingroup
+        \setbeamercolor{block body}
+          {use=bibliography structure, bg=bibliography structure.bg}
+        \begin{block}{}
+          \putbib[#1]\vskip2mm
+        \end{block}
+      \endgroup}}}
+
+% nice sheet of paper, bottom right cornered
+\defbeamertemplate*{bibliography item}{progressbar}{
+  \begin{tikzpicture}[rounded corners=1pt]
+    \usebeamercolor{structure}
+    \path [fill=fg!25!bg, use as bounding box]
+      (0,0.25) rectangle (0.4,0.5);
+    \path[shade, bottom color=bg, top color=fg!25!bg]
+      (0,0) -- (0.3,0) -- (0.4,0.12) -- (0.4,0.3) -- (0,0.3) -- cycle;
+    \path [shade, left color=bg, right color=fg!30!bg]
+      (0,0.27) .. controls (0.25,0.25) .. (0.4,0.5) -- (0,0.5) -- cycle;
+    \path [fill=bg!80!fg]
+      (0,0) rectangle (0.3,0.05);
+    \path [shade, left color=bg!95!fg, right color=bg!80!fg]
+      (0,0) rectangle (0.05,0.5);
+    \path [shade, left color=bg, right color=bg!50!fg, shading angle=45]
+      (0.3,0) -- (0.3,0.12) -- (0.4,0.12) -- cycle;
+    \path [draw=fg!35!bg]
+      (0,0) -- (0.3,0) -- (0.4,0.12) -- (0.4,0.5) -- (0,0.5) -- cycle;
+    \path [draw=fg!35!bg]
+      (0.3,0) -- (0.3,0.12) -- (0.4,0.12);
+  \end{tikzpicture}}
+
+%&gt;&gt;
+%&lt;&lt; Blocks             &gt;&gt;
+
+\def\const@default{default}
+
+\newcommand\defblocktemplate[2][]{%
+  \def\temp{#2}
+  \ifx\const@default\temp
+    \edef\doit{\noexpand\defsetblock[\noexpand#1]
+      {block begin} {block end}
+      {block title} {block body}}
+  \else
+    \edef\doit{\noexpand\defsetblock[\noexpand#1]
+      {block #2 begin} {block #2 end}
+      {block title #2} {block body #2}}
+  \fi
+  \def\defsetbeamertemplate{\defbeamertemplate*}%
+  \doit}
+
+\newcommand\setblocktemplate[2][]{%
+  \def\temp{#2}
+  \ifx\const@default\temp
+    \edef\doit{\noexpand\defsetblock[\noexpand#1]
+      {block begin} {block end}
+      {block title} {block body}}
+  \else
+    \edef\doit{\noexpand\defsetblock[\noexpand#1]
+      {block #2 begin} {block #2 end}
+      {block title #2} {block body #2}}
+  \fi
+  \def\defsetbeamertemplate##1##2{\setbeamertemplate{##1}}%
+  \doit}
+
+\newcommand\defsetblock[5][]{%
+  % block begin
+  \defsetbeamertemplate{#2}{progressbar}{%
+    % fix spurious spaces around itemize (kinda hackish)
+    \addtobeamertemplate{itemize/enumerate body begin}
+      {\kern-0.85\topsep}{}
+    \addtobeamertemplate{itemize/enumerate body end}
+      {}{\kern-\dimexpr0.85\topsep+0.25\topskip\relax}% seems ok
+    % put content into boxes
+    \linewidth\pb@blockswidth% use \linewidth to make it work with itemize
+    \setbox\@tempboxa=\hbox to \linewidth\bgroup
+      \vbox\bgroup
+        \raggedright
+        % deal with optional title
+        \ifx\insertblocktitle\@empty
+        \else
+          {\usebeamerfont{#4}\usebeamercolor[fg]{#4}\insertblocktitle}\\[-3mm]
+          % NOTE TO MYSELF: better use this syntax with babel
+          \edef\doit{\noexpand\path [\pb@blocksrule, #1]}% avoid spurious space
+          \begin{tikzpicture}
+            \doit (0,0) -- ++(\linewidth,0);
+          \end{tikzpicture}% avoid spurious space
+        \fi
+        \usebeamerfont{#5}\usebeamercolor[fg]{#5}% avoid spurious space
+  }
+  % ----------------------------------------
+  % block end
+  \defsetbeamertemplate{#3}{progressbar}{%
+      \egroup% end vbox
+    \egroup% end hbox
+    % use boxes to typeset content
+    \@tempdima\wd\@tempboxa
+    \@tempdimb\ht\@tempboxa
+    \advance\@tempdimb\dp\@tempboxa
+    \usebeamercolor{#5}% avoid spurious space
+    \hbox to\textwidth{%
+      \hfill
+      \edef\doit{\noexpand\node [\pb@blocksframe, #1]}% avoid spurious space
+      \begin{tikzpicture}
+        \doit at (0.5\@tempdima,0.5\@tempdimb) {\box\@tempboxa};
+      \end{tikzpicture}% avoid spurious space
+      \hfill}\vskip0.25\baselineskip}% put some space after each block
+}
+
+% #1 optional argument can be used to tweak default definition
+% Also we can use \progressbaroptions{blocks/(width,rule,frame)}.
+% #1 % takes precedence.
+\defblocktemplate{default}% default block is special (see \defblocktemplate)
+\defblocktemplate{alerted}
+\defblocktemplate{example}
+
+% \defblocktemplate uses \defbeamertemplate* (one time only)
+% \setblocktemplate uses \setbeamertemplate
+
+%&gt;&gt;
+%&lt;&lt; Frame title        &gt;&gt;
+
+\def\pb@separator{--}
+\def\const@center{center}
+\def\const@picture{picture}
+\def\const@picturesection{picture-section}
+\def\const@picturesubsection{picture-subsection}
+
+\defbeamertemplate*{frametitle}{progressbar}{
+  % 'center'
+  \ifx\pb@frametitle\const@center
+    \centering
+    \usebeamerfont{frametitle}%
+    \usebeamercolor[fg]{frametitle}%
+    \insertframetitle\endgraf
+  \fi
+  % 'picture'
+  \ifx\pb@frametitle\const@picture
+    \parbox[c]{0.15\textwidth}{\pgfuseimage{headimage}}%
+    \parbox[c]{0.85\textwidth}{%
+      \usebeamerfont{frametitle}%
+      \usebeamercolor[fg]{frametitle}%
+      \rule{\pb@frametitlerulelength}{\pb@frametitlerulewidth}\endgraf
+      \strut\insertframetitle}
+  \fi
+  % 'picture-section'
+  \ifx\pb@frametitle\const@picturesection
+    \vskip-1ex% reclaim some space on the headline
+    \parbox[c]{0.15\textwidth}{\pgfuseimage{headimage}}%
+    \parbox[c]{0.85\textwidth}{%
+      \ifx\insertsection\@empty\else
+        \usebeamerfont{section in frametitle}%
+        \usebeamercolor[fg]{section in frametitle}%
+        \insertsection\fi
+      \strut\\[-2ex]
+      \usebeamerfont{frametitle}%
+      \usebeamercolor[fg]{frametitle}%
+      \rule{\pb@frametitlerulelength}{\pb@frametitlerulewidth}\endgraf
+      \strut\insertframetitle}
+  \fi
+  % 'picture-subsection'
+  \ifx\pb@frametitle\const@picturesubsection
+    \vskip-1ex% reclaim some space on the headline
+    \parbox[c]{0.15\textwidth}{\pgfuseimage{headimage}}%
+    \parbox[c]{0.85\textwidth}{%
+      \ifx\insertsection\@empty\else
+        \usebeamerfont{section in frametitle}%
+        \usebeamercolor[fg]{section in frametitle}%
+        \insertsection\fi
+      \ifx\insertsubsection\@empty\else
+        \space\pb@separator\space
+        \usebeamerfont{subsection in frametitle}%
+        \usebeamercolor[fg]{subsection in frametitle}%
+        \insertsubsection\fi
+      \strut\\[-2ex]
+      \usebeamerfont{frametitle}%
+      \usebeamercolor[fg]{frametitle}%
+      \rule{\pb@frametitlerulelength}{\pb@frametitlerulewidth}\endgraf
+      \strut\insertframetitle}
+  \fi}
+
+%&gt;&gt;
+%&lt;&lt; Items              &gt;&gt;
+
+\tikzset{%
+  shaded ball/.style={%
+    circle, shade,
+    ball color=fg!80!bg,
+    postaction={draw=fg!50!black!90!bg}}}
+
+% itemize
+\setbeamertemplate{itemize item}{%
+  \begin{tikzpicture}[baseline=-0.8ex]
+    \path [shaded ball] (0,0) circle (0.07);
+  \end{tikzpicture}}
+\setbeamertemplate{itemize subitem}{%
+  \begin{tikzpicture}[baseline=-0.8ex]
+    \path [shaded ball] (0,0) circle (0.05);
+  \end{tikzpicture}}
+\setbeamertemplate{itemize subsubitem}{%
+  \begin{tikzpicture}[baseline=-0.8ex]
+    \path [shaded ball] (0,0) circle (0.05);
+  \end{tikzpicture}}
+
+% enumerate
+\setbeamercolor{enumerate item}    {parent=itemize item}
+\setbeamercolor{enumerate subitem} {parent=enumerate item}
+\setbeamertemplate{enumerate item}{%
+  \begin{tikzpicture}[baseline=-1.2ex]
+    \node [shaded ball, inner sep=1.4pt]
+      {\usebeamerfont{enumerate item}%
+       \usebeamercolor[bg]{enumerate item}%
+       \insertenumlabel};
+  \end{tikzpicture}}
+\setbeamertemplate{enumerate subitem}{%
+  \begin{tikzpicture}[baseline=-1.2ex]
+    \node [shaded ball, inner sep=1pt]
+      {\usebeamerfont{enumerate subitem}%
+       \usebeamercolor[bg]{enumerate subitem}%
+       \insertsubenumlabel};
+   \end{tikzpicture}}
+
+% table of contents
+\setbeamercolor{section in toc} {parent=itemize item}
+\setbeamertemplate{section in toc}{%
+  \begin{tikzpicture}[baseline=-1ex]
+    \node [shaded ball, inner sep=1.6pt]
+      {\usebeamerfont{section in toc}%
+       \usebeamercolor[bg]{section in toc}%
+       \inserttocsectionnumber};
+   \end{tikzpicture}
+   \usebeamerfont{section text in toc}%
+   \usebeamercolor[fg]{section text in toc}%
+   \inserttocsection}
+\setbeamertemplate{subsection in toc}{%
+  \qquad
+  {\usebeamerfont{subsection in toc}%
+   \usebeamercolor[fg]{subsection in toc}%
+   \inserttocsubsectionnumber.}
+  \usebeamerfont{subsection text in toc}%
+  \usebeamercolor[fg]{subsection text in toc}%
+  \inserttocsubsection}
+
+%&gt;&gt;
+
+
+\mode
+&lt;handout&gt;{
+  \setbeamerfont{frametitle}{series=\bfseries}
+  \setbeamercolor{frametitle}{fg=structure.fg, bg=white}
+  \setbeamertemplate{frametitle}{%
+    \usebeamerfont{frametitle}%
+    \usebeamercolor[fg]{frametitle}%
+    \insertframetitle}
+  % blocks
+  \setbeamercolor{block title}{bg=normal text.bg}
+  \setbeamercolor{block body}{bg=normal text.bg}
+  \setbeamercolor{bibliography structure}{bg=normal text.bg}
+  \setbeamercolor{block title example}{bg=normal text.bg}
+  \setbeamercolor{block body example}{bg=normal text.bg}
+  \setbeamercolor{block title alerted}{bg=normal text.bg}
+  \setbeamercolor{block body alerted}{bg=normal text.bg}
+  \setbeamertemplate{block begin}[default]
+  \setbeamertemplate{block end}[default]
+  \setbeamertemplate{block example begin}[default]
+  \setbeamertemplate{block example end}[default]
+  \setbeamertemplate{block alerted begin}[default]
+  \setbeamertemplate{block alerted end}[default]
+  \addtobeamertemplate{block begin}{}{% fix for items
+    \addtobeamertemplate{itemize/enumerate body begin}
+      {\kern-0.85\topsep}{}
+    \addtobeamertemplate{itemize/enumerate body end}
+      {}{\kern-\dimexpr0.85\topsep+0.25\topskip\relax}}
+  % items
+  \setbeamertemplate{itemize items}[circle]
+  \setbeamertemplate{enumerate items}[default]
+  \setbeamertemplate{section in toc}{%
+    \usebeamerfont{section text in toc}%
+    \usebeamercolor[fg]{section text in toc}
+    \inserttocsectionnumber. \inserttocsection}
+  \setbeamertemplate{subsection in toc}{%
+    \usebeamerfont{subsection text in toc}%
+    \usebeamercolor[fg]{subsection text in toc}
+    \inserttocsectionnumber.\inserttocsubsectionnumber.
+    \inserttocsubsection}}
+
+
+%%% Local Variables:
+%%% TeX-master: &quot;./demo-slides.tex&quot;
+%%% End:
+</content>
+      </file>
+      <file>
+         <filename>beamerouterthemeprogressbar.sty</filename>
+         <type>text</type>
+         <content>\ProvidesPackage{beamerouterthemeprogressbar}[2011/05/02]
+
+% Beamer theme by Sylvain Bouveret &lt;sylvain[dot]bouveret[aT]cert[DoT]fr&gt;
+% based on the LaTeX-Beamer package :
+%
+% Copyright 2003 by Till Tantau &lt;tantau@users.sourceforge.net&gt;
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+% This fork was created to satisfy personnal taste in code.
+%
+% Last modified by Cédric Mauclair.
+
+
+\RequirePackage{calc, pgfkeys, tikz}
+\usetikzlibrary[arrows]
+
+
+%&lt;&lt; Processing options &gt;&gt;
+
+\pgfkeys{/pb/.is family}
+
+\pgfqkeys{/pb}{%
+  .headline/.store in=\pb@headline,
+  headline/.is choice,
+  headline/none/.style={%
+    /pb/.headline=none},
+  headline/sections/.style={%
+    /pb/.headline=sections},
+  headimage/.store in=\pb@headimage,
+  titleimage/.store in=\pb@titleimage,
+  titlepage/.store in=\pb@titlepage}
+
+\providecommand\progressbaroptions{\pgfqkeys{/pb}}
+
+%~ \AtBeginDocument{%
+  %~ \pgfdeclareimage[width=0.27\textwidth, interpolate=true]
+    %~ {titleimage}{\pb@headimage}
+  %~ \pgfdeclareimage[width=0.12\textwidth, interpolate=true]
+    %~ {headimage}{\pb@titleimage}
+%~ }
+
+% default values
+\progressbaroptions{%
+  headline=none% also 'sections'
+  %~ headimage=images/tree04.jpg,
+  %~ titlepage=picture,
+  %~ titleimage=images/tree04.jpg
+  }
+
+%&gt;&gt;
+
+
+\mode
+&lt;presentation&gt;
+
+%&lt;&lt; progress bar         &gt;&gt;
+
+% some computations dedicated to the progressbar
+\newdimen\pb@frame
+\newdimen\pb@bar
+\newdimen\pb@step
+\newdimen\pb@margin
+
+\pb@margin=2mm
+
+\newcommand\setlen[2]{#1\dimexpr#2\relax}
+\newcommand\gsetlen[2]{\global#1\dimexpr#2\relax}
+
+% this is used to fake the number of slides when there are appendices
+% at that time, the macro \insertintermediateframenumber is redefined to
+% be the last frame before the appendices
+\def\insertintermediateframenumber{\inserttotalframenumber}
+
+% progressbar
+\def\insertprogressbar{%
+  % do some computations once...
+  \ifnum\insertframenumber=1
+    \setbox\@tempboxa=\hbox{%
+      \usebeamerfont{section in head/foot}%
+      \usebeamercolor[fg]{section in head/foot}%
+      \insertintermediateframenumber~/~\insertintermediateframenumber}
+    \@tempdima=\wd\@tempboxa
+
+    \gsetlen\pb@frame \@tempdima
+    \gsetlen\pb@bar   {\paperwidth-\@tempdima-3\pb@margin}
+    \gsetlen\pb@step  {\pb@bar/(\insertintermediateframenumber-2)}
+  % ... but don't put the progressbar on the first page (not frame!)
+  \else
+    \setlen\@tempdima {\pb@step*(\insertframenumber-2)}
+    \begin{tikzpicture}[thin, inner sep=0pt]
+      \usebeamerfont{section in head/foot}
+      \usebeamercolor{section in head/foot}
+      \path [use as bounding box]
+        (0,-1mm) rectangle ++(\paperwidth,0);
+      \node [anchor=east, text=fg]
+        at (\paperwidth-\pb@margin,2.1mm)
+        {\hfill\insertframenumber~/~\insertintermediateframenumber};
+      \node [anchor=south east, text=fg]
+        at (\paperwidth-2\pb@margin-\pb@frame-0.4mm,2.6mm)
+        {\insertshorttitle};
+      \path [draw, color=fg!30!bg, &lt;-&gt;, &gt;=serif cm]
+        (\pb@margin,2.1mm) -- ++(\pb@bar,0);
+      \node [anchor=north, text=fg!30!bg]
+        at (\@tempdima+\pb@margin,2.1mm) {$\blacktriangle$};
+    \end{tikzpicture}
+  \fi}
+
+%&gt;&gt;
+%&lt;&lt; headline/footline    &gt;&gt;
+
+\defbeamertemplate*{section in head/foot}{progressbar}{%
+  \setbox\@tempboxa\hbox{\strut\insertsectionhead}%
+  \setdim\@tempdima{\wd\@tempboxa+4pt}%
+  \setdim\@tempdimb{\ht\@tempboxa+4pt}%
+  \begin{tikzpicture}
+    \usebeamercolor{section in head/foot}
+    \path [clip]
+      (-1pt,-1pt) rectangle (\@tempdima+1pt, \@tempdimb+1pt);
+    \path [draw=fg, thin, rounded corners=3pt]
+      (0,0) rectangle (\@tempdima, \@tempdimb);
+    \node [anchor=text, text=fg]
+      at (2pt,2pt) {\strut\insertsectionhead};
+  \end{tikzpicture}}
+
+\setbeamercolor{section in head/foot shaded}{fg=gray!80}
+\defbeamertemplate*{section in head/foot shaded}{progressbar}{%
+  \setbox\@tempboxa\hbox{\strut\insertsectionhead}%
+  \setdim\@tempdima{\wd\@tempboxa+4pt}%
+  \setdim\@tempdimb{\ht\@tempboxa+4pt}%
+  \begin{tikzpicture}
+    \usebeamercolor{section in head/foot shaded}
+    \path [clip]
+      (-1pt,-1pt) rectangle (\@tempdima+1pt, \@tempdimb+1pt);
+    \path [rounded corners=3pt]
+      (0,0) rectangle (\@tempdima, \@tempdimb);
+    \node [anchor=text, text=fg]
+      at (2pt,2pt) {\strut\insertsectionhead};
+  \end{tikzpicture}}
+
+\def\const@none{none}
+\def\const@sections{sections}
+
+\defbeamertemplate*{headline}{progressbar}{%
+  \vskip2pt
+  \leavevmode
+  \begin{beamercolorbox}
+    [ignorestructure.bg=true, wd=\paperwidth, ht=4ex, dp=1.125ex]{structure.fg}
+    \ifnum\insertframenumber=1\else
+    \ifx\pb@headline\const@sections
+      \insertsectionnavigationhorizontal{\paperwidth}{}{}
+    \fi\fi
+  \end{beamercolorbox}}
+
+\defbeamertemplate*{footline}{progressbar}
+  {\insertprogressbar}
+
+%&gt;&gt;
+%&lt;&lt; title page           &gt;&gt;
+
+\newcommand\insertmaybe[1]{%
+  \expandafter\ifx\csname insert#1\endcsname\@empty\else
+    \endgraf
+    {\usebeamerfont{#1}%
+     \usebeamercolor[fg]{#1}%
+     \csname insert#1\endcsname}%
+  \fi}
+
+\defbeamertemplate*{title page}{progressbar}{%
+  % 'picture'
+  \ifx\pb@titlepage\const@picture
+  \parbox{0.30\textwidth}{\pgfuseimage{titleimage}}%
+  \parbox{0.70\textwidth}{
+    \begin{center}
+      % title
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}%
+      \insertmaybe{subtitle}
+      % rule
+      \vskip\baselineskip\hrule\vskip\baselineskip
+      % optionnal content
+      \insertmaybe{author}
+      \insertmaybe{date}
+      \insertmaybe{institute}
+      \insertlogo
+    \end{center}}
+  % anything else
+  \else
+    \pgfdeclarehorizontalshading{separation}{0.5pt}{%
+        color(0cm)=(structure.bg);
+        color(0.5\textwidth)=(structure.fg);
+        color(\textwidth)=(structure.bg)}
+    \begin{center}
+      % title
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}%
+      \insertmaybe{subtitle}
+      % rule
+      \pgfuseshading{separation}\vskip1.4ex
+      % optionnal content
+      \insertmaybe{author}
+      \insertmaybe{date}
+      \insertmaybe{institute}
+      \insertlogo
+      % rule
+      \pgfuseshading{separation}
+    \end{center}
+  \fi
+}
+
+%&gt;&gt;
+%&lt;&lt; background           &gt;&gt;
+
+\defbeamertemplate*{background canvas}{progressbar}
+  {\pgfuseshading{background shading}}
+
+\AtBeginDocument{%
+  \begingroup
+    \usebeamercolor{palette secondary}
+    \usebeamercolor{normal text}
+    \pgfdeclareverticalshading{background shading}\paperwidth{%
+      color(0cm)=(palette secondary.bg);% bottom
+      color(3cm)=(normal text.bg);
+      color(0.6\paperheight)=(normal text.bg);
+      color(0.9\paperheight)=(palette secondary.bg);
+      color(\paperheight)=(black!60!palette secondary.bg)}% top
+  \endgroup}
+
+%&gt;&gt;
+
+
+\mode
+&lt;handout&gt;{%
+  % background
+  \setbeamertemplate{background canvas}{}
+  % headline/footline
+  \setbeamertemplate{headline}{\vskip2mm}
+  \setbeamertemplate{footline}{}%
+  % title page
+  \setbeamertemplate{title page}[default]}
+
+
+%%% Local Variables:
+%%% TeX-master: &quot;./demo-slides.tex&quot;
+%%% End:
+
+</content>
+      </file>
+      <file>
+         <filename>beamerthemeprogressbar.sty</filename>
+         <type>text</type>
+         <content>\ProvidesPackage{beamerthemeprogressbar}[2011/05/02]
+
+% Beamer theme by Sylvain Bouveret &lt;sylvain[dot]bouveret[aT]cert[DoT]fr&gt;
+% based on the LaTeX-Beamer package :
+%
+% Copyright 2003 by Till Tantau &lt;tantau@users.sourceforge.net&gt;
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+% This fork was created to satisfy personnal taste in code.
+%
+% Last modified by Cédric Mauclair.
+
+
+\RequirePackage{pgfkeys, tikz}
+
+
+%&lt;&lt; Processing options &gt;&gt;
+
+\pgfkeys{/pb/.is family}
+
+\providecommand\progressbaroptions{\pgfqkeys{/pb}}
+
+%&gt;&gt;
+
+\usecolortheme{progressbar}
+\useinnertheme{progressbar}
+\usefonttheme{progressbar}
+\useoutertheme{progressbar}
+
+\setbeamertemplate{navigation symbols}{}
+
+\AtBeginDocument{%
+  \typeout{..................................................................}
+  \typeout{You are using the progressbar beamer theme (Sylvain B.)}
+  \typeout{Version forked by Cedric Mauclair: 2011/05/02}
+  \typeout{..................................................................}
+}
+
+
+\let\@NX\noexpand
+\let\@EA\expandafter
+
+\renewcommand{\appendix}[1][]{%
+  \immediate\write\@auxout{%
+    \string\@writefile{nav}%
+    {\@NX\headcommand{\@NX\def\@NX\insertintermediateframenumber{%
+          \the\c@framenumber}}}}
+
+  % optionnal argument typeset centered on plain frame
+  \if @#1@\else
+    \begin{frame}&lt;handout:0&gt;[c,plain]
+      \centering\usebeamerfont{title}\usebeamercolor[fg]{title}#1\par
+    \end{frame}
+  \fi
+
+  % recompute length of bar
+  \def\insertintermediateframenumber{\inserttotalframenumber}
+  \setbox\@tempboxa=\hbox{%
+    \usebeamerfont{section in head/foot}%
+    \usebeamercolor[fg]{section in head/foot}%
+    \inserttotalframenumber~/~\inserttotalframenumber}
+  \@tempdima=\wd\@tempboxa
+
+  \gsetlen\pb@frame \@tempdima
+  \gsetlen\pb@bar   {\paperwidth-\@tempdima-3\pb@margin}
+  \gsetlen\pb@step  {\pb@bar/(\inserttotalframenumber-2)}
+}
+
+
+\mode&lt;handout&gt;{%
+  \usepackage{pgfpages}
+  \pgfpagesuselayout{4 on 1}}
+
+
+%%% Local Variables:
+%%% TeX-master: &quot;./demo-slides.tex&quot;
+%%% End:
+</content>
+      </file>
+   </incorporatedFiles>
+</Template>
