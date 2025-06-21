@@ -299,7 +299,8 @@ class beamerDocument():
         LocalSystem = platform.system() 
         
         if LocalSystem == "Windows":
-            self.Proc = Process(target=beamerDocument.ExportPDF2, args=(self.latexfolder, self.RealLocation, self.ShowPreview))
+            self.Proc = Process(target=beamerDocument.ExportPDF2, args=(self.latexfolder, self.RealLocation, self.ShowPreview, self.ExportCounts))
+            self.ExportCounts+=1
             self.Proc.start()
             
         else:
@@ -356,7 +357,11 @@ class beamerDocument():
         self.Message = ""
         
         
-    def ExportPDF2(latexfolder, RealLocation, ShowPreview):
+    def ExportPDF2(latexfolder, RealLocation, ShowPreview, ExportCounts):
+        
+        # Workaround function for Windows
+        # Unfortunately, we lost some interactive messages on the GUI
+        # in favor to stability.
         
         LocalSystem = platform.system() 
         
@@ -367,11 +372,10 @@ class beamerDocument():
     
         subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
         
-        
-            # subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
-        
+        if ExportCounts == 0:
+            # some processes need pdflatex to run twice!
+            subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
 
-        
         
         if ShowPreview:
             if LocalSystem == "Windows":
@@ -379,23 +383,16 @@ class beamerDocument():
             else:
                 subprocess.call(('xdg-open', 'output.pdf'))
         
-        
-        # self.Status = True
-        
+
         if os.path.exists('output.pdf'):
             # self.Message = "Document generated"
             copylocation = RealLocation.replace("bqt", "")+"pdf" 
             shutil.copy( os.path.join(latexfolder, 'output.pdf')  , copylocation)
             print("Exported file to: " + copylocation)
         else:
-            # self.Message = "Error generating PDF document"
-            None
-        
-        # os.chdir(current_working_directory)
-        
-        # time.sleep(10)
-        # self.Status = False
-        # self.Message = ""
+            print("Error generating PDF document")
+            
+
         
         
         
