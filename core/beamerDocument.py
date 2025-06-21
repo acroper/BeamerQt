@@ -241,8 +241,9 @@ class beamerDocument():
         
         self.Status = True
         self.Message = "Generating LaTeX..."
-        self.Proc = Process(target=self.GenLaTeXThread, args=(self,))
-        self.Proc.start()
+        self.GenLaTeXThread(self,)
+        # self.Proc = Process(target=self.GenLaTeXThread, args=(self,))
+        # self.Proc.start()
         
         # self.Proc.join(10000)
         # x = threading.Thread(target=self.GenLaTeXThread, args=(self,))
@@ -293,12 +294,24 @@ class beamerDocument():
         
         outputfile.close()
         
-        self.ExportPDF()
+        # self.ExportPDF()
+        
+        LocalSystem = platform.system() 
+        
+        if LocalSystem == "Windows":
+            self.Proc = Process(target=beamerDocument.ExportPDF2, args=(self.latexfolder, self.RealLocation, self.ShowPreview))
+            self.Proc.start()
+            
+        else:
+            self.Proc = Process(target=self.ExportPDF, args=(self,))
+            self.Proc.start()
+            
+                
         
         
         
         
-    def ExportPDF(self):
+    def ExportPDF(self,args):
         
         self.Message = "Generating PDF document..."
         
@@ -341,6 +354,48 @@ class beamerDocument():
         time.sleep(10)
         self.Status = False
         self.Message = ""
+        
+        
+    def ExportPDF2(latexfolder, RealLocation, ShowPreview):
+        
+        LocalSystem = platform.system() 
+        
+        current_working_directory = os.getcwd()
+        
+        os.chdir(latexfolder)
+
+    
+        subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
+        
+        
+            # subprocess.call("pdflatex -interaction=nonstopmode output.tex", shell=True) 
+        
+
+        
+        
+        if ShowPreview:
+            if LocalSystem == "Windows":
+                os.startfile('output.pdf')
+            else:
+                subprocess.call(('xdg-open', 'output.pdf'))
+        
+        
+        # self.Status = True
+        
+        if os.path.exists('output.pdf'):
+            # self.Message = "Document generated"
+            copylocation = RealLocation.replace("bqt", "")+"pdf" 
+            shutil.copy( os.path.join(latexfolder, 'output.pdf')  , copylocation)
+            print("Exported file to: " + copylocation)
+        else:
+            # self.Message = "Error generating PDF document"
+            None
+        
+        # os.chdir(current_working_directory)
+        
+        # time.sleep(10)
+        # self.Status = False
+        # self.Message = ""
         
         
         
