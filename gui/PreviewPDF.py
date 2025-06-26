@@ -100,8 +100,8 @@ class PrevWindow(QWidget):
         
     def ResizeTo(self, widget):
         # Resize to the size of the largest object
-        self.child1.resize(200, widget.size().height())
-        self.child2.resize(200, widget.size().height())
+        self.child1.resize(200, 150)
+        self.child2.resize(200, 150)
         None
 
 

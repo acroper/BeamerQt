@@ -34,7 +34,7 @@
      <property name="minimumSize">
       <size>
        <width>250</width>
-       <height>200</height>
+       <height>150</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -117,13 +117,6 @@
      </property>
      <property name="wordWrap">
       <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="genPDFButton">
-     <property name="text">
-      <string>GenPreview</string>
      </property>
     </widget>
    </item>

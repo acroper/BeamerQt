@@ -62,7 +62,7 @@ class ThemePreview(QtWidgets.QWidget):
         
         self.ThemeList.clicked.connect(self.ChangeSelection)
         
-        self.genPDFButton.clicked.connect(self.genPDFPreview)
+        # self.genPDFButton.clicked.connect(self.genPDFPreview)
         
         self.SelectedTheme = None
         
@@ -77,10 +77,9 @@ class ThemePreview(QtWidgets.QWidget):
 
     def reviewPreviews(self):
         
-        print("\n############# Starting review of Previews #################")
-        
-        print("Size:")
-        print(len(self.ItemsWithoutPreview))
+        # print("\n############# Starting review of Previews #################")
+        # print("Size:")
+        # print(len(self.ItemsWithoutPreview))
         
         if len (self.ItemsWithoutPreview) == 0:
             return
@@ -94,12 +93,14 @@ class ThemePreview(QtWidgets.QWidget):
             print(template.Name)
             
             template.PreviewPDF = None
+
             
             path = template.GetPreviewPDF()
             
-            print(path)
             
             if template.ValidPDF:
+                template.GetPreview()
+                
                 item.setIcon(QIcon(template.Preview))
                 self.ItemsWithoutPreview.pop(0)
                 self.ProcessingReview = False
@@ -115,7 +116,7 @@ class ThemePreview(QtWidgets.QWidget):
                 
         
         else:
-            print("Starting other slide")
+            # print("Starting other slide")
             template.GenPreviewFile(self.WorkDirectory)
             self.PreviewAttempts = 0
             self.ProcessingReview = True
