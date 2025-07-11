@@ -69,6 +69,8 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
         
         
+        
+        
     def SetDocument(self, documento):
         self.Document = documento
         
@@ -76,12 +78,15 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         tempName = self.Document.Template.Name
         
         self.themeBox.setCurrentText(tempName)
+        self.PrevThemeList.setCurrentText(tempName)
         
     
     def UpdateTheme(self):
         
         index = self.themeBox.currentIndex()
         self.Document.Template = self.ThemeList[index]
+        self.PrevThemeList.setCurrentText( self.Document.Template.Name )
+        
         
         
         

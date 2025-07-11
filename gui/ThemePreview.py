@@ -70,9 +70,43 @@ class ThemePreview(QtWidgets.QWidget):
         
         self.PreviewAttempts = 0
         
+        self.Ready = False
+        
+        self.CurrentText = ""
+        
         QtCore.QTimer.singleShot(1000, self.reviewPreviews)
         
+
+    def setCurrentText(self, tempName):
         
+        if not self.Ready:
+            self.CurrentText = tempName
+            
+            return
+        
+        for row in range(self.model.rowCount()):
+            item = self.model.item(row)
+            if item and item.text() == tempName:
+                index = self.model.index(row, 0) # Get the QModelIndex
+                self.ThemeList.setCurrentIndex(index) # Set current item
+     
+                template = item.Template
+                
+                self.SelectedTheme = template
+                
+                pdfpath = template.GetPreviewPDF()
+                template.GetPreview()
+                item.setIcon(QIcon(template.Preview))
+
+                
+                self.PrevWindow.ShowPDF(pdfpath)
+                
+                # Select the item
+                # self.ThemeList.selectionModel().select(
+                #     index, 
+                #     self.ThemeList.selectionModel().SelectionFlag.ClearAndSelect
+                # )
+                break
 
 
     def reviewPreviews(self):
@@ -82,6 +116,10 @@ class ThemePreview(QtWidgets.QWidget):
         # print(len(self.ItemsWithoutPreview))
         
         if len (self.ItemsWithoutPreview) == 0:
+            self.Ready = True
+            
+            if self.SelectedTheme == None:
+                self.setCurrentText(self.CurrentText)
             return
 
         item = self.ItemsWithoutPreview[0]
@@ -181,6 +219,8 @@ class ThemePreview(QtWidgets.QWidget):
                     
                     self.List.append(templ)
                     self.AddItemList(templ)
+                    
+        
                     
 
     def AddItemList(self, templ):
