@@ -1,6 +1,6 @@
 """
 Beamer QT
-Copyright (C) 2024  Jorge Guerrero - acroper@gmail.com
+Copyright (C) 2025  Jorge Guerrero - acroper@gmail.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -391,12 +391,14 @@ class beamerDocument():
             print("Exported file to: " + copylocation)
         else:
             print("Error generating PDF document")
-            
 
+
+    def ExportPPTX(self):
+        import core.beamerpptx 
         
+        pptx = BeamerPPT()
         
-        
-        
+        pptx.Export(self)
         
         
         

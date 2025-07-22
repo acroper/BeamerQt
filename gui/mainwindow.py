@@ -199,6 +199,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def OpenThemeEditor(self):
         if self.ThemeEditor == None:
             self.ThemeEditor = ThemeEditorWindow()
+            self.ThemeEditor.WorkDirectory = self.WorkDirectory
         else:
             self.ThemeEditor.hide()
             

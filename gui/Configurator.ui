@@ -94,6 +94,12 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>400</height>
+           </size>
+          </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
@@ -119,13 +125,6 @@
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Global options of the theme</string>
-             </property>
-            </widget>
-           </item>
            <item>
             <widget class="QComboBox" name="themeBox"/>
            </item>
@@ -275,7 +274,7 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>242</width>
+                <width>227</width>
                 <height>422</height>
                </rect>
               </property>

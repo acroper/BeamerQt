@@ -43,19 +43,158 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
 
         uic.loadUi('gui/ThemeEditorWindow.ui', self)
         
-        self.AddFileButton.clicked.connect(self.add_file)
-        self.RemoveSelectedButton.clicked.connect(self.remove_file)
-        self.actionOpen.triggered.connect(self.open_xml_file)
-        
-        self.actionSave.triggered.connect(self.save_xml_file)
-        self.actionSave_As.triggered.connect(self.save_xml_file_as)
+        self.WorkDirectory = None
         
         self.InnerTemplate = None
         
         self.current_file_path = None
         
+        self.editable_file = None
+        
+        self.tabWidget.setCurrentIndex(0)
+        
+        self.tabWidget.setTabEnabled(2, False)
+        
+        self.tabWidget.setStyleSheet("QTabBar::tab::disabled { width: 0; height: 0; margin: 0.5; padding: 0; border: none; }")
         
         
+        self.PrevWindow = PreviewPDF()
+        
+        self.PreviewLayout.addWidget(self.PrevWindow)
+        
+        self.ReviewCount = 0
+        
+        
+        self.setFunctions()
+        
+        self.removePreviewFile()
+        
+    
+    def removePreviewFile(self):
+        # delete file
+        previewfile = os.path.join("templates","Previews", "preview.pdf") 
+        if os.path.exists( previewfile ):
+            try:
+                os.remove(previewfile)
+            except:
+                None
+        
+    def setFunctions(self):
+        
+        self.AddFileButton.clicked.connect(self.add_file)
+        
+        self.RemoveSelectedButton.clicked.connect(self.remove_file)
+        
+        self.actionOpen.triggered.connect(self.open_xml_file)
+        
+        self.actionSave.triggered.connect(self.save_xml_file)
+        
+        self.actionSave_As.triggered.connect(self.save_xml_file_as)
+        
+        self.actionApply_this_theme.triggered.connect(self.apply_theme)
+        
+        ## Selection of file on the file list
+        
+        self.lw_files.itemDoubleClicked.connect(self.editfile)
+        
+        # self.SaveAttachedButton.clicked.connect(self.save_attached)
+        
+        self.RevertButton.clicked.connect(self.revert_attached)
+        
+        self.PreviewButton.clicked.connect(self.ShowPreview)
+        
+        
+    def ShowPreview(self):
+        
+        print("Generating previews")
+        
+        self.save_params()
+        
+        self.InnerTemplate.JustPreview = True
+        
+        self.InnerTemplate.GenPreviewFile(self.WorkDirectory)
+        
+        
+        if self.ReviewCount == 0 or self.ReviewCount == 10:
+            self.ReviewCount = 0
+            QtCore.QTimer.singleShot(1000, self.ReviewPreview)
+        
+        self.ReviewCount = 0
+        
+
+        
+        
+
+    def ReviewPreview(self):
+        
+        print("Attempting preview...")
+
+        
+        self.InnerTemplate.PreviewPDF = None
+        pdfpath = self.InnerTemplate.GetPreviewPDF()
+        
+        
+        self.PrevWindow.ShowPDF(pdfpath)
+        
+        self.ReviewCount += 1
+        
+        if self.ReviewCount > 10:
+            return
+        
+        QtCore.QTimer.singleShot(5000, self.ReviewPreview)
+        
+
+            
+        
+
+        
+    def revert_attached(self):
+        if self.editable_file != None:
+            self.editable_file['content'] = self.editable_file['original']
+            self.editableFile_Text.setPlainText(self.editable_file['content'])
+        
+        
+    def save_attached(self):
+        
+        if self.editable_file != None:
+            self.editable_file['content'] = self.editableFile_Text.toPlainText()
+        
+        
+        
+    def editfile(self, item):
+        
+        self.save_attached()
+        
+        # Find file
+        filename = item.text().split(' ')[0]
+        
+        # Remove from internal list
+        # self.incorporated_files = [f for f in self.incorporated_files if f['filename'] != filename_to_remove]
+        
+        k = 0
+        for nitem in self.incorporated_files:
+            f = nitem['filename']
+            if f == filename:
+                # self.incorporated_files.pop(k)
+                kfile = nitem
+                
+                if kfile["type"] == "text":
+                    
+                    self.tabWidget.setTabEnabled(2, True)
+                    
+                    self.editable_file = kfile
+                    self.editableFile_Text.setPlainText(self.editable_file["content"])
+                    
+                    self.tabWidget.setCurrentIndex(2)
+                    
+                    self.tabWidget.setTabText(2, filename)
+                    
+            
+            k+= 1
+
+        
+    def apply_theme(self):
+        None
             
     def add_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Incorporate File", "", "All Files (*)")
@@ -85,7 +224,8 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
         self.incorporated_files.append({
             'filename': filename,
             'type': file_type,
-            'content': content
+            'content': content,
+            'original': content
         })
         self.lw_files.addItem(f"{filename} ({file_type})")
         
@@ -119,6 +259,8 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
     def open_xml_file(self):
         
         
+        
+        
         # searchpath = os.path.join(  os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "templates")
         # print(searchpath)
         
@@ -144,17 +286,38 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
                 
                 self.incorporated_files = self.InnerTemplate.incorporated_files
                 
+                self.tabWidget.setCurrentIndex(0)
                 
+                self.tabWidget.setTabEnabled(2, False)
+                
+                self.editable_file = None
+                
+
                 
                 for file_el in self.incorporated_files:
                     filename = file_el["filename"]
                     file_type = file_el["type"]
+                    file_el ['original'] = file_el['content']
                     self.lw_files.addItem(f"{filename} ({file_type})")
+                    
+                
+                self.removePreviewFile()
+                self.ReviewPreview()
                 
 
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to load XML file.\nError: {e}")
 
+
+    def save_params(self):
+        if self.InnerTemplate == None:
+            self.InnerTemplate = BeamerTemplate()
+        
+        self.InnerTemplate.CustomCode = self.SourceCodeText.toPlainText()
+        self.InnerTemplate.UseTheme = self.BaseName.text()
+        
+        self.InnerTemplate.Name = self.ThemeName.text()
+        
 
     def save_xml_file(self):
         if self.current_file_path != None:
@@ -171,13 +334,7 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
             
     def save_to_xml(self, filepath):
         
-        if self.InnerTemplate == None:
-            self.InnerTemplate = BeamerTemplate()
-        
-        self.InnerTemplate.CustomCode = self.SourceCodeText.toPlainText()
-        self.InnerTemplate.UseTheme = self.BaseName.text()
-        
-        self.InnerTemplate.Name = self.ThemeName.text()
+        self.save_params()
         
         TemplateXML = self.InnerTemplate.GenXMLContent()
         # Pretty print XML

@@ -51,6 +51,8 @@ class BeamerTemplate:
         
         self.OutputDirectory = ""
         
+        self.JustPreview = False
+        
         
     def GetXMLContent(self):
         
@@ -173,7 +175,10 @@ class BeamerTemplate:
             return self.PreviewPDF
         
         # Try to generate a preview
-        pdfpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".pdf" ) 
+        if not self.JustPreview:
+            pdfpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".pdf" ) 
+        else:
+            pdfpath = os.path.join( os.path.join("templates", "Previews"), "preview.pdf" ) 
 
         if os.path.exists(pdfpath):
             self.PreviewPDF = pdfpath
@@ -199,7 +204,12 @@ class BeamerTemplate:
         pix = page.get_pixmap(dpi=40)
         image_format = QImage.Format.Format_RGB888
         qimage = QImage(pix.samples, pix.width, pix.height, pix.stride, image_format)
-        iconpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".png" ) 
+        
+        if not self.JustPreview:
+            iconpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".png" ) 
+        else:
+            iconpath = os.path.join( os.path.join("templates", "Previews"), "preview.png" ) 
+            
         qimage.save(iconpath)
         
         
@@ -212,8 +222,13 @@ class BeamerTemplate:
         if WorkDirectory == None:
             return
         
+
         basefile = os.path.abspath(os.path.join( os.path.join("templates", "gen"), "PreviewFile.bqt" ) )
         previewfile = os.path.abspath(os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".bqt" ) )
+        
+        if self.JustPreview:
+            previewfile = os.path.abspath(os.path.join( os.path.join("templates", "Previews"), "preview.bqt" ) )
+            
         
         
         shutil.copy(basefile, previewfile)
