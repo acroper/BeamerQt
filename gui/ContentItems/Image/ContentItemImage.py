@@ -29,6 +29,8 @@ from PyQt6.QtGui import QPixmap, QIcon
 
 from gui.ContentItems.Image.imagebrowse import *
 
+from gui.ImageScale import *
+
 from PyQt6.QtCore import pyqtSignal, QObject
 
 import xml.etree.ElementTree as ET
@@ -42,88 +44,99 @@ import uuid
 from core.xmlutils import *
 
 
-class ImageWidget(QWidget):
+
+
+# class ImageWidget(QWidget):
     
-    ImageClicked = pyqtSignal()
+#     ImageClicked = pyqtSignal()
     
-    def __init__(self, image_path, parent=None):
-        super().__init__(parent)
+#     def __init__(self, image_path, parent=None):
+#         super().__init__(parent)
 
-        self.image_path = image_path
-        self.image_label = QPushButton(self)
+#         self.image_path = image_path
         
-        # self.image_label.setText("Hello")
-        self.max_image_size_percent = 0.5
+#         # self.image_label = QPushButton(self)
+#         self.image_label = ScalableImage(self)
         
-        self.image_label.clicked.connect(self.showImageDLG)
+#         self.layout.addWidget(self.image_label)
+        
+#         # self.image_label.setText("Hello")
+#         self.max_image_size_percent = 0.5
+        
+#         self.image_label.clicked.connect(self.showImageDLG)
 
-        self.load_image()
+#         self.load_image()
 
         
-    def showImageDLG(self):
-        self.ImageClicked.emit()
+#     def showImageDLG(self):
+#         self.ImageClicked.emit()
         
-    def load_pixmap(self, pixmap):
-        self.image_label.setIcon(pixmap)
+#     def load_pixmap(self, pixmap):
+#         # self.image_label.setIcon(pixmap)
+#         self.image_label.setPixmap(pixmap)
+        
         
 
-    def load_image(self):
+#     def load_image(self):
 
-        self.icon = QIcon(self.image_path)
+#         # self.icon = QIcon(self.image_path)
         
-        self.image_label.setIcon(self.icon)
+#         # self.image_label.setIcon(self.icon)
         
-        self.pixmap =QPixmap(self.image_path)
-        # parent_size = self.parentWidget().parentWidget().size()
+#         self.pixmap =QPixmap(self.image_path)
         
-        # max_image_size = parent_size * self.max_image_size_percent
-        max_image_size = QtCore.QSize(300,300)
+#         self.image_label.setPixmap(self.pixmap)
+#         # parent_size = self.parentWidget().parentWidget().size()
         
-        image_size = self.pixmap.size()
+#         # max_image_size = parent_size * self.max_image_size_percent
+#         # max_image_size = QtCore.QSize(300,300)
         
-        scale_factor = min(max_image_size.width() / image_size.width(),
-                          max_image_size.height() / image_size.height())
+#         # image_size = self.pixmap.size()
         
-        self.image_label.setIconSize(image_size * scale_factor)
+#         # scale_factor = min(max_image_size.width() / image_size.width(),
+#         #                   max_image_size.height() / image_size.height())
         
-        # self.setFixedSize(image_size * scale_factor*1.1)
+#         # self.image_label.setIconSize(image_size * scale_factor)
+        
+#         # self.setFixedSize(image_size * scale_factor*1.1)
         
         
         
         
         
-        # self.pixmap =QPixmap(self.image_path)  # Use walrus operator for concise assignment
-        # self.image_label.setPixmap(self.pixmap)
-        # self.adjust_size()
-        # print("Image loaded")
+#         # self.pixmap =QPixmap(self.image_path)  # Use walrus operator for concise assignment
+#         # self.image_label.setPixmap(self.pixmap)
+#         # self.adjust_size()
+#         # print("Image loaded")
      
         
-    def adjust_size(self):
-        """
-        Adjusts the widget size to maintain the aspect ratio of the image 
-        and limit the maximum size based on a percentage of the parent size.
-        """
-        self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+#     def adjust_size(self):
+#         """
+#         Adjusts the widget size to maintain the aspect ratio of the image 
+#         and limit the maximum size based on a percentage of the parent size.
+#         """
+#         return 
+#         self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # Get the parent widget size
-        parent_size = self.parentWidget().size()
+#         # Get the parent widget size
+#         parent_size = self.parentWidget().size()
 
-        # Calculate the maximum allowed image size
-        max_image_size = parent_size * self.max_image_size_percent
+#         # Calculate the maximum allowed image size
+#         max_image_size = parent_size * self.max_image_size_percent
 
-        # Load the image and get its actual size
-        image_size = self.pixmap.size()
+#         # Load the image and get its actual size
+#         image_size = self.pixmap.size()
 
-        # Calculate the scaling factor to fit within the maximum size while maintaining aspect ratio
-        scale_factor = min(max_image_size.width() / image_size.width(),
-                          max_image_size.height() / image_size.height())
+#         # Calculate the scaling factor to fit within the maximum size while maintaining aspect ratio
+#         scale_factor = min(max_image_size.width() / image_size.width(),
+#                           max_image_size.height() / image_size.height())
 
-        # Apply scaling to the image
-        self.pixmap = self.pixmap.scaled(image_size * scale_factor, Qt.AspectRatioMode.KeepAspectRatio)
-        self.image_label.setPixmap(self.pixmap)
+#         # Apply scaling to the image
+#         self.pixmap = self.pixmap.scaled(image_size * scale_factor, Qt.AspectRatioMode.KeepAspectRatio)
+#         self.image_label.setPixmap(self.pixmap)
 
-        # Set the widget size based on the scaled image
-        self.setFixedSize(self.pixmap.size())
+#         # Set the widget size based on the scaled image
+#         self.setFixedSize(self.pixmap.size())
 
 
 
@@ -143,13 +156,18 @@ class itemWidgetImage(QtWidgets.QWidget):
         
         # initialImage = "/tmp/ToPrint/IMG_20230212_123510.jpg"
         
-        self.Image = ImageWidget(self.initialImage, self)
+        # self.Image = ImageWidget(self.initialImage, self)
+        self.Image = ImageScale(self)
+        
+        
+        
+        self.Image.setPixmap( QPixmap(self.initialImage))
         
         self.layout.addWidget(self.Image)
         
         self.Image.show()
         
-        self.Image.ImageClicked.connect(self.showImageDLG)
+        self.Image.clicked.connect(self.showImageDLG)
         
         
         
@@ -182,18 +200,19 @@ class itemWidgetImage(QtWidgets.QWidget):
     def Refresh(self, forced = False):
         # self.TextEditor.setText(self.InnerObject.Text)
         
+        
         self.prevText.setText( self.InnerObject.PrevText )
         self.posText.setText(self.InnerObject.PostText)
 
         if os.path.exists(self.InnerObject.image_path):
-            self.Image.image_path = self.InnerObject.image_path
+            # self.Image.image_path = self.InnerObject.image_path
             
             
             if not forced and self.InnerObject.Pixmap != None:
-                self.Image.load_pixmap(self.InnerObject.Pixmap)
+                self.Image.setPixmap(self.InnerObject.Pixmap)
             else:
-                self.Image.load_image()
-                self.InnerObject.Pixmap = self.Image.icon
+                self.InnerObject.Pixmap = QPixmap(self.InnerObject.image_path)
+                self.Image.setPixmap( self.InnerObject.Pixmap )
 
         
         
