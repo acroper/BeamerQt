@@ -210,23 +210,27 @@ class DualSlider(QWidget):
                 self.value3 = round(self.valueFromPosition(event.pos()), 0)
                 # self.value2 = round(self.valueFromPosition(event.pos()), 0)
                 self.update()
+            
+            self.grabMouse()
+                
+            
 
     def mouseMoveEvent(self, event):
-        if event.buttons() & Qt.MouseButton.LeftButton:
-            if self.rect().contains(event.pos()) and self.selected1:
-                self.value1 = round(self.valueFromPosition(event.pos()), 0)
-                # self.value2 = round(self.valueFromPosition(event.pos()), 0)
-                self.update()
-                
-            if self.rect().contains(event.pos()) and self.selected2:
-                self.value2 = round(self.valueFromPosition(event.pos()), 0)
-                # self.value2 = round(self.valueFromPosition(event.pos()), 0)
-                self.update()  
-                
-            if self.rect().contains(event.pos()) and self.selected3:
-                self.value3 = round(self.valueFromPosition(event.pos()), 0)
-                # self.value2 = round(self.valueFromPosition(event.pos()), 0)
-                self.update()  
+        
+        if  self.selected1:
+            self.value1 = round(self.valueFromPosition(event.pos()), 0)
+            # self.value2 = round(self.valueFromPosition(event.pos()), 0)
+            self.update()
+            
+        if  self.selected2:
+            self.value2 = round(self.valueFromPosition(event.pos()), 0)
+            # self.value2 = round(self.valueFromPosition(event.pos()), 0)
+            self.update()  
+            
+        if  self.selected3:
+            self.value3 = round(self.valueFromPosition(event.pos()), 0)
+            # self.value2 = round(self.valueFromPosition(event.pos()), 0)
+            self.update() 
                 
     def mouseReleaseEvent(self, event):
         self.selected1 = False
@@ -234,6 +238,7 @@ class DualSlider(QWidget):
         self.selected3 = False
         self.extraRound()
         self.Released.emit()
+        self.releaseMouse()
 
 
     def sizeHint(self):
