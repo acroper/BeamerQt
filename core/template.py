@@ -215,7 +215,7 @@ class BeamerTemplate:
         
         
 
-    def GenPreviewFile(self, WorkDirectory):
+    def GenPreviewFile(self, WorkDirectory, parent = None):
         import core.beamerDocument as beamdoc
         import time
         
@@ -250,7 +250,7 @@ class BeamerTemplate:
         
         TestDoc.Template = self
         
-        TestDoc.GenLaTeX()
+        TestDoc.GenLaTeX(parent)
         
         self.ValidIcon = False
         

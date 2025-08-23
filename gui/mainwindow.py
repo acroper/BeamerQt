@@ -108,7 +108,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
         
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setVisible(False)
+        
+        self.statusBar.addPermanentWidget(self.progress_bar)
+
+        # self.progress_bar.setMaximum(22)
+        
+        self.progress_bar.setValue(0)
+        
+        
         self.statusBar.addPermanentWidget(self.ZoomPanel)
+        
+
+        
+        
         
         
 
@@ -560,7 +574,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.Slidebar.ResetSlideNumber()
         self.statusBar.showMessage("Generating LaTeX document... ")
         self.CurrentFrame.SaveSlide()
-        self.Document.GenLaTeX()
+        self.Document.GenLaTeX(self)
         
 
         
