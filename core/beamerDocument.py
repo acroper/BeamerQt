@@ -234,6 +234,8 @@ class beamerDocument():
         
         if LocalSystem == "Windows":
             os.startfile(self.latexfolder)
+        elif LocalSystem == "Darwin":
+            subprocess.call(('open', self.latexfolder))
         else:
             subprocess.call(('xdg-open', self.latexfolder))
         
@@ -353,6 +355,8 @@ class beamerDocument():
         if self.ShowPreview:
             if LocalSystem == "Windows":
                 os.startfile('output.pdf')
+            elif LocalSystem == "Darwin":
+                subprocess.call(('open', "output.pdf"))
             else:
                 subprocess.call(('xdg-open', 'output.pdf'))
         
@@ -458,6 +462,8 @@ class beamerDocument():
         if ShowPreview:
             if LocalSystem == "Windows":
                 os.startfile('output.pdf')
+            elif LocalSystem == "Darwin":
+                subprocess.call(('open', 'output.pdf'))
             else:
                 subprocess.call(('xdg-open', 'output.pdf'))
         
