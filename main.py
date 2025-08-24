@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt6 import QtWidgets
 from gui.mainwindow import *
 import shutil
+import multiprocessing
+import platform
+import sys
 
 
 def main():
@@ -41,4 +44,11 @@ def main():
     
     
 if __name__ == "__main__":
+    # macOS multiprocessing compatibility fix
+    if platform.system() == "Darwin":
+        try:
+            multiprocessing.set_start_method("fork")
+        except RuntimeError:
+            pass
+
     main()

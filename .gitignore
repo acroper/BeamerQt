@@ -1,0 +1,108 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows thumbnails (harmless on macOS but safe to ignore in cross-platform repos)
+ehthumbs.db
+Thumbs.db
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.conda/
+.mamba/
+
+# Packaging / build
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# Editors/IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs and local databases
+*.log
+*.sqlite3
+
+# Qt / QML compiled caches
+*.qmlc
+*.jsc
+
+# Project-specific: transient folders created during LaTeX/PDF generation
+# These are created under temp dirs named by the app; ignore them anywhere.
+**/LaTeX/
+**/Doc/
+**/Media/
+**/SlidesPrev/
+
+# LaTeX build artifacts (keep PDFs tracked if you want; uncomment *.pdf to ignore globally)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lol
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+# *.pdf
+
+
+# Previews of templates
+Previews/
