@@ -254,7 +254,7 @@ class itemImage():
             x.start()
             
     def LoadPixmapThread(self, arg):
-        self.Pixmap =QIcon(self.image_path)  
+        self.Pixmap =QPixmap(self.image_path)  
     
     
     def GetXMLContent(self):
