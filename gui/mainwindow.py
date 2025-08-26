@@ -113,7 +113,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.statusBar.addPermanentWidget(self.progress_bar)
 
-        # self.progress_bar.setMaximum(22)
+        self.progress_bar.setMaximum(100)
         
         self.progress_bar.setValue(0)
         
@@ -121,9 +121,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar.addPermanentWidget(self.ZoomPanel)
         
 
+    def UpdateProgress(self, value):
+        self.progress_bar.setVisible(True)
+        self.progress_bar.setValue(value)
         
         
-        
+    def FinishedCompilation(self):
+        self.progress_bar.setVisible(False)
+    
         
 
     def UpdateRecentFiles(self):

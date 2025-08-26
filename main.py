@@ -40,7 +40,7 @@ def main():
     try:
         shutil.rmtree(window.WorkDirectory)
     except: 
-        None
+        pass
     
     
 if __name__ == "__main__":
@@ -50,5 +50,9 @@ if __name__ == "__main__":
             multiprocessing.set_start_method("fork")
         except RuntimeError:
             pass
+        
+    if platform.system() == "Windows":
+        # Windows issue required to create the executable with pyinstall
+        multiprocessing.freeze_support()
 
     main()

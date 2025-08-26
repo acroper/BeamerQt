@@ -23,13 +23,15 @@ import tempfile
 import zipfile
 import shutil
 import platform
-
+import re
 import subprocess
 
 from multiprocessing import Process
 
 from PyQt6.QtCore import QProcess, Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
+
+from PyQt6.QtCore import pyqtSignal, QObject
 
 import threading
 import time
@@ -76,6 +78,12 @@ class beamerDocument():
         self.Proc = None
         
         self.parent = None
+        
+        self.progress = 0
+        
+        self.total_pages = 0
+        
+        self.pages_processed = 0
         
     
     def ReIndexSlides(self):
@@ -264,6 +272,9 @@ class beamerDocument():
         
     def GenLaTeXThread(self, arg):
         
+        self.total_pages = len(self.Slides) + 1
+        self.pages_processed = 0
+        
         filename = os.path.join(self.latexfolder, "output.tex")
         # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )
         
@@ -301,6 +312,7 @@ class beamerDocument():
         for slide in self.Slides:
             latexcontent = slide.GenLaTeX()
             self.WriteLines(latexcontent, outputfile)
+            
             
         
         outputfile.write("\\end{document}")
@@ -378,67 +390,6 @@ class beamerDocument():
         self.Message = ""
 
         
-    def QExportPDF(self):
-        self.Message = "Generating PDF document..."
-        # QProcess for pdflatex
-        self.process = QProcess(self.parent)
-        self.process.readyReadStandardOutput.connect(self.handle_stdout)
-        self.process.finished.connect(self.process_finished)
-        
-        
-        
-        # self.current_working_directory = os.getcwd()
-        
-        # os.chdir(self.latexfolder)
-        
-        print("Starting Qprocess")
-        self.process.start("pdflatex", ["-interaction=nonstopmode", f"-output-directory={self.output_path}", self.tex_file_path])
-        
-        
-    
-    def process_finished(self, exit_code, exit_status):
-        # self.generate_button.setEnabled(True)
-        # self.progress_bar.setVisible(False)
-        # pdf_file_path = os.path.join("temp", "temp.pdf")
-        print("Process ended")
-        pdf_file_path = os.path.join(self.latexfolder, "output.pdf")
-        
-        
-        if self.ExportCounts == 0:
-            # some processes need pdflatex to run twice!
-            # os.chdir(self.current_working_directory)
-            self.QExportPDF()
-            self.ExportCounts += 1
-            
-            return
-
-        if exit_code == 0 and os.path.exists(pdf_file_path):
-            # self.status_bar.showMessage("PDF file generated successfully.", 5000)
-            # self.progress_bar.setValue(self.progress_bar.maximum())
-            if self.ShowPreview:
-                self.show_pdf(pdf_file_path)
-        else:
-            # self.status_bar.showMessage("PDF generation failed. Check output for errors.", 5000)
-            print("PDF file not found")
-            
-        # os.chdir(self.current_working_directory)
-            
-        
-
-    def show_pdf(self, file_path):
-        """Opens the PDF file with the system's default application."""        
-        file_url = QUrl.fromLocalFile(os.path.abspath(file_path))
-        QDesktopServices.openUrl(file_url)
-        
-        
-    def handle_stdout(self):
-        data = self.process.readAllStandardOutput().data().decode(errors='ignore')
-        print(data)
-        
-        
-        
-        
-        
     def ExportPDF2(latexfolder, RealLocation, ShowPreview, ExportCounts):
         
         # Workaround function for Windows
@@ -475,6 +426,100 @@ class beamerDocument():
             print("Exported file to: " + copylocation)
         else:
             print("Error generating PDF document")
+            
+            
+    def QExportPDF(self):
+        self.Message = "Generating PDF document..."
+        # QProcess for pdflatex
+        self.process = QProcess(self.parent)
+        self.process.readyReadStandardOutput.connect(self.handle_stdout)
+        self.process.finished.connect(self.process_finished)
+        
+        
+        
+        # self.current_working_directory = os.getcwd()
+        
+        # os.chdir(self.latexfolder)
+        
+        print("Starting Qprocess")
+        self.process.start("pdflatex", ["-interaction=nonstopmode", f"-output-directory={self.output_path}", self.tex_file_path])
+        
+        
+    
+    def process_finished(self, exit_code, exit_status):
+        # self.generate_button.setEnabled(True)
+        # self.progress_bar.setVisible(False)
+        # pdf_file_path = os.path.join("temp", "temp.pdf")
+        print("Process ended")
+        pdf_file_path = os.path.join(self.latexfolder, "output.pdf")
+        
+        if self.ExportCounts == 0:
+            # some processes need pdflatex to run twice!
+            # os.chdir(self.current_working_directory)
+            self.QExportPDF()
+            self.ExportCounts += 1
+            
+            return
+
+        if os.path.exists(pdf_file_path):
+            # self.status_bar.showMessage("PDF file generated successfully.", 5000)
+            # self.progress_bar.setValue(self.progress_bar.maximum())
+            
+            copylocation = self.RealLocation.replace("bqt", "")+"pdf" 
+            shutil.copy( pdf_file_path , copylocation)
+            print("Exported file to: " + copylocation)
+            
+            if self.ShowPreview:
+                self.show_pdf(pdf_file_path)
+                self.Message = "PDF document generated"
+        else:
+            # self.status_bar.showMessage("PDF generation failed. Check output for errors.", 5000)
+            print("PDF file not found")
+            print(pdf_file_path)
+        
+        # os.chdir(self.current_working_directory)
+        
+        try:
+            self.parent.FinishedCompilation()
+        except:
+            pass
+            
+        
+
+    def show_pdf(self, file_path):
+        """Opens the PDF file with the system's default application.""" 
+        file_url = QUrl.fromLocalFile(os.path.abspath(file_path))
+        
+        QDesktopServices.openUrl(file_url)
+        
+        
+    def handle_stdout(self):
+        data = self.process.readAllStandardOutput().data().decode(errors='ignore')
+        self.update_progress(data)
+        # print(data)
+
+    def update_progress(self, output):
+        # A simple way to estimate progress by counting pages
+        page_match = re.findall(r"\[(\d+)", output)
+        if page_match:
+            # This is a basic estimation. A fixed max value is assumed for the progress bar.
+            # self.progress_bar.setMaximum(22) # Assume a 10-page document for progress estimation
+            
+            self.pages_processed += len(page_match)
+                        
+            self.progress = round(self.pages_processed*70/self.total_pages)
+            
+            
+            if self.progress > 99:
+                self.progress = 99
+            
+            try:
+                self.parent.UpdateProgress(self.progress)
+            except:
+                pass
+            
+            
+            
 
 
     def ExportPPTX(self):
