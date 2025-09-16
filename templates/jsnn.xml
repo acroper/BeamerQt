@@ -14,6 +14,43 @@
 \setbeamerfont{date}{size=\scriptsize,series=\bfseries,parent=structure}
 
 
+
+\definecolor{ncatblue}{HTML}{004684}
+\definecolor{ncatgold}{HTML}{FDB927}
+\definecolor{lightgray}{HTML}{F5F5F5} % A light gray for block backgrounds
+
+% Set the main structural color to Aggie Blue
+\setbeamercolor{structure}{fg=ncatblue}
+
+% Title page colors
+\setbeamercolor{title}{fg=ncatblue}
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{institute}{fg=gray}
+\setbeamercolor{date}{fg=gray}
+
+% Frame title colors
+\setbeamercolor{frametitle}{fg=ncatblue}
+
+% Block colors (for theorems, examples, etc.)
+% This creates the main look with a blue title bar and light gray body.
+\setbeamercolor{block title}{bg=ncatblue, fg=ncatgold}
+\setbeamercolor{block body}{bg=lightgray}
+
+% Sidebar and other palette colors (optional, but good practice)
+\setbeamercolor{palette primary}{use=structure,bg=structure.fg}
+\setbeamercolor{palette secondary}{use=structure,bg=structure.fg!75!black}
+\setbeamercolor{palette tertiary}{use=structure,bg=structure.fg!50!black}
+
+
+% 4. ENABLE ROUNDED BLOCKS
+%--------------------------------------------------------------------
+% This is the key command to make all blocks have rounded corners.
+\useinnertheme{rounded}
+
+
+
+
+
 \setbeamertemplate{title page}{
 
 \begin{tikzpicture}[remember picture, overlay]
@@ -69,6 +106,8 @@
 };
 
 }
+
+
 \setbeamertemplate{navigation symbols}{}
 
 %%% Configuring the logo in the rest of the frames
@@ -85,8 +124,7 @@
 	 \hspace{-1.2cm} \scriptsize\insertframenumber\,/\,\inserttotalframenumber 
 	};
 	\end{tikzpicture}
-}{}
-</CustomCode>
+}{}</CustomCode>
    <incorporatedFiles>
       <file>
          <filename>jsnn-logo_header.pdf</filename>
