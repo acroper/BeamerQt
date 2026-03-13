@@ -104,6 +104,12 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.addRTF.clicked.connect(lambda: self.AddWidgetItem("RTF"))
         
+        # Add EquationQT button between RTF and Text
+        self.addEquationButton = QToolButton()
+        self.addEquationButton.setText("Add Equation")
+        self.horizontalLayout_2.insertWidget(2, self.addEquationButton)
+        self.addEquationButton.clicked.connect(lambda: self.AddWidgetItem("EquationQT"))
+        
         self.maxCols.valueChanged.connect(self.RefreshItemList)
         
         self.BlockNormal.clicked.connect(lambda: self.SetBlockType("Normal"))
