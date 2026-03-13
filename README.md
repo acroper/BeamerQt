@@ -1,5 +1,5 @@
 # BeamerQt
-BeamerQT is a user-friendly graphical interface designed to facilitate the creation of Beamer presentations without manually editing LaTeX code associated with the Slides. It provides a comprehensive set of features that allow users to define layouts, insert content (including text, blocks, and images), and configure some advance settings of the theme. BeamerQT provides both beginners and advanced LaTeX users the ability to create amazing presentations and focus in the contents rather than in the code.
+BeamerQT is a user-friendly graphical interface designed to facilitate the creation of Beamer presentations without manually editing LaTeX code associated with the Slides. It provides a comprehensive set of features that allow users to define layouts, insert content (including text, blocks, images, and mathematical equations), and configure some advance settings of the theme. BeamerQT provides both beginners and advanced LaTeX users the ability to create amazing presentations and focus in the contents rather than in the code.
 
 ### Library requirements:
 * PyQt6
@@ -11,6 +11,25 @@ BeamerQT is a user-friendly graphical interface designed to facilitate the creat
 
 # Features
 BeamerQT features a graphical user interface that provides easy access to most desired Beamer/LaTeX features without adding LaTeX code. 
+
+## Equation Editor (New Feature!)
+Create and edit mathematical equations visually with an intuitive graphical interface.
+
+**Key Features:**
+* **Visual Equation Editing**: Interactive editor with symbol palette for operators, Greek letters, arrows, and mathematical structures
+* **Real-time Preview**: See rendered equations instantly as you build them
+* **LaTeX Support**: Direct LaTeX input and editing capabilities
+* **Symbol Categories**: Organized palette with Operators (±, ×, ÷, etc.), Arrows (←, →, ↑, ↓, etc.), Greek letters (α, β, γ, etc.), and Symbols (∇, ∂, ∞, etc.)
+* **Mathematical Structures**: Support for fractions, sums, integrals, square roots, and matrices
+* **Rendered Previews**: Equations display as properly formatted mathematical notation in the presentation blocks
+* **Caching**: Efficient rendering with cached previews for better performance
+
+**How to Use:**
+1. Add an "Add Equation" block to your slide
+2. Click the equation preview to open the visual editor
+3. Use the symbol palette or type LaTeX directly
+4. The equation renders in real-time in the editor
+5. Click OK to save and see the rendered preview in your slide
 
 ## Theme Editor (New Feature!)
 Edit source code of templates. 
@@ -59,13 +78,13 @@ Core functionalities of blocks include:
 * A dedicated button for removing the block from the slide. 
 * A title field and text input area for each block, with multiline support. 
 * Automatic line breaks or retention of manual line breaks depending on user input.
-* Multiple sub-blocks
+* Multiple sub-blocks containing text, images, or mathematical equations
 <img src="https://github.com/user-attachments/assets/5b914c96-e691-4fdf-af42-faba89b2c8f4" width="600">
 
 
 ## Sub-blocks
 
-Sub-blocks allow for more granular content organization within a block. Each block contains at least one sub-block (generally text-based), and users can add multiple sub-blocks as needed.
+Sub-blocks allow for more granular content organization within a block. Each block contains at least one sub-block (generally text-based), and users can add multiple sub-blocks containing text, images, or mathematical equations as needed.
 
 Sub-block features include: 
 
@@ -82,7 +101,18 @@ Image sub-block features:
 * Adjustable image sizing as a percentage of the sub-block’s width. 
 * Automatic adaptation to layout changes for consistently scaled visuals. 
 * Compatibility with multiple image formats, ensuring flexibility in presentation design.
+## Equation sub-block
 
+The equation sub-block enables the insertion of mathematical equations with visual editing capabilities. Users can create complex mathematical expressions using an intuitive graphical interface or by directly editing LaTeX code.
+
+Equation sub-block features:
+
+* Visual equation editor with symbol palette for easy equation creation
+* Support for mathematical operators, Greek letters, arrows, and symbols
+* Real-time rendering of equations as properly formatted mathematical notation
+* Direct LaTeX input and editing for advanced users
+* Cached previews for efficient performance
+* Automatic LaTeX code generation for the final presentation
 ## Front-matter
 
 The front-matter section allows for easy configuration of presentation-wide settings. Users can define the presentation title, author names, and customize the LaTeX preamble. Additionally, advanced features can be enabled to further refine the overall look and structure of the presentation, such as: 
