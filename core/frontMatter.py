@@ -49,6 +49,8 @@ class frontMatter:
         self.Preamble = ""
         
         self.AspectRatio = "43"
+
+        self.EquationStyle = "Normal"
         
         self.ShowSectionPage = "False"
         
@@ -99,6 +101,7 @@ class frontMatter:
         xmlblock.SetField('ShortAuthor', self.ShortAuthor)
         
         xmlblock.SetField('AspectRatio', self.AspectRatio)
+        xmlblock.SetField('EquationStyle', self.EquationStyle)
         
         xmlblock.SetField('ShowSectionPage', self.ShowSectionPage)
         xmlblock.SetField('ShowSectionOutline', self.ShowSectionOutline)
@@ -130,6 +133,8 @@ class frontMatter:
         self.BackgroundPath =  xmlblock.GetField('BackgroundPath', '')
         
         self.AspectRatio =  xmlblock.GetField('AspectRatio', '43')
+
+        self.EquationStyle =  xmlblock.GetField('EquationStyle', 'Normal')
         
         self.ShowSectionPage =  xmlblock.GetField('ShowSectionPage', '')
         self.ShowSectionOutline =  xmlblock.GetField('ShowSectionOutline', '')
@@ -145,6 +150,10 @@ class frontMatter:
             latexcontent = latexcontent + ", aspectratio=169"
         
         latexcontent = latexcontent + "]{beamer}\n"
+
+        if self.EquationStyle == "Professional":
+            latexcontent = latexcontent + "\\usefonttheme{professionalfonts}\n"
+            
         
         return latexcontent
 

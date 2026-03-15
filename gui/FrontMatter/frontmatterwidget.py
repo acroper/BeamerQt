@@ -75,8 +75,12 @@ class FrontMatterWidget(QtWidgets.QDialog):
         
         if self.FrontMatter.AspectRatio == "169":
             self.Aspect169.setChecked(True)
-        
-        
+
+        if self.FrontMatter.EquationStyle == "Normal":
+            self.EquationNormal.setChecked(True)
+        elif self.FrontMatter.EquationStyle == "Professional":
+            self.EquationPro.setChecked(True)
+
     def Save(self):
         self.FrontMatter.Title = self.Title.text()
         self.FrontMatter.ShortTitle = self.ShortTitle.text()
@@ -100,7 +104,11 @@ class FrontMatterWidget(QtWidgets.QDialog):
         else:
             self.FrontMatter.AspectRatio = "43"
         
-        
+        if self.EquationNormal.isChecked():
+            self.FrontMatter.EquationStyle = "Normal"   
+        elif self.EquationPro.isChecked():
+            self.FrontMatter.EquationStyle = "Professional"
+
         if self.ShowSectionPage.isChecked():
             self.FrontMatter.ShowSectionPage = "True"
         else:
