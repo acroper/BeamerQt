@@ -228,18 +228,44 @@ class MathScript(MathElement):
         if slot_type=="sup" and not self.sup: self.sup = MathRow(self)
         if slot_type=="sub" and not self.sub: self.sub = MathRow(self)
     def layout(self, font):
-        self.base.layout(font); sfont = QFont(font); sfont.setPointSize(int(font.pointSize()*0.7))
-        sup_w, sup_h, sub_w, sub_h = 0,0,0,0
-        if self.sup: self.sup.layout(sfont); sup_w = self.sup.width; sup_h = self.sup.height
-        if self.sub: self.sub.layout(sfont); sub_w = self.sub.width; sub_h = self.sub.height
-        self.width = self.base.width + max(sup_w, sub_w); self.height = self.base.height + sup_h//2 + sub_h//2
-        self.ascent = self.base.ascent + sup_h//2
+        self.base.layout(font)
+        sfont = QFont(font)
+        sfont.setPointSize(int(font.pointSize() * 0.7))
+
+        sup_w, sup_h, sub_w, sub_h = 0, 0, 0, 0
+        if self.sup:
+            self.sup.layout(sfont)
+            sup_w = self.sup.width
+            sup_h = self.sup.height
+            self.sup.x = self.base.width
+        if self.sub:
+            self.sub.layout(sfont)
+            sub_w = self.sub.width
+            sub_h = self.sub.height
+            self.sub.x = self.base.width
+
+        self.width = self.base.width + max(sup_w, sub_w)
+        self.height = self.base.height + sup_h // 2 + sub_h // 2
+        self.ascent = self.base.ascent + sup_h // 2
+
+        if self.sup:
+            self.sup.y = 0
+        if self.sub:
+            self.sub.y = self.height - sub_h
+
     def draw(self, p, x, y):
         font_orig = p.font()
-        self.base.draw(p, x, y + (self.ascent - self.base.ascent));
-        sfont = QFont(font_orig); sfont.setPointSize(int(font_orig.pointSize()*0.7)); p.setFont(sfont)
-        if self.sup: self.sup.draw(p, x + self.base.width, y)
-        if self.sub: self.sub.draw(p, x + self.base.width, y + self.height - self.sub.height)
+        # Draw base symbol aligned with the script alignment
+        self.base.draw(p, x, y + (self.ascent - self.base.ascent))
+
+        # Draw superscript/subscript using their computed offsets
+        sfont = QFont(font_orig)
+        sfont.setPointSize(int(font_orig.pointSize() * 0.7))
+        p.setFont(sfont)
+        if self.sup:
+            self.sup.draw(p, x + self.sup.x, y + self.sup.y)
+        if self.sub:
+            self.sub.draw(p, x + self.sub.x, y + self.sub.y)
         p.setFont(font_orig)
     def to_latex(self): return f"{self.base.to_latex()}" + (f"^{{{self.sup.to_latex()}}}" if self.sup else "") + (f"_{{{self.sub.to_latex()}}}" if self.sub else "")
 
@@ -316,3 +342,4 @@ class MathMatrix(MathElement):
         for r in range(self.rows):
             rows_latex.append(" & ".join([c.to_latex() for c in self.cells[r]]))
         return f"\\begin{{{env}}}\n" + " \\\\\n".join(rows_latex) + f"\n\\end{{{env}}}"
+
