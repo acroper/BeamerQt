@@ -950,15 +950,34 @@ class EquationEditor(QWidget):
                 parent_row = matrix.parent
                 self.cursor_row = parent_row
                 self.cursor_index = parent_row.items.index(matrix) + 1
-        elif self.cursor_index < len(self.cursor_row.items): 
+            return
+
+        # When inside a MathOperator placeholder, leaving it should go back to the main row
+        if self.cursor_row.parent and isinstance(self.cursor_row.parent, MathOperator):
+            operator = self.cursor_row.parent
+            if self.cursor_index == len(self.cursor_row.items):
+                parent_row = operator.parent
+                if parent_row:
+                    idx = parent_row.items.index(operator)
+                    self.cursor_row = parent_row
+                    self.cursor_index = idx + 1
+                return
+
+        if self.cursor_index < len(self.cursor_row.items): 
             next_item = self.cursor_row.items[self.cursor_index]
-            slots = next_item.get_slots()
-            if slots: 
-                self.cursor_row = slots[0]
-                self.cursor_index = 0
-            else: 
+            # Treat complex symbols (e.g. sum/int) as a single object when moving left/right
+            if isinstance(next_item, MathOperator):
                 self.cursor_index += 1
-        elif self.cursor_row.parent:
+            else:
+                slots = next_item.get_slots()
+                if slots: 
+                    self.cursor_row = slots[0]
+                    self.cursor_index = 0
+                else: 
+                    self.cursor_index += 1
+            return
+
+        if self.cursor_row.parent:
             parent_block = self.cursor_row.parent
             parent_row = parent_block.parent
             all_slots = parent_block.get_slots()
@@ -983,15 +1002,34 @@ class EquationEditor(QWidget):
                 parent_row = matrix.parent
                 self.cursor_row = parent_row
                 self.cursor_index = parent_row.items.index(matrix)
-        elif self.cursor_index > 0: 
+            return
+
+        # When inside a MathOperator placeholder, leaving it should go back to the main row
+        if self.cursor_row.parent and isinstance(self.cursor_row.parent, MathOperator):
+            operator = self.cursor_row.parent
+            if self.cursor_index == 0:
+                parent_row = operator.parent
+                if parent_row:
+                    idx = parent_row.items.index(operator)
+                    self.cursor_row = parent_row
+                    self.cursor_index = idx
+                return
+
+        if self.cursor_index > 0: 
             prev_item = self.cursor_row.items[self.cursor_index - 1]
-            slots = prev_item.get_slots()
-            if slots: 
-                self.cursor_row = slots[-1]
-                self.cursor_index = len(self.cursor_row.items)
-            else: 
+            # Treat complex symbols (e.g. sum/int) as a single object when moving left/right
+            if isinstance(prev_item, MathOperator):
                 self.cursor_index -= 1
-        elif self.cursor_row.parent:
+            else:
+                slots = prev_item.get_slots()
+                if slots: 
+                    self.cursor_row = slots[-1]
+                    self.cursor_index = len(self.cursor_row.items)
+                else: 
+                    self.cursor_index -= 1
+            return
+
+        if self.cursor_row.parent:
             parent_block = self.cursor_row.parent
             parent_row = parent_block.parent
             all_slots = parent_block.get_slots()
@@ -1016,7 +1054,24 @@ class EquationEditor(QWidget):
                 parent_row = matrix.parent
                 self.cursor_row = parent_row
                 self.cursor_index = parent_row.items.index(matrix)
-        elif self.cursor_row.parent and isinstance(self.cursor_row.parent, MathFraction):
+            return
+
+        # When inside an operator placeholder, Up behaves like Right (move along the placeholder / exit it)
+        if self.cursor_row.parent and isinstance(self.cursor_row.parent, MathOperator):
+            operator = self.cursor_row.parent
+            if self.cursor_row == operator.bottom:
+                self.move_cursor_right()
+                return
+
+        # If we're just to the right of an operator, jump into its superscript slot
+        if self.cursor_index > 0:
+            prev_item = self.cursor_row.items[self.cursor_index - 1]
+            if isinstance(prev_item, MathOperator) and prev_item.top:
+                self.cursor_row = prev_item.top
+                self.cursor_index = len(self.cursor_row.items)
+                return
+
+        if self.cursor_row.parent and isinstance(self.cursor_row.parent, MathFraction):
             if self.cursor_row == self.cursor_row.parent.den:
                 self.cursor_row = self.cursor_row.parent.num
                 self.cursor_index = len(self.cursor_row.items)
@@ -1031,7 +1086,23 @@ class EquationEditor(QWidget):
                 parent_row = matrix.parent
                 self.cursor_row = parent_row
                 self.cursor_index = parent_row.items.index(matrix) + 1
-        elif self.cursor_row.parent and isinstance(self.cursor_row.parent, MathFraction):
+            return
+
+        # When inside an operator placeholder, Down behaves like Right (move along the placeholder / exit it)
+        if self.cursor_row.parent and isinstance(self.cursor_row.parent, MathOperator):
+            self.move_cursor_right()
+            return
+
+        # If we're just to the right of an operator, jump into its subscript slot
+        if self.cursor_index > 0:
+            prev_item = self.cursor_row.items[self.cursor_index - 1]
+            if isinstance(prev_item, MathOperator) and prev_item.bottom:
+                self.cursor_row = prev_item.bottom
+                self.cursor_index = len(self.cursor_row.items)
+                return
+
+        if self.cursor_row.parent and isinstance(self.cursor_row.parent, MathFraction):
             if self.cursor_row == self.cursor_row.parent.num:
                 self.cursor_row = self.cursor_row.parent.den
                 self.cursor_index = len(self.cursor_row.items)
+
