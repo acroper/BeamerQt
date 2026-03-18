@@ -52,8 +52,110 @@ class itemWidgetTable(QtWidgets.QWidget):
         self.RemoveRowBtn.clicked.connect(self.RemoveRow)
         self.AddColBtn.clicked.connect(self.AddColumn)
         self.RemoveColBtn.clicked.connect(self.RemoveColumn)
+        # Connect size mode combo box
+        self.TableSizeCombo.currentTextChanged.connect(self.OnSizeModeChanged)
+        # Connect header resize
+        self.TableWidget.horizontalHeader().sectionResized.connect(self.OnColumnResized)
+
+    def OnSizeModeChanged(self, mode):
+        """Handle changes in the size mode combo box."""
+        if self.InnerObject.SizeMode == mode:
+            return
+        self.InnerObject.SizeMode = mode
+        # When changing mode, reset widths to default
+        self.InnerObject.ColumnWidths = []
+        self.Refresh()
+
+    def OnColumnResized(self, logicalIndex, oldSize, newSize):
+        """Update column width percentages when a column is resized in '%' mode."""
+        if self.InnerObject.SizeMode != "%" or self.TableWidget.horizontalHeader().signalsBlocked():
+            return
+
+        cols = self.TableWidget.columnCount()
+        if cols < 2:
+            return
+
+        header = self.TableWidget.horizontalHeader()
+        header.blockSignals(True)
+
+        delta = newSize - oldSize
+
+        # Determine which column to adjust to keep the total width constant.
+        neighborIndex = logicalIndex + 1
+        if neighborIndex == cols:
+            neighborIndex = logicalIndex - 1
+
+        if 0 <= neighborIndex < cols:
+            neighborWidth = self.TableWidget.columnWidth(neighborIndex)
+            minWidth = 10 # A minimum width in pixels to prevent column from disappearing.
+            
+            if neighborWidth - delta >= minWidth:
+                # We adjust the neighbor to keep the total width constant.
+                self.TableWidget.setColumnWidth(neighborIndex, neighborWidth - delta)
+            else:
+                # The neighbor would become too small. We limit the resize.
+                allowed_delta = neighborWidth - minWidth
+                self.TableWidget.setColumnWidth(logicalIndex, oldSize + allowed_delta)
+                self.TableWidget.setColumnWidth(neighborIndex, minWidth)
+
+        # Now that the pixel widths are adjusted, recalculate percentages.
+        total_width = sum(self.TableWidget.columnWidth(i) for i in range(cols))
+
+        if total_width > 0:
+            new_percentages = [(self.TableWidget.columnWidth(i) / total_width) * 100 for i in range(cols)]
+            self.InnerObject.ColumnWidths = [f"{p:.1f}" for p in new_percentages]
+
+            header_labels = [f"{p:.1f}%" for p in new_percentages]
+            self.TableWidget.setHorizontalHeaderLabels(header_labels)
         
-    
+        header.blockSignals(False)
+
+    def apply_percentage_widths(self):
+        """Apply column widths based on stored percentages. Should be called after UI has settled."""
+        if self.InnerObject.SizeMode != "%":
+            return
+
+        cols = self.TableWidget.columnCount()
+        if not (cols > 0 and len(self.InnerObject.ColumnWidths) == cols):
+            return
+
+        total_width = self.TableWidget.viewport().width()
+        if total_width <= 0:
+            return  # Not visible or not laid out yet
+
+        header = self.TableWidget.horizontalHeader()
+        # Block signals to prevent OnColumnResized from firing and creating a loop
+        header.blockSignals(True)
+        
+        # Distribute the total width according to percentages
+        for i, width_str in enumerate(self.InnerObject.ColumnWidths):
+            new_width = int(float(width_str) / 100.0 * total_width)
+            self.TableWidget.setColumnWidth(i, new_width)
+        
+        header.blockSignals(False)
+
+    def UpdateHeaderLabels(self):
+        """Update horizontal header labels and resize mode based on the size mode."""
+        mode = self.InnerObject.SizeMode
+        cols = self.InnerObject.cols
+
+        if cols == 0:
+            return
+
+        self.TableWidget.horizontalHeader().blockSignals(True)
+        if mode == "Automatic":
+            self.TableWidget.setHorizontalHeaderLabels([str(i + 1) for i in range(cols)])
+            self.TableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        elif mode == "%":
+            if len(self.InnerObject.ColumnWidths) != cols:
+                percent = 100 / cols if cols > 0 else 0
+                self.InnerObject.ColumnWidths = [f"{percent:.1f}" for _ in range(cols)]
+            
+            header_labels = [f"{w}%" for w in self.InnerObject.ColumnWidths]
+            self.TableWidget.setHorizontalHeaderLabels(header_labels)
+            self.TableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
+        self.TableWidget.horizontalHeader().blockSignals(False)
+
     def OnTableCellChanged(self, item):
         """Update inner object when a cell is edited"""
         if item is not None:
@@ -111,6 +213,11 @@ class itemWidgetTable(QtWidgets.QWidget):
         for row in range(self.TableWidget.rowCount()):
             item = QTableWidgetItem("")
             self.TableWidget.setItem(row, insert_pos, item)
+
+        # Invalidate column widths to force recalculation
+        if self.InnerObject.SizeMode == "%":
+            self.InnerObject.ColumnWidths = []
+        self.Refresh()
     
     def RemoveColumn(self):
         """Remove the column of the currently selected cell"""
@@ -124,6 +231,10 @@ class itemWidgetTable(QtWidgets.QWidget):
                 if selected_col < len(row):
                     row.pop(selected_col)
             self.InnerObject.cols -= 1
+
+            if self.InnerObject.SizeMode == "%":
+                self.InnerObject.ColumnWidths = []
+            self.Refresh()
         
     
     def GetInnerObject(self):
@@ -146,7 +257,7 @@ class itemWidgetTable(QtWidgets.QWidget):
         self.InnerObject.rows = rows
         self.InnerObject.cols = cols
 
-        
+        self.InnerObject.SizeMode = self.TableSizeCombo.currentText()
         
         return self.InnerObject
     
@@ -159,6 +270,9 @@ class itemWidgetTable(QtWidgets.QWidget):
         """Refresh the table from the inner object"""
         # Block signals to avoid triggering change callbacks
         self.TableWidget.blockSignals(True)
+        self.TableWidget.horizontalHeader().blockSignals(True)
+
+        self.TableSizeCombo.setCurrentText(self.InnerObject.SizeMode)
         
         # Clear existing table
         self.TableWidget.setRowCount(0)
@@ -183,11 +297,22 @@ class itemWidgetTable(QtWidgets.QWidget):
                 self.TableWidget.setItem(row, col, item)
         
         # Set up headers based on current mode
-        mode = self.TableSizeCombo.currentText()
         self.TableWidget.horizontalHeader().setVisible(True)
-
-
+        self.UpdateHeaderLabels()
         
+        # Unblock signals
+        self.TableWidget.blockSignals(False)
+        self.TableWidget.horizontalHeader().blockSignals(False)
+        
+        # Defer width application to after the event loop processes layout changes
+        if self.InnerObject.SizeMode == "%":
+            QtCore.QTimer.singleShot(0, self.apply_percentage_widths)
+            
+    def resizeEvent(self, event):
+        """Ensure columns resize proportionally when the widget is resized."""
+        super().resizeEvent(event)
+        if self.InnerObject.SizeMode == "%":
+            QtCore.QTimer.singleShot(0, self.apply_percentage_widths)
         
 class itemTable():
     
@@ -199,6 +324,9 @@ class itemTable():
         self.rows = 4
         self.cols = 4
         self.table = [["" for _ in range(4)] for _ in range(4)]
+        
+        self.SizeMode = "Automatic"
+        self.ColumnWidths = []
         
         self.Alignment = "Center"
     
@@ -240,6 +368,11 @@ class itemTable():
         # Store table dimensions
         ContentXML.set('rows', str(self.rows))
         ContentXML.set('cols', str(self.cols))
+        ContentXML.set('SizeMode', self.SizeMode)
+        
+        # Store column widths if mode is '%'
+        if self.SizeMode == '%' and self.ColumnWidths:
+            ContentXML.set('ColumnWidths', ",".join(map(str, self.ColumnWidths)))
         
         # Store table data as rows
         for row_idx, row_data in enumerate(self.table):
@@ -263,6 +396,14 @@ class itemTable():
         # Read dimensions
         self.rows = int(xblock.get('rows', '4'))
         self.cols = int(xblock.get('cols', '4'))
+        self.SizeMode = xblock.get('SizeMode', 'Automatic')
+        
+        # Read column widths
+        widths_str = xblock.get('ColumnWidths')
+        if self.SizeMode == '%' and widths_str:
+            self.ColumnWidths = widths_str.split(',')
+        else:
+            self.ColumnWidths = []
         
         # Initialize table
         self.table = [["" for _ in range(self.cols)] for _ in range(self.rows)]
