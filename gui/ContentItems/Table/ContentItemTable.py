@@ -427,7 +427,17 @@ class itemTable():
         latexcontent = []
         
         # Create tabular environment with specified columns
-        col_spec = "|" + "|".join(["c" for _ in range(self.cols)]) + "|"
+        if self.SizeMode == "%" and len(self.ColumnWidths) == self.cols:
+            col_defs = []
+            for width in self.ColumnWidths:
+                try:
+                    col_defs.append(f"p{{{float(width)/100:.3f}\\columnwidth}}")
+                except ValueError:
+                    col_defs.append("c")
+            col_spec = "|" + "|".join(col_defs) + "|"
+        else:
+            col_spec = "|" + "|".join(["c" for _ in range(self.cols)]) + "|"
+            
         outText = "\\begin{tabular}{" + col_spec + "}\n"
         outText += "\\hline\n"
         
