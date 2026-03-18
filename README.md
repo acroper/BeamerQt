@@ -12,6 +12,12 @@ BeamerQT is a user-friendly graphical interface designed to facilitate the creat
 # Features
 BeamerQT features a graphical user interface that provides easy access to most desired Beamer/LaTeX features without adding LaTeX code. 
 
+## Table Editor (New Feature!)
+Create tables visually with easy row/column management. Supports Automatic and Percentage sizing modes with visual column resizing.
+
+**Known Issue:** LaTeX export of percentual sizes is not precise. Workaround: Add a plain text element to the right of the table, it will allow to resize the final table.
+
+
 ## Equation Editor (New Feature!)
 Create and edit mathematical equations visually with an intuitive graphical interface.
 
