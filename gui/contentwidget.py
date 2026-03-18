@@ -110,6 +110,12 @@ class ContentWidget(QtWidgets.QWidget):
         self.horizontalLayout_2.insertWidget(2, self.addEquationButton)
         self.addEquationButton.clicked.connect(lambda: self.AddWidgetItem("EquationQT"))
         
+        # Add Table button
+        self.addTableButton = QToolButton()
+        self.addTableButton.setText("Add Table")
+        self.horizontalLayout_2.insertWidget(3, self.addTableButton)
+        self.addTableButton.clicked.connect(lambda: self.AddWidgetItem("Table"))
+        
         self.maxCols.valueChanged.connect(self.RefreshItemList)
         
         self.BlockNormal.clicked.connect(lambda: self.SetBlockType("Normal"))
