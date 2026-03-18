@@ -39,6 +39,7 @@ class itemWidgetTable(QtWidgets.QWidget):
         uic.loadUi('gui/ContentItems/Table/ItemTable.ui', self)
         
         self.InnerObject = itemTable()
+        self.TableWidget.horizontalHeader().setVisible(True)
         
         self.AssignActions()
 
@@ -144,6 +145,8 @@ class itemWidgetTable(QtWidgets.QWidget):
         
         self.InnerObject.rows = rows
         self.InnerObject.cols = cols
+
+        
         
         return self.InnerObject
     
@@ -181,13 +184,8 @@ class itemWidgetTable(QtWidgets.QWidget):
         
         # Set up headers based on current mode
         mode = self.TableSizeCombo.currentText()
-        if mode == "Automatic":
-            self.TableWidget.horizontalHeader().setVisible(False)
-        else:
-            self.TableWidget.horizontalHeader().setVisible(True)
-            self.UpdateHeaderLabels()
-        
-        self.TableWidget.blockSignals(False)
+        self.TableWidget.horizontalHeader().setVisible(True)
+
 
         
         
