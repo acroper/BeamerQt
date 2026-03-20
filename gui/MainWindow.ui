@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1402</width>
-    <height>621</height>
+    <width>1276</width>
+    <height>532</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,9 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>icons/BQTIcon.png</normaloff>icons/BQTIcon.png</iconset>
+  </property>
+  <property name="documentMode">
+   <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -171,8 +174,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1402</width>
-     <height>29</height>
+     <width>1276</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

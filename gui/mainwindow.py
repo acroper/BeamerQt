@@ -98,7 +98,35 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ClipboardFrame = None
         
         self.UpdateRecentFiles()
+
         
+        
+    
+    def _spawn_new_beamerqt_instance(self, filename=None):
+        """
+        Launch a new BeamerQt instance.
+
+        If `filename` is provided, the new instance opens that `.bqt` file.
+
+        - Source run: uses `sys.executable main.py [file]`
+        - Frozen app (PyInstaller): uses the current executable `<app> [file]`
+        """
+        if filename:
+            filename = os.path.abspath(os.path.expanduser(filename))
+
+        if getattr(sys, "frozen", False):
+            program = QtCore.QCoreApplication.applicationFilePath()
+            args = [filename] if filename else []
+        else:
+            program = sys.executable
+            main_script = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "main.py"))
+            args = [main_script]
+            if filename:
+                args.append(filename)
+
+        ok, _pid = QtCore.QProcess.startDetached(program, args)
+        return bool(ok)
+
     
     
     def ConfigStatusPanel(self):
@@ -327,18 +355,20 @@ class MainWindow(QtWidgets.QMainWindow):
     def NewFile(self):
         
         ### This should ask for saving changes
+        self._spawn_new_beamerqt_instance()
+        return
 
-        Document2 = beamerDocument(self.WorkDirectory)
+        # Document2 = beamerDocument(self.WorkDirectory)
 
-        self.Document = Document2
+        # self.Document = Document2
 
-        self.Document.NewSlide()
+        # self.Document.NewSlide()
         
-        self.CurrentFrame.ReadSlide(self.Document.Slides[0])
+        # self.CurrentFrame.ReadSlide(self.Document.Slides[0])
         
-        self.Slidebar.SetDocument(self.Document)
+        # self.Slidebar.SetDocument(self.Document)
         
-        self.refreshPreviews()    
+        # self.refreshPreviews()    
     
     
     def openProject(self, filename):
@@ -523,7 +553,9 @@ class MainWindow(QtWidgets.QMainWindow):
         texto = sender.text()
         
         # print(texto)
-        self.Open(texto)
+        # self.Open(texto)
+        self._spawn_new_beamerqt_instance(texto)
+        
         
         
         
@@ -535,6 +567,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         if openfilename == False:
             filename = openFileNameDialog(self, "", "BeamerQT files | *.bqt (*.bqt)")
+            if filename != "":
+                self._spawn_new_beamerqt_instance(filename)
+            return
         
         else:
             filename = openfilename
