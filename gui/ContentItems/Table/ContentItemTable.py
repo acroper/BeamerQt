@@ -42,6 +42,7 @@ class itemWidgetTable(QtWidgets.QWidget):
         self.TableWidget.horizontalHeader().setVisible(True)
         
         self.AssignActions()
+        self.Refresh()
 
     
     def AssignActions(self):
@@ -54,8 +55,17 @@ class itemWidgetTable(QtWidgets.QWidget):
         self.RemoveColBtn.clicked.connect(self.RemoveColumn)
         # Connect size mode combo box
         self.TableSizeCombo.currentTextChanged.connect(self.OnSizeModeChanged)
+        # Connect LaTeX style combo box
+        self.TableStyleCombo.currentTextChanged.connect(self.OnStyleChanged)
         # Connect header resize
         self.TableWidget.horizontalHeader().sectionResized.connect(self.OnColumnResized)
+
+    def OnStyleChanged(self, style):
+        """Handle changes in the LaTeX style combo box."""
+        if getattr(self.InnerObject, "TableStyle", "Grid") == style:
+            return
+        self.InnerObject.TableStyle = style
+        self.Refresh()
 
     def OnSizeModeChanged(self, mode):
         """Handle changes in the size mode combo box."""
@@ -258,6 +268,7 @@ class itemWidgetTable(QtWidgets.QWidget):
         self.InnerObject.cols = cols
 
         self.InnerObject.SizeMode = self.TableSizeCombo.currentText()
+        self.InnerObject.TableStyle = self.TableStyleCombo.currentText()
         
         return self.InnerObject
     
@@ -273,7 +284,8 @@ class itemWidgetTable(QtWidgets.QWidget):
         self.TableWidget.horizontalHeader().blockSignals(True)
 
         self.TableSizeCombo.setCurrentText(self.InnerObject.SizeMode)
-        
+        self.TableStyleCombo.setCurrentText(getattr(self.InnerObject, "TableStyle", "Grid"))
+
         # Clear existing table
         self.TableWidget.setRowCount(0)
         self.TableWidget.setColumnCount(0)
@@ -299,6 +311,29 @@ class itemWidgetTable(QtWidgets.QWidget):
         # Set up headers based on current mode
         self.TableWidget.horizontalHeader().setVisible(True)
         self.UpdateHeaderLabels()
+
+        # Apply a lightweight visual hint to match the chosen export style
+        style = getattr(self.InnerObject, "TableStyle", "Grid")
+        if style in ("No Lines", "Booktabs"):
+            self.TableWidget.setShowGrid(False)
+            self.TableWidget.setAlternatingRowColors(False)
+            self.TableWidget.setStyleSheet("")
+        elif style == "Horizontal Lines":
+            self.TableWidget.setShowGrid(False)
+            self.TableWidget.setAlternatingRowColors(False)
+            self.TableWidget.setStyleSheet("QTableView::item { border-bottom: 1px solid rgba(0,0,0,80); }")
+        elif style == "Striped Rows":
+            self.TableWidget.setShowGrid(False)
+            self.TableWidget.setAlternatingRowColors(True)
+            self.TableWidget.setStyleSheet("")
+        elif style == "Professional":
+            self.TableWidget.setShowGrid(False)
+            self.TableWidget.setAlternatingRowColors(True)
+            self.TableWidget.setStyleSheet("")
+        else:  # Grid
+            self.TableWidget.setShowGrid(True)
+            self.TableWidget.setAlternatingRowColors(False)
+            self.TableWidget.setStyleSheet("")
         
         # Unblock signals
         self.TableWidget.blockSignals(False)
@@ -327,6 +362,8 @@ class itemTable():
         
         self.SizeMode = "Automatic"
         self.ColumnWidths = []
+
+        self.TableStyle = "Grid"
         
         self.Alignment = "Center"
     
@@ -369,6 +406,7 @@ class itemTable():
         ContentXML.set('rows', str(self.rows))
         ContentXML.set('cols', str(self.cols))
         ContentXML.set('SizeMode', self.SizeMode)
+        ContentXML.set('TableStyle', getattr(self, "TableStyle", "Grid"))
         
         # Store column widths if mode is '%'
         if self.SizeMode == '%' and self.ColumnWidths:
@@ -397,6 +435,7 @@ class itemTable():
         self.rows = int(xblock.get('rows', '4'))
         self.cols = int(xblock.get('cols', '4'))
         self.SizeMode = xblock.get('SizeMode', 'Automatic')
+        self.TableStyle = xblock.get('TableStyle', 'Grid')
         
         # Read column widths
         widths_str = xblock.get('ColumnWidths')
@@ -422,35 +461,91 @@ class itemTable():
         
             
     def GenLatex(self):
-        """Generate LaTeX code for the table using tabular environment"""
-        
+        """Generate LaTeX code for the table using the configured style."""
+
         latexcontent = []
-        
-        # Create tabular environment with specified columns
+
+        style = getattr(self, "TableStyle", "Grid")
+
+        # Column definitions (respecting % mode)
         if self.SizeMode == "%" and len(self.ColumnWidths) == self.cols:
             col_defs = []
             for width in self.ColumnWidths:
                 try:
-                    col_defs.append(f"p{{{float(width)/100:.3f}\\columnwidth}}")
+                    col_defs.append(f"p{{{float(width) / 100:.3f}\\columnwidth}}")
                 except ValueError:
                     col_defs.append("c")
+        else:
+            col_defs = ["c" for _ in range(self.cols)]
+
+        with_vertical_rules = (style == "Grid")
+        if with_vertical_rules:
             col_spec = "|" + "|".join(col_defs) + "|"
         else:
-            col_spec = "|" + "|".join(["c" for _ in range(self.cols)]) + "|"
-            
-        outText = "\\begin{tabular}{" + col_spec + "}\n"
-        outText += "\\hline\n"
-        
-        for row_idx, row_data in enumerate(self.table):
-            # Join cells with & and end row with \\
-            row_text = " & ".join([str(cell) for cell in row_data])
-            outText += row_text + " \\\\\n"
-            outText += "\\hline\n"
-        
-        outText += "\\end{tabular}"
-        
-        latexcontent.append(outText)
-        
+            col_spec = "".join(col_defs)
+
+        def row_text(row_data, bold=False):
+            cells = []
+            for cell in row_data:
+                text = str(cell)
+                if bold:
+                    text = "\\textbf{" + text + "}"
+                cells.append(text)
+            return " & ".join(cells)
+
+        lines = [f"\\begin{{tabular}}{{{col_spec}}}"]
+
+        if style == "No Lines":
+            for i, row in enumerate(self.table):
+                end = " \\\\" if i < len(self.table) - 1 else ""
+                lines.append(row_text(row) + end)
+
+        elif style == "Horizontal Lines":
+            # Booktabs-like emphasis: thicker top/bottom rules, thin rules between rows
+            lines.append("\\toprule")
+            for i, row in enumerate(self.table):
+                lines.append(row_text(row) + " \\\\")
+                if i < len(self.table) - 1:
+                    lines.append("\\midrule")
+            lines.append("\\bottomrule")
+
+        elif style == "Booktabs":
+            lines.append("\\toprule")
+            if len(self.table) > 0:
+                lines.append(row_text(self.table[0]) + " \\\\")
+            if len(self.table) > 1:
+                lines.append("\\midrule")
+                for row in self.table[1:]:
+                    lines.append(row_text(row) + " \\\\")
+            lines.append("\\bottomrule")
+
+        elif style == "Striped Rows":
+            lines.append("\\hline")
+            for i, row in enumerate(self.table):
+                prefix = "\\rowcolor{black!7} " if (i % 2 == 1) else ""
+                lines.append(prefix + row_text(row) + " \\\\")
+            lines.append("\\hline")
+
+        elif style == "Professional":
+            lines.append("\\toprule")
+            if len(self.table) > 0:
+                lines.append("\\rowcolor{black!15} " + row_text(self.table[0], bold=True) + " \\\\")
+            if len(self.table) > 1:
+                lines.append("\\midrule")
+                for i, row in enumerate(self.table[1:]):
+                    prefix = "\\rowcolor{black!5} " if (i % 2 == 0) else ""
+                    lines.append(prefix + row_text(row) + " \\\\")
+            lines.append("\\bottomrule")
+
+        else:  # Grid (default)
+            lines.append("\\hline")
+            for row in self.table:
+                lines.append(row_text(row) + " \\\\")
+                lines.append("\\hline")
+
+        lines.append("\\end{tabular}")
+
+        latexcontent.append("\n".join(lines))
         return latexcontent
     
     def escape_latex(self, text):

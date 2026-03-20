@@ -33,15 +33,15 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QToolButton" name="AddRowBtn">
+       <property name="toolTip">
+        <string>Add a new row to the table</string>
+       </property>
        <property name="text">
         <string>Add Row</string>
        </property>
        <property name="icon">
         <iconset>
          <normaloff>../../icons/add.png</normaloff>../../icons/add.png</iconset>
-       </property>
-       <property name="toolTip">
-        <string>Add a new row to the table</string>
        </property>
        <property name="autoRaise">
         <bool>true</bool>
@@ -50,15 +50,15 @@
      </item>
      <item>
       <widget class="QToolButton" name="RemoveRowBtn">
+       <property name="toolTip">
+        <string>Remove the last row from the table</string>
+       </property>
        <property name="text">
         <string>Remove Row</string>
        </property>
        <property name="icon">
         <iconset>
          <normaloff>../../icons/remove.png</normaloff>../../icons/remove.png</iconset>
-       </property>
-       <property name="toolTip">
-        <string>Remove the last row from the table</string>
        </property>
        <property name="autoRaise">
         <bool>true</bool>
@@ -67,15 +67,15 @@
      </item>
      <item>
       <widget class="QToolButton" name="AddColBtn">
+       <property name="toolTip">
+        <string>Add a new column to the table</string>
+       </property>
        <property name="text">
         <string>Add Column</string>
        </property>
        <property name="icon">
         <iconset>
          <normaloff>../../icons/add.png</normaloff>../../icons/add.png</iconset>
-       </property>
-       <property name="toolTip">
-        <string>Add a new column to the table</string>
        </property>
        <property name="autoRaise">
         <bool>true</bool>
@@ -84,6 +84,9 @@
      </item>
      <item>
       <widget class="QToolButton" name="RemoveColBtn">
+       <property name="toolTip">
+        <string>Remove the last column from the table</string>
+       </property>
        <property name="text">
         <string>Remove Column</string>
        </property>
@@ -91,26 +94,10 @@
         <iconset>
          <normaloff>../../icons/remove.png</normaloff>../../icons/remove.png</iconset>
        </property>
-       <property name="toolTip">
-        <string>Remove the last column from the table</string>
-       </property>
        <property name="autoRaise">
         <bool>true</bool>
        </property>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QLabel" name="TableSizeLabel">
@@ -120,7 +107,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="TableSizeCombo">
+     <widget class="QComboBox" name="TableSizeCombo">
        <property name="toolTip">
         <string>Select table sizing mode: Automatic (no headers) or % (percentage)</string>
        </property>
@@ -135,6 +122,63 @@
         </property>
        </item>
       </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="TableStyleLabel">
+       <property name="text">
+        <string>Style:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="TableStyleCombo">
+       <property name="toolTip">
+        <string>Select LaTeX style for table export</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>No Lines</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Grid</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Horizontal Lines</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Booktabs</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Striped Rows</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Professional</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
