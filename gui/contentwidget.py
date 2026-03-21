@@ -25,6 +25,7 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
+from PyQt6.QtGui import QAction
 
 import xml.etree.ElementTree as ET
 
@@ -34,6 +35,7 @@ from gui.contentitem import *
 from gui.DualSlider import *
 
 from core.xmlutils import *
+from gui.item_registry import CONTENT_ITEMS
 
 
 class ContentWidget(QtWidgets.QWidget):
@@ -97,24 +99,16 @@ class ContentWidget(QtWidgets.QWidget):
         self.mDown.clicked.connect(lambda: self.setMoveBlock("down"))
         self.mLeft.clicked.connect(lambda: self.setMoveBlock("left"))
         self.mRight.clicked.connect(lambda: self.setMoveBlock("right"))
-        
-        self.addTextButton.clicked.connect(lambda: self.AddWidgetItem("Text"))
-        
-        self.addImageButton.clicked.connect(lambda: self.AddWidgetItem("Image"))
-        
-        self.addRTF.clicked.connect(lambda: self.AddWidgetItem("RTF"))
-        
-        # Add EquationQT button between RTF and Text
-        self.addEquationButton = QToolButton()
-        self.addEquationButton.setText("Add Equation")
-        self.horizontalLayout_2.insertWidget(2, self.addEquationButton)
-        self.addEquationButton.clicked.connect(lambda: self.AddWidgetItem("EquationQT"))
-        
-        # Add Table button
-        self.addTableButton = QToolButton()
-        self.addTableButton.setText("Add Table")
-        self.horizontalLayout_2.insertWidget(3, self.addTableButton)
-        self.addTableButton.clicked.connect(lambda: self.AddWidgetItem("Table"))
+
+        # Single "Add..." button with a menu of items.
+        add_menu = QMenu(self)
+        for item in CONTENT_ITEMS:
+            action = QAction(item.get("label", item["type"]), self)
+            action.triggered.connect(lambda _checked=False, t=item["type"]: self.AddWidgetItem(t))
+            add_menu.addAction(action)
+
+        self.AddMoreButton.setMenu(add_menu)
+        self.AddMoreButton.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         
         self.maxCols.valueChanged.connect(self.RefreshItemList)
         
