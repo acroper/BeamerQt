@@ -42,6 +42,20 @@ def main():
 
     # Launching GUI
     app = QtWidgets.QApplication(sys.argv)
+
+    # Force readable text colors in input widgets, regardless of the OS theme.
+    # (Requested: text in text fields should always render black.)
+    global_qss = """
+    QLineEdit, QTextEdit, QPlainTextEdit, QAbstractSpinBox, QComboBox,
+    QDateEdit, QTimeEdit, QDateTimeEdit {
+        color: black;
+    }
+    QComboBox QAbstractItemView {
+        color: black;
+    }
+    """
+    app.setStyleSheet((app.styleSheet() or "") + "\n" + global_qss)
+
     window = MainWindow()
 
     if file_to_open and os.path.exists(file_to_open):
