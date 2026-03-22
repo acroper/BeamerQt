@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "beamerqt"
+version = "0.2.6"
+description = "GUI editor for Beamer presentations (PyQt6)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "../../LICENSE" }
+authors = [{ name = "Jorge Guerrero" }]
+dependencies = [
+  "PyQt6",
+  "PyMuPDF",
+]
+
+[project.scripts]
+beamerqt = "main:main"
+
+[tool.setuptools]
+package-dir = { "" = "../.." }
+py-modules = ["main"]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["../.."]
+include = ["core*", "gui*", "templates*"]
+
+[tool.setuptools.package-data]
+gui = ["**/*.ui", "icons/*"]
+templates = ["**/*.xml", "**/*.txt", "**/*.png", "**/*.pdf", "**/*.bqt"]
+

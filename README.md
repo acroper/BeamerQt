@@ -189,6 +189,10 @@ This approach ensures that .bqt files can be easily shared, backed up, and edite
   ```
 
 
+## Packaging
+
+Packaging scripts and PyInstaller spec live under `Packaging/`.
+
 ## Example video:
 
 https://www.youtube.com/watch?v=XQKJbuT8q1g
