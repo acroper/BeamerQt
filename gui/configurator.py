@@ -94,20 +94,15 @@ class ConfiguratorWidget(QtWidgets.QWidget):
     def RefreshThemeList(self):
         
         # check in template folder
-        filelist = os.listdir("templates")
-        for file in filelist:
-            if file.endswith("xml"):
-                filename = os.path.join("templates", file  )
-                
-                if os.path.exists(filename):
-                    
-                    print("Opening file " + filename)
-                    
-                
-                    templ = BeamerTemplate()
-                    templ.ReadXMLFile( filename )
-                    self.themeBox.addItem(templ.Name)
-                    self.ThemeList.append(templ)
+        self.themeBox.clear()
+        self.ThemeList.clear()
+        for filename in list_template_files():
+            if os.path.exists(filename):
+                print("Opening file " + filename)
+                templ = BeamerTemplate()
+                templ.ReadXMLFile(filename)
+                self.themeBox.addItem(templ.Name)
+                self.ThemeList.append(templ)
                     
         
         self.themeBox.currentIndexChanged.connect(self.UpdateTheme)
@@ -257,4 +252,3 @@ class ConfiguratorWidget(QtWidgets.QWidget):
         
     
     
-

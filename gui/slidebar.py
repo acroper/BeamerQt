@@ -25,7 +25,7 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData
-from PyQt6.QtGui import QDrag, QPixmap, QAction
+from PyQt6.QtGui import QDrag, QPixmap, QAction, QPalette
 
 from gui.ThumbListWidget import *
 
@@ -409,11 +409,14 @@ class SlidePrev(QtWidgets.QWidget):
         
         
     def setSelected(self):
-        self.frame.setStyleSheet('background-color: rgb(181, 181, 181)')
+        palette = self.palette()
+        color = palette.color(QPalette.ColorRole.Highlight).lighter(140)
+        self.frame.setStyleSheet(f'background-color: {color.name()};')
     
     
     def unSelected(self):
-        self.frame.setStyleSheet('background-color: rgb(255, 255, 255)')
+        color = self.palette().color(QPalette.ColorRole.Base)
+        self.frame.setStyleSheet(f'background-color: {color.name()};')
     
         
     # def mouseReleaseEvent(self, event):
@@ -445,4 +448,3 @@ class SlidePrev(QtWidgets.QWidget):
         
     
     
-

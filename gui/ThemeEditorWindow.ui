@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>Theme Editor</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(203, 203, 203);</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
@@ -42,9 +39,6 @@
           </item>
           <item>
            <widget class="QLineEdit" name="BaseName">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);</string>
-            </property>
             <property name="placeholderText">
              <string>Type base theme name</string>
             </property>
@@ -63,9 +57,6 @@
           </item>
           <item>
            <widget class="QLineEdit" name="ThemeName">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);</string>
-            </property>
             <property name="placeholderText">
              <string>Type base theme name</string>
             </property>
@@ -75,9 +66,6 @@
         </item>
         <item>
          <widget class="QPlainTextEdit" name="SourceCodeText">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
-          </property>
           <property name="placeholderText">
            <string>Type  LaTeX code.</string>
           </property>
@@ -856,9 +844,6 @@
         </item>
         <item>
          <widget class="QPlainTextEdit" name="editableFile_Text">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
-          </property>
          </widget>
         </item>
        </layout>

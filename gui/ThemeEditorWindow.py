@@ -72,7 +72,7 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
     
     def removePreviewFile(self):
         # delete file
-        previewfile = os.path.join("templates","Previews", "preview.pdf") 
+        previewfile = os.path.join(get_user_preview_root(), "preview.pdf")
         if os.path.exists( previewfile ):
             try:
                 os.remove(previewfile)
@@ -264,7 +264,7 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
         # searchpath = os.path.join(  os.path.dirname(os.path.dirname( os.path.abspath(__file__))), "templates")
         # print(searchpath)
         
-        path, _ = QFileDialog.getOpenFileName(self, "Open Template File", "templates", "XML Files (*.xml)")
+        path, _ = QFileDialog.getOpenFileName(self, "Open Template File", get_user_template_root(), "XML Files (*.xml)")
         if path:
             try:
                 
@@ -326,7 +326,7 @@ class ThemeEditorWindow(QtWidgets.QMainWindow):
             self.save_xml_file_as()
 
     def save_xml_file_as(self):
-        path, _ = QFileDialog.getSaveFileName(self, "Save Template File As", "", "XML Files (*.xml)")
+        path, _ = QFileDialog.getSaveFileName(self, "Save Template File As", get_user_template_root(), "XML Files (*.xml)")
         if path:
             self.save_to_xml(path)
             self.current_file_path = path

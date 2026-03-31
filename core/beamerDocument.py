@@ -246,6 +246,11 @@ class beamerDocument():
             subprocess.call(('open', self.latexfolder))
         else:
             subprocess.call(('xdg-open', self.latexfolder))
+
+    def GetExportPdfTarget(self):
+        if self.RealLocation:
+            return self.RealLocation.replace("bqt", "") + "pdf"
+        return os.path.join(self.latexfolder, "output.pdf")
         
     
     def GenLaTeX(self, parent = None):
@@ -377,8 +382,10 @@ class beamerDocument():
         
         if os.path.exists('output.pdf'):
             self.Message = "Document generated"
-            copylocation = self.RealLocation.replace("bqt", "")+"pdf" 
-            shutil.copy( os.path.join(self.latexfolder, 'output.pdf')  , copylocation)
+            copylocation = self.GetExportPdfTarget()
+            source_pdf = os.path.join(self.latexfolder, 'output.pdf')
+            if os.path.abspath(copylocation) != os.path.abspath(source_pdf):
+                shutil.copy(source_pdf, copylocation)
             print("Exported file to: " + copylocation)
         else:
             self.Message = "Error generating PDF document"
@@ -421,8 +428,13 @@ class beamerDocument():
 
         if os.path.exists('output.pdf'):
             # self.Message = "Document generated"
-            copylocation = RealLocation.replace("bqt", "")+"pdf" 
-            shutil.copy( os.path.join(latexfolder, 'output.pdf')  , copylocation)
+            if RealLocation:
+                copylocation = RealLocation.replace("bqt", "")+"pdf" 
+            else:
+                copylocation = os.path.join(latexfolder, "output.pdf")
+            source_pdf = os.path.join(latexfolder, 'output.pdf')
+            if os.path.abspath(copylocation) != os.path.abspath(source_pdf):
+                shutil.copy(source_pdf, copylocation)
             print("Exported file to: " + copylocation)
         else:
             print("Error generating PDF document")
@@ -465,8 +477,9 @@ class beamerDocument():
             # self.status_bar.showMessage("PDF file generated successfully.", 5000)
             # self.progress_bar.setValue(self.progress_bar.maximum())
             
-            copylocation = self.RealLocation.replace("bqt", "")+"pdf" 
-            shutil.copy( pdf_file_path , copylocation)
+            copylocation = self.GetExportPdfTarget()
+            if os.path.abspath(copylocation) != os.path.abspath(pdf_file_path):
+                shutil.copy(pdf_file_path, copylocation)
             print("Exported file to: " + copylocation)
             
             if self.ShowPreview:

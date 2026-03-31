@@ -4,35 +4,46 @@ from __future__ import annotations
 
 import os
 
-from PyInstaller.building.datastruct import Tree
+from PyInstaller.utils.hooks import collect_submodules
 
 
 block_cipher = None
+project_root = os.path.abspath(os.path.join(os.path.dirname(SPEC), "..", ".."))
 
 
-def _tree(path: str) -> Tree:
-    return Tree(path, prefix=path)
+def _data_tree(path: str) -> list[tuple[str, str]]:
+    source_root = os.path.join(project_root, path)
+    collected: list[tuple[str, str]] = []
+    for current_root, _, files in os.walk(source_root):
+        relative_root = os.path.relpath(current_root, project_root)
+        for filename in files:
+            collected.append((os.path.join(current_root, filename), relative_root))
+    return collected
 
 
 datas = [
-    _tree("gui"),
-    _tree("templates"),
-    ("LICENSE", "."),
-    ("README.md", "."),
-    ("Release_Notes.md", "."),
+    (os.path.join(project_root, "LICENSE"), "."),
+    (os.path.join(project_root, "README.md"), "."),
+    (os.path.join(project_root, "Release_Notes.md"), "."),
+    (os.path.join(project_root, "core", "preamble.tex"), "core"),
 ]
+datas += _data_tree("gui")
+datas += _data_tree("templates")
 
 hiddenimports = [
     "fitz",  # PyMuPDF
+    "uuid",
+    *collect_submodules("gui.ContentItems"),
 ]
 
 is_windows = os.name == "nt"
-icon_file = "icon.ico" if is_windows and os.path.exists("icon.ico") else None
+icon_path = os.path.join(project_root, "icon.ico")
+icon_file = icon_path if is_windows and os.path.exists(icon_path) else None
 
 
 a = Analysis(
-    ["main.py"],
-    pathex=[os.path.abspath(".")],
+    [os.path.join(project_root, "main.py")],
+    pathex=[project_root],
     binaries=[],
     datas=datas,
     hiddenimports=hiddenimports,
@@ -51,9 +62,6 @@ pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
     [],
     name="BeamerQt",
     debug=False,
@@ -69,6 +77,7 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     icon=icon_file,
+    exclude_binaries=True,
 )
 
 coll = COLLECT(

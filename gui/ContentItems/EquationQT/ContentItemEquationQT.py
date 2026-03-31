@@ -22,7 +22,7 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
-from PyQt6.QtGui import QPixmap, QImage, QIcon, QPainter
+from PyQt6.QtGui import QPixmap, QImage, QIcon, QPainter, QPalette
 
 from gui.ContentItems.EquationQT.EquationEditorDialog import EquationEditorDialog
 from gui.ContentItems.EquationQT.math_editor import EquationEditor
@@ -42,6 +42,7 @@ def render_latex_to_pixmap(latex_code):
         # Create off-screen equation editor
         editor = EquationEditor()
         editor.load_from_latex(latex_code)
+        palette = editor.palette()
         
         # Layout the equation
         editor.root_row.layout(editor.font)
@@ -56,11 +57,12 @@ def render_latex_to_pixmap(latex_code):
         
         # Create pixmap and render
         pixmap = QPixmap(width, height)
-        pixmap.fill(QtCore.Qt.GlobalColor.white)  # White background
+        pixmap.fill(palette.color(QPalette.ColorRole.Base))
         
         painter = QPainter(pixmap)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setFont(editor.font)
+        painter.setPen(palette.color(QPalette.ColorRole.Text))
         
         # Center the equation vertically
         start_y = (height - editor.root_row.height) // 2

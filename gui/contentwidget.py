@@ -25,7 +25,7 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QPalette
 
 import xml.etree.ElementTree as ET
 
@@ -102,6 +102,7 @@ class ContentWidget(QtWidgets.QWidget):
 
         # Single "Add..." button with a menu of items.
         add_menu = QMenu(self)
+        add_menu.setStyleSheet(self._menu_qss())
         for item in CONTENT_ITEMS:
             action = QAction(item.get("label", item["type"]), self)
             action.triggered.connect(lambda _checked=False, t=item["type"]: self.AddWidgetItem(t))
@@ -125,6 +126,26 @@ class ContentWidget(QtWidgets.QWidget):
         self.BarSlider.ValueUpdated.connect(self.BarSliderUpdated)
         
         self.BarSlider.Released.connect(self.BarSliderReleased)
+
+    def _menu_qss(self):
+        palette = self.palette()
+        base = palette.color(QPalette.ColorRole.Base).name()
+        text = palette.color(QPalette.ColorRole.Text).name()
+        highlight = palette.color(QPalette.ColorRole.Highlight).name()
+        highlighted_text = palette.color(QPalette.ColorRole.HighlightedText).name()
+        border = palette.color(QPalette.ColorRole.Mid).name()
+
+        return f"""
+        QMenu {{
+            background-color: {base};
+            color: {text};
+            border: 1px solid {border};
+        }}
+        QMenu::item:selected {{
+            background-color: {highlight};
+            color: {highlighted_text};
+        }}
+        """
         
     
 
@@ -138,6 +159,9 @@ class ContentWidget(QtWidgets.QWidget):
         
         
     def updateColors(self):
+        label_color = self.palette().color(QPalette.ColorRole.WindowText).name()
+        self.label.setStyleSheet(f"color: {label_color};")
+        
         
         # update intensity
         low = 230

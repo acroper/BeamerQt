@@ -386,8 +386,10 @@ class EquationEditor(QWidget):
     def paintEvent(self, event):
         p = QPainter(self)
         p.setRenderHint(QPainter.RenderHint.Antialiasing)
-        p.fillRect(event.rect(), Qt.GlobalColor.white)
+        palette = self.palette()
+        p.fillRect(event.rect(), palette.color(self.backgroundRole()))
         p.setFont(self.font)
+        p.setPen(palette.color(palette.ColorRole.Text))
         
         self.root_row.layout(self.font)
         self.start_y = (self.height() - self.root_row.height) // 2
@@ -1105,4 +1107,3 @@ class EquationEditor(QWidget):
             if self.cursor_row == self.cursor_row.parent.num:
                 self.cursor_row = self.cursor_row.parent.den
                 self.cursor_index = len(self.cursor_row.items)
-

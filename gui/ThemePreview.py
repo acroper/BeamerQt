@@ -200,25 +200,18 @@ class ThemePreview(QtWidgets.QWidget):
     def RefreshThemeList(self):
         
         # check in template folder
-        filelist = os.listdir("templates")
+        self.List.clear()
+        self.ItemsWithoutPreview.clear()
+        self.model.clear()
         
-        filelist.sort()
-        
-        
-        for file in filelist:
-            if file.endswith("xml"):
-                filename = os.path.join("templates", file  )
+        for filename in list_template_files():
+            if os.path.exists(filename):
+                templ = BeamerTemplate()
+                templ.ReadXMLFile(filename)
+                templ.GetPreview()
                 
-                if os.path.exists(filename):
-                    
-                    # print("Opening file " + filename)
-
-                    templ = BeamerTemplate()
-                    templ.ReadXMLFile( filename )
-                    templ.GetPreview()
-                    
-                    self.List.append(templ)
-                    self.AddItemList(templ)
+                self.List.append(templ)
+                self.AddItemList(templ)
                     
         
                     
@@ -256,4 +249,3 @@ class ThemePreview(QtWidgets.QWidget):
         
     
     
-

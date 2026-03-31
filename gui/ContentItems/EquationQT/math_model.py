@@ -179,8 +179,13 @@ class MathRow(MathElement):
         self.width = current_x
     def draw(self, p: QPainter, x, y):
         if len(self.items) == 0:
-            pen = QPen(QColor(180, 180, 180), 1, Qt.PenStyle.DashLine)
-            p.setPen(pen); p.drawRect(int(x), int(y), int(self.width), int(self.height)); p.setPen(QPen(Qt.GlobalColor.black, 1)); return
+            current_pen = p.pen()
+            placeholder = QColor(current_pen.color())
+            placeholder.setAlpha(140)
+            p.setPen(QPen(placeholder, 1, Qt.PenStyle.DashLine))
+            p.drawRect(int(x), int(y), int(self.width), int(self.height))
+            p.setPen(current_pen)
+            return
         for item in self.items: item.draw(p, x + item.x, y + item.y)
     def to_latex(self) -> str: return "".join(item.to_latex() for item in self.items)
 
@@ -342,4 +347,3 @@ class MathMatrix(MathElement):
         for r in range(self.rows):
             rows_latex.append(" & ".join([c.to_latex() for c in self.cells[r]]))
         return f"\\begin{{{env}}}\n" + " \\\\\n".join(rows_latex) + f"\n\\end{{{env}}}"
-

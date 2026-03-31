@@ -20,7 +20,7 @@ if [[ ! -d "$bundle_dir" ]]; then
 fi
 
 # 2) Stage AppDir (PyInstaller already contains the needed libs)
-cp -R "$bundle_dir/"* "$appdir/usr/bin/"
+cp -a "$bundle_dir/." "$appdir/usr/bin/"
 
 cat > "$appdir/AppRun" <<'EOF'
 #!/usr/bin/env bash
@@ -64,8 +64,12 @@ version="${VERSION:-dev}"
 arch="$(uname -m)"
 out="$dist_dir/BeamerQt-${version}-${arch}.AppImage"
 
-"$appimagetool" "$appdir" "$out"
+if [[ "$appimagetool" == *.AppImage ]]; then
+  chmod +x "$appimagetool"
+  APPIMAGE_EXTRACT_AND_RUN=1 "$appimagetool" "$appdir" "$out"
+else
+  "$appimagetool" "$appdir" "$out"
+fi
 chmod +x "$out" || true
 
 echo "Built $out"
-

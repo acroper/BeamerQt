@@ -19,14 +19,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 import shutil
+import tempfile
 
 import base64
 
 import xml.etree.ElementTree as ET
 
-# import subprocess
+def get_user_template_root():
+    root = os.path.join(os.path.expanduser("~"), ".beamerqt", "templates")
+    os.makedirs(root, exist_ok=True)
+    return root
 
-# from multiprocessing import Process
+
+def get_user_preview_root():
+    root = os.path.join(get_user_template_root(), "previews")
+    os.makedirs(root, exist_ok=True)
+    return root
+
+
+def get_bundled_template_root():
+    return os.path.join("templates")
+
+
+def get_template_gen_root():
+    return os.path.join(get_bundled_template_root(), "gen")
+
+
+def list_template_files():
+    template_root = get_user_template_root()
+    if not os.path.isdir(template_root):
+        return []
+    return sorted(
+        os.path.join(template_root, file)
+        for file in os.listdir(template_root)
+        if file.endswith(".xml")
+    )
+
+
+def sync_templates_to_user_dir():
+    source_root = get_bundled_template_root()
+    target_root = get_user_template_root()
+
+    for current_root, dirs, files in os.walk(source_root):
+        relative_root = os.path.relpath(current_root, source_root)
+        if relative_root == ".":
+            if "Previews" in dirs:
+                dirs.remove("Previews")
+        target_dir = target_root if relative_root == "." else os.path.join(target_root, relative_root)
+        os.makedirs(target_dir, exist_ok=True)
+
+        for filename in files:
+            source_path = os.path.join(current_root, filename)
+            target_path = os.path.join(target_dir, filename)
+            if not os.path.exists(target_path):
+                shutil.copy2(source_path, target_path)
 
 
 class BeamerTemplate:
@@ -52,6 +98,16 @@ class BeamerTemplate:
         self.OutputDirectory = ""
         
         self.JustPreview = False
+
+    def _resource_path(self, *parts):
+        return os.path.join(*parts)
+
+    def _preview_cache_dir(self):
+        return get_user_preview_root()
+
+    def _preview_path(self, extension):
+        filename = "preview" if self.JustPreview else self.Name.lower()
+        return os.path.join(self._preview_cache_dir(), f"{filename}.{extension}")
         
         
     def GetXMLContent(self):
@@ -138,7 +194,7 @@ class BeamerTemplate:
         self.Name = name
         
         # try to reach the template file
-        tempfile = os.path.join("templates", self.Name.lower()+".xml")
+        tempfile = os.path.join(get_user_template_root(), self.Name.lower()+".xml")
         
         tree = ET.parse(tempfile)
         
@@ -154,14 +210,14 @@ class BeamerTemplate:
         if self.ValidIcon:
             return
         # Try to generate a preview
-        iconpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".png" ) 
+        iconpath = self._preview_path("png")
         
         if os.path.exists(iconpath):
             self.Preview = iconpath
             self.ValidIcon = True
         else:
             # self.Preview = "/tmp/notfound.png"
-            self.Preview = os.path.join( os.path.join("templates", "gen"), "notfound.png" ) 
+            self.Preview = os.path.join(get_template_gen_root(), "notfound.png")
             
 
     
@@ -175,16 +231,13 @@ class BeamerTemplate:
             return self.PreviewPDF
         
         # Try to generate a preview
-        if not self.JustPreview:
-            pdfpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".pdf" ) 
-        else:
-            pdfpath = os.path.join( os.path.join("templates", "Previews"), "preview.pdf" ) 
+        pdfpath = self._preview_path("pdf")
 
         if os.path.exists(pdfpath):
             self.PreviewPDF = pdfpath
             self.ValidPDF = True
         else:
-            self.PreviewPDF = os.path.join( os.path.join("templates", "gen"), "notfound.pdf" ) 
+            self.PreviewPDF = os.path.join(get_template_gen_root(), "notfound.pdf")
 
         
         if self.ValidIcon == False and self.ValidPDF:
@@ -205,10 +258,7 @@ class BeamerTemplate:
         image_format = QImage.Format.Format_RGB888
         qimage = QImage(pix.samples, pix.width, pix.height, pix.stride, image_format)
         
-        if not self.JustPreview:
-            iconpath = os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".png" ) 
-        else:
-            iconpath = os.path.join( os.path.join("templates", "Previews"), "preview.png" ) 
+        iconpath = self._preview_path("png")
             
         qimage.save(iconpath)
         
@@ -223,11 +273,8 @@ class BeamerTemplate:
             return
         
 
-        basefile = os.path.abspath(os.path.join( os.path.join("templates", "gen"), "PreviewFile.bqt" ) )
-        previewfile = os.path.abspath(os.path.join( os.path.join("templates", "Previews"), self.Name.lower()+".bqt" ) )
-        
-        if self.JustPreview:
-            previewfile = os.path.abspath(os.path.join( os.path.join("templates", "Previews"), "preview.bqt" ) )
+        basefile = os.path.abspath(os.path.join(get_template_gen_root(), "PreviewFile.bqt"))
+        previewfile = os.path.join(self._preview_cache_dir(), ("preview.bqt" if self.JustPreview else self.Name.lower() + ".bqt"))
             
         
         
