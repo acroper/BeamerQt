@@ -24,8 +24,8 @@ import os
 
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
-from PyQt6.QtCore import pyqtSignal, QObject
-from PyQt6.QtGui import QAction
+from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData, QPoint
+from PyQt6.QtGui import QAction, QDrag, QPixmap
 
 import xml.etree.ElementTree as ET
 
@@ -39,7 +39,9 @@ from gui.item_registry import CONTENT_ITEMS
 
 
 class ContentWidget(QtWidgets.QWidget):
-    
+
+    BLOCK_MIME_TYPE = "application/x-beamerqt-block"
+
     Selected = pyqtSignal()
     
     SetDelete = pyqtSignal()
@@ -53,6 +55,7 @@ class ContentWidget(QtWidgets.QWidget):
         self.nombre = "None"
         
         self.ClickSelected = False
+        self._drag_start_position = None
         
         self.ColumnNumber = -1
         
@@ -71,6 +74,7 @@ class ContentWidget(QtWidgets.QWidget):
         self.BarSlider.LabelPosition = "Right"
         
         self.SetActions()
+        self.ConfigureDrag()
         
         self.Block = BeamerBlock()
         
@@ -123,10 +127,62 @@ class ContentWidget(QtWidgets.QWidget):
         self.deleteBlockBtn.clicked.connect(self.DeleteBlock)
         
         self.BarSlider.ValueUpdated.connect(self.BarSliderUpdated)
-        
+
         self.BarSlider.Released.connect(self.BarSliderReleased)
-        
-    
+
+    def ConfigureDrag(self):
+        self.content_name.setCursor(Qt.CursorShape.OpenHandCursor)
+        self.content_name.installEventFilter(self)
+
+    def eventFilter(self, obj, event):
+        if obj == self.content_name:
+            if event.type() == QtCore.QEvent.Type.MouseButtonPress:
+                self._prepareDrag(event)
+                return False
+
+            if event.type() == QtCore.QEvent.Type.MouseMove:
+                if self._startBlockDragFromEvent(event):
+                    return True
+
+            if event.type() == QtCore.QEvent.Type.MouseButtonRelease:
+                self._drag_start_position = None
+
+        return super().eventFilter(obj, event)
+
+    def _prepareDrag(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._drag_start_position = event.position().toPoint()
+            self.ClickSelected = True
+            self.Selected.emit()
+
+    def _startBlockDragFromEvent(self, event):
+        if self._drag_start_position is None:
+            return False
+
+        if not event.buttons() & Qt.MouseButton.LeftButton:
+            return False
+
+        distance = (event.position().toPoint() - self._drag_start_position).manhattanLength()
+        if distance < QApplication.startDragDistance():
+            return False
+
+        self.startBlockDrag()
+        return True
+
+    def startBlockDrag(self):
+        drag = QDrag(self)
+        mime = QMimeData()
+        mime.setData(self.BLOCK_MIME_TYPE, self.nombre.encode("utf-8"))
+        drag.setMimeData(mime)
+
+        pixmap = QPixmap(self.size())
+        self.render(pixmap)
+        drag.setPixmap(pixmap)
+        drag.setHotSpot(QPoint(min(20, pixmap.width() // 2), min(20, pixmap.height() // 2)))
+
+        self._drag_start_position = None
+        drag.exec(Qt.DropAction.MoveAction)
+
 
     def DeleteBlock(self):
         print("Deleting block")
@@ -450,12 +506,14 @@ class ContentWidget(QtWidgets.QWidget):
 
 
     def mousePressEvent(self, event):
+        self._prepareDrag(event)
         print("Selected " + self.nombre)
-        self.ClickSelected = True
-        self.Selected.emit()
-        
-    
-    
+
+    def mouseMoveEvent(self, event):
+        if self._startBlockDragFromEvent(event):
+            return
+        super().mouseMoveEvent(event)
+
     def setSelected(self):
         return
         self.frame.setLineWidth(3)

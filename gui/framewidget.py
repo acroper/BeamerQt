@@ -24,7 +24,8 @@ import os
 
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
-from PyQt6.QtCore import pyqtSignal, QObject
+from PyQt6.QtCore import pyqtSignal, QObject, Qt
+from PyQt6.QtGui import QPixmap
 
 from core.beamerSlide import *
 from gui.contentwidget import *
@@ -84,6 +85,8 @@ class FrameWidget(QtWidgets.QWidget):
         self.BarSlider.Maximum = 75
         self.BarSlider.UpdateValues([self.LeftColumnProportion])
         self.BarSlider.ValueUpdated.connect(self.BarSliderUpdated)
+
+        self.ConfigureBlockDrops()
         
         
         
@@ -91,9 +94,152 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.refresh_Layout()
         
-        
+
                       
         # self.show()
+    def ConfigureBlockDrops(self):
+        self.setAcceptDrops(True)
+        self.Document_Frame.setAcceptDrops(True)
+        self.scrollAreaWidgetContents.setAcceptDrops(True)
+        self.scrollArea.viewport().setAcceptDrops(True)
+
+        self.Document_Frame.installEventFilter(self)
+        self.scrollAreaWidgetContents.installEventFilter(self)
+        self.scrollArea.viewport().installEventFilter(self)
+
+    def ConnectBlockWidget(self, block):
+        block.Selected.connect(self.selectBlock)
+        block.SetDelete.connect(self.deleteBlock)
+        block.setAcceptDrops(True)
+        block.installEventFilter(self)
+
+    def eventFilter(self, obj, event):
+        if event.type() in (
+            QtCore.QEvent.Type.DragEnter,
+            QtCore.QEvent.Type.DragMove,
+        ):
+            if self.AcceptBlockDrag(event):
+                return True
+
+        if event.type() == QtCore.QEvent.Type.Drop:
+            if self.DropBlock(event, obj):
+                return True
+
+        return super().eventFilter(obj, event)
+
+    def dragEnterEvent(self, event):
+        self.AcceptBlockDrag(event)
+
+    def dragMoveEvent(self, event):
+        self.AcceptBlockDrag(event)
+
+    def dropEvent(self, event):
+        self.DropBlock(event, self)
+
+    def AcceptBlockDrag(self, event):
+        if event.mimeData().hasFormat(ContentWidget.BLOCK_MIME_TYPE):
+            event.setDropAction(Qt.DropAction.MoveAction)
+            event.accept()
+            return True
+
+        return False
+
+    def DropBlock(self, event, target):
+        if not event.mimeData().hasFormat(ContentWidget.BLOCK_MIME_TYPE):
+            return False
+
+        block = event.source()
+        if not isinstance(block, ContentWidget) or block not in self.Blocks:
+            return False
+
+        pos = self.DropPositionInContents(event, target)
+        target_column = self.DropColumn(pos, target)
+        target_index = self.DropIndex(target_column, pos.y())
+
+        self.MoveBlockTo(block, target_column, target_index)
+
+        event.setDropAction(Qt.DropAction.MoveAction)
+        event.accept()
+        return True
+
+    def DropPositionInContents(self, event, target):
+        position = event.position().toPoint()
+
+        if isinstance(target, QtWidgets.QWidget):
+            return self.scrollAreaWidgetContents.mapFrom(target, position)
+
+        return position
+
+    def DropColumn(self, pos, target):
+        if self.CurrentLayout in ("layout_standard", "layout_2rows"):
+            return 0
+
+        if isinstance(target, ContentWidget):
+            column = self.ColumnForBlock(target)
+            if column is not None:
+                return column
+
+        if len(self.Columns[1]) == 0:
+            return 0
+
+        right_column_blocks = [block for block in self.Columns[1] if block.isVisible()]
+        if right_column_blocks:
+            right_column_x = min(block.geometry().x() for block in right_column_blocks)
+            if pos.x() >= right_column_x:
+                return 1
+            return 0
+
+        left_width = int(self.scrollAreaWidgetContents.width() * self.LeftColumnProportion / 100)
+        if pos.x() >= left_width:
+            return 1
+
+        return 0
+
+    def DropIndex(self, target_column, y_position):
+        blocks = self.Columns[target_column]
+
+        for index, block in enumerate(blocks):
+            geometry = block.geometry()
+            midpoint = geometry.y() + geometry.height() / 2
+            if y_position < midpoint:
+                return index
+
+        return len(blocks)
+
+    def ColumnForBlock(self, block):
+        for column in range(2):
+            if block in self.Columns[column]:
+                return column
+
+        return None
+
+    def MoveBlockTo(self, block, target_column, target_index):
+        current_column = self.ColumnForBlock(block)
+        if current_column is None:
+            return
+
+        current_index = self.Columns[current_column].index(block)
+
+        if current_column == target_column and target_index > current_index:
+            target_index -= 1
+
+        target_index = max(0, min(target_index, len(self.Columns[target_column])))
+
+        if current_column == target_column and current_index == target_index:
+            return
+
+        self.Columns[current_column].pop(current_index)
+        self.Columns[target_column].insert(target_index, block)
+
+        self.Blocks = self.Columns[0] + self.Columns[1]
+
+        if current_column != target_column:
+            self.CurrentLayout = "Custom"
+
+        self.SelectedBlock = block
+        self.refresh_Layout()
+        self.Updated.emit()
+
     def BarSliderUpdated(self):
         self.LeftColumnProportion = self.BarSlider.value1
         self.updateColumnSize()
@@ -126,9 +272,8 @@ class FrameWidget(QtWidgets.QWidget):
         N = len(self.Blocks)
         nWidget = ContentWidget()
         nWidget.setContentName("Block # " + str(N+1))
-        
-        nWidget.Selected.connect(self.selectBlock)
-        nWidget.SetDelete.connect(self.deleteBlock)
+
+        self.ConnectBlockWidget(nWidget)
         
         self.Columns[0].append(nWidget)
         
@@ -301,9 +446,8 @@ class FrameWidget(QtWidgets.QWidget):
         for N in range(  len(self.Blocks), C  ):
             nWidget = ContentWidget()
             nWidget.setContentName("Block # " + str(N+1))
-            
-            nWidget.Selected.connect(self.selectBlock)
-            nWidget.SetDelete.connect(self.deleteBlock)
+
+            self.ConnectBlockWidget(nWidget)
             
             self.Blocks.append(nWidget)
             
@@ -658,8 +802,7 @@ class FrameWidget(QtWidgets.QWidget):
             for block in self.BeamerSlide.Columns[k]:
                 nWidget = ContentWidget()
                 nWidget.setContentName("Block # " + str(N+1))
-                nWidget.Selected.connect(self.selectBlock)
-                nWidget.SetDelete.connect(self.deleteBlock)
+                self.ConnectBlockWidget(nWidget)
                 self.Blocks.append(nWidget)
                 
                 nWidget.ReadBlock(block)
@@ -738,7 +881,7 @@ class FrameWidget(QtWidgets.QWidget):
                 for block in nblocks:
                     nWidget = ContentWidget()
                     nWidget.setContentName("Block # " + str(N+1))
-                    nWidget.Selected.connect(self.selectBlock)
+                    self.ConnectBlockWidget(nWidget)
                     self.Blocks.append(nWidget)
                     nWidget.ReadXMLContent(block)
                     
@@ -781,4 +924,3 @@ class FrameWidget(QtWidgets.QWidget):
             
             
             
-
