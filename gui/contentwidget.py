@@ -24,7 +24,7 @@ import os
 
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
-from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData, QPoint
+from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData, QPoint, QRect
 from PyQt6.QtGui import QAction, QDrag, QPixmap
 
 import xml.etree.ElementTree as ET
@@ -75,6 +75,7 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.SetActions()
         self.ConfigureDrag()
+        self.ConfigureContentItemDrops()
         
         self.Block = BeamerBlock()
         
@@ -134,7 +135,30 @@ class ContentWidget(QtWidgets.QWidget):
         self.content_name.setCursor(Qt.CursorShape.OpenHandCursor)
         self.content_name.installEventFilter(self)
 
+    def ConfigureContentItemDrops(self):
+        self.setAcceptDrops(True)
+        self.frame.setAcceptDrops(True)
+        self.frame.installEventFilter(self)
+
+    def ConnectContentItem(self, cItem):
+        cItem.Activated.connect(self.ActivatedItem)
+
+        for target in (cItem, cItem.frame, cItem.frame_2, cItem.opcButton):
+            target.setAcceptDrops(True)
+            target.installEventFilter(self)
+
     def eventFilter(self, obj, event):
+        if event.type() in (
+            QtCore.QEvent.Type.DragEnter,
+            QtCore.QEvent.Type.DragMove,
+        ):
+            if self.AcceptContentItemDrag(event):
+                return True
+
+        if event.type() == QtCore.QEvent.Type.Drop:
+            if self.DropContentItem(event, obj):
+                return True
+
         if obj == self.content_name:
             if event.type() == QtCore.QEvent.Type.MouseButtonPress:
                 self._prepareDrag(event)
@@ -148,6 +172,86 @@ class ContentWidget(QtWidgets.QWidget):
                 self._drag_start_position = None
 
         return super().eventFilter(obj, event)
+
+    def dragEnterEvent(self, event):
+        self.AcceptContentItemDrag(event)
+
+    def dragMoveEvent(self, event):
+        self.AcceptContentItemDrag(event)
+
+    def dropEvent(self, event):
+        self.DropContentItem(event, self)
+
+    def AcceptContentItemDrag(self, event):
+        if event.mimeData().hasFormat(ContentItem.ITEM_MIME_TYPE):
+            event.setDropAction(Qt.DropAction.MoveAction)
+            event.accept()
+            return True
+
+        return False
+
+    def DropContentItem(self, event, target):
+        if not event.mimeData().hasFormat(ContentItem.ITEM_MIME_TYPE):
+            return False
+
+        cItem = event.source()
+
+        if not isinstance(cItem, ContentItem) or cItem not in self.WidgetList:
+            return False
+
+        pos = self.DropPositionInWidget(event, target)
+        target_index = self.DropContentItemIndex(pos, cItem)
+
+        print("Dropping at", target_index)
+
+        self.MoveContentItemTo(cItem, target_index)
+
+        event.setDropAction(Qt.DropAction.MoveAction)
+        event.accept()
+        return True
+
+    def DropPositionInWidget(self, event, target):
+        position = event.position().toPoint()
+
+        if isinstance(target, QtWidgets.QWidget):
+            return target.mapTo(self, position)
+
+        return position
+
+    def DropContentItemIndex(self, pos, dragged_item=None):
+        target_index = 0
+
+        for cItem in self.WidgetList:
+
+            # if cItem == dragged_item:
+            #     continue
+
+            rect = QRect(cItem.mapTo(self, QPoint(0, 0)), cItem.size())
+            same_row = rect.top() <= pos.y() <= rect.bottom()
+
+            if same_row and pos.x() < rect.center().x():
+                return target_index
+
+            if not same_row and pos.y() < rect.center().y():
+                return target_index
+
+            target_index += 1
+
+        return target_index
+
+    def MoveContentItemTo(self, cItem, target_index):
+        current_index = self.WidgetList.index(cItem)
+
+        target_index = max(0, min(target_index, len(self.WidgetList)))
+
+        if current_index == target_index:
+            return
+
+        self.WidgetList.pop(current_index)
+        self.WidgetList.insert(target_index, cItem)
+
+        self.RefreshItemList()
+        self.updateColumnSize()
 
     def _prepareDrag(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
@@ -222,7 +326,7 @@ class ContentWidget(QtWidgets.QWidget):
         cItem = ContentItem()
         self.WidgetList.append(cItem)
         cItem.setItemType(itemtype)
-        cItem.Activated.connect(self.ActivatedItem)
+        self.ConnectContentItem(cItem)
         
         self.RefreshItemList()
         

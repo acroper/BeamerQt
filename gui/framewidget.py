@@ -154,7 +154,7 @@ class FrameWidget(QtWidgets.QWidget):
 
         pos = self.DropPositionInContents(event, target)
         target_column = self.DropColumn(pos, target)
-        target_index = self.DropIndex(target_column, pos.y())
+        target_index = self.DropIndex(target_column, pos.y(), block)
 
         self.MoveBlockTo(block, target_column, target_index)
 
@@ -195,16 +195,22 @@ class FrameWidget(QtWidgets.QWidget):
 
         return 0
 
-    def DropIndex(self, target_column, y_position):
+    def DropIndex(self, target_column, y_position, dragged_block=None):
         blocks = self.Columns[target_column]
+        target_index = 0
 
-        for index, block in enumerate(blocks):
+        for block in blocks:
+            if block == dragged_block:
+                continue
+
             geometry = block.geometry()
             midpoint = geometry.y() + geometry.height() / 2
             if y_position < midpoint:
-                return index
+                return target_index
 
-        return len(blocks)
+            target_index += 1
+
+        return target_index
 
     def ColumnForBlock(self, block):
         for column in range(2):
@@ -219,9 +225,6 @@ class FrameWidget(QtWidgets.QWidget):
             return
 
         current_index = self.Columns[current_column].index(block)
-
-        if current_column == target_column and target_index > current_index:
-            target_index -= 1
 
         target_index = max(0, min(target_index, len(self.Columns[target_column])))
 
