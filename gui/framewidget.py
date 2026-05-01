@@ -166,7 +166,7 @@ class FrameWidget(QtWidgets.QWidget):
         position = event.position().toPoint()
 
         if isinstance(target, QtWidgets.QWidget):
-            return self.scrollAreaWidgetContents.mapFrom(target, position)
+            return target.mapTo(self.scrollAreaWidgetContents, position)
 
         return position
 
