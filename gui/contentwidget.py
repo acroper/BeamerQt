@@ -141,11 +141,24 @@ class ContentWidget(QtWidgets.QWidget):
         self.frame.installEventFilter(self)
 
     def ConnectContentItem(self, cItem):
+        cItem.ContentWidget = self
         cItem.Activated.connect(self.ActivatedItem)
 
         for target in (cItem, cItem.frame, cItem.frame_2, cItem.opcButton):
             target.setAcceptDrops(True)
             target.installEventFilter(self)
+
+    def DisconnectContentItem(self, cItem):
+        if getattr(cItem, "ContentWidget", None) == self:
+            cItem.ContentWidget = None
+
+        try:
+            cItem.Activated.disconnect(self.ActivatedItem)
+        except TypeError:
+            pass
+
+        for target in (cItem, cItem.frame, cItem.frame_2, cItem.opcButton):
+            target.removeEventFilter(self)
 
     def eventFilter(self, obj, event):
         if event.type() in (
@@ -196,13 +209,15 @@ class ContentWidget(QtWidgets.QWidget):
 
         cItem = event.source()
 
-        if not isinstance(cItem, ContentItem) or cItem not in self.WidgetList:
+        if not isinstance(cItem, ContentItem):
+            return False
+
+        source_widget = self.ContentWidgetForItem(cItem)
+        if source_widget is None:
             return False
 
         pos = self.DropPositionInWidget(event, target)
         target_index = self.DropContentItemIndex(pos, cItem)
-
-        print("Dropping at", target_index)
 
         self.MoveContentItemTo(cItem, target_index)
 
@@ -218,13 +233,24 @@ class ContentWidget(QtWidgets.QWidget):
 
         return position
 
+    def ContentWidgetForItem(self, cItem):
+        source_widget = getattr(cItem, "ContentWidget", None)
+
+        if isinstance(source_widget, ContentWidget) and cItem in source_widget.WidgetList:
+            return source_widget
+
+        if cItem in self.WidgetList:
+            return self
+
+        return None
+
     def DropContentItemIndex(self, pos, dragged_item=None):
         target_index = 0
 
         for cItem in self.WidgetList:
 
-            # if cItem == dragged_item:
-            #     continue
+            if cItem == dragged_item:
+                continue
 
             rect = QRect(cItem.mapTo(self, QPoint(0, 0)), cItem.size())
             same_row = rect.top() <= pos.y() <= rect.bottom()
@@ -240,15 +266,37 @@ class ContentWidget(QtWidgets.QWidget):
         return target_index
 
     def MoveContentItemTo(self, cItem, target_index):
-        current_index = self.WidgetList.index(cItem)
+        source_widget = self.ContentWidgetForItem(cItem)
+        if source_widget is None:
+            return
 
         target_index = max(0, min(target_index, len(self.WidgetList)))
 
-        if current_index == target_index:
+        if source_widget == self:
+            current_index = self.WidgetList.index(cItem)
+
+            if current_index == target_index:
+                return
+
+            self.WidgetList.pop(current_index)
+            self.WidgetList.insert(target_index, cItem)
+
+            self.RefreshItemList()
+            self.updateColumnSize()
             return
 
-        self.WidgetList.pop(current_index)
+        source_widget.WidgetList.remove(cItem)
+        source_widget.DisconnectContentItem(cItem)
+
         self.WidgetList.insert(target_index, cItem)
+        self.ConnectContentItem(cItem)
+
+        if len(source_widget.WidgetList) == 0:
+            source_widget.AddWidgetItem("Text")
+        else:
+            source_widget.RefreshItemList()
+
+        source_widget.updateColumnSize()
 
         self.RefreshItemList()
         self.updateColumnSize()

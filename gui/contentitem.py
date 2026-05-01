@@ -51,6 +51,7 @@ class ContentItem(QtWidgets.QWidget):
         
         self.CurrentAction = ""
         self._drag_start_position = None
+        self.ContentWidget = None
         
         self.InnerWidget = None
         
