@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-from PyQt6 import QtWidgets
+from PyQt6 import QtGui, QtWidgets
 from gui.mainwindow import *
 import shutil
 import multiprocessing
@@ -27,6 +27,43 @@ import sys
 import os
 import argparse
 from PyQt6 import QtCore
+
+
+def apply_light_theme(app):
+    app.setStyle(QtWidgets.QStyleFactory.create("Fusion"))
+
+    palette = QtGui.QPalette()
+    palette.setColor(QtGui.QPalette.ColorRole.Window, QtGui.QColor(240, 240, 240))
+    palette.setColor(QtGui.QPalette.ColorRole.WindowText, QtGui.QColor(0, 0, 0))
+    palette.setColor(QtGui.QPalette.ColorRole.Base, QtGui.QColor(255, 255, 255))
+    palette.setColor(QtGui.QPalette.ColorRole.AlternateBase, QtGui.QColor(245, 245, 245))
+    palette.setColor(QtGui.QPalette.ColorRole.ToolTipBase, QtGui.QColor(255, 255, 220))
+    palette.setColor(QtGui.QPalette.ColorRole.ToolTipText, QtGui.QColor(0, 0, 0))
+    palette.setColor(QtGui.QPalette.ColorRole.Text, QtGui.QColor(0, 0, 0))
+    palette.setColor(QtGui.QPalette.ColorRole.Button, QtGui.QColor(240, 240, 240))
+    palette.setColor(QtGui.QPalette.ColorRole.ButtonText, QtGui.QColor(0, 0, 0))
+    palette.setColor(QtGui.QPalette.ColorRole.BrightText, QtGui.QColor(255, 255, 255))
+    palette.setColor(QtGui.QPalette.ColorRole.Highlight, QtGui.QColor(0, 120, 215))
+    palette.setColor(QtGui.QPalette.ColorRole.HighlightedText, QtGui.QColor(255, 255, 255))
+    palette.setColor(QtGui.QPalette.ColorRole.PlaceholderText, QtGui.QColor(96, 96, 96))
+
+    palette.setColor(
+        QtGui.QPalette.ColorGroup.Disabled,
+        QtGui.QPalette.ColorRole.WindowText,
+        QtGui.QColor(120, 120, 120),
+    )
+    palette.setColor(
+        QtGui.QPalette.ColorGroup.Disabled,
+        QtGui.QPalette.ColorRole.Text,
+        QtGui.QColor(120, 120, 120),
+    )
+    palette.setColor(
+        QtGui.QPalette.ColorGroup.Disabled,
+        QtGui.QPalette.ColorRole.ButtonText,
+        QtGui.QColor(120, 120, 120),
+    )
+
+    app.setPalette(palette)
 
 
 def main():
@@ -42,19 +79,7 @@ def main():
 
     # Launching GUI
     app = QtWidgets.QApplication(sys.argv)
-
-    # Force readable text colors in input widgets, regardless of the OS theme.
-    # (Requested: text in text fields should always render black.)
-    global_qss = """
-    QLineEdit, QTextEdit, QPlainTextEdit, QAbstractSpinBox, QComboBox,
-    QDateEdit, QTimeEdit, QDateTimeEdit {
-        color: black;
-    }
-    QComboBox QAbstractItemView {
-        color: black;
-    }
-    """
-    app.setStyleSheet((app.styleSheet() or "") + "\n" + global_qss)
+    apply_light_theme(app)
 
     window = MainWindow()
 
