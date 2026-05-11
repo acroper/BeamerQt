@@ -76,7 +76,7 @@ class FrameWidget(QtWidgets.QWidget):
         
         self.LeftColumnProportion = 100
         
-        self.TotalSize = 980
+        self.TotalSize = 1250
         
         self.BarSlider = DualSlider()
         self.FrameBarLayout.addWidget(self.BarSlider)

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>1300</width>
     <height>800</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1000</width>
+    <width>1300</width>
     <height>800</height>
    </size>
   </property>
@@ -54,7 +54,7 @@
     <widget class="QFrame" name="frame">
      <property name="maximumSize">
       <size>
-       <width>16777215</width>
+       <width>1000</width>
        <height>100</height>
       </size>
      </property>
@@ -137,7 +137,6 @@
             <property name="font">
              <font>
               <pointsize>23</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -211,7 +210,6 @@
               <property name="font">
                <font>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -262,7 +260,7 @@
      </property>
      <property name="maximumSize">
       <size>
-       <width>1000</width>
+       <width>1500</width>
        <height>900</height>
       </size>
      </property>
@@ -368,7 +366,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1000</width>
+           <width>1300</width>
            <height>668</height>
           </rect>
          </property>
