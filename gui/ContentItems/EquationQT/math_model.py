@@ -202,7 +202,7 @@ class MathFraction(MathElement):
 class MathOperator(MathElement):
     def __init__(self, symbol):
         super().__init__(); self.symbol_char = symbol; self.top = MathRow(self); self.bottom = MathRow(self)
-    def get_slots(self): return [self.top, self.bottom]
+    def get_slots(self): return [self.bottom, self.top]
     def layout(self, font):
         bf = QFont(font); bf.setPointSize(int(font.pointSize()*1.5)); fm = QFontMetrics(bf)
         self.sym_w = fm.horizontalAdvance(self.symbol_char); self.sym_h = fm.height(); self.sym_asc = fm.ascent()
