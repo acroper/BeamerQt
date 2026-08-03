@@ -310,6 +310,7 @@ class beamerDocument():
 
 
         for slide in self.Slides:
+            slide.OutputDirectory = self.latexfolder
             latexcontent = slide.GenLaTeX()
             self.WriteLines(latexcontent, outputfile)
             

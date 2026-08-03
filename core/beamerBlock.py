@@ -195,8 +195,9 @@ class BeamerBlock():
             ### Need to recalculate the formula, since it is not that linear!
             
             item.MaxItemSize = SBSize
-            
-            
+            item.OutputDirectory = getattr(self, "OutputDirectory", None)
+
+
             LastCol += 1
         
             if LastCol == self.ColumnCount:

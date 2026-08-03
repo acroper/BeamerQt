@@ -18,4 +18,5 @@ CONTENT_ITEMS = [
     {"type": "Image", "label": "Image"},
     {"type": "EquationQT", "label": "Equation"},
     {"type": "Table", "label": "Table"},
+    {"type": "Plot", "label": "Plot"},
 ]

@@ -217,9 +217,10 @@ class BeamerSlide():
                 latexcontent.append("\\column{"+str(columnsizes[k])+"\\linewidth}")
             
             for block in column:
-                
+
                 block.BlockWidth = columnper[k]
-                
+                block.OutputDirectory = getattr(self, "OutputDirectory", None)
+
                 blockLatex = block.GenLatex()
                 latexcontent.extend(blockLatex)
                 
