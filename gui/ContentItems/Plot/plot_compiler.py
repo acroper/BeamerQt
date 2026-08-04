@@ -34,18 +34,18 @@ from PyQt6.QtGui import QPixmap, QImage
 from . import csv_parser
 
 
-# Session-scoped cache dir for stored preview PNGs (one per Plot item, named
-# by its uuid). Mirrors itemImage's "reference a file path, load a QPixmap
-# from it" approach: the compile only happens once, at Accept time, and
-# every later Refresh() just re-reads this file instead of recompiling.
-_PREVIEW_CACHE_DIR = None
+# Fallback cache dir, only used when no beamerDocument is currently active
+# (standalone/test usage) -- normally item.GetPreviewPath() below points
+# into the active document's own persistent media folder instead, which is
+# what actually survives across app restarts and travels with the .bqt file.
+_FALLBACK_CACHE_DIR = None
 
 
-def _preview_cache_dir():
-    global _PREVIEW_CACHE_DIR
-    if _PREVIEW_CACHE_DIR is None or not os.path.isdir(_PREVIEW_CACHE_DIR):
-        _PREVIEW_CACHE_DIR = tempfile.mkdtemp(prefix="beamerQT_plotpreviews_")
-    return _PREVIEW_CACHE_DIR
+def _fallback_cache_dir():
+    global _FALLBACK_CACHE_DIR
+    if _FALLBACK_CACHE_DIR is None or not os.path.isdir(_FALLBACK_CACHE_DIR):
+        _FALLBACK_CACHE_DIR = tempfile.mkdtemp(prefix="beamerQT_plotpreviews_")
+    return _FALLBACK_CACHE_DIR
 
 
 def compile_plot_to_pixmap(item, latex_body=None, dpi=110):
@@ -114,9 +114,12 @@ def compile_plot_to_pixmap(item, latex_body=None, dpi=110):
 
 def compile_and_store_preview(item, latex_body=None, dpi=150):
     """
-    Compile item's LaTeX (see compile_plot_to_pixmap) and save the rendered
-    first page as a PNG under this session's preview cache dir, named by the
-    item's uuid so it can be found again later.
+    Compile item's LaTeX (see compile_plot_to_pixmap), cache the result on
+    item.Pixmap (so nothing needs to re-read it from disk this session), and
+    save it as a PNG under the active document's persistent media folder
+    (item.GetPreviewPath()) -- or a session-only fallback dir if no document
+    is currently active -- named by the item's uuid so it can be found again
+    on a later run.
 
     Returns the PNG's path on success, or "" on failure (nothing to compile,
     or the compile itself failed) -- callers should treat "" the same as "no
@@ -126,7 +129,12 @@ def compile_and_store_preview(item, latex_body=None, dpi=150):
     if pixmap is None:
         return ""
 
-    out_path = os.path.join(_preview_cache_dir(), f"plot_preview_{item.uuid}.png")
+    out_path = item.GetPreviewPath()
+    if not out_path:
+        out_path = os.path.join(_fallback_cache_dir(), f"plot_preview_{item.uuid}.png")
+
     if not pixmap.save(out_path, "PNG"):
         return ""
+
+    item.Pixmap = pixmap
     return out_path

@@ -658,11 +658,13 @@ class PlotEditorDialog(QDialog):
         self.item.LatexCode = self.plainTextEdit.toPlainText()
 
         # The inline widget's preview is only (re)compiled here, once, on
-        # Accept -- it then just reads this stored file every time it
-        # refreshes instead of recompiling on every redisplay.
+        # Accept -- compile_and_store_preview caches it on self.item.Pixmap
+        # and saves it into the active document's persistent media folder,
+        # so nothing needs to recompile (or even re-read from disk) on
+        # every redisplay, this session or a later one.
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
         try:
-            self.item.PreviewImagePath = plot_compiler.compile_and_store_preview(self.item)
+            plot_compiler.compile_and_store_preview(self.item)
         finally:
             QApplication.restoreOverrideCursor()
 

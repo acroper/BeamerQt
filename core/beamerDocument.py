@@ -43,19 +43,29 @@ from core.frontMatter import *
 from core.template import *
 
 class beamerDocument():
-    
+
+    # The single currently-active document, if any. Only one document is
+    # ever really being edited at a time (mainwindow.py holds exactly one
+    # `self.Document`), so content items that need to reach persistent,
+    # per-document storage (e.g. Plot preview PNGs -- see
+    # gui/ContentItems/Plot/plot_compiler.py) can look it up here rather
+    # than needing a full backreference threaded through Slide/Block/Item.
+    Current = None
+
     def __init__(self, Path):
-        
+
         # Define a path inside the given Path. It is expected to be
         # a temporary folder.
-        
+
         self.DocLocation =  tempfile.mkdtemp(prefix= Path+"/" )
-        
+
         # Store everything in DocLocation
-        
-        
+
+
         self.NewFile = True
         self.RealLocation =  ""
+
+        beamerDocument.Current = self
         
         self.Template = BeamerTemplate()
         
@@ -224,9 +234,12 @@ class beamerDocument():
         
         self.slidesprev = os.path.join(self.mediafolder, "SlidesPrev")
         os.makedirs(self.slidesprev, exist_ok=True)
-        
-        
-    
+
+        self.plotpreviews = os.path.join(self.mediafolder, "PlotPreviews")
+        os.makedirs(self.plotpreviews, exist_ok=True)
+
+
+
     def WriteLines(self, lines, outputfile):
         
         for line in lines:

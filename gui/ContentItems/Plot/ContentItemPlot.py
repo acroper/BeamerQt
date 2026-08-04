@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import copy
 import pathlib
 import uuid as uuidlib
 
@@ -75,15 +76,18 @@ class itemWidgetPlot(QtWidgets.QWidget):
 
     def Refresh(self):
         # The preview is only ever (re)compiled by PlotEditorDialog on Accept
-        # (see plot_compiler.compile_and_store_preview); here we just load
-        # whatever was stored last time -- no recompiling on every redisplay.
-        pixmap = None
-        if self.InnerObject.PreviewImagePath and os.path.exists(self.InnerObject.PreviewImagePath):
-            pixmap = QPixmap(self.InnerObject.PreviewImagePath)
-            if pixmap.isNull():
-                pixmap = None
+        # (see plot_compiler.compile_and_store_preview); here we just show
+        # whatever's cached -- no recompiling on every redisplay. Mirrors
+        # itemWidgetImage.Refresh(): use the in-memory Pixmap if we already
+        # have it, else try loading the on-disk preview once (itemPlot's own
+        # ReadXMLContent already does this after loading a saved document;
+        # this covers the case where SetInnerObject() hands us a fresh item
+        # that hasn't gone through that yet).
+        if self.InnerObject.Pixmap is None:
+            self.InnerObject.LoadPixmap()
 
-        if pixmap is None:
+        pixmap = self.InnerObject.Pixmap
+        if pixmap is None or pixmap.isNull():
             pixmap = QPixmap(self.initialImage)
 
         self.Image.setPixmap(pixmap)
@@ -126,15 +130,53 @@ class itemPlot():
 
         self.uuid = str(uuidlib.uuid4())
 
-        # Path to the last compiled preview PNG (see plot_compiler), used only
-        # by itemWidgetPlot.Refresh(). Session-scoped -- deliberately not
-        # serialized to XML since it points into a temp dir that won't exist
-        # on a later run; reopening the dialog and hitting Accept regenerates it.
-        self.PreviewImagePath = ""
+        self.Pixmap = None # Used to store the image, and not load it everytime
+
+    def __deepcopy__(self, memo):
+        # QPixmap is a Qt/C++ object and isn't deep-copyable (copy.deepcopy
+        # raises TypeError: cannot pickle 'QPixmap' object) -- PlotEditorDialog
+        # deep-copies the item it's handed to make an isolated working copy,
+        # so every other field gets copied normally, but Pixmap is shared by
+        # reference instead. That's safe: it's a derived cache (recomputed by
+        # plot_compiler.compile_and_store_preview), never mutated in place.
+        cls = self.__class__
+        new_obj = cls.__new__(cls)
+        memo[id(self)] = new_obj
+        for key, value in self.__dict__.items():
+            if key == "Pixmap":
+                setattr(new_obj, key, value)
+            else:
+                setattr(new_obj, key, copy.deepcopy(value, memo))
+        return new_obj
 
     def CsvFilename(self):
         """Stable, per-item relative filename the generated LaTeX refers to."""
         return "plot_data_" + self.uuid + ".csv"
+
+    def GetPreviewPath(self):
+        """
+        Where this item's compiled preview PNG lives, derived from the
+        current document's persistent media folder plus this item's own
+        uuid -- same idea as BeamerSlide.getSlideName(), recomputed on
+        demand rather than stored, so it's never stale across sessions.
+        Living inside Document.mediafolder means it's packaged into the
+        .bqt file by WriteFile()/ReadFile() like slide previews are.
+        Returns "" if no document is currently active.
+        """
+        from core.beamerDocument import beamerDocument
+        doc = beamerDocument.Current
+        if doc is None:
+            return ""
+        return os.path.join(doc.plotpreviews, "Plot_" + self.uuid + ".png")
+
+    def LoadPixmap(self):
+        """Load the cached preview PNG (if any) into self.Pixmap, so
+        itemWidgetPlot.Refresh() can show it without recompiling."""
+        path = self.GetPreviewPath()
+        if path and os.path.exists(path):
+            pixmap = QPixmap(path)
+            if not pixmap.isNull():
+                self.Pixmap = pixmap
 
     def GetXMLContent(self):
         ContentXML = ET.Element('ItemWidget', ItemType='Plot')
@@ -223,6 +265,8 @@ class itemPlot():
         self.LatexCode = latex_elem.text if latex_elem is not None and latex_elem.text else ""
 
         self.Alignment = xmlblock.GetField("Alignment", "Center")
+
+        self.LoadPixmap()
 
     def GenLatex(self):
         latexcontent = []
