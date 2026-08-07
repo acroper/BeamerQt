@@ -17,7 +17,7 @@
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="opaqueResize">
       <bool>true</bool>
@@ -27,10 +27,10 @@
      </property>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Shape::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Shadow::Raised</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -38,7 +38,6 @@
          <property name="font">
           <font>
            <pointsize>13</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -46,7 +45,7 @@
           <string>Front Matter Options</string>
          </property>
          <property name="textFormat">
-          <enum>Qt::PlainText</enum>
+          <enum>Qt::TextFormat::PlainText</enum>
          </property>
         </widget>
        </item>
@@ -161,7 +160,7 @@
        <item>
         <widget class="Line" name="line">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -170,7 +169,6 @@
          <property name="font">
           <font>
            <pointsize>13</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -178,7 +176,7 @@
           <string>Presentation Options</string>
          </property>
          <property name="textFormat">
-          <enum>Qt::PlainText</enum>
+          <enum>Qt::TextFormat::PlainText</enum>
          </property>
         </widget>
        </item>
@@ -251,7 +249,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QGroupBox" name="">
+          <widget class="QGroupBox" name="groupBox">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QRadioButton" name="Aspect43">
@@ -273,7 +271,7 @@
             <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -287,7 +285,7 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QGroupBox" name="">
+          <widget class="QGroupBox" name="groupBox">
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
              <widget class="QRadioButton" name="EquationNormal">
@@ -309,7 +307,7 @@
             <item>
              <spacer name="horizontalSpacer_3">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -334,10 +332,10 @@
        </size>
       </property>
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Shape::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Shadow::Raised</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -352,7 +350,7 @@
          <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -372,14 +370,20 @@
         </layout>
        </item>
        <item>
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>-- Not implemented yet --</string>
+        <widget class="QFrame" name="previewFrame">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
          </property>
         </widget>
-       </item>
-       <item>
-        <widget class="QGraphicsView" name="graphicsView"/>
        </item>
       </layout>
      </widget>
@@ -395,10 +399,10 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
      </property>
     </widget>
    </item>

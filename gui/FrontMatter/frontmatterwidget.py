@@ -26,9 +26,9 @@ from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject
 
-
 from core.frontMatter import *
-
+from gui.LatexPreviewWidget import *
+from core.beamerDocument import beamerDocument
 
 
 
@@ -43,13 +43,48 @@ class FrontMatterWidget(QtWidgets.QDialog):
         uic.loadUi('gui/FrontMatter/FrontMatterWidget.ui', self)
         
         self.FrontMatter = frontMatter()
+        self.latexPreview = LatexPreviewWidget(self)
+        QVBoxLayout(self.previewFrame).addWidget(self.latexPreview)
+
+        self.RefreshButton.clicked.connect(self.onPreview)
+        self.Document = None
+        self.prevDocument = None
+        self._previewDir = None
+        
         
     
-    def SetFrontMatter(self, front):
-        
-        self.FrontMatter = front
+    def SetFrontMatter(self, document):
+
+        self.Document = document
+        self.FrontMatter = self.Document.FrontMatter
         self.LoadElements()
-    
+
+        self.prevDocument = beamerDocument(self.Document.latexpreviewfolder)
+        self.prevDocument.Template = self.Document.Template
+
+        # beamerDocument.Current = document   # restore original document
+
+        # Adding virtual sections
+
+        
+
+
+    def onPreview(self):
+        prevFrontMatter = frontMatter()
+
+        # save configuration to the prevFrontMatter
+        self.Save(prevFrontMatter)
+        self.prevDocument.FrontMatter = prevFrontMatter
+
+        tex_path = self.prevDocument.WriteLaTeX()
+
+        self.latexPreview.SetTexFile(tex_path)
+        self.latexPreview.Compile()
+
+           
+        
+
+        
     
     def LoadElements(self):
         self.Title.setText(self.FrontMatter.Title)
@@ -81,43 +116,46 @@ class FrontMatterWidget(QtWidgets.QDialog):
         elif self.FrontMatter.EquationStyle == "Professional":
             self.EquationPro.setChecked(True)
 
-    def Save(self):
-        self.FrontMatter.Title = self.Title.text()
-        self.FrontMatter.ShortTitle = self.ShortTitle.text()
-        self.FrontMatter.Subtitle = self.Subtitle.text()
-        self.FrontMatter.Author = self.Authors.toPlainText()
-        self.FrontMatter.ShortAuthor = self.ShortAuthor.text()
+    def Save(self, FrontMatter = None):
+        if FrontMatter == None:
+            FrontMatter = self.FrontMatter
+
+        FrontMatter.Title = self.Title.text()
+        FrontMatter.ShortTitle = self.ShortTitle.text()
+        FrontMatter.Subtitle = self.Subtitle.text()
+        FrontMatter.Author = self.Authors.toPlainText()
+        FrontMatter.ShortAuthor = self.ShortAuthor.text()
         # assign the logo locations
         # assign the background locations
         
         # self.FrontMatter.Options = self.Options.toPlainText()
         
-        self.FrontMatter.Preamble = self.preambleText.toPlainText()
+        FrontMatter.Preamble = self.preambleText.toPlainText()
         
-        self.FrontMatter.LogoPath = self.Logo.text()
-        self.FrontMatter.BackgroundPath = self.Background.text()
+        FrontMatter.LogoPath = self.Logo.text()
+        FrontMatter.BackgroundPath = self.Background.text()
         
-        self.FrontMatter.OutlineTitle = self.OutlineTitle.text()
+        FrontMatter.OutlineTitle = self.OutlineTitle.text()
         
         if self.Aspect169.isChecked():
-            self.FrontMatter.AspectRatio = "169"
+            FrontMatter.AspectRatio = "169"
         else:
-            self.FrontMatter.AspectRatio = "43"
+            FrontMatter.AspectRatio = "43"
         
         if self.EquationNormal.isChecked():
-            self.FrontMatter.EquationStyle = "Normal"   
+            FrontMatter.EquationStyle = "Normal"   
         elif self.EquationPro.isChecked():
-            self.FrontMatter.EquationStyle = "Professional"
+            FrontMatter.EquationStyle = "Professional"
 
         if self.ShowSectionPage.isChecked():
-            self.FrontMatter.ShowSectionPage = "True"
+            FrontMatter.ShowSectionPage = "True"
         else:
-            self.FrontMatter.ShowSectionPage = "False"
+            FrontMatter.ShowSectionPage = "False"
             
         if self.ShowSectionOutline.isChecked():
-            self.FrontMatter.ShowSectionOutline = "True"
+            FrontMatter.ShowSectionOutline = "True"
         else:
-            self.FrontMatter.ShowSectionOutline = "False"
+            FrontMatter.ShowSectionOutline = "False"
             
         
         # print(self.FrontMatter.Preamble)
