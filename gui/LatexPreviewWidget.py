@@ -95,6 +95,7 @@ class LatexPreviewWidget(QWidget):
         super().__init__(parent)
 
         self._workdir = None
+        self._ownsWorkdir = True
         self._worker = None
         self._pendingRecompile = False
 
@@ -145,7 +146,14 @@ class LatexPreviewWidget(QWidget):
         self._texFile = ""
 
     def SetTexFile(self, path):
-        """Set an existing, complete .tex file to compile as-is."""
+        """
+        Set an existing, complete .tex file to compile as-is. Compiled in
+        place, in that file's own folder -- not copied elsewhere -- so it
+        can sit alongside any data file it references by relative path
+        (e.g. a CSV). Because of that, Cleanup() will NOT remove this
+        folder: since the caller controls what's in it, the caller owns
+        removing it too.
+        """
         self._texFile = path or ""
         self._latexBody = ""
 
@@ -165,16 +173,21 @@ class LatexPreviewWidget(QWidget):
             return
 
         self._cleanupWorkdir()
-        self._workdir = tempfile.mkdtemp(prefix="beamerQT_latexpreview_")
 
         if self._texFile:
-            tex_filename = os.path.basename(self._texFile)
-            try:
-                shutil.copy(self._texFile, os.path.join(self._workdir, tex_filename))
-            except OSError:
+            if not os.path.exists(self._texFile):
                 self._onCompileFinished("")
                 return
+            # Compile in place: the caller owns this folder (and whatever
+            # else lives in it, e.g. a data file the .tex references by
+            # relative path) and is responsible for cleaning it up -- we
+            # must not rmtree it.
+            self._workdir = os.path.dirname(os.path.abspath(self._texFile))
+            self._ownsWorkdir = False
+            tex_filename = os.path.basename(self._texFile)
         else:
+            self._workdir = tempfile.mkdtemp(prefix="beamerQT_latexpreview_")
+            self._ownsWorkdir = True
             tex_filename = "preview.tex"
             tex_path = os.path.join(self._workdir, tex_filename)
             with open(tex_path, "w", encoding="utf-8") as f:
@@ -263,6 +276,6 @@ class LatexPreviewWidget(QWidget):
             self.statusLabel.setVisible(True)
 
     def _cleanupWorkdir(self):
-        if self._workdir and os.path.isdir(self._workdir):
+        if self._ownsWorkdir and self._workdir and os.path.isdir(self._workdir):
             shutil.rmtree(self._workdir, ignore_errors=True)
         self._workdir = None

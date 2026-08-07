@@ -24,7 +24,6 @@ from PyQt6.QtWidgets import (
     QDialog, QWidget, QHBoxLayout, QLabel, QToolButton, QListWidgetItem,
     QMessageBox, QButtonGroup, QApplication,
 )
-from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 
 from . import csv_parser
@@ -118,8 +117,17 @@ class PlotEditorDialog(QDialog):
 
         self.latexPreview = LatexPreviewWidget(self)
         self.previewFrameLayout.addWidget(self.latexPreview)
+        self.latexPreview.compileFinished.connect(self._onPreviewCompileFinished)
 
-        self._previewCsvDir = None  # see onPreview() below
+        self._previewDir = None  # see onPreview() below -- holds both the normalized CSV and preview.tex
+
+        # Lets onAccept() skip re-running pdflatex if the box is unchanged
+        # since the last successful Preview: _lastPreviewedLatex is the
+        # resolved text that compile actually used; _previewPdfPath is
+        # where that compile's PDF landed (inside _previewDir).
+        self._pendingPreviewLatex = None
+        self._lastPreviewedLatex = None
+        self._previewPdfPath = None
 
 
         self.item = copy.deepcopy(item)
@@ -648,33 +656,49 @@ class PlotEditorDialog(QDialog):
             self.item.Bins, xtick_step=self.item.XTickStep,
         )
 
+        # CSV and preview.tex live side by side in the same folder, and
+        # latexPreview compiles in place there (SetTexFile), so the CSV is
+        # referenced by its normal relative filename -- same as everywhere
+        # else in this file. Created once, reused across repeated Preview
+        # clicks; this dialog owns and cleans up the folder (see done()).
+        if self._previewDir is None:
+            self._previewDir = tempfile.mkdtemp(prefix="beamerQT_plotpreview_")
+
         if self.item.CsvPath and os.path.exists(self.item.CsvPath):
-            if self._previewCsvDir is None:
-                self._previewCsvDir = tempfile.mkdtemp(prefix="beamerQT_plotpreview_csv_")
-            csv_abs_path = os.path.join(self._previewCsvDir, self.item.CsvFilename())
             csv_parser.write_normalized_csv(
-                self.item.CsvPath, csv_abs_path,
+                self.item.CsvPath, os.path.join(self._previewDir, self.item.CsvFilename()),
                 delimiter=self.item.CsvDelimiter, decimal=self.item.CsvDecimal,
                 has_header=self.item.CsvHasHeader,
             )
-            resolved = resolved.replace(self.item.CsvFilename(), csv_abs_path)
 
-        self.latexPreview.SetLatexBody(resolved)
+        tex_path = os.path.join(self._previewDir, "preview.tex")
+        with open(tex_path, "w", encoding="utf-8") as f:
+            f.write("\\documentclass{beamer}\n")
+            with open("core/preamble.tex", "r", encoding="utf-8") as pf:
+                f.write(pf.read())
+            f.write("\n\\begin{document}\n\\begin{frame}\n")
+            f.write(resolved)
+            f.write("\n\\end{frame}\n\\end{document}\n")
+
+        self._pendingPreviewLatex = resolved
+        self.latexPreview.SetTexFile(tex_path)
         self.latexPreview.Compile()
 
-
-    def showPixmap(self, pixmap):
-        scaled = pixmap.scaled(
-            self.previewFrame.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation
-        )
-        self.previewLabel.setPixmap(scaled)
-        self.previewLabel.setText("")
-
+    def _onPreviewCompileFinished(self, success):
+        # Records what the Preview panel actually has on screen right now,
+        # so onAccept() can tell whether it's still current and skip
+        # recompiling. A failed compile can't be reused for anything.
+        if success:
+            self._lastPreviewedLatex = self._pendingPreviewLatex
+            self._previewPdfPath = os.path.join(self._previewDir, "preview.pdf")
+        else:
+            self._lastPreviewedLatex = None
+            self._previewPdfPath = None
 
     def done(self, result):
         self.latexPreview.Cleanup()
-        if self._previewCsvDir and os.path.isdir(self._previewCsvDir):
-            shutil.rmtree(self._previewCsvDir, ignore_errors=True)
+        if self._previewDir and os.path.isdir(self._previewDir):
+            shutil.rmtree(self._previewDir, ignore_errors=True)
         super().done(result)
 
     # ---------- accept / cancel ----------
@@ -683,14 +707,28 @@ class PlotEditorDialog(QDialog):
         self.syncItemFromUI()
         self.item.LatexCode = self.plainTextEdit.toPlainText()
 
+        resolved = csv_parser.resolve_tags(
+            self.item.LatexCode, self.item.Series, self.item.CsvPath,
+            self.item.CsvDelimiter, self.item.CsvDecimal, self.item.CsvHasHeader,
+            self.item.Bins, xtick_step=self.item.XTickStep,
+        )
+
         # The inline widget's preview is only (re)compiled here, once, on
         # Accept -- compile_and_store_preview caches it on self.item.Pixmap
         # and saves it into the active document's persistent media folder,
         # so nothing needs to recompile (or even re-read from disk) on
         # every redisplay, this session or a later one.
+        #
+        # If the Preview panel already compiled this exact content, reuse
+        # that PDF instead of running pdflatex a second time -- just
+        # re-rasterize it at the (higher) resolution the stored preview
+        # uses, which is cheap compared to the actual compile.
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
         try:
-            plot_compiler.compile_and_store_preview(self.item)
+            reused_pixmap = None
+            if resolved == self._lastPreviewedLatex and self._previewPdfPath:
+                reused_pixmap = plot_compiler.render_pdf_page(self._previewPdfPath, dpi=150)
+            plot_compiler.compile_and_store_preview(self.item, pixmap=reused_pixmap)
         finally:
             QApplication.restoreOverrideCursor()
 

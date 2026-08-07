@@ -48,6 +48,22 @@ def _fallback_cache_dir():
     return _FALLBACK_CACHE_DIR
 
 
+def render_pdf_page(pdf_path, page=0, dpi=110):
+    """Rasterize one page of an existing PDF to a QPixmap. None on failure."""
+    if not pdf_path or not os.path.exists(pdf_path):
+        return None
+    import fitz
+    doc = fitz.open(pdf_path)
+    try:
+        if not (0 <= page < doc.page_count):
+            return None
+        pix = doc.load_page(page).get_pixmap(dpi=dpi)
+        qimage = QImage(pix.samples, pix.width, pix.height, pix.stride, QImage.Format.Format_RGB888)
+        return QPixmap.fromImage(qimage)
+    finally:
+        doc.close()
+
+
 def compile_plot_to_pixmap(item, latex_body=None, dpi=110):
     """
     Compile a minimal beamer frame containing latex_body (or item.LatexCode
@@ -97,35 +113,31 @@ def compile_plot_to_pixmap(item, latex_body=None, dpi=110):
             )
 
         pdf_path = os.path.join(tempdir, "preview.pdf")
-        if not os.path.exists(pdf_path):
-            return None
-
-        import fitz
-        doc = fitz.open(pdf_path)
-        page = doc.load_page(0)
-        pix = page.get_pixmap(dpi=dpi)
-        qimage = QImage(pix.samples, pix.width, pix.height, pix.stride, QImage.Format.Format_RGB888)
-        pixmap = QPixmap.fromImage(qimage)
-        doc.close()
-        return pixmap
+        return render_pdf_page(pdf_path, dpi=dpi)
     finally:
         shutil.rmtree(tempdir, ignore_errors=True)
 
 
-def compile_and_store_preview(item, latex_body=None, dpi=150):
+def compile_and_store_preview(item, latex_body=None, dpi=150, pixmap=None):
     """
-    Compile item's LaTeX (see compile_plot_to_pixmap), cache the result on
-    item.Pixmap (so nothing needs to re-read it from disk this session), and
-    save it as a PNG under the active document's persistent media folder
-    (item.GetPreviewPath()) -- or a session-only fallback dir if no document
-    is currently active -- named by the item's uuid so it can be found again
-    on a later run.
+    Cache a preview pixmap on item.Pixmap (so nothing needs to re-read it
+    from disk this session) and save it as a PNG under the active
+    document's persistent media folder (item.GetPreviewPath()) -- or a
+    session-only fallback dir if no document is currently active -- named
+    by the item's uuid so it can be found again on a later run.
 
-    Returns the PNG's path on success, or "" on failure (nothing to compile,
-    or the compile itself failed) -- callers should treat "" the same as "no
-    preview yet".
+    If `pixmap` is given, it's used as-is and nothing gets (re)compiled --
+    e.g. PlotEditorDialog passes in a re-render of a PDF its own Preview
+    button already compiled moments earlier, to avoid running pdflatex a
+    second time for the same content on Accept. Otherwise this compiles
+    item.LatexCode (or latex_body) itself, same as compile_plot_to_pixmap.
+
+    Returns the PNG's path on success, or "" on failure (nothing to compile/
+    render, or the compile itself failed) -- callers should treat "" the
+    same as "no preview yet".
     """
-    pixmap = compile_plot_to_pixmap(item, latex_body=latex_body, dpi=dpi)
+    if pixmap is None:
+        pixmap = compile_plot_to_pixmap(item, latex_body=latex_body, dpi=dpi)
     if pixmap is None:
         return ""
 
