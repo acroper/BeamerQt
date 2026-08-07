@@ -32,6 +32,12 @@ from . import plot_compiler
 from .CsvFormatDialog import CsvFormatDialog
 from .SeriesEditDialog import SeriesEditDialog, DEFAULT_PALETTE
 
+from gui.LatexPreviewWidget import LatexPreviewWidget
+
+import tempfile
+import shutil
+
+
 
 LINE_STYLE_LATEX = {
     "Solid": "solid",
@@ -107,6 +113,14 @@ class PlotEditorDialog(QDialog):
     def __init__(self, item, parent=None):
         super().__init__(parent)
         uic.loadUi('gui/ContentItems/Plot/ItemPlot.ui', self)
+
+        self.previewLabel.setVisible(False)  # superseded by latexPreview below
+
+        self.latexPreview = LatexPreviewWidget(self)
+        self.previewFrameLayout.addWidget(self.latexPreview)
+
+        self._previewCsvDir = None  # see onPreview() below
+
 
         self.item = copy.deepcopy(item)
 
@@ -626,23 +640,28 @@ class PlotEditorDialog(QDialog):
             QMessageBox.information(self, "Nothing to preview", "There is no LaTeX content to compile yet.")
             return
 
-        # Keeps Bins/PlotType/etc. current even if the box wasn't just
-        # regenerated (e.g. hand-edited), since tag resolution reads them.
         self.syncItemFromUI()
 
-        self.PreviewBtn.setEnabled(False)
-        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
-        try:
-            pixmap = plot_compiler.compile_plot_to_pixmap(self.item, latex_body=latex_body)
-        finally:
-            QApplication.restoreOverrideCursor()
-            self.PreviewBtn.setEnabled(True)
+        resolved = csv_parser.resolve_tags(
+            latex_body, self.item.Series, self.item.CsvPath,
+            self.item.CsvDelimiter, self.item.CsvDecimal, self.item.CsvHasHeader,
+            self.item.Bins, xtick_step=self.item.XTickStep,
+        )
 
-        if pixmap is not None:
-            self.showPixmap(pixmap)
-        else:
-            self.previewLabel.setPixmap(QPixmap())
-            self.previewLabel.setText("LaTeX compilation failed. Check the generated code for errors.")
+        if self.item.CsvPath and os.path.exists(self.item.CsvPath):
+            if self._previewCsvDir is None:
+                self._previewCsvDir = tempfile.mkdtemp(prefix="beamerQT_plotpreview_csv_")
+            csv_abs_path = os.path.join(self._previewCsvDir, self.item.CsvFilename())
+            csv_parser.write_normalized_csv(
+                self.item.CsvPath, csv_abs_path,
+                delimiter=self.item.CsvDelimiter, decimal=self.item.CsvDecimal,
+                has_header=self.item.CsvHasHeader,
+            )
+            resolved = resolved.replace(self.item.CsvFilename(), csv_abs_path)
+
+        self.latexPreview.SetLatexBody(resolved)
+        self.latexPreview.Compile()
+
 
     def showPixmap(self, pixmap):
         scaled = pixmap.scaled(
@@ -650,6 +669,13 @@ class PlotEditorDialog(QDialog):
         )
         self.previewLabel.setPixmap(scaled)
         self.previewLabel.setText("")
+
+
+    def done(self, result):
+        self.latexPreview.Cleanup()
+        if self._previewCsvDir and os.path.isdir(self._previewCsvDir):
+            shutil.rmtree(self._previewCsvDir, ignore_errors=True)
+        super().done(result)
 
     # ---------- accept / cancel ----------
 
