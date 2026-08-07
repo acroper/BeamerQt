@@ -75,6 +75,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.WorkDirectory = tempfile.mkdtemp(prefix="beamerQT_")
         
         self.Document = beamerDocument(self.WorkDirectory)
+        beamerDocument.Current = self.Document
+
         self.Document.Config = self.Config
         
         self.ThemeEditor = None
@@ -266,7 +268,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def ConfigFrontMatter(self):
         fmw = FrontMatterWidget()
         
-        fmw.SetFrontMatter(self.Document.FrontMatter)
+        fmw.SetFrontMatter(self.Document)
         
         res = fmw.exec()
         
@@ -581,6 +583,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         if filename != "":
             Document2 = beamerDocument(self.WorkDirectory)
+            beamerDocument.Current = Document2
             
             Document2.Config = self.Config
             

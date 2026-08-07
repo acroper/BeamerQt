@@ -65,7 +65,7 @@ class beamerDocument():
         self.NewFile = True
         self.RealLocation =  ""
 
-        beamerDocument.Current = self
+        # beamerDocument.Current = self
         
         self.Template = BeamerTemplate()
         
@@ -225,6 +225,9 @@ class beamerDocument():
         
         self.latexfolder = os.path.join(self.DocLocation, "LaTeX")
         os.makedirs(self.latexfolder, exist_ok=True)
+
+        self.latexpreviewfolder = os.path.join(self.DocLocation, "LaTeXPreview")
+        os.makedirs(self.latexpreviewfolder, exist_ok=True)
         
         self.docfolder = os.path.join(self.DocLocation, "Doc")
         os.makedirs(self.docfolder, exist_ok=True)
@@ -282,35 +285,27 @@ class beamerDocument():
         # self.Proc.join(10000)
         # x = threading.Thread(target=self.GenLaTeXThread, args=(self,))
         # x.start()
-        
-    def GenLaTeXThread(self, arg):
-        
-        self.total_pages = len(self.Slides) + 1
-        self.pages_processed = 0
-        
+
+    def WriteLaTeX(self):
         filename = os.path.join(self.latexfolder, "output.tex")
         # outputfile = open( os.path.join(self.DocLocation, "Output.tex"), 'w' )
         
         self.Template.OutputDirectory = self.latexfolder
         
-        
         outputfile = open(filename, 'w' )
-        
         
         preamble = open(  os.path.join( os.path.dirname(__file__) , "preamble.tex" ), 'r').readlines()
         
         outputfile.write(self.FrontMatter.GenLaTeXOptions())
-           
+            
         outputfile.writelines(preamble)
         
         
         # add template
         latexcontent = self.Template.GenLaTeX()
         self.WriteLines(latexcontent, outputfile)  
-        
+
         self.WriteLines([self.FrontMatter.Preamble], outputfile)
-        
-        
         
         # add front matter
         latexcontent = self.FrontMatter.GenLaTeX()
@@ -318,20 +313,26 @@ class beamerDocument():
         
 
         self.WriteLines(["\\begin{document}", "\\makebeamertitle"], outputfile)  
-        
-        
-
 
         for slide in self.Slides:
             slide.OutputDirectory = self.latexfolder
             latexcontent = slide.GenLaTeX()
             self.WriteLines(latexcontent, outputfile)
             
-            
-        
         outputfile.write("\\end{document}")
         
         outputfile.close()
+
+        return filename
+        
+        
+        
+    def GenLaTeXThread(self, arg):
+        
+        self.total_pages = len(self.Slides) + 1
+        self.pages_processed = 0
+        
+        self.WriteLaTeX()
         
         # self.ExportPDF()
         
@@ -536,12 +537,12 @@ class beamerDocument():
             
 
 
-    def ExportPPTX(self):
-        import core.beamerpptx 
+    # def ExportPPTX(self):
+    #     import core.beamerpptx 
         
-        pptx = BeamerPPT()
+    #     pptx = BeamerPPT()
         
-        pptx.Export(self)
+    #     pptx.Export(self)
         
         
         
