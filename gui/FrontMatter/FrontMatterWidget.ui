@@ -17,7 +17,7 @@
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <property name="opaqueResize">
       <bool>true</bool>
@@ -27,10 +27,10 @@
      </property>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
-       <enum>QFrame::Shape::StyledPanel</enum>
+       <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
+       <enum>QFrame::Raised</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -38,6 +38,7 @@
          <property name="font">
           <font>
            <pointsize>13</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -45,7 +46,7 @@
           <string>Front Matter Options</string>
          </property>
          <property name="textFormat">
-          <enum>Qt::TextFormat::PlainText</enum>
+          <enum>Qt::PlainText</enum>
          </property>
         </widget>
        </item>
@@ -160,7 +161,7 @@
        <item>
         <widget class="Line" name="line">
          <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -169,6 +170,7 @@
          <property name="font">
           <font>
            <pointsize>13</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -176,7 +178,7 @@
           <string>Presentation Options</string>
          </property>
          <property name="textFormat">
-          <enum>Qt::TextFormat::PlainText</enum>
+          <enum>Qt::PlainText</enum>
          </property>
         </widget>
        </item>
@@ -271,7 +273,7 @@
             <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -307,7 +309,7 @@
             <item>
              <spacer name="horizontalSpacer_3">
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -332,10 +334,10 @@
        </size>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Shape::StyledPanel</enum>
+       <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
+       <enum>QFrame::Raised</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -350,7 +352,7 @@
          <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
+            <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -374,14 +376,14 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>300</height>
+           <height>200</height>
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
+          <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
+          <enum>QFrame::Raised</enum>
          </property>
         </widget>
        </item>
@@ -399,10 +401,10 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
