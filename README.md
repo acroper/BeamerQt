@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=acroper&project=BeamerQt&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 # BeamerQt
 BeamerQT is a user-friendly graphical interface designed to facilitate the creation of Beamer presentations without manually editing LaTeX code associated with the Slides. It provides a comprehensive set of features that allow users to define layouts, insert content (including text, blocks, images, and mathematical equations), and configure some advance settings of the theme. BeamerQT provides both beginners and advanced LaTeX users the ability to create amazing presentations and focus in the contents rather than in the code.
 
