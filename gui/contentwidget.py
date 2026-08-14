@@ -25,7 +25,7 @@ import os
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import pyqtSignal, QObject, Qt, QMimeData, QPoint, QRect
-from PyQt6.QtGui import QAction, QDrag, QPixmap
+from PyQt6.QtGui import QAction, QDrag, QPixmap, QIcon
 
 import xml.etree.ElementTree as ET
 
@@ -110,6 +110,10 @@ class ContentWidget(QtWidgets.QWidget):
         for item in CONTENT_ITEMS:
             action = QAction(item.get("label", item["type"]), self)
             action.triggered.connect(lambda _checked=False, t=item["type"]: self.AddWidgetItem(t))
+            iconpath = os.path.join("gui","icons", "add" + item["type"].lower()+".png")
+            actionIcon = QIcon(iconpath)
+            action.setIcon(actionIcon)
+
             add_menu.addAction(action)
 
         self.AddMoreButton.setMenu(add_menu)
