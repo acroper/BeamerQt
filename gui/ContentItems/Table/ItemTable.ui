@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
+    <width>735</width>
     <height>500</height>
    </rect>
   </property>
@@ -41,24 +41,10 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../../icons/add.png</normaloff>../../icons/add.png</iconset>
+         <normaloff>add_row.png</normaloff>add_row.png</iconset>
        </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="RemoveRowBtn">
-       <property name="toolTip">
-        <string>Remove the last row from the table</string>
-       </property>
-       <property name="text">
-        <string>Remove Row</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../../icons/remove.png</normaloff>../../icons/remove.png</iconset>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonIconOnly</enum>
        </property>
        <property name="autoRaise">
         <bool>true</bool>
@@ -75,7 +61,24 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../../icons/add.png</normaloff>../../icons/add.png</iconset>
+         <normaloff>add_column.png</normaloff>add_column.png</iconset>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="RemoveRowBtn">
+       <property name="toolTip">
+        <string>Remove the last row from the table</string>
+       </property>
+       <property name="text">
+        <string>Remove Row</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>remove_row.png</normaloff>remove_row.png</iconset>
        </property>
        <property name="autoRaise">
         <bool>true</bool>
@@ -92,7 +95,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../../icons/remove.png</normaloff>../../icons/remove.png</iconset>
+         <normaloff>remove_column.png</normaloff>remove_column.png</iconset>
        </property>
        <property name="autoRaise">
         <bool>true</bool>
@@ -107,7 +110,7 @@
       </widget>
      </item>
      <item>
-     <widget class="QComboBox" name="TableSizeCombo">
+      <widget class="QComboBox" name="TableSizeCombo">
        <property name="toolTip">
         <string>Select table sizing mode: Automatic (no headers) or % (percentage)</string>
        </property>
