@@ -130,7 +130,12 @@ class BeamerSlide():
        
         return FrameXML
 
-    
+    def GetFromXML(self, xmlDocument):
+        tree = ET.parse(xmlDocument)
+        root = tree.getroot() 
+        # FrameXML = root.findall('Frame')[0]
+        self.ReadXMLContent(root)
+
     def ReadXMLContent(self, xblock):
         
         xmlblock = xmlutils(xblock)

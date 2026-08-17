@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
-    <height>642</height>
+    <width>481</width>
+    <height>571</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <bool>false</bool>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
        </property>
       </widget>
      </item>
@@ -41,10 +41,10 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;About BeamerQT&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Version 0.3.0&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Created by Jorge Guerrero.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;mailto:acroper@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;acroper@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Contribute to the development of this software&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.paypal.com/donate/?business=2PP5H8Z8L5E8E&amp;amp;no_recurring=0&amp;amp;item_name=Support+the+development+of+BeamerQT&amp;amp;currency_code=USD&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Donate via PayPal&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;About BeamerQT&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Version 0.3.1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Created by Jorge Guerrero.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;mailto:acroper@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;acroper@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Contribute to the development of this software&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.paypal.com/donate/?business=2PP5H8Z8L5E8E&amp;amp;no_recurring=0&amp;amp;item_name=Support+the+development+of+BeamerQT&amp;amp;currency_code=USD&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Donate via PayPal&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
-          <enum>Qt::TextFormat::RichText</enum>
+          <enum>Qt::RichText</enum>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
@@ -69,7 +69,7 @@
           <pixmap>icons/Donate_QR Code.png</pixmap>
          </property>
          <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -79,11 +79,8 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
-     </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::StandardButton::Ok</set>
+      <set>QDialogButtonBox::NoButton</set>
      </property>
     </widget>
    </item>

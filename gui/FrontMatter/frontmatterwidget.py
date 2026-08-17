@@ -62,6 +62,9 @@ class FrontMatterWidget(QtWidgets.QDialog):
         self.prevDocument = beamerDocument(self.Document.latexpreviewfolder)
         self.prevDocument.Template = self.Document.Template
 
+        subslide = self.prevDocument.NewSlide()
+        subslide.GetFromXML("gui/FrontMatter/preview.xml")
+
         # beamerDocument.Current = document   # restore original document
 
         # Adding virtual sections

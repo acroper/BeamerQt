@@ -1,0 +1,88 @@
+ <Frame id="frame_0">
+    <TitleBar>Title test<Visible>True</Visible>
+    </TitleBar>
+    <SubTitleBar>Subtitle</SubTitleBar>
+    <SectionLabel>Title test</SectionLabel>
+    <TitleMode>Section</TitleMode>
+    <FrameLayout>Custom</FrameLayout>
+    <ColumnProportion>40</ColumnProportion>
+    <Column id="0">
+      <Block id="block_">
+        <BlockTitle>Normal block</BlockTitle>
+        <BlockText />
+        <BlockType>Normal</BlockType>
+        <ColumnCount>2</ColumnCount>
+        <ColumnProportions>[100, 100, 100, 100]</ColumnProportions>
+        <ItemWidget ItemType="RTF">Basic content.
+
+This just goes here.
+
+<Alignment>Left</Alignment>
+        </ItemWidget>
+      </Block>
+      <Block id="block_">
+        <BlockTitle />
+        <BlockText />
+        <BlockType>Normal</BlockType>
+        <ColumnCount>1</ColumnCount>
+        <ColumnProportions>[100, 100.0, 100.0, -100.0]</ColumnProportions>
+        <ItemWidget ItemType="RTF">Basic text for an equation
+
+<Alignment>Left</Alignment>
+        </ItemWidget>
+        <ItemWidget ItemType="EquationQT">y=x^2<Alignment>Center</Alignment>
+        </ItemWidget>
+      </Block>
+    </Column>
+    <Column id="1">
+      <Block id="block_">
+        <BlockTitle>Alert block</BlockTitle>
+        <BlockText />
+        <BlockType>Alert</BlockType>
+        <ColumnCount>2</ColumnCount>
+        <ColumnProportions>[100, 100, 100, 100]</ColumnProportions>
+        <ItemWidget ItemType="RTF">1.  List element
+2.  Here
+3.  And more
+<Alignment>Left</Alignment>
+        </ItemWidget>
+      </Block>
+      <Block id="block_">
+        <BlockTitle>Example block</BlockTitle>
+        <BlockText />
+        <BlockType>Example</BlockType>
+        <ColumnCount>3</ColumnCount>
+        <ColumnProportions>[148, 52, 66, -122]</ColumnProportions>
+        <ItemWidget ItemType="Table" rows="4" cols="4" SizeMode="%" TableStyle="Booktabs" ColumnWidths="18.8,28.2,21.9,31.1">
+          <Row index="0">
+            <Cell row="0" col="0">Test</Cell>
+            <Cell row="0" col="1">of a new</Cell>
+            <Cell row="0" col="2">Table here</Cell>
+            <Cell row="0" col="3">BeamerQT</Cell>
+          </Row>
+          <Row index="1">
+            <Cell row="1" col="0">1</Cell>
+            <Cell row="1" col="1">2</Cell>
+            <Cell row="1" col="2">3</Cell>
+            <Cell row="1" col="3">4</Cell>
+          </Row>
+          <Row index="2">
+            <Cell row="2" col="0">5</Cell>
+            <Cell row="2" col="1">6</Cell>
+            <Cell row="2" col="2">7</Cell>
+            <Cell row="2" col="3">8</Cell>
+          </Row>
+          <Row index="3">
+            <Cell row="3" col="0">9</Cell>
+            <Cell row="3" col="1">10</Cell>
+            <Cell row="3" col="2">11</Cell>
+            <Cell row="3" col="3">12</Cell>
+          </Row>
+          <Alignment>Center</Alignment>
+        </ItemWidget>
+        <ItemWidget ItemType="Text">
+          <Alignment>Left</Alignment>
+        </ItemWidget>
+      </Block>
+    </Column>
+  </Frame>
