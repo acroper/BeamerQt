@@ -36,6 +36,36 @@ import xml.etree.ElementTree as ET
 from core.xmlutils import *
 
 
+# Beamer only defines templates for three levels of itemize/enumerate
+MAX_LIST_LEVEL = 3
+
+BULLET_STYLES = (QTextListFormat.Style.ListDisc,
+                 QTextListFormat.Style.ListCircle,
+                 QTextListFormat.Style.ListSquare)
+
+NUMBERED_STYLES = (QTextListFormat.Style.ListDecimal,
+                   QTextListFormat.Style.ListLowerAlpha,
+                   QTextListFormat.Style.ListUpperAlpha,
+                   QTextListFormat.Style.ListLowerRoman,
+                   QTextListFormat.Style.ListUpperRoman)
+
+
+def ListEnvironment(style):
+    # LaTeX environment for a QTextList style
+    if style in BULLET_STYLES:
+        return "itemize"
+    if style in NUMBERED_STYLES:
+        return "enumerate"
+    return None
+
+
+def ListStyleForLevel(env, level):
+    # Same defaults Qt uses when reading markdown, so styles survive the round trip
+    if env == "itemize":
+        return BULLET_STYLES[(level - 1) % len(BULLET_STYLES)]
+    return QTextListFormat.Style.ListDecimal
+
+
 class itemWidgetRTF(QtWidgets.QWidget):
     
     def __init__(self):
@@ -47,7 +77,20 @@ class itemWidgetRTF(QtWidgets.QWidget):
         self.InnerObject = itemRTF()
         
         self.AssignActions()
+        
+        self.TextEditor.installEventFilter(self)
 
+    
+    def eventFilter(self, obj, event):
+        if obj == self.TextEditor and event.type() == QtCore.QEvent.Type.KeyPress:
+            if event.key() == QtCore.Qt.Key.Key_Tab and not (event.modifiers() & QtCore.Qt.KeyboardModifier.ShiftModifier):
+                if self.change_list_level(1):
+                    return True
+            elif event.key() == QtCore.Qt.Key.Key_Backtab:
+                if self.change_list_level(-1):
+                    return True
+        
+        return super().eventFilter(obj, event)
     
     def AssignActions(self):
         self.bold_action.clicked.connect(self.toggle_bold)
@@ -60,7 +103,8 @@ class itemWidgetRTF(QtWidgets.QWidget):
     def GetInnerObject(self):
         # self.InnerObject.Text = self.TextEditor.toPlainText()
         # self.InnerObject.RTF = self.TextEditor.document()
-        self.InnerObject.RTF.setMarkdown( self.TextEditor.toMarkdown() )
+        # Copy the document directly: a markdown round trip loses bullet lists nested in numbered lists
+        self.InnerObject.RTF = self.TextEditor.document().clone()
         
         return self.InnerObject
     
@@ -72,7 +116,11 @@ class itemWidgetRTF(QtWidgets.QWidget):
         # self.TextEditor.setText(self.InnerObject.Text)
         # self.TextEditor.setDocument(self.InnerObject.RTF)
         
-        self.TextEditor.setMarkdown(self.InnerObject.RTF.toMarkdown())
+        font = self.TextEditor.font()
+        # The editor is the parent, so it owns (and later deletes) the copy
+        doc = self.InnerObject.RTF.clone(self.TextEditor)
+        doc.setDefaultFont(font)
+        self.TextEditor.setDocument(doc)
 
         
         
@@ -126,15 +174,17 @@ class itemWidgetRTF(QtWidgets.QWidget):
         block = cursor.block()
         current_list = block.textList()
         cursor.beginEditBlock()
-        if current_list and current_list.format().style() == QTextListFormat.Style.ListDisc:
+        if current_list and current_list.format().style() in BULLET_STYLES:
             # Remove list formatting.
             block_format = cursor.blockFormat()
             block_format.setObjectIndex(-1)
             cursor.setBlockFormat(block_format)
         else:
-            # Apply bullet list formatting.
+            # Apply bullet list formatting, keeping the current level.
+            level = current_list.format().indent() if current_list else 1
             list_format = QTextListFormat()
-            list_format.setStyle(QTextListFormat.Style.ListDisc)
+            list_format.setStyle(ListStyleForLevel("itemize", level))
+            list_format.setIndent(level)
             cursor.createList(list_format)
         cursor.endEditBlock()
         
@@ -145,17 +195,79 @@ class itemWidgetRTF(QtWidgets.QWidget):
         block = cursor.block()
         current_list = block.textList()
         cursor.beginEditBlock()
-        if current_list and current_list.format().style() == QTextListFormat.Style.ListDecimal:
+        if current_list and current_list.format().style() in NUMBERED_STYLES:
             block_format = cursor.blockFormat()
             block_format.setObjectIndex(-1)
             cursor.setBlockFormat(block_format)
         else:
+            level = current_list.format().indent() if current_list else 1
             list_format = QTextListFormat()
-            list_format.setStyle(QTextListFormat.Style.ListDecimal)
+            list_format.setStyle(ListStyleForLevel("enumerate", level))
+            list_format.setIndent(level)
             cursor.createList(list_format)
         cursor.endEditBlock()
         
         self.TextEditor.setFocus()
+
+    def change_list_level(self, delta):
+        """
+        Move the list items under the cursor (or selection) one level deeper
+        (delta = 1) or shallower (delta = -1). Returns False when the cursor
+        is not in a list, so the key keeps its default behavior.
+        """
+        cursor = self.TextEditor.textCursor()
+        doc = self.TextEditor.document()
+        
+        first = doc.findBlock(cursor.selectionStart())
+        last = doc.findBlock(cursor.selectionEnd())
+        
+        if first.textList() is None:
+            return False
+        
+        blocks = []
+        block = first
+        while block.isValid():
+            if block.textList() is not None:
+                blocks.append(block)
+            if block == last:
+                break
+            block = block.next()
+        
+        cursor.beginEditBlock()
+        for block in blocks:
+            self.move_block_to_level(block, block.textList().format().indent() + delta)
+        cursor.endEditBlock()
+        
+        self.TextEditor.setFocus()
+        return True
+
+    def move_block_to_level(self, block, level):
+        if level < 1 or level > MAX_LIST_LEVEL:
+            return
+        
+        env = ListEnvironment(block.textList().format().style())
+        
+        # Join a preceding list at the target level so numbering continues
+        target = None
+        prev = block.previous()
+        while prev.isValid() and prev.textList() is not None:
+            prev_list = prev.textList()
+            prev_level = prev_list.format().indent()
+            if prev_level < level:
+                break
+            if prev_level == level:
+                if ListEnvironment(prev_list.format().style()) == env:
+                    target = prev_list
+                break
+            prev = prev.previous()
+        
+        if target is not None:
+            target.add(block)
+        else:
+            list_format = QTextListFormat()
+            list_format.setStyle(ListStyleForLevel(env, level))
+            list_format.setIndent(level)
+            QTextCursor(block).createList(list_format)
 
     # def change_font_size(self):
     #     # Called when the user changes the selection in the dropbox.
@@ -258,56 +370,38 @@ class itemRTF():
     def document_to_latex(self):
         """
         Traverse the QTextDocument and convert each block and its fragments to LaTeX,
-        handling inline formatting (bold/italic) and list environments.
+        handling inline formatting (bold/italic) and nested list environments.
         """
         doc = self.RTF
         latex_lines = []
-        previous_list = None
+        # Open environments as (level, environment), innermost last
+        open_lists = []
         block = doc.begin()
-        
-        openlist = ""
         
         while block.isValid():
             current_list = block.textList()
-            # Start a new list environment if needed.
-            if current_list is not None and (previous_list is None or previous_list != current_list):
-                style = current_list.format().style()
-                if style == QTextListFormat.Style.ListDisc:
-                    if openlist != "":
-                        latex_lines.append("\\end{"+openlist+"}")
-                    openlist = "itemize"    
-                    latex_lines.append("\\begin{itemize}")
-                elif style == QTextListFormat.Style.ListDecimal:
-                    if openlist != "":
-                        latex_lines.append("\\end{"+openlist+"}")
-                    openlist = "enumerate"    
-                    latex_lines.append("\\begin{enumerate}")
-            # End the list environment when the list ends.
-            elif current_list is None and previous_list is not None:
-                style = previous_list.format().style()
-                if style == QTextListFormat.Style.ListDisc:
-                    latex_lines.append("\\end{itemize}")
-                    openlist = ""
-                elif style == QTextListFormat.Style.ListDecimal:
-                    latex_lines.append("\\end{enumerate}")
-                    openlist = ""
-                previous_list = None
-
-            block_text = self.process_block_fragments(block)
-            if current_list is not None:
-                latex_lines.append("\\item " + block_text)
+            env = ListEnvironment(current_list.format().style()) if current_list is not None else None
+            
+            if env is not None:
+                level = current_list.format().indent()
+                # Close deeper levels, and the same level if the list type changed
+                while open_lists and (open_lists[-1][0] > level or
+                                      (open_lists[-1][0] == level and open_lists[-1][1] != env)):
+                    latex_lines.append("\\end{" + open_lists.pop()[1] + "}")
+                if not open_lists or open_lists[-1][0] < level:
+                    latex_lines.append("\\begin{" + env + "}")
+                    open_lists.append((level, env))
+                latex_lines.append("\\item " + self.process_block_fragments(block))
             else:
-                latex_lines.append(block_text + "\n")
-            previous_list = current_list
+                while open_lists:
+                    latex_lines.append("\\end{" + open_lists.pop()[1] + "}")
+                latex_lines.append(self.process_block_fragments(block) + "\n")
+            
             block = block.next()
 
         # Close any unclosed list environments.
-        if previous_list is not None:
-            style = previous_list.format().style()
-            if style == QTextListFormat.Style.ListDisc:
-                latex_lines.append("\\end{itemize}")
-            elif style == QTextListFormat.Style.ListDecimal:
-                latex_lines.append("\\end{enumerate}")
+        while open_lists:
+            latex_lines.append("\\end{" + open_lists.pop()[1] + "}")
         return "\n".join(latex_lines)
     
     def process_block_fragments(self, block):
