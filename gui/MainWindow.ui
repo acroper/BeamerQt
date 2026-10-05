@@ -188,10 +188,17 @@
      </property>
      <addaction name="separator"/>
     </widget>
+    <widget class="QMenu" name="menuImport">
+     <property name="title">
+      <string>Import</string>
+     </property>
+     <addaction name="actionImport_PowerPoint"/>
+    </widget>
     <addaction name="actionNew_File"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_File"/>
     <addaction name="menuOpen_recent"/>
+    <addaction name="menuImport"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
@@ -354,6 +361,11 @@
   <action name="actionSave">
    <property name="text">
     <string>Save</string>
+   </property>
+  </action>
+  <action name="actionImport_PowerPoint">
+   <property name="text">
+    <string>PowerPoint...</string>
    </property>
   </action>
   <action name="actionAbout">
