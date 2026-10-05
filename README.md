@@ -12,8 +12,24 @@ BeamerQT is a user-friendly graphical interface designed to facilitate the creat
 # Features
 BeamerQT features a graphical user interface that provides easy access to most desired Beamer/LaTeX features without adding LaTeX code. 
 
+## Import Power Point (New Feature!)
+Convert a .pptx file into a new BeamerQT presentation (experimental). Use **File → Import → PowerPoint (experimental)**, choose the file and an import folder; the .bqt file and its images, chart data and diagrams are saved there.
+
+* Slides, titles, two-column layouts, nested bullet/numbered lists and bold/italic text.
+* Optional: title page, images, equations (as LaTeX), tables, charts and diagrams (as TikZ).
+* Unsupported content (e.g. WMF/EMF images) is listed after the import.
+* Requires `python-pptx`.
+
+## Chart Editor (New Feature!)
+Create charts from CSV data, rendered with pgfplots.
+
+* Line/scatter, bar, area, histogram and pie charts.
+* Several series with line style, marker and color options.
+* Title, axis labels, grid, legend and tick font sizes.
+* Editable LaTeX code and compiled preview.
+
 ## Table Editor (New Feature!)
-Create tables visually with easy row/column management. Supports Automatic and Percentage sizing modes with visual column resizing.
+Create tables visually with easy row/column management. Supports Automatic and Percentage sizing modes with visual column resizing, and Grid, No Lines or Booktabs styles.
 
 **Known Issue:** LaTeX export of percentual sizes is not precise. Workaround: Add a plain text element to the right of the table, it will allow to resize the final table.
 
