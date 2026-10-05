@@ -365,7 +365,7 @@
   </action>
   <action name="actionImport_PowerPoint">
    <property name="text">
-    <string>PowerPoint...</string>
+    <string>PowerPoint (experimental)...</string>
    </property>
   </action>
   <action name="actionAbout">

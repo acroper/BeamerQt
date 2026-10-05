@@ -104,12 +104,11 @@ class MainWindow(QtWidgets.QMainWindow):
         
         
     
-    def _spawn_new_beamerqt_instance(self, filename=None, import_pptx=None):
+    def _spawn_new_beamerqt_instance(self, filename=None):
         """
         Launch a new BeamerQt instance.
 
         If `filename` is provided, the new instance opens that `.bqt` file.
-        If `import_pptx` is provided, the new instance imports that PowerPoint file.
 
         - Source run: uses `sys.executable main.py [file]`
         - Frozen app (PyInstaller): uses the current executable `<app> [file]`
@@ -126,9 +125,6 @@ class MainWindow(QtWidgets.QMainWindow):
             args = [main_script]
             if filename:
                 args.append(filename)
-
-        if import_pptx:
-            args += ["--import-pptx", os.path.abspath(os.path.expanduser(import_pptx))]
 
         ok, _pid = QtCore.QProcess.startDetached(program, args)
         return bool(ok)
@@ -570,50 +566,13 @@ class MainWindow(QtWidgets.QMainWindow):
         
     
     def ImportPowerPoint(self):
-        # The import runs in a new instance, as a new unsaved file
-        filename = openFileNameDialog(self, "", "PowerPoint files (*.pptx)")
-        if filename != "":
-            self._spawn_new_beamerqt_instance(import_pptx=filename)
+        # The dialog saves the imported .bqt file, which opens in a new instance
+        from gui.Import.ImportPPTXDialog import ImportPPTXDialog
+        
+        dialog = ImportPPTXDialog(self.WorkDirectory, self.Config, self)
+        if dialog.exec() and dialog.FileName:
+            self._spawn_new_beamerqt_instance(dialog.FileName)
     
-    
-    def ImportPPTX(self, filename):
-        
-        try:
-            from core.beamerpptx import BeamerPPT
-        except ImportError as e:
-            QMessageBox.warning(self, "Import PowerPoint", "python-pptx is required to import PowerPoint files.\n\n" + str(e))
-            return
-        
-        Document2 = beamerDocument(self.WorkDirectory)
-        beamerDocument.Current = Document2
-        
-        Document2.Config = self.Config
-        
-        try:
-            BeamerPPT().Import(filename, Document2)
-        except Exception as e:
-            QMessageBox.warning(self, "Import PowerPoint", "Could not import " + os.path.basename(filename) + "\n\n" + str(e))
-            beamerDocument.Current = self.Document
-            return
-        
-        if len(Document2.Slides) == 0:
-            Document2.NewSlide()
-        
-        # Not saved: NewFile stays True, so Save asks for a location
-        self.Document = Document2
-        
-        self.CurrentFrame.ReadSlide(self.Document.Slides[0])
-        
-        self.Slidebar.SetDocument(self.Document)
-        
-        self.Configurator.SetDocument(self.Document)
-        
-        self.refreshPreviews()
-        
-        self.Slidebar.RefreshOpen()
-        
-        self.setWindowTitle("Beamer QT  - Untitled (imported from " + os.path.basename(filename) + ")")
-        
     
     def Open(self, openfilename = False):
         

@@ -71,7 +71,6 @@ def main():
     parser = argparse.ArgumentParser(add_help=True, description="BeamerQt")
     parser.add_argument("file", nargs="?", help="Optional .bqt file to open")
     parser.add_argument("-o", "--open", dest="open_file", help="Open a .bqt file")
-    parser.add_argument("--import-pptx", dest="import_pptx", help="Import a PowerPoint file as a new document")
     args, _unknown = parser.parse_known_args()
 
     file_to_open = args.open_file or args.file
@@ -86,8 +85,6 @@ def main():
 
     if file_to_open and os.path.exists(file_to_open):
         QtCore.QTimer.singleShot(0, lambda p=file_to_open: window.Open(p))
-    elif args.import_pptx and os.path.exists(args.import_pptx):
-        QtCore.QTimer.singleShot(0, lambda p=os.path.abspath(args.import_pptx): window.ImportPPTX(p))
     
     
     app.aboutToQuit.connect(app.deleteLater)
