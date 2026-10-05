@@ -215,7 +215,7 @@ class BeamerPPT:
         contents = []
         diagram = []
 
-        for shape in pslide.shapes:
+        for shape in self.Shapes(pslide):
             if self.IsPlaceholder(shape, TITLE_TYPES):
                 continue
 
@@ -267,6 +267,21 @@ class BeamerPPT:
             contents.append(Content("text", shape.left, shape.top, shape.width, shape.height, shape))
 
         return contents
+
+
+    def Shapes(self, pslide):
+        # python-pptx lists the shapes in the slide tree. Shapes wrapped in mc:AlternateContent
+        # (e.g. text boxes holding equations, as LibreOffice saves them) are read from mc:Choice.
+        from pptx.shapes.shapetree import SlideShapeFactory
+
+        shapes = list(pslide.shapes)
+        shape_tags = (qn("p:sp"), qn("p:pic"), qn("p:graphicFrame"), qn("p:grpSp"), qn("p:cxnSp"))
+        for choice in pslide.shapes._spTree.iterchildren("{" + MC_NS + "}AlternateContent"):
+            for element in choice.iterchildren("{" + MC_NS + "}Choice"):
+                for child in element:
+                    if child.tag in shape_tags:
+                        shapes.append(SlideShapeFactory(child, pslide.shapes))
+        return shapes
 
 
     def SplitColumns(self, contents):
@@ -386,6 +401,11 @@ class BeamerPPT:
 
         if not any(s[1].strip() for s in segments):
             segments = []
+
+        # An equation alone in its paragraph is shown on its own line
+        content = [s for s in segments if s[1].strip()]
+        if content and all(s[0] == "math" for s in content):
+            segments = [("display", s[1], False, False) for s in content]
 
         level = int(p.pPr.get("lvl", "0")) if p.pPr is not None else 0
         return Paragraph(level, self.ParagraphList(p, default_list), segments,

@@ -193,8 +193,10 @@ def Convert(element):
         return "\\begin{matrix} " + " \\\\ ".join(rows) + " \\end{matrix}"
 
     if tag == "eqArr":
+        # Rows with & alignment points are aligned, otherwise centered
         rows = [Convert(e) for e in element.findall(m("e"))]
-        return "\\begin{aligned} " + " \\\\ ".join(rows) + " \\end{aligned}"
+        env = "aligned" if any("&" in row for row in rows) else "gathered"
+        return "\\begin{" + env + "} " + " \\\\ ".join(rows) + " \\end{" + env + "}"
 
     if tag == "func":
         name = Child(element, "fName").strip()
