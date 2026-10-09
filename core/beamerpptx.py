@@ -191,21 +191,30 @@ class BeamerPPT:
 
 
     def ImportTitlePage(self, pslide, Document):
-        # A first slide with a centered title fills the front matter instead of a slide
-        title = None
-        subtitle = None
-        for shape in pslide.placeholders:
-            if shape.placeholder_format.type == PP_PLACEHOLDER.CENTER_TITLE:
-                title = shape
-            elif shape.placeholder_format.type == PP_PLACEHOLDER.SUBTITLE:
-                subtitle = shape
-
-        if title is None:
+        # The first slide fills the front matter instead of a slide: the title
+        # placeholder (or the top text) is the title, the other text the author.
+        # Misplaced lines (e.g. the institution as author) are easy to fix by hand.
+        shapes = sorted([s for s in self.Shapes(pslide) if self.HasText(s)], key=lambda s: s.top or 0)
+        if not shapes:
             return False
 
+        title = next((s for s in shapes if self.IsPlaceholder(s, TITLE_TYPES)), shapes[0])
+        others = [s for s in shapes if s is not title]
+        author = next((s for s in others if self.IsPlaceholder(s, (PP_PLACEHOLDER.SUBTITLE,))), None)
+        if author is None and others:
+            author = others[0]
+
         Document.FrontMatter.Title = LatexEscape(self.PlainText(title.text_frame))
-        if subtitle is not None:
-            Document.FrontMatter.Subtitle = LatexEscape(self.PlainText(subtitle.text_frame))
+        if author is not None:
+            # One line per line on the slide
+            lines = [LatexEscape(line.strip()) for p in author.text_frame.paragraphs
+                     for line in p.text.split("\v") if line.strip()]
+            Document.FrontMatter.Author = " \\\\ ".join(lines)
+            # The footline only needs the first line, usually the name
+            if lines:
+                Document.FrontMatter.ShortAuthor = lines[0]
+
+
         return True
 
 
