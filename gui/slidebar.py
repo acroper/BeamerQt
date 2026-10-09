@@ -87,22 +87,24 @@ class SlideBarWidget(QtWidgets.QWidget):
     
     def UpdateSlideOrder(self):
         print("Updating order...")
+        previous = list(self.Document.Slides)
         self.Document.Slides.clear()
         for k in range(self.ListWidget.count()):
             qitem = self.ListWidget.item(k)
             slideprev = self.ListWidget.itemWidget(qitem)
             slide = slideprev.Slide
-            self.Document.Slides.append(slide)
 
             print("Re appending slide!")
-            
+
             if slide == None:
+                # Never drop a slide: keep the one that was at this position
                 print("Null slide")
-            else:
-                print(slide.Title)
-                
-        # print("Checking final order")
-        for slide in self.Document.Slides:
+                if k < len(previous):
+                    slide = previous[k]
+                else:
+                    continue
+
+            self.Document.Slides.append(slide)
             print(slide.Title)
             
             
@@ -135,24 +137,39 @@ class SlideBarWidget(QtWidgets.QWidget):
         for slide in self.SlideList:
             slide.unSelected()
             
+        # The user picked a slide: stop generating previews in the background
+        self.timer.stop()
+
         slidesel = self.sender()
         slidesel.setSelected()
         self.SlidePos = self.SlideList.index(slidesel)
         self.CurrentFrame.ReadSlide(self.Document.Slides[self.SlidePos])
-        
+
     def RefreshOpen(self):
-        None
-        # self.timer.start(100)
-        
+        # Visit the slides without a preview one by one, so their previews
+        # get generated (a preview is captured when the editor leaves a slide)
+        self.RefreshCount = 0
+        self.RefreshVisited = False
+        self.timer.start(100)
+
+    def HasPreview(self, slide):
+        return slide.Preview != None or os.path.exists(slide.getSlideName())
+
     def ReadNextTimer(self):
-        
-        if self.RefreshCount < len(self.Document.Slides):
-            slide = self.Document.Slides[self.RefreshCount]
-            self.CurrentFrame.ReadSlide(slide)
-            
+
+        slides = self.Document.Slides
+        while self.RefreshCount < len(slides) and self.HasPreview(slides[self.RefreshCount]):
+            self.RefreshCount += 1
+
+        if self.RefreshCount < len(slides):
+            self.CurrentFrame.ReadSlide(slides[self.RefreshCount])
+            self.RefreshVisited = True
+
             self.RefreshCount += 1
         else:
-            self.CurrentFrame.ReadSlide(self.Document.Slides[0])
+            # Leaving the last visited slide captures its preview
+            if self.RefreshVisited and slides:
+                self.CurrentFrame.ReadSlide(slides[0])
             self.timer.stop()
             
         
@@ -381,21 +398,22 @@ class SlidePrev(QtWidgets.QWidget):
         self.InnerFrame = NewFrame
         
     def refresh(self, slide):
-        if slide.Preview != None:
-            self.LabelPix.setPixmap(slide.Preview)
-            self.Slide = slide
-            
-            if slide.TitleMode =="Normal":
-                self.slideText.setText(slide.Title)
-            else:
-                self.slideText.setText( "(" + slide.TitleMode + "): " +    slide.Title)
-        
+        # The slide is kept even without a preview: UpdateSlideOrder rebuilds
+        # the document from these widgets (e.g. imported slides not visited yet)
+        self.Slide = slide
+
+        if slide.TitleMode =="Normal":
+            self.slideText.setText(slide.Title)
         else:
+            self.slideText.setText( "(" + slide.TitleMode + "): " +    slide.Title)
+
+        if slide.Preview == None:
             slidename = slide.getSlideName()
             if os.path.exists(slidename):
-                pixmap = QPixmap(slidename)
-                slide.Preview = pixmap
-                self.refresh(slide)
+                slide.Preview = QPixmap(slidename)
+
+        if slide.Preview != None:
+            self.LabelPix.setPixmap(slide.Preview)
                 
                 
             
