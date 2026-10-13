@@ -129,6 +129,8 @@ class ContentWidget(QtWidgets.QWidget):
         
         self.BlockSimple.clicked.connect(lambda: self.SetBlockType("Simple"))
         
+        self.BlockTerminal.clicked.connect(lambda: self.SetBlockType("Terminal"))
+        
         self.deleteBlockBtn.clicked.connect(self.DeleteBlock)
         
         self.BarSlider.ValueUpdated.connect(self.BarSliderUpdated)
@@ -369,6 +371,8 @@ class ContentWidget(QtWidgets.QWidget):
             self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(high, low, low)   )
         if blocktype == "Example":    
             self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(low, high, low)   )
+        if blocktype == "Terminal":    
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(low, low, low)   )            
     
     
     
@@ -601,6 +605,9 @@ class ContentWidget(QtWidgets.QWidget):
             
         if self.BlockType == "Simple":
             self.BlockSimple.setChecked(True)
+
+        if self.BlockType == "Terminal":
+            self.BlockTerminal.setChecked(True)
         
         self.updateColors()
         

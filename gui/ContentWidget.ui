@@ -192,6 +192,19 @@ background-color: rgb(234, 234, 243);</string>
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QRadioButton" name="BlockTerminal">
+                <property name="toolTip">
+                 <string>Terminal</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(119, 118, 123);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
            </layout>

@@ -152,6 +152,13 @@ class BeamerBlock():
         
         if self.BlockType == "Alert":
             latexcontent.append( "\\begin{alertblock}{" + str(self.Title) + "}"  )
+
+
+        if self.BlockType == "Terminal":
+            latexcontent.append("\n{")
+            latexcontent.append("\\setbeamercolor{block title}{bg=termblack, fg=termgreen}")
+            latexcontent.append("\\setbeamercolor{block body}{bg=termblack, fg=termgreen}")
+            latexcontent.append( "\\begin{block}{" + str(self.Title) + "}"  )
             
         
         ## Create table mode
@@ -269,6 +276,9 @@ class BeamerBlock():
         
         if self.BlockType == "Alert":
             latexcontent.append("\\end{alertblock}")
+
+        if self.BlockType == "Terminal":
+            latexcontent.append("\\end{block} }")
             
             
             
