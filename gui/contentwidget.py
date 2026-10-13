@@ -372,7 +372,7 @@ class ContentWidget(QtWidgets.QWidget):
         if blocktype == "Example":    
             self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(low, high, low)   )
         if blocktype == "Terminal":    
-            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb({}, {} ,{} );'.format(low, low, low)   )            
+            self.setStyleSheet('border-color: rgb(0, 0, 0); \nbackground-color: rgb(61, 56, 70);\ncolor: rgb(46, 194, 126);\nfont-family: "Courier New", Courier, monospace;;'   )            
     
     
     
