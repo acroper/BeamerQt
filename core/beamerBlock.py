@@ -158,6 +158,8 @@ class BeamerBlock():
             latexcontent.append("\n{")
             latexcontent.append("\\setbeamercolor{block title}{bg=termblack, fg=termgreen}")
             latexcontent.append("\\setbeamercolor{block body}{bg=termblack, fg=termgreen}")
+            latexcontent.append("\\setbeamerfont{block body}{family=\\ttfamily, size=\\small} ")
+
             latexcontent.append( "\\begin{block}{" + str(self.Title) + "}"  )
             
         
