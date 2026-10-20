@@ -35,6 +35,8 @@ from PyQt6.QtCore import pyqtSignal, QObject
 
 import xml.etree.ElementTree as ET
 import pathlib
+import re
+import shutil
 import subprocess
 
 import threading
@@ -243,6 +245,8 @@ class itemImage():
         self.Width = 100
         
         self.uuid = str(uuid.uuid4())
+
+        self.OutputDirectory = None
      
     
     
@@ -321,20 +325,30 @@ class itemImage():
         
         
     def VerifyImage(self, image_path):
-        
+
         output_path = image_path
-        
-        if image_path.endswith(".svg"):
-            # convert the image
-            output_path = image_path + ".pdf"
-            
-            # if not os.path.exists(self.image_path):
-            subprocess.call("inkscape --file="+image_path + " --export-area-drawing --without-gui --export-pdf=" + output_path , shell=True) 
-            
-            
-            
-            
-        return output_path
+
+        if self.OutputDirectory != None:
+            # Copy the image into the LaTeX folder as <original name>_<uuid>, keeping
+            # only characters that are safe in a LaTeX file name
+            name, ext = os.path.splitext(os.path.basename(image_path))
+            name = re.sub(r"[^A-Za-z0-9_-]", "_", name)
+            copy_path = os.path.join(self.OutputDirectory, name + "_" + self.uuid + ext)
+            try:
+                shutil.copy2(image_path, copy_path)
+                output_path = copy_path
+            except OSError:
+                pass
+
+        if output_path.endswith(".svg"):
+            # convert the image (the copy, when there is an output folder)
+            svg_path = output_path
+            output_path = svg_path + ".pdf"
+
+            subprocess.call("inkscape --file="+svg_path + " --export-area-drawing --without-gui --export-pdf=" + output_path , shell=True)
+
+        # LaTeX expects forward slashes on every system
+        return output_path.replace("\\", "/")
             
             
             
