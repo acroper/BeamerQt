@@ -7,7 +7,7 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.4.4 (1:1.4.4+202605061436+dcaf3e7d9e)"
    sodipodi:docname="Logo.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -24,15 +24,18 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="3.7997268"
-     inkscape:cx="619.25505"
-     inkscape:cy="845.32393"
-     inkscape:window-width="1920"
-     inkscape:window-height="998"
-     inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:cx="250.67592"
+     inkscape:cy="969.01704"
+     inkscape:window-width="3440"
+     inkscape:window-height="1363"
+     inkscape:window-x="3440"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
-     inkscape:snap-global="true" />
+     inkscape:snap-global="true"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:export-bgcolor="#ffffff00" />
   <defs
      id="defs2">
     <inkscape:path-effect
@@ -72,10 +75,10 @@
        style="color-interpolation-filters:sRGB;"
        inkscape:label="Drop Shadow"
        id="filter58552"
-       x="-0.052067298"
-       y="-0.059819686"
+       x="-0.05206729"
+       y="-0.059819771"
        width="1.1402924"
-       height="1.1611808">
+       height="1.161181">
       <feFlood
          flood-opacity="0.498039"
          flood-color="rgb(0,0,0)"
@@ -480,6 +483,164 @@
            y="225.50702">Q<tspan
    style="font-size:8.46667px;baseline-shift:sub"
    id="tspan889">T</tspan></tspan></text>
+    </g>
+    <g
+       id="g19"
+       transform="matrix(1.0245305,0,0,1.0238959,-2.0318253,-5.7835285)"
+       style="stroke-width:0.97636"
+       inkscape:export-filename="application-x-beamerqt.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <g
+         id="g18"
+         transform="matrix(0.79309414,0,0,1.0079561,58.991009,-2.9171936)"
+         style="stroke-width:1.09201">
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.546005"
+           d="m 50.5545,271.67965 -14.032658,3.64358"
+           id="path17" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.546005"
+           d="m 50.622362,271.67965 14.032658,3.64358"
+           id="path18" />
+      </g>
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.488179"
+         d="m 98.624275,269.62257 v 1.56054 h 0.976247 v -1.56054"
+         id="path16"
+         sodipodi:nodetypes="cccc" />
+      <rect
+         style="fill:#001eba;fill-opacity:1;stroke:#000000;stroke-width:0.488179"
+         id="rect1"
+         width="32.567612"
+         height="27.626738"
+         x="82.82859"
+         y="242.03069" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.488179"
+         id="rect2"
+         width="27.881622"
+         height="19.536203"
+         x="85.171585"
+         y="246.5345" />
+      <g
+         id="g5"
+         style="stroke-width:1.92246;filter:url(#filter58552)"
+         inkscape:export-filename="/home/acroper/Projects/BeamerQT/BeamerQt/gui/icons/BQTIcon.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96"
+         transform="matrix(0.50810236,0,0,0.50763287,77.000892,147.99087)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.508655"
+           x="39.656441"
+           y="218.91548"
+           id="text3"
+           inkscape:export-filename="/tmp/text2374.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96"><tspan
+             sodipodi:role="line"
+             id="tspan3"
+             style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.508655"
+             x="39.656441"
+             y="218.91548">B<tspan
+   style="font-size:65%;baseline-shift:sub;stroke-width:0.508655"
+   id="tspan2" /></tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-2.11667px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.508655"
+           x="51.021706"
+           y="225.50702"
+           id="text5"
+           inkscape:export-filename="/tmp/text2374.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96"><tspan
+             sodipodi:role="line"
+             id="tspan5"
+             style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.8168px;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.508655"
+             x="51.021706"
+             y="225.50702">Q<tspan
+   style="font-size:8.46667px;baseline-shift:sub;stroke-width:0.508655"
+   id="tspan4">T</tspan></tspan></text>
+      </g>
+      <g
+         id="g10"
+         transform="matrix(0.79309414,0,0,0.79236133,78.220705,77.140594)"
+         style="stroke-width:1.23164">
+        <rect
+           style="fill:#6a7fec;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           id="rect5"
+           width="11.500001"
+           height="2.000001"
+           x="11.141152"
+           y="218.71254" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           id="rect6"
+           width="11.500001"
+           height="5.1527824"
+           x="11.141152"
+           y="220.5948" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 12.530918,222.38071 h 2.954244"
+           id="path6" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 16.913047,222.45457 h 3.175812"
+           id="path7" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 12.506299,224.05479 h 1.427885"
+           id="path8" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 15.33745,224.07941 h 2.634201"
+           id="path9" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 19.079492,224.15326 h 1.994115"
+           id="path10" />
+      </g>
+      <g
+         id="g15"
+         transform="matrix(0.79309414,0,0,0.79236133,78.220705,83.85097)"
+         style="stroke-width:1.23164">
+        <rect
+           style="fill:#6aec97;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           id="rect10"
+           width="11.500001"
+           height="2.000001"
+           x="11.141152"
+           y="218.71254" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           id="rect11"
+           width="11.500001"
+           height="5.1527824"
+           x="11.141152"
+           y="220.5948" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 12.530918,222.38071 h 2.954244"
+           id="path11" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 16.913047,222.45457 h 3.175812"
+           id="path12" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 12.506299,224.05479 h 1.427885"
+           id="path13" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 15.33745,224.07941 h 2.634201"
+           id="path14" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.615821"
+           d="m 19.079492,224.15326 h 1.994115"
+           id="path15" />
+      </g>
     </g>
   </g>
 </svg>
