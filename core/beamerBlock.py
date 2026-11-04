@@ -27,6 +27,8 @@ import json
 
 from core.xmlutils import *
 
+from core.latexmarkers import Marker, EncodeXML
+
 
 class BeamerBlock():
     
@@ -142,6 +144,9 @@ class BeamerBlock():
         if self.Title == None:
             self.Title = ""
         
+        latexcontent.append(Marker("block", type=self.BlockType, title=self.Title,
+                                   columns=self.ColumnCount, proportions=json.dumps(self.ColumnProportions)))
+        
         # Add code to starting the block
         if self.BlockType == "Normal":
             latexcontent.append( "\\begin{block}{" + str(self.Title) + "}"  )
@@ -231,8 +236,11 @@ class BeamerBlock():
             if item.Alignment == "Center":
                 latexcontent.append("\\begin{center}")
             
+            # The item's saved XML lets the LaTeX import restore it exactly
+            latexcontent.append(Marker("item", type=item.Type, data=EncodeXML(item.GetXMLContent())))
             itemlatex = item.GenLatex()
             latexcontent.extend(itemlatex)
+            latexcontent.append(Marker("end"))
             
             
             # end Alignment

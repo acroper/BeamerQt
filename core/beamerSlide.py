@@ -25,6 +25,8 @@ from core.beamerBlock import *
 
 from core.xmlutils import *
 
+from core.latexmarkers import Marker
+
 class BeamerSlide():
     
     def __init__(self):
@@ -172,6 +174,11 @@ class BeamerSlide():
     def GenLaTeX(self):
         latexcontent = []
         
+        # Settings the LaTeX does not show, to read the file back
+        latexcontent.append(Marker("frame", layout=self.CurrentLayout, proportion=self.LeftColumnProportion,
+                                   titlemode=self.TitleMode, section=self.SectionLabel or "",
+                                   subtitle=self.Subtitle or "", visible=self.TitleVisible))
+        
         if self.TitleMode == "Section":
             latexcontent.append("\\section{" + self.SectionLabel + "}")
         
@@ -220,6 +227,9 @@ class BeamerSlide():
             # Add code to starting column
             if useColumns:
                 latexcontent.append("\\column{"+str(columnsizes[k])+"\\linewidth}")
+            
+            if column or k == 0:
+                latexcontent.append(Marker("column", n=k))
             
             for block in column:
 

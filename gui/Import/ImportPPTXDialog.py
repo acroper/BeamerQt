@@ -1,6 +1,7 @@
 """
 Beamer QT
-Copyright (C) 2025  Jorge Guerrero - acroper@gmail.com
+Copyright (C) 2026  Jorge Guerrero - acroper@gmail.com
+Generated with AI help.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,7 +33,14 @@ class ImportPPTXDialog(QtWidgets.QDialog):
     Imports a PowerPoint file into an import folder holding the new .bqt file
     and its images, chart data and diagrams. After exec(), FileName is the
     saved .bqt file.
+
+    Subclasses import other formats by changing the Source* values,
+    PreviewFolders and RunImport (see ImportLaTeXDialog).
     """
+
+    SourceName = "PowerPoint file"
+    SourceFilter = "PowerPoint files (*.pptx)"
+    SourceExtension = ".pptx"
 
     def __init__(self, WorkDirectory, Config, parent=None):
 
@@ -79,7 +87,7 @@ class ImportPPTXDialog(QtWidgets.QDialog):
 
 
     def BrowsePPTX(self):
-        filename = openFileNameDialog(self, "", "PowerPoint files (*.pptx)")
+        filename = openFileNameDialog(self, "", self.SourceFilter)
         if filename != "":
             self.pptxEdit.setText(filename)
 
@@ -91,8 +99,8 @@ class ImportPPTXDialog(QtWidgets.QDialog):
 
 
     def PPTXChanged(self, filename):
-        # Default import folder: next to the PowerPoint file, named after it
-        if filename.lower().endswith(".pptx"):
+        # Default import folder: next to the source file, named after it
+        if filename.lower().endswith(self.SourceExtension):
             self.folderEdit.setText(os.path.splitext(filename)[0])
         self.UpdatePreview()
 
@@ -111,13 +119,20 @@ class ImportPPTXDialog(QtWidgets.QDialog):
             return
 
         lines = [self.folderEdit.text().rstrip("/\\") + os.sep, "    " + os.path.basename(self.BqtPath())]
-        if self.imagesCheck.isChecked():
-            lines.append("    images" + os.sep)
-        if self.chartsCheck.isChecked():
-            lines.append("    data" + os.sep)
-        if self.diagramsCheck.isChecked():
-            lines.append("    diagrams" + os.sep)
+        lines += ["    " + name + os.sep for name in self.PreviewFolders()]
         self.previewLabel.setText("\n".join(lines))
+
+
+    def PreviewFolders(self):
+        # Subfolders the import may create, for the preview
+        folders = []
+        if self.imagesCheck.isChecked():
+            folders.append("images")
+        if self.chartsCheck.isChecked():
+            folders.append("data")
+        if self.diagramsCheck.isChecked():
+            folders.append("diagrams")
+        return folders
 
 
     def Import(self):
@@ -125,7 +140,7 @@ class ImportPPTXDialog(QtWidgets.QDialog):
         folder = self.folderEdit.text().strip()
 
         if not os.path.isfile(pptx):
-            QMessageBox.warning(self, self.windowTitle(), "The PowerPoint file does not exist.")
+            QMessageBox.warning(self, self.windowTitle(), "The " + self.SourceName + " does not exist.")
             return
 
         if os.path.isdir(folder) and os.listdir(folder):
@@ -133,20 +148,6 @@ class ImportPPTXDialog(QtWidgets.QDialog):
                                           "The import folder is not empty. Existing files may be replaced.\n\nContinue?")
             if button != QMessageBox.StandardButton.Yes:
                 return
-
-        try:
-            from core.beamerpptx import BeamerPPT
-        except ImportError as e:
-            QMessageBox.warning(self, self.windowTitle(),
-                                "python-pptx is required to import PowerPoint files.\n\n" + str(e))
-            return
-
-        options = {"TitlePage": self.titlePageCheck.isChecked(),
-                   "Images": self.imagesCheck.isChecked(),
-                   "Equations": self.equationsCheck.isChecked(),
-                   "Tables": self.tablesCheck.isChecked(),
-                   "Charts": self.chartsCheck.isChecked(),
-                   "Diagrams": self.diagramsCheck.isChecked()}
 
         QApplication.setOverrideCursor(QtCore.Qt.CursorShape.WaitCursor)
         try:
@@ -157,7 +158,7 @@ class ImportPPTXDialog(QtWidgets.QDialog):
             if self.ThemeList:
                 Document.Template = self.ThemeList[self.themeBox.currentIndex()]
 
-            messages = BeamerPPT().Import(pptx, Document, folder, options)
+            messages = self.RunImport(pptx, Document, folder)
 
             if len(Document.Slides) == 0:
                 Document.NewSlide()
@@ -177,6 +178,22 @@ class ImportPPTXDialog(QtWidgets.QDialog):
 
         self.FileName = self.BqtPath()
         self.accept()
+
+
+    def RunImport(self, source, Document, folder):
+        try:
+            from core.beamerpptx import BeamerPPT
+        except ImportError as e:
+            raise RuntimeError("python-pptx is required to import PowerPoint files.\n\n" + str(e))
+
+        options = {"TitlePage": self.titlePageCheck.isChecked(),
+                   "Images": self.imagesCheck.isChecked(),
+                   "Equations": self.equationsCheck.isChecked(),
+                   "Tables": self.tablesCheck.isChecked(),
+                   "Charts": self.chartsCheck.isChecked(),
+                   "Diagrams": self.diagramsCheck.isChecked()}
+
+        return BeamerPPT().Import(source, Document, folder, options)
 
 
     def Summary(self, messages):

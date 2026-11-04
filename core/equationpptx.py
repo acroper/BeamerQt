@@ -1,6 +1,7 @@
 """
 Beamer QT
-Copyright (C) 2025  Jorge Guerrero - acroper@gmail.com
+Copyright (C) 2026  Jorge Guerrero - acroper@gmail.com
+Generated with AI help.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

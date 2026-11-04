@@ -468,7 +468,7 @@ class BeamerPPT:
         return default
 
 
-    def FillDocument(self, doc, paragraphs):
+    def FillDocument(self, doc, paragraphs, escape=True):
         # Open lists by level, so consecutive items keep their list and numbering
         lists = {}
         cursor = QTextCursor(doc)
@@ -499,7 +499,7 @@ class BeamerPPT:
                 fmt.setFontWeight(QFont.Weight.Bold if bold else QFont.Weight.Normal)
                 fmt.setFontItalic(italic)
                 if kind == "text":
-                    cursor.insertText(LatexEscape(text), fmt)
+                    cursor.insertText(LatexEscape(text) if escape else text, fmt)
                 else:
                     cursor.insertText("$" + text + "$", fmt)
 

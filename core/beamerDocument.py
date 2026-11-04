@@ -42,6 +42,8 @@ from core.frontMatter import *
 
 from core.template import *
 
+from core.latexmarkers import Marker, EncodeXML, VERSION
+
 class beamerDocument():
 
     # The single currently-active document, if any. Only one document is
@@ -310,6 +312,11 @@ class beamerDocument():
         # add front matter
         latexcontent = self.FrontMatter.GenLaTeX()
         self.WriteLines(latexcontent, outputfile)
+
+        # Markers to read the file back into BeamerQt (core/importlatex.py)
+        self.WriteLines([Marker("document", version=VERSION),
+                         Marker("template", name=self.Template.Name),
+                         Marker("frontmatter", data=EncodeXML(self.FrontMatter.GetXMLContent()))], outputfile)
         
 
         self.WriteLines(["\\begin{document}", "\\makebeamertitle"], outputfile)  

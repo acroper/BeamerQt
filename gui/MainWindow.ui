@@ -193,6 +193,7 @@
       <string>Import</string>
      </property>
      <addaction name="actionImport_PowerPoint"/>
+     <addaction name="actionImport_LaTeX"/>
     </widget>
     <addaction name="actionNew_File"/>
     <addaction name="separator"/>
@@ -366,6 +367,11 @@
   <action name="actionImport_PowerPoint">
    <property name="text">
     <string>PowerPoint (experimental)...</string>
+   </property>
+  </action>
+  <action name="actionImport_LaTeX">
+   <property name="text">
+    <string>LaTeX (experimental)...</string>
    </property>
   </action>
   <action name="actionAbout">
